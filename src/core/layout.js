@@ -6,8 +6,9 @@ export function initLayout() {
   const buttons = Array.from(group.querySelectorAll("button[data-view]"));
   const VALID = new Set(["split", "forum", "chat"]);
 
-  const ACTIVE = "bg-white text-indigo-600 shadow-sm";
-  const INACTIVE = "text-slate-600 hover:text-indigo-600";
+  const ACTIVE = "bg-white shadow-sm dark:bg-zinc-700";
+  const INACTIVE =
+    "bg-transparent cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700";
 
   function setActiveButton(mode) {
     buttons.forEach((btn) => {
@@ -52,7 +53,12 @@ export const initResize = () => {
   let handle = document.getElementById("panel-resizer");
   if (!handle) {
     handle = document.createElement("div");
-    handle.classList.add("bg-zinc-200", "dark:bg-zinc-800");
+    handle.classList.add(
+      "bg-zinc-200",
+      "dark:bg-zinc-800",
+      "hover:before:bg-black/5",
+      "dark:hover:before:bg-white/10",
+    );
     handle.id = "panel-resizer";
     handle.setAttribute("aria-hidden", "true");
     // insérer entre forum et chat
@@ -83,8 +89,7 @@ export const initResize = () => {
 
   // Double click = reset (optionnel)
   handle.addEventListener("dblclick", () => {
-    localStorage.removeItem(LS_KEY);
-    content.style.removeProperty("--chat-w");
+    setChatWidth(MIN_CHAT);
   });
 
   let dragging = false;

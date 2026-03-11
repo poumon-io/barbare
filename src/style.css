@@ -1,4 +1,7 @@
 /* Sera parser par rollup au besoin, une fois importé. */
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
     --mask-fill: linear-gradient(to bottom, white 0%, white 100%);
     --mask-erase: linear-gradient(to bottom, black 0%, black 100%);
@@ -72,9 +75,6 @@ a[href^="/u"] strong {
 /* ===== Modes ===== */
 
 /* SPLIT : forum + chat */
-#app-root.view-split #chat {
-    /* rien à faire : le chat reste visible */
-}
 
 /* FORUM : chat caché, sidebar reste */
 #app-root.view-forum #chat {
@@ -171,7 +171,7 @@ a[href^="/u"] strong {
     width: 1px;
     cursor: col-resize;
     position: relative;
-    z-index: 260; /* au-dessus du contenu */
+    z-index: 50; /* au-dessus du contenu */
     user-select: none;
     touch-action: none; /* important pour drag sur mobile */
     &::before {
@@ -183,10 +183,6 @@ a[href^="/u"] strong {
         width: 10px;
         transform: translateX(-50%);
     }
-}
-
-#panel-resizer #panel-resizer:hover::before {
-    background: rgba(99, 102, 241, 0.8); /* indigo-ish */
 }
 
 /* Optionnel: curseur global pendant drag */
@@ -285,10 +281,109 @@ div[data-thanked*="style"]::after {
             text-decoration-thickness: 2px;
         }
     }
+    .codebox {
+        @apply my-8 block;
+        dt {
+            display: none;
+        }
+    }
+    blockquote {
+        @apply relative my-8 border-l-2 border-(--author-color) px-4 italic;
+
+        cite {
+            @apply flex items-center font-semibold text-(--author-color);
+        }
+        blockquote {
+            @apply mt-2 border-l-2 border-zinc-300 dark:border-zinc-700 pl-4 text-sm;
+            cite {
+                @apply text-zinc-400 dark:text-zinc-600 mb-0;
+            }
+        }
+    }
+
+    ul,
+    ol {
+        & > br {
+            display: none;
+        }
+        @apply ml-8 space-y-2 my-8;
+        li {
+            @apply relative pl-6;
+        }
+    }
+    ul {
+        li {
+            &:before {
+                content: "";
+                @apply absolute top-3 -left-1 block w-2 h-2 bg-(--author-color) rounded-full;
+            }
+        }
+    }
+    ol {
+        li {
+            counter-increment: list;
+            &:before {
+                content: "";
+                @apply bg-(--author-color) opacity-15 absolute -left-3 top-1 h-6 w-6 block rounded-full;
+            }
+            &:after {
+                content: counter(list);
+                @apply absolute -left-3 top-1 text-sm font-semibold h-6 w-6 flex items-center justify-center text-(--author-color);
+            }
+        }
+    }
+
+    blockquote + br,
+    ul + br,
+    ol + br,
+    .codebox + br,
+    br:has(+ blockquote),
+    br:has(+ ul),
+    br:has(+ ol),
+    br:has(+ .codebox) {
+        display: none;
+    }
+
     a.is-internal {
         border-radius: 6px;
         margin: 0;
         padding: 0.2em 0.4em;
         white-space: break-spaces;
+    }
+}
+
+#forum-replies {
+    ul {
+        li {
+            &:before {
+                @apply top-[0.475rem] -left-1;
+            }
+        }
+    }
+    ol {
+        li {
+            &:before {
+                @apply -left-3 top-0;
+            }
+            &:after {
+                @apply -left-3 top-0;
+            }
+        }
+    }
+}
+
+.btn-actions a[href=""] {
+    display: none;
+}
+
+.chat-message-markdown {
+    blockquote {
+        @apply border-l-2 border-zinc-300 dark:border-zinc-700 pl-2 italic;
+    }
+    ol {
+        @apply list-decimal list-inside;
+    }
+    ul {
+        @apply list-disc list-inside;
     }
 }

@@ -1,12 +1,26 @@
 import Context from "./context.js";
-import { initBarba, onNamespace, getRegisteredNamespaces } from "./barba.js";
+import {
+  initBarba,
+  registerModule,
+  onNamespace,
+  getRegisteredNamespaces,
+} from "./barba.js";
 import { initSidebar, initMobileSidebar } from "../core/sidebar.js";
 import { initLayout, initResize } from "../core/layout.js";
 import { initChat } from "../core/chat.js";
 import { updateTyme } from "../lib/tyme.js";
-import { addIconToCategory, markInternalLinks } from "../features/viewtopic.js";
+import { initViewtopic } from "../features/viewtopic.js";
+import { BBcodeEditor } from "../features/editor.js";
+import { initPostingBody } from "../features/postingbody.js";
 
 import { createClient } from "@supabase/supabase-js";
+
+registerModule({
+  mount(container) {
+    BBcodeEditor.attach(container);
+    return () => BBcodeEditor.detach();
+  },
+});
 
 export function initUI() {
   const supabase = createClient(
@@ -27,15 +41,20 @@ export function initUI() {
   onNamespace("index", { afterEnter: async () => console.log("index") });
 
   onNamespace("viewtopic", {
-    enter: async () => {
-      addIconToCategory();
-      markInternalLinks();
+    once() {
+      initViewtopic();
+    },
+    enter: async (next) => {
+      initViewtopic(next.container);
     },
   });
 
   onNamespace("postingbody", {
-    once: () => {
-      console.log("test");
+    once() {
+      initPostingBody();
+    },
+    enter() {
+      initPostingBody();
     },
   });
 
@@ -46,8 +65,6 @@ export function initUI() {
   initResize();
   initChat(supabase);
   updateTyme();
-  addIconToCategory();
-  markInternalLinks();
 
   return { Context };
 }

@@ -1,0 +1,249 @@
+/* Notiffi CSS */
+/* Cache la toolbar défaut */
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*body:has(#notiffi_panel.open) {
+    @apply dark:before:bg-black/80 before:bg-black/10;
+    &:before {
+        content: "";
+        z-index: 890;
+        position: fixed;
+        inset: 0;
+    }
+}*/
+#fa_toolbar {
+    display: none;
+}
+
+/* Bouton de notification */
+#notiffi_button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Conteneur du nombre de notification non lues REMPLI */
+.unread_count {
+    position: relative;
+    background: var(--neutralDarker);
+    border-radius: 5px;
+    width: 25px;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 12px;
+    scale: 1;
+    opacity: 1;
+    aspect-ratio: 1;
+    transition: scale ease-out 0.2s;
+}
+
+/* Conteneur du nombre de notification non lues VIDE */
+.unread_count:empty {
+    position: absolute;
+    scale: 0;
+    opacity: 0;
+    transition: all ease-out 0.2s;
+}
+
+/* Menu des notifications FERMÉ */
+#notiffi_panel {
+    --menuSize: 500px;
+    /* taille du Menu */
+    width: var(--menuSize);
+    position: absolute;
+    z-index: 900;
+    top: -1px;
+    height: 100%;
+    left: calc(var(--menuSize) * -1);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background: var(--neutral);
+    opacity: 0;
+    visibility: hidden;
+    transition: all ease 0.2s;
+    @apply shadow-lg bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800;
+}
+
+/* Menu des notifications OUVERT */
+#notiffi_panel.open {
+    left: 0;
+    visibility: visible;
+    opacity: 1;
+}
+
+.notiffi_header {
+    @apply h-16 flex px-6 items-center w-full border-b border-zinc-200 dark:border-zinc-800 justify-between;
+    button {
+        @apply p-2 rounded-md text-sm transition-all bg-white dark:bg-zinc-700 shadow-sm;
+    }
+}
+
+.notiffi_see_all {
+    @apply text-xl;
+}
+
+/* Conteneur des notifications */
+.all_notifications {
+    width: 100%;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    @apply flex-1;
+    /* Désactive la barre de défilement dans le contenenur */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* Conteneur des notifications VIDE */
+.no_notification {
+    text-align: center;
+    font-style: italic;
+}
+
+/* Conteneur du footer du menu
+  (voir toutes les notifications, marquer comme lu, tout supprimer) */
+.notiffi_manage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    @apply h-16 items-center border-t border-zinc-200 dark:border-zinc-800;
+    button {
+        @apply p-2 rounded-md text-sm transition-all bg-white dark:bg-zinc-700 shadow-sm;
+    }
+}
+
+/* Apparence d'une notification */
+.notification {
+    display: flex;
+    gap: 15px;
+    animation: notiffiFadeIn 0.3s ease-in-out;
+    @apply relative p-6 border-b border-zinc-200 dark:border-zinc-800;
+}
+
+/* Animation d'apparition des notifications */
+@keyframes notiffiFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Apparence d'une notification NON LUE */
+.notification.unread {
+    background-color: var(--neutral);
+}
+
+/* Conteneur des détails de la notification (avatar, icone) */
+.notif_details {
+    position: relative;
+    align-self: start;
+}
+
+/* Conteneur de l'avatar */
+.notif_avatar {
+    height: 35px;
+    aspect-ratio: 1;
+    @apply bg-zinc-100 overflow-hidden dark:bg-zinc-900 rounded-full border-2 border-white dark:border-zinc-900;
+
+    /* Image de l'avatar */
+    & img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+.notif_text {
+    @apply text-zinc-600 dark:text-zinc-400;
+    a {
+        @apply text-zinc-950 dark:text-white;
+    }
+}
+
+/* Icone du type de la notification */
+.notif_icon {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: 18px;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    font-size: 10px;
+    @apply bg-zinc-300 dark:bg-zinc-700 text-zinc-700 dark:text-white;
+}
+
+/* Icone lorsque la notification est non lue */
+.notification.unread .notif_icon {
+    @apply bg-emerald-500 text-white;
+}
+
+/* Conteneur du texte et la date de la notification */
+.notif_content {
+    width: 100%;
+}
+
+/* Date de la notification */
+.notif_time {
+    opacity: 0.8;
+    margin-top: 5px;
+    @apply text-xs;
+}
+
+/* Bouton de suppression de la notification */
+.notif_close {
+    background: transparent;
+    align-self: start;
+    font-size: 18px;
+    line-height: 0;
+    opacity: 0;
+    border-radius: 100px;
+    aspect-ratio: 1;
+    padding: 2px;
+    transition: all 0.3s;
+}
+
+/* Affiche le bouton de suppression au survol de la notification */
+.notification:hover .notif_close {
+    opacity: 1;
+}
+
+/* Alerte d'une notification */
+.notification.alert {
+    position: fixed;
+    width: 400px;
+    align-items: center;
+    z-index: 99;
+    bottom: 10px;
+    right: 10px;
+    background: var(--neutralDarker);
+    transform: translateY(100%);
+    opacity: 0;
+    filter: blur(5px);
+    transition: all 0.5s ease-in-out;
+}
+
+.notification.alert.up {
+    transform: translateY(0%);
+    opacity: 1;
+    filter: blur(0);
+    transition: all 0.5s ease-in-out;
+}
+
+.alert_close {
+    background: var(--neutral);
+    font-size: 18px;
+    line-height: 0;
+    border-radius: 100px;
+    aspect-ratio: 1;
+    padding: 2px;
+}

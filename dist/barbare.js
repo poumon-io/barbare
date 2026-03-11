@@ -60,7 +60,7 @@
     };
   })();
 
-  function t(t,n){for(var r=0;r<n.length;r++){var i=n[r];i.enumerable=i.enumerable||false,i.configurable=true,"value"in i&&(i.writable=true),Object.defineProperty(t,"symbol"==typeof(e=function(t,n){if("object"!=typeof t||null===t)return t;var r=t[Symbol.toPrimitive];if(void 0!==r){var i=r.call(t,"string");if("object"!=typeof i)return i;throw new TypeError("@@toPrimitive must return a primitive value.")}return String(t)}(i.key))?e:String(e),i);}var e;}function n(n,r,i){return r&&t(n.prototype,r),Object.defineProperty(n,"prototype",{writable:false}),n}function r(){return r=Object.assign?Object.assign.bind():function(t){for(var n=1;n<arguments.length;n++){var r=arguments[n];for(var i in r)Object.prototype.hasOwnProperty.call(r,i)&&(t[i]=r[i]);}return t},r.apply(this,arguments)}function i(t,n){t.prototype=Object.create(n.prototype),t.prototype.constructor=t,o(t,n);}function e(t){return e=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},e(t)}function o(t,n){return o=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,n){return t.__proto__=n,t},o(t,n)}function u(){if("undefined"==typeof Reflect||!Reflect.construct)return  false;if(Reflect.construct.sham)return  false;if("function"==typeof Proxy)return  true;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],function(){})),!0}catch(t){return  false}}function s(t,n,r){return s=u()?Reflect.construct.bind():function(t,n,r){var i=[null];i.push.apply(i,n);var e=new(Function.bind.apply(t,i));return r&&o(e,r.prototype),e},s.apply(null,arguments)}function f(t){var n="function"==typeof Map?new Map:void 0;return f=function(t){if(null===t||-1===Function.toString.call(t).indexOf("[native code]"))return t;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==n){if(n.has(t))return n.get(t);n.set(t,r);}function r(){return s(t,arguments,e(this).constructor)}return r.prototype=Object.create(t.prototype,{constructor:{value:r,enumerable:false,writable:true,configurable:true}}),o(r,t)},f(t)}function c(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var a,h=function(){this.before=void 0,this.beforeLeave=void 0,this.leave=void 0,this.afterLeave=void 0,this.beforeEnter=void 0,this.enter=void 0,this.afterEnter=void 0,this.after=void 0;};!function(t){t[t.off=0]="off",t[t.error=1]="error",t[t.warning=2]="warning",t[t.info=3]="info",t[t.debug=4]="debug";}(a||(a={}));var v=a.off,d=/*#__PURE__*/function(){function t(t){this.t=void 0,this.t=t;}t.getLevel=function(){return v},t.setLevel=function(t){return v=a[t]};var n=t.prototype;return n.error=function(){this.i(console.error,a.error,[].slice.call(arguments));},n.warn=function(){this.i(console.warn,a.warning,[].slice.call(arguments));},n.info=function(){this.i(console.info,a.info,[].slice.call(arguments));},n.debug=function(){this.i(console.log,a.debug,[].slice.call(arguments));},n.i=function(n,r,i){r<=t.getLevel()&&n.apply(console,["["+this.t+"] "].concat(i));},t}();function l(t){return t.replace(/([.+*?=^!:${}()[\]|/\\])/g,"\\$1")}function p(t){return t&&t.sensitive?"":"i"}var m={container:"container",history:"history",namespace:"namespace",prefix:"data-barba",prevent:"prevent",wrapper:"wrapper"},w=new(/*#__PURE__*/function(){function t(){this.o=m,this.u=void 0,this.h={after:null,before:null,parent:null};}var n=t.prototype;return n.toString=function(t){return t.outerHTML},n.toDocument=function(t){return this.u||(this.u=new DOMParser),this.u.parseFromString(t,"text/html")},n.toElement=function(t){var n=document.createElement("div");return n.innerHTML=t,n},n.getHtml=function(t){return void 0===t&&(t=document),this.toString(t.documentElement)},n.getWrapper=function(t){return void 0===t&&(t=document),t.querySelector("["+this.o.prefix+'="'+this.o.wrapper+'"]')},n.getContainer=function(t){return void 0===t&&(t=document),t.querySelector("["+this.o.prefix+'="'+this.o.container+'"]')},n.removeContainer=function(t){document.body.contains(t)&&(this.v(t),t.parentNode.removeChild(t));},n.addContainer=function(t,n){var r=this.getContainer()||this.h.before;r?this.l(t,r):this.h.after?this.h.after.parentNode.insertBefore(t,this.h.after):this.h.parent?this.h.parent.appendChild(t):n.appendChild(t);},n.getSibling=function(){return this.h},n.getNamespace=function(t){ void 0===t&&(t=document);var n=t.querySelector("["+this.o.prefix+"-"+this.o.namespace+"]");return n?n.getAttribute(this.o.prefix+"-"+this.o.namespace):null},n.getHref=function(t){if(t.tagName&&"a"===t.tagName.toLowerCase()){if("string"==typeof t.href)return t.href;var n=t.getAttribute("href")||t.getAttribute("xlink:href");if(n)return this.resolveUrl(n.baseVal||n)}return null},n.resolveUrl=function(){var t=[].slice.call(arguments).length;if(0===t)throw new Error("resolveUrl requires at least one argument; got none.");var n=document.createElement("base");if(n.href=arguments[0],1===t)return n.href;var r=document.getElementsByTagName("head")[0];r.insertBefore(n,r.firstChild);for(var i,e=document.createElement("a"),o=1;o<t;o++)e.href=arguments[o],n.href=i=e.href;return r.removeChild(n),i},n.l=function(t,n){n.parentNode.insertBefore(t,n.nextSibling);},n.v=function(t){return this.h={after:t.nextElementSibling,before:t.previousElementSibling,parent:t.parentElement},this.h},t}()),b=/*#__PURE__*/function(){function t(){this.p=void 0,this.m=[],this.P=-1;}var i=t.prototype;return i.init=function(t,n){this.p="barba";var r={data:{},ns:n,scroll:{x:window.scrollX,y:window.scrollY},url:t};this.P=0,this.m.push(r);var i={from:this.p,index:this.P,states:[].concat(this.m)};window.history&&window.history.replaceState(i,"",t);},i.change=function(t,n,r){if(r&&r.state){var i=r.state,e=i.index;n=this.g(this.P-e),this.replace(i.states),this.P=e;}else this.add(t,n);return n},i.add=function(t,n,r,i){var e=null!=r?r:this.R(n),o={data:null!=i?i:{},ns:"tmp",scroll:{x:window.scrollX,y:window.scrollY},url:t};switch(e){case "push":this.P=this.size,this.m.push(o);break;case "replace":this.set(this.P,o);}var u={from:this.p,index:this.P,states:[].concat(this.m)};switch(e){case "push":window.history&&window.history.pushState(u,"",t);break;case "replace":window.history&&window.history.replaceState(u,"",t);}},i.store=function(t,n){var i=n||this.P,e=this.get(i);e.data=r({},e.data,t),this.set(i,e);var o={from:this.p,index:this.P,states:[].concat(this.m)};window.history.replaceState(o,"");},i.update=function(t,n){var i=n||this.P,e=r({},this.get(i),t);this.set(i,e);},i.remove=function(t){t?this.m.splice(t,1):this.m.pop(),this.P--;},i.clear=function(){this.m=[],this.P=-1;},i.replace=function(t){this.m=t;},i.get=function(t){return this.m[t]},i.set=function(t,n){return this.m[t]=n},i.R=function(t){var n="push",r=t,i=m.prefix+"-"+m.history;return r.hasAttribute&&r.hasAttribute(i)&&(n=r.getAttribute(i)),n},i.g=function(t){return Math.abs(t)>1?t>0?"forward":"back":0===t?"popstate":t>0?"back":"forward"},n(t,[{key:"current",get:function(){return this.m[this.P]}},{key:"previous",get:function(){return this.P<1?null:this.m[this.P-1]}},{key:"size",get:function(){return this.m.length}}]),t}(),y=new b,P=function(t,n){try{var r=function(){if(!n.next.html)return Promise.resolve(t).then(function(t){var r=n.next;if(t){var i=w.toElement(t.html);r.namespace=w.getNamespace(i),r.container=w.getContainer(i),r.url=t.url,r.html=t.html,y.update({ns:r.namespace});var e=w.toDocument(t.html);document.title=e.title;}})}();return Promise.resolve(r&&r.then?r.then(function(){}):void 0)}catch(t){return Promise.reject(t)}},E=function t(n,r,i){return n instanceof RegExp?function(t,n){if(!n)return t;for(var r=/\((?:\?<(.*?)>)?(?!\?)/g,i=0,e=r.exec(t.source);e;)n.push({name:e[1]||i++,prefix:"",suffix:"",modifier:"",pattern:""}),e=r.exec(t.source);return t}(n,r):Array.isArray(n)?function(n,r,i){var e=n.map(function(n){return t(n,r,i).source});return new RegExp("(?:".concat(e.join("|"),")"),p(i))}(n,r,i):function(t,n,r){return function(t,n,r){ void 0===r&&(r={});for(var i=r.strict,e=void 0!==i&&i,o=r.start,u=void 0===o||o,s=r.end,f=void 0===s||s,c=r.encode,a=void 0===c?function(t){return t}:c,h=r.delimiter,v=void 0===h?"/#?":h,d=r.endsWith,m="[".concat(l(void 0===d?"":d),"]|$"),w="[".concat(l(v),"]"),b=u?"^":"",y=0,P=t;y<P.length;y++){var E=P[y];if("string"==typeof E)b+=l(a(E));else {var g=l(a(E.prefix)),x=l(a(E.suffix));if(E.pattern)if(n&&n.push(E),g||x)if("+"===E.modifier||"*"===E.modifier){var R="*"===E.modifier?"?":"";b+="(?:".concat(g,"((?:").concat(E.pattern,")(?:").concat(x).concat(g,"(?:").concat(E.pattern,"))*)").concat(x,")").concat(R);}else b+="(?:".concat(g,"(").concat(E.pattern,")").concat(x,")").concat(E.modifier);else b+="+"===E.modifier||"*"===E.modifier?"((?:".concat(E.pattern,")").concat(E.modifier,")"):"(".concat(E.pattern,")").concat(E.modifier);else b+="(?:".concat(g).concat(x,")").concat(E.modifier);}}if(f)e||(b+="".concat(w,"?")),b+=r.endsWith?"(?=".concat(m,")"):"$";else {var k=t[t.length-1],O="string"==typeof k?w.indexOf(k[k.length-1])>-1:void 0===k;e||(b+="(?:".concat(w,"(?=").concat(m,"))?")),O||(b+="(?=".concat(w,"|").concat(m,")"));}return new RegExp(b,p(r))}(function(t,n){ void 0===n&&(n={});for(var r=function(t){for(var n=[],r=0;r<t.length;){var i=t[r];if("*"!==i&&"+"!==i&&"?"!==i)if("\\"!==i)if("{"!==i)if("}"!==i)if(":"!==i)if("("!==i)n.push({type:"CHAR",index:r,value:t[r++]});else {var e=1,o="";if("?"===t[s=r+1])throw new TypeError('Pattern cannot start with "?" at '.concat(s));for(;s<t.length;)if("\\"!==t[s]){if(")"===t[s]){if(0==--e){s++;break}}else if("("===t[s]&&(e++,"?"!==t[s+1]))throw new TypeError("Capturing groups are not allowed at ".concat(s));o+=t[s++];}else o+=t[s++]+t[s++];if(e)throw new TypeError("Unbalanced pattern at ".concat(r));if(!o)throw new TypeError("Missing pattern at ".concat(r));n.push({type:"PATTERN",index:r,value:o}),r=s;}else {for(var u="",s=r+1;s<t.length;){var f=t.charCodeAt(s);if(!(f>=48&&f<=57||f>=65&&f<=90||f>=97&&f<=122||95===f))break;u+=t[s++];}if(!u)throw new TypeError("Missing parameter name at ".concat(r));n.push({type:"NAME",index:r,value:u}),r=s;}else n.push({type:"CLOSE",index:r,value:t[r++]});else n.push({type:"OPEN",index:r,value:t[r++]});else n.push({type:"ESCAPED_CHAR",index:r++,value:t[r++]});else n.push({type:"MODIFIER",index:r,value:t[r++]});}return n.push({type:"END",index:r,value:""}),n}(t),i=n.prefixes,e=void 0===i?"./":i,o="[^".concat(l(n.delimiter||"/#?"),"]+?"),u=[],s=0,f=0,c="",a=function(t){if(f<r.length&&r[f].type===t)return r[f++].value},h=function(t){var n=a(t);if(void 0!==n)return n;var i=r[f],e=i.index;throw new TypeError("Unexpected ".concat(i.type," at ").concat(e,", expected ").concat(t))},v=function(){for(var t,n="";t=a("CHAR")||a("ESCAPED_CHAR");)n+=t;return n};f<r.length;){var d=a("CHAR"),p=a("NAME"),m=a("PATTERN");if(p||m) -1===e.indexOf(b=d||"")&&(c+=b,b=""),c&&(u.push(c),c=""),u.push({name:p||s++,prefix:b,suffix:"",pattern:m||o,modifier:a("MODIFIER")||""});else {var w=d||a("ESCAPED_CHAR");if(w)c+=w;else if(c&&(u.push(c),c=""),a("OPEN")){var b=v(),y=a("NAME")||"",P=a("PATTERN")||"",E=v();h("CLOSE"),u.push({name:y||(P?s++:""),pattern:y&&!P?o:P,prefix:b,suffix:E,modifier:a("MODIFIER")||""});}else h("END");}}return u}(t,r),n,r)}(n,r,i)},g={__proto__:null,update:P,nextTick:function(){return new Promise(function(t){window.requestAnimationFrame(t);})},pathToRegexp:E},x=function(){return window.location.origin},R=function(t){return void 0===t&&(t=window.location.href),k(t).port},k=function(t){var n,r=t.match(/:\d+/);if(null===r)/^http/.test(t)&&(n=80),/^https/.test(t)&&(n=443);else {var i=r[0].substring(1);n=parseInt(i,10);}var e,o=t.replace(x(),""),u={},s=o.indexOf("#");s>=0&&(e=o.slice(s+1),o=o.slice(0,s));var f=o.indexOf("?");return f>=0&&(u=O(o.slice(f+1)),o=o.slice(0,f)),{hash:e,path:o,port:n,query:u}},O=function(t){return t.split("&").reduce(function(t,n){var r=n.split("=");return t[r[0]]=r[1],t},{})},T=function(t){return void 0===t&&(t=window.location.href),t.replace(/(\/#.*|\/|#.*)$/,"")},A={__proto__:null,getHref:function(){return window.location.href},getAbsoluteHref:function(t,n){return void 0===n&&(n=document.baseURI),new URL(t,n).href},getOrigin:x,getPort:R,getPath:function(t){return void 0===t&&(t=window.location.href),k(t).path},getQuery:function(t,n){return void 0===n&&(n=false),n?JSON.stringify(k(t).query):k(t).query},getHash:function(t){return k(t).hash},parse:k,parseQuery:O,clean:T};function j(t,n,i,e,o){return void 0===n&&(n=2e3),new Promise(function(u,s){var f=new XMLHttpRequest;f.onreadystatechange=function(){if(f.readyState===XMLHttpRequest.DONE)if(200===f.status){var n=""!==f.responseURL&&f.responseURL!==t?f.responseURL:t;u({html:f.responseText,url:r({href:n},k(n))}),e.update(t,{status:"fulfilled",target:n});}else if(f.status){var o={status:f.status,statusText:f.statusText};i(t,o),s(o),e.update(t,{status:"rejected"});}},f.ontimeout=function(){var r=new Error("Timeout error ["+n+"]");i(t,r),s(r),e.update(t,{status:"rejected"});},f.onerror=function(){var n=new Error("Fetch error");i(t,n),s(n),e.update(t,{status:"rejected"});},f.open("GET",t),f.timeout=n,f.setRequestHeader("Accept","text/html,application/xhtml+xml,application/xml"),f.setRequestHeader("x-barba","yes"),o.all().forEach(function(t,n){f.setRequestHeader(n,t);}),f.send();})}function M(t){return !!t&&("object"==typeof t||"function"==typeof t)&&"function"==typeof t.then}function N(t,n){return void 0===n&&(n={}),function(){var r=arguments,i=false,e=new Promise(function(e,o){n.async=function(){return i=true,function(t,n){t?o(t):e(n);}};var u=t.apply(n,[].slice.call(r));i||(M(u)?u.then(e,o):e(u));});return e}}var S=new(/*#__PURE__*/function(t){function n(){var n;return (n=t.call(this)||this).logger=new d("@barba/core"),n.all=["ready","page","reset","currentAdded","currentRemoved","nextAdded","nextRemoved","beforeOnce","once","afterOnce","before","beforeLeave","leave","afterLeave","beforeEnter","enter","afterEnter","after"],n.registered=new Map,n.init(),n}i(n,t);var r=n.prototype;return r.init=function(){var t=this;this.registered.clear(),this.all.forEach(function(n){t[n]||(t[n]=function(r,i){t.registered.has(n)||t.registered.set(n,new Set),t.registered.get(n).add({ctx:i||{},fn:r});});});},r.do=function(t){var n=arguments,r=this;if(this.registered.has(t)){var i=Promise.resolve();return this.registered.get(t).forEach(function(t){i=i.then(function(){return N(t.fn,t.ctx).apply(void 0,[].slice.call(n,1))});}),i.catch(function(n){r.logger.debug("Hook error ["+t+"]"),r.logger.error(n);})}return Promise.resolve()},r.clear=function(){var t=this;this.all.forEach(function(n){delete t[n];}),this.init();},r.help=function(){this.logger.info("Available hooks: "+this.all.join(","));var t=[];this.registered.forEach(function(n,r){return t.push(r)}),this.logger.info("Registered hooks: "+t.join(","));},n}(h)),C=/*#__PURE__*/function(){function t(t){if(this.k=void 0,this.O=[],"boolean"==typeof t)this.k=t;else {var n=Array.isArray(t)?t:[t];this.O=n.map(function(t){return E(t)});}}return t.prototype.checkHref=function(t){if("boolean"==typeof this.k)return this.k;var n=k(t).path;return this.O.some(function(t){return null!==t.exec(n)})},t}(),L=/*#__PURE__*/function(t){function n(n){var r;return (r=t.call(this,n)||this).T=new Map,r}i(n,t);var e=n.prototype;return e.set=function(t,n,r,i,e){return this.T.set(t,{action:r,request:n,status:i,target:null!=e?e:t}),{action:r,request:n,status:i,target:e}},e.get=function(t){return this.T.get(t)},e.getRequest=function(t){return this.T.get(t).request},e.getAction=function(t){return this.T.get(t).action},e.getStatus=function(t){return this.T.get(t).status},e.getTarget=function(t){return this.T.get(t).target},e.has=function(t){return !this.checkHref(t)&&this.T.has(t)},e.delete=function(t){return this.T.delete(t)},e.update=function(t,n){var i=r({},this.T.get(t),n);return this.T.set(t,i),i},n}(C),H=/*#__PURE__*/function(){function t(){this.A=new Map;}var n=t.prototype;return n.set=function(t,n){return this.A.set(t,n),{name:n}},n.get=function(t){return this.A.get(t)},n.all=function(){return this.A},n.has=function(t){return this.A.has(t)},n.delete=function(t){return this.A.delete(t)},n.clear=function(){return this.A.clear()},t}(),_=function(){return !window.history.pushState},D=function(t){return !t.el||!t.href},B=function(t){var n=t.event;return n.which>1||n.metaKey||n.ctrlKey||n.shiftKey||n.altKey},q=function(t){var n=t.el;return n.hasAttribute("target")&&"_blank"===n.target},F=function(t){var n=t.el;return void 0!==n.protocol&&window.location.protocol!==n.protocol||void 0!==n.hostname&&window.location.hostname!==n.hostname},I=function(t){var n=t.el;return void 0!==n.port&&R()!==R(n.href)},U=function(t){var n=t.el;return n.getAttribute&&"string"==typeof n.getAttribute("download")},$=function(t){return t.el.hasAttribute(m.prefix+"-"+m.prevent)},Q=function(t){return Boolean(t.el.closest("["+m.prefix+"-"+m.prevent+'="all"]'))},X=function(t){var n=t.href;return T(n)===T()&&R(n)===R()},z=/*#__PURE__*/function(t){function n(n){var r;return (r=t.call(this,n)||this).suite=[],r.tests=new Map,r.init(),r}i(n,t);var r=n.prototype;return r.init=function(){this.add("pushState",_),this.add("exists",D),this.add("newTab",B),this.add("blank",q),this.add("corsDomain",F),this.add("corsPort",I),this.add("download",U),this.add("preventSelf",$),this.add("preventAll",Q),this.add("sameUrl",X,false);},r.add=function(t,n,r){ void 0===r&&(r=true),this.tests.set(t,n),r&&this.suite.push(t);},r.run=function(t,n,r,i){return this.tests.get(t)({el:n,event:r,href:i})},r.checkLink=function(t,n,r){var i=this;return this.suite.some(function(e){return i.run(e,t,n,r)})},n}(C),G=/*#__PURE__*/function(t){function n(r,i){var e;return void 0===i&&(i="Barba error"),(e=t.call.apply(t,[this].concat([].slice.call(arguments,2)))||this).error=void 0,e.label=void 0,e.error=r,e.label=i,Error.captureStackTrace&&Error.captureStackTrace(c(e),n),e.name="BarbaError",e}return i(n,t),n}(/*#__PURE__*/f(Error)),J=/*#__PURE__*/function(){function t(t){ void 0===t&&(t=[]),this.logger=new d("@barba/core"),this.all=[],this.page=[],this.once=[],this.j=[{name:"namespace",type:"strings"},{name:"custom",type:"function"}],t&&(this.all=this.all.concat(t)),this.update();}var n=t.prototype;return n.add=function(t,n){"rule"===t?this.j.splice(n.position||0,0,n.value):this.all.push(n),this.update();},n.resolve=function(t,n){var r=this;void 0===n&&(n={});var i=n.once?this.once:this.page;i=i.filter(n.self?function(t){return t.name&&"self"===t.name}:function(t){return !t.name||"self"!==t.name});var e=new Map,o=i.find(function(i){var o=true,u={};return n.self&&"self"===i.name?(e.set(i,u),true):(r.j.reverse().forEach(function(n){o&&(o=r.M(i,n,t,u),i.from&&i.to&&(o=r.M(i,n,t,u,"from")&&r.M(i,n,t,u,"to")),i.from&&!i.to&&(o=r.M(i,n,t,u,"from")),!i.from&&i.to&&(o=r.M(i,n,t,u,"to")));}),e.set(i,u),o)}),u=e.get(o),s=[];if(s.push(n.once?"once":"page"),n.self&&s.push("self"),u){var f,c=[o];Object.keys(u).length>0&&c.push(u),(f=this.logger).info.apply(f,["Transition found ["+s.join(",")+"]"].concat(c));}else this.logger.info("No transition found ["+s.join(",")+"]");return o},n.update=function(){var t=this;this.all=this.all.map(function(n){return t.N(n)}).sort(function(t,n){return t.priority-n.priority}).reverse().map(function(t){return delete t.priority,t}),this.page=this.all.filter(function(t){return void 0!==t.leave||void 0!==t.enter}),this.once=this.all.filter(function(t){return void 0!==t.once});},n.M=function(t,n,r,i,e){var o=true,u=false,s=t,f=n.name,c=f,a=f,h=f,v=e?s[e]:s,d="to"===e?r.next:r.current;if(e?v&&v[f]:v[f]){switch(n.type){case "strings":default:var l=Array.isArray(v[c])?v[c]:[v[c]];d[c]&&-1!==l.indexOf(d[c])&&(u=true),-1===l.indexOf(d[c])&&(o=false);break;case "object":var p=Array.isArray(v[a])?v[a]:[v[a]];d[a]?(d[a].name&&-1!==p.indexOf(d[a].name)&&(u=true),-1===p.indexOf(d[a].name)&&(o=false)):o=false;break;case "function":v[h](r)?u=true:o=false;}u&&(e?(i[e]=i[e]||{},i[e][f]=s[e][f]):i[f]=s[f]);}return o},n.S=function(t,n,r){var i=0;return (t[n]||t.from&&t.from[n]||t.to&&t.to[n])&&(i+=Math.pow(10,r),t.from&&t.from[n]&&(i+=1),t.to&&t.to[n]&&(i+=2)),i},n.N=function(t){var n=this;t.priority=0;var r=0;return this.j.forEach(function(i,e){r+=n.S(t,i.name,e+1);}),t.priority=r,t},t}();function W(t,n){try{var r=t();}catch(t){return n(t)}return r&&r.then?r.then(void 0,n):r}var K=/*#__PURE__*/function(){function t(t){ void 0===t&&(t=[]),this.logger=new d("@barba/core"),this.store=void 0,this.C=false,this.store=new J(t);}var r=t.prototype;return r.get=function(t,n){return this.store.resolve(t,n)},r.doOnce=function(t){var n=t.data,r=t.transition;try{var i=function(){e.C=!1;},e=this,o=r||{};e.C=!0;var u=W(function(){return Promise.resolve(e.L("beforeOnce",n,o)).then(function(){return Promise.resolve(e.once(n,o)).then(function(){return Promise.resolve(e.L("afterOnce",n,o)).then(function(){})})})},function(t){e.C=!1,e.logger.debug("Transition error [before/after/once]"),e.logger.error(t);});return Promise.resolve(u&&u.then?u.then(i):i())}catch(t){return Promise.reject(t)}},r.doPage=function(t){var n=t.data,r=t.transition,i=t.page,e=t.wrapper;try{var o=function(t){u.C=!1;},u=this,s=r||{},f=!0===s.sync||!1;u.C=!0;var c=W(function(){function t(){return Promise.resolve(u.L("before",n,s)).then(function(){function t(t){return Promise.resolve(u.remove(n)).then(function(){return Promise.resolve(u.L("after",n,s)).then(function(){})})}var r=function(){if(f)return W(function(){return Promise.resolve(u.add(n,e)).then(function(){return Promise.resolve(u.L("beforeLeave",n,s)).then(function(){return Promise.resolve(u.L("beforeEnter",n,s)).then(function(){return Promise.resolve(Promise.all([u.leave(n,s),u.enter(n,s)])).then(function(){return Promise.resolve(u.L("afterLeave",n,s)).then(function(){return Promise.resolve(u.L("afterEnter",n,s)).then(function(){})})})})})})},function(t){if(u.H(t))throw new G(t,"Transition error [sync]")});var t=function(t){return W(function(){var t=function(){if(!1!==r)return Promise.resolve(u.add(n,e)).then(function(){return Promise.resolve(u.L("beforeEnter",n,s)).then(function(){return Promise.resolve(u.enter(n,s,r)).then(function(){return Promise.resolve(u.L("afterEnter",n,s)).then(function(){})})})})}();if(t&&t.then)return t.then(function(){})},function(t){if(u.H(t))throw new G(t,"Transition error [before/after/enter]")})},r=!1,o=W(function(){return Promise.resolve(u.L("beforeLeave",n,s)).then(function(){return Promise.resolve(Promise.all([u.leave(n,s),P(i,n)]).then(function(t){return t[0]})).then(function(t){return r=t,Promise.resolve(u.L("afterLeave",n,s)).then(function(){})})})},function(t){if(u.H(t))throw new G(t,"Transition error [before/after/leave]")});return o&&o.then?o.then(t):t()}();return r&&r.then?r.then(t):t()})}var r=function(){if(f)return Promise.resolve(P(i,n)).then(function(){})}();return r&&r.then?r.then(t):t()},function(t){if(u.C=!1,t.name&&"BarbaError"===t.name)throw u.logger.debug(t.label),u.logger.error(t.error),t;throw u.logger.debug("Transition error [page]"),u.logger.error(t),t});return Promise.resolve(c&&c.then?c.then(o):o())}catch(t){return Promise.reject(t)}},r.once=function(t,n){try{return Promise.resolve(S.do("once",t,n)).then(function(){return n.once?N(n.once,n)(t):Promise.resolve()})}catch(t){return Promise.reject(t)}},r.leave=function(t,n){try{return Promise.resolve(S.do("leave",t,n)).then(function(){return n.leave?N(n.leave,n)(t):Promise.resolve()})}catch(t){return Promise.reject(t)}},r.enter=function(t,n,r){try{return Promise.resolve(S.do("enter",t,n)).then(function(){return n.enter?N(n.enter,n)(t,r):Promise.resolve()})}catch(t){return Promise.reject(t)}},r.add=function(t,n){try{return w.addContainer(t.next.container,n),S.do("nextAdded",t),Promise.resolve()}catch(t){return Promise.reject(t)}},r.remove=function(t){try{return w.removeContainer(t.current.container),S.do("currentRemoved",t),Promise.resolve()}catch(t){return Promise.reject(t)}},r.H=function(t){return t.message?!/Timeout error|Fetch error/.test(t.message):!t.status},r.L=function(t,n,r){try{return Promise.resolve(S.do(t,n,r)).then(function(){return r[t]?N(r[t],r)(n):Promise.resolve()})}catch(t){return Promise.reject(t)}},n(t,[{key:"isRunning",get:function(){return this.C},set:function(t){this.C=t;}},{key:"hasOnce",get:function(){return this.store.once.length>0}},{key:"hasSelf",get:function(){return this.store.all.some(function(t){return "self"===t.name})}},{key:"shouldWait",get:function(){return this.store.all.some(function(t){return t.to&&!t.to.route||t.sync})}}]),t}(),V=/*#__PURE__*/function(){function t(t){var n=this;this.names=["beforeLeave","afterLeave","beforeEnter","afterEnter"],this.byNamespace=new Map,0!==t.length&&(t.forEach(function(t){n.byNamespace.set(t.namespace,t);}),this.names.forEach(function(t){S[t](n._(t));}));}return t.prototype._=function(t){var n=this;return function(r){var i=t.match(/enter/i)?r.next:r.current,e=n.byNamespace.get(i.namespace);return e&&e[t]?N(e[t],e)(r):Promise.resolve()}},t}();Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(t){var n=this;do{if(n.matches(t))return n;n=n.parentElement||n.parentNode;}while(null!==n&&1===n.nodeType);return null});var Y={container:null,html:"",namespace:"",url:{hash:"",href:"",path:"",port:null,query:{}}},Z=new(/*#__PURE__*/function(){function t(){this.version="2.10.3",this.schemaPage=Y,this.Logger=d,this.logger=new d("@barba/core"),this.plugins=[],this.timeout=void 0,this.cacheIgnore=void 0,this.cacheFirstPage=void 0,this.prefetchIgnore=void 0,this.preventRunning=void 0,this.hooks=S,this.cache=void 0,this.headers=void 0,this.prevent=void 0,this.transitions=void 0,this.views=void 0,this.dom=w,this.helpers=g,this.history=y,this.request=j,this.url=A,this.D=void 0,this.B=void 0,this.q=void 0,this.F=void 0;}var i=t.prototype;return i.use=function(t,n){var r=this.plugins;r.indexOf(t)>-1?this.logger.warn("Plugin ["+t.name+"] already installed."):"function"==typeof t.install?(t.install(this,n),r.push(t)):this.logger.warn("Plugin ["+t.name+'] has no "install" method.');},i.init=function(t){var n=void 0===t?{}:t,i=n.transitions,e=void 0===i?[]:i,o=n.views,u=void 0===o?[]:o,s=n.schema,f=void 0===s?m:s,c=n.requestError,a=n.timeout,h=void 0===a?2e3:a,v=n.cacheIgnore,l=void 0!==v&&v,p=n.cacheFirstPage,w=void 0!==p&&p,b=n.prefetchIgnore,y=void 0!==b&&b,P=n.preventRunning,E=void 0!==P&&P,g=n.prevent,x=void 0===g?null:g,R=n.debug,k=n.logLevel;if(d.setLevel(true===(void 0!==R&&R)?"debug":void 0===k?"off":k),this.logger.info(this.version),Object.keys(f).forEach(function(t){m[t]&&(m[t]=f[t]);}),this.B=c,this.timeout=h,this.cacheIgnore=l,this.cacheFirstPage=w,this.prefetchIgnore=y,this.preventRunning=E,this.q=this.dom.getWrapper(),!this.q)throw new Error("[@barba/core] No Barba wrapper found");this.I();var O=this.data.current;if(!O.container)throw new Error("[@barba/core] No Barba container found");if(this.cache=new L(l),this.headers=new H,this.prevent=new z(y),this.transitions=new K(e),this.views=new V(u),null!==x){if("function"!=typeof x)throw new Error("[@barba/core] Prevent should be a function");this.prevent.add("preventCustom",x);}this.history.init(O.url.href,O.namespace),w&&this.cache.set(O.url.href,Promise.resolve({html:O.html,url:O.url}),"init","fulfilled"),this.U=this.U.bind(this),this.$=this.$.bind(this),this.X=this.X.bind(this),this.G(),this.plugins.forEach(function(t){return t.init()});var T=this.data;T.trigger="barba",T.next=T.current,T.current=r({},this.schemaPage),this.hooks.do("ready",T),this.once(T),this.I();},i.destroy=function(){this.I(),this.J(),this.history.clear(),this.hooks.clear(),this.plugins=[];},i.force=function(t){window.location.assign(t);},i.go=function(t,n,r){var i;if(void 0===n&&(n="barba"),this.F=null,this.transitions.isRunning)this.force(t);else if(!(i="popstate"===n?this.history.current&&this.url.getPath(this.history.current.url)===this.url.getPath(t)&&this.url.getQuery(this.history.current.url,true)===this.url.getQuery(t,true):this.prevent.run("sameUrl",null,null,t))||this.transitions.hasSelf)return n=this.history.change(this.cache.has(t)?this.cache.get(t).target:t,n,r),r&&(r.stopPropagation(),r.preventDefault()),this.page(t,n,null!=r?r:void 0,i)},i.once=function(t){try{var n=this;return Promise.resolve(n.hooks.do("beforeEnter",t)).then(function(){function r(){return Promise.resolve(n.hooks.do("afterEnter",t)).then(function(){})}var i=function(){if(n.transitions.hasOnce){var r=n.transitions.get(t,{once:!0});return Promise.resolve(n.transitions.doOnce({transition:r,data:t})).then(function(){})}}();return i&&i.then?i.then(r):r()})}catch(t){return Promise.reject(t)}},i.page=function(t,n,i,e){try{var o,u=function(){var t=s.data;return Promise.resolve(s.hooks.do("page",t)).then(function(){var n=function(n,r){try{var i=(u=s.transitions.get(t,{once:!1,self:e}),Promise.resolve(s.transitions.doPage({data:t,page:o,transition:u,wrapper:s.q})).then(function(){s.I();}));}catch(t){return r()}var u;return i&&i.then?i.then(void 0,r):i}(0,function(){0===d.getLevel()&&s.force(t.next.url.href);});if(n&&n.then)return n.then(function(){})})},s=this;if(s.data.next.url=r({href:t},s.url.parse(t)),s.data.trigger=n,s.data.event=i,s.cache.has(t))o=s.cache.update(t,{action:"click"}).request;else {var f=s.request(t,s.timeout,s.onRequestError.bind(s,n),s.cache,s.headers);f.then(function(r){r.url.href!==t&&s.history.add(r.url.href,n,"replace");}),o=s.cache.set(t,f,"click","pending").request;}var c=function(){if(s.transitions.shouldWait)return Promise.resolve(P(o,s.data)).then(function(){})}();return Promise.resolve(c&&c.then?c.then(u):u())}catch(t){return Promise.reject(t)}},i.onRequestError=function(t){this.transitions.isRunning=false;var n=[].slice.call(arguments,1),r=n[0],i=n[1],e=this.cache.getAction(r);return this.cache.delete(r),this.B&&false===this.B(t,e,r,i)||"click"===e&&this.force(r),false},i.prefetch=function(t){var n=this;t=this.url.getAbsoluteHref(t),this.cache.has(t)||this.cache.set(t,this.request(t,this.timeout,this.onRequestError.bind(this,"barba"),this.cache,this.headers).catch(function(t){n.logger.error(t);}),"prefetch","pending");},i.G=function(){ true!==this.prefetchIgnore&&(document.addEventListener("mouseover",this.U),document.addEventListener("touchstart",this.U)),document.addEventListener("click",this.$),window.addEventListener("popstate",this.X);},i.J=function(){ true!==this.prefetchIgnore&&(document.removeEventListener("mouseover",this.U),document.removeEventListener("touchstart",this.U)),document.removeEventListener("click",this.$),window.removeEventListener("popstate",this.X);},i.U=function(t){var n=this,r=this.W(t);if(r){var i=this.url.getAbsoluteHref(this.dom.getHref(r));this.prevent.checkHref(i)||this.cache.has(i)||this.cache.set(i,this.request(i,this.timeout,this.onRequestError.bind(this,r),this.cache,this.headers).catch(function(t){n.logger.error(t);}),"enter","pending");}},i.$=function(t){var n=this.W(t);if(n){if(this.transitions.isRunning&&this.preventRunning)return t.preventDefault(),void t.stopPropagation();this.F=t,this.go(this.dom.getHref(n),n,t);}},i.X=function(t){this.go(this.url.getHref(),"popstate",t);},i.W=function(t){for(var n=t.target;n&&!this.dom.getHref(n);)n=n.parentNode;if(n&&!this.prevent.checkLink(n,t,this.dom.getHref(n)))return n},i.I=function(){var t=this.url.getHref(),n={container:this.dom.getContainer(),html:this.dom.getHtml(),namespace:this.dom.getNamespace(),url:r({href:t},this.url.parse(t))};this.D={current:n,event:void 0,next:r({},this.schemaPage),trigger:void 0},this.hooks.do("reset",this.data);},n(t,[{key:"data",get:function(){return this.D}},{key:"wrapper",get:function(){return this.q}}]),t}());
+  function t(t,n){for(var r=0;r<n.length;r++){var i=n[r];i.enumerable=i.enumerable||false,i.configurable=true,"value"in i&&(i.writable=true),Object.defineProperty(t,"symbol"==typeof(e=function(t,n){if("object"!=typeof t||null===t)return t;var r=t[Symbol.toPrimitive];if(void 0!==r){var i=r.call(t,"string");if("object"!=typeof i)return i;throw new TypeError("@@toPrimitive must return a primitive value.")}return String(t)}(i.key))?e:String(e),i);}var e;}function n(n,r,i){return r&&t(n.prototype,r),Object.defineProperty(n,"prototype",{writable:false}),n}function r(){return r=Object.assign?Object.assign.bind():function(t){for(var n=1;n<arguments.length;n++){var r=arguments[n];for(var i in r)Object.prototype.hasOwnProperty.call(r,i)&&(t[i]=r[i]);}return t},r.apply(this,arguments)}function i(t,n){t.prototype=Object.create(n.prototype),t.prototype.constructor=t,o(t,n);}function e(t){return e=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},e(t)}function o(t,n){return o=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,n){return t.__proto__=n,t},o(t,n)}function u(){if("undefined"==typeof Reflect||!Reflect.construct)return  false;if(Reflect.construct.sham)return  false;if("function"==typeof Proxy)return  true;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],function(){})),!0}catch(t){return  false}}function s(t,n,r){return s=u()?Reflect.construct.bind():function(t,n,r){var i=[null];i.push.apply(i,n);var e=new(Function.bind.apply(t,i));return r&&o(e,r.prototype),e},s.apply(null,arguments)}function f(t){var n="function"==typeof Map?new Map:void 0;return f=function(t){if(null===t||-1===Function.toString.call(t).indexOf("[native code]"))return t;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==n){if(n.has(t))return n.get(t);n.set(t,r);}function r(){return s(t,arguments,e(this).constructor)}return r.prototype=Object.create(t.prototype,{constructor:{value:r,enumerable:false,writable:true,configurable:true}}),o(r,t)},f(t)}function c(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var a,h=function(){this.before=void 0,this.beforeLeave=void 0,this.leave=void 0,this.afterLeave=void 0,this.beforeEnter=void 0,this.enter=void 0,this.afterEnter=void 0,this.after=void 0;};!function(t){t[t.off=0]="off",t[t.error=1]="error",t[t.warning=2]="warning",t[t.info=3]="info",t[t.debug=4]="debug";}(a||(a={}));var v$1=a.off,d=/*#__PURE__*/function(){function t(t){this.t=void 0,this.t=t;}t.getLevel=function(){return v$1},t.setLevel=function(t){return v$1=a[t]};var n=t.prototype;return n.error=function(){this.i(console.error,a.error,[].slice.call(arguments));},n.warn=function(){this.i(console.warn,a.warning,[].slice.call(arguments));},n.info=function(){this.i(console.info,a.info,[].slice.call(arguments));},n.debug=function(){this.i(console.log,a.debug,[].slice.call(arguments));},n.i=function(n,r,i){r<=t.getLevel()&&n.apply(console,["["+this.t+"] "].concat(i));},t}();function l(t){return t.replace(/([.+*?=^!:${}()[\]|/\\])/g,"\\$1")}function p(t){return t&&t.sensitive?"":"i"}var m$1={container:"container",history:"history",namespace:"namespace",prefix:"data-barba",prevent:"prevent",wrapper:"wrapper"},w$1=new(/*#__PURE__*/function(){function t(){this.o=m$1,this.u=void 0,this.h={after:null,before:null,parent:null};}var n=t.prototype;return n.toString=function(t){return t.outerHTML},n.toDocument=function(t){return this.u||(this.u=new DOMParser),this.u.parseFromString(t,"text/html")},n.toElement=function(t){var n=document.createElement("div");return n.innerHTML=t,n},n.getHtml=function(t){return void 0===t&&(t=document),this.toString(t.documentElement)},n.getWrapper=function(t){return void 0===t&&(t=document),t.querySelector("["+this.o.prefix+'="'+this.o.wrapper+'"]')},n.getContainer=function(t){return void 0===t&&(t=document),t.querySelector("["+this.o.prefix+'="'+this.o.container+'"]')},n.removeContainer=function(t){document.body.contains(t)&&(this.v(t),t.parentNode.removeChild(t));},n.addContainer=function(t,n){var r=this.getContainer()||this.h.before;r?this.l(t,r):this.h.after?this.h.after.parentNode.insertBefore(t,this.h.after):this.h.parent?this.h.parent.appendChild(t):n.appendChild(t);},n.getSibling=function(){return this.h},n.getNamespace=function(t){ void 0===t&&(t=document);var n=t.querySelector("["+this.o.prefix+"-"+this.o.namespace+"]");return n?n.getAttribute(this.o.prefix+"-"+this.o.namespace):null},n.getHref=function(t){if(t.tagName&&"a"===t.tagName.toLowerCase()){if("string"==typeof t.href)return t.href;var n=t.getAttribute("href")||t.getAttribute("xlink:href");if(n)return this.resolveUrl(n.baseVal||n)}return null},n.resolveUrl=function(){var t=[].slice.call(arguments).length;if(0===t)throw new Error("resolveUrl requires at least one argument; got none.");var n=document.createElement("base");if(n.href=arguments[0],1===t)return n.href;var r=document.getElementsByTagName("head")[0];r.insertBefore(n,r.firstChild);for(var i,e=document.createElement("a"),o=1;o<t;o++)e.href=arguments[o],n.href=i=e.href;return r.removeChild(n),i},n.l=function(t,n){n.parentNode.insertBefore(t,n.nextSibling);},n.v=function(t){return this.h={after:t.nextElementSibling,before:t.previousElementSibling,parent:t.parentElement},this.h},t}()),b$1=/*#__PURE__*/function(){function t(){this.p=void 0,this.m=[],this.P=-1;}var i=t.prototype;return i.init=function(t,n){this.p="barba";var r={data:{},ns:n,scroll:{x:window.scrollX,y:window.scrollY},url:t};this.P=0,this.m.push(r);var i={from:this.p,index:this.P,states:[].concat(this.m)};window.history&&window.history.replaceState(i,"",t);},i.change=function(t,n,r){if(r&&r.state){var i=r.state,e=i.index;n=this.g(this.P-e),this.replace(i.states),this.P=e;}else this.add(t,n);return n},i.add=function(t,n,r,i){var e=null!=r?r:this.R(n),o={data:null!=i?i:{},ns:"tmp",scroll:{x:window.scrollX,y:window.scrollY},url:t};switch(e){case "push":this.P=this.size,this.m.push(o);break;case "replace":this.set(this.P,o);}var u={from:this.p,index:this.P,states:[].concat(this.m)};switch(e){case "push":window.history&&window.history.pushState(u,"",t);break;case "replace":window.history&&window.history.replaceState(u,"",t);}},i.store=function(t,n){var i=n||this.P,e=this.get(i);e.data=r({},e.data,t),this.set(i,e);var o={from:this.p,index:this.P,states:[].concat(this.m)};window.history.replaceState(o,"");},i.update=function(t,n){var i=n||this.P,e=r({},this.get(i),t);this.set(i,e);},i.remove=function(t){t?this.m.splice(t,1):this.m.pop(),this.P--;},i.clear=function(){this.m=[],this.P=-1;},i.replace=function(t){this.m=t;},i.get=function(t){return this.m[t]},i.set=function(t,n){return this.m[t]=n},i.R=function(t){var n="push",r=t,i=m$1.prefix+"-"+m$1.history;return r.hasAttribute&&r.hasAttribute(i)&&(n=r.getAttribute(i)),n},i.g=function(t){return Math.abs(t)>1?t>0?"forward":"back":0===t?"popstate":t>0?"back":"forward"},n(t,[{key:"current",get:function(){return this.m[this.P]}},{key:"previous",get:function(){return this.P<1?null:this.m[this.P-1]}},{key:"size",get:function(){return this.m.length}}]),t}(),y$1=new b$1,P$1=function(t,n){try{var r=function(){if(!n.next.html)return Promise.resolve(t).then(function(t){var r=n.next;if(t){var i=w$1.toElement(t.html);r.namespace=w$1.getNamespace(i),r.container=w$1.getContainer(i),r.url=t.url,r.html=t.html,y$1.update({ns:r.namespace});var e=w$1.toDocument(t.html);document.title=e.title;}})}();return Promise.resolve(r&&r.then?r.then(function(){}):void 0)}catch(t){return Promise.reject(t)}},E$1=function t(n,r,i){return n instanceof RegExp?function(t,n){if(!n)return t;for(var r=/\((?:\?<(.*?)>)?(?!\?)/g,i=0,e=r.exec(t.source);e;)n.push({name:e[1]||i++,prefix:"",suffix:"",modifier:"",pattern:""}),e=r.exec(t.source);return t}(n,r):Array.isArray(n)?function(n,r,i){var e=n.map(function(n){return t(n,r,i).source});return new RegExp("(?:".concat(e.join("|"),")"),p(i))}(n,r,i):function(t,n,r){return function(t,n,r){ void 0===r&&(r={});for(var i=r.strict,e=void 0!==i&&i,o=r.start,u=void 0===o||o,s=r.end,f=void 0===s||s,c=r.encode,a=void 0===c?function(t){return t}:c,h=r.delimiter,v=void 0===h?"/#?":h,d=r.endsWith,m="[".concat(l(void 0===d?"":d),"]|$"),w="[".concat(l(v),"]"),b=u?"^":"",y=0,P=t;y<P.length;y++){var E=P[y];if("string"==typeof E)b+=l(a(E));else {var g=l(a(E.prefix)),x=l(a(E.suffix));if(E.pattern)if(n&&n.push(E),g||x)if("+"===E.modifier||"*"===E.modifier){var R="*"===E.modifier?"?":"";b+="(?:".concat(g,"((?:").concat(E.pattern,")(?:").concat(x).concat(g,"(?:").concat(E.pattern,"))*)").concat(x,")").concat(R);}else b+="(?:".concat(g,"(").concat(E.pattern,")").concat(x,")").concat(E.modifier);else b+="+"===E.modifier||"*"===E.modifier?"((?:".concat(E.pattern,")").concat(E.modifier,")"):"(".concat(E.pattern,")").concat(E.modifier);else b+="(?:".concat(g).concat(x,")").concat(E.modifier);}}if(f)e||(b+="".concat(w,"?")),b+=r.endsWith?"(?=".concat(m,")"):"$";else {var k=t[t.length-1],O="string"==typeof k?w.indexOf(k[k.length-1])>-1:void 0===k;e||(b+="(?:".concat(w,"(?=").concat(m,"))?")),O||(b+="(?=".concat(w,"|").concat(m,")"));}return new RegExp(b,p(r))}(function(t,n){ void 0===n&&(n={});for(var r=function(t){for(var n=[],r=0;r<t.length;){var i=t[r];if("*"!==i&&"+"!==i&&"?"!==i)if("\\"!==i)if("{"!==i)if("}"!==i)if(":"!==i)if("("!==i)n.push({type:"CHAR",index:r,value:t[r++]});else {var e=1,o="";if("?"===t[s=r+1])throw new TypeError('Pattern cannot start with "?" at '.concat(s));for(;s<t.length;)if("\\"!==t[s]){if(")"===t[s]){if(0==--e){s++;break}}else if("("===t[s]&&(e++,"?"!==t[s+1]))throw new TypeError("Capturing groups are not allowed at ".concat(s));o+=t[s++];}else o+=t[s++]+t[s++];if(e)throw new TypeError("Unbalanced pattern at ".concat(r));if(!o)throw new TypeError("Missing pattern at ".concat(r));n.push({type:"PATTERN",index:r,value:o}),r=s;}else {for(var u="",s=r+1;s<t.length;){var f=t.charCodeAt(s);if(!(f>=48&&f<=57||f>=65&&f<=90||f>=97&&f<=122||95===f))break;u+=t[s++];}if(!u)throw new TypeError("Missing parameter name at ".concat(r));n.push({type:"NAME",index:r,value:u}),r=s;}else n.push({type:"CLOSE",index:r,value:t[r++]});else n.push({type:"OPEN",index:r,value:t[r++]});else n.push({type:"ESCAPED_CHAR",index:r++,value:t[r++]});else n.push({type:"MODIFIER",index:r,value:t[r++]});}return n.push({type:"END",index:r,value:""}),n}(t),i=n.prefixes,e=void 0===i?"./":i,o="[^".concat(l(n.delimiter||"/#?"),"]+?"),u=[],s=0,f=0,c="",a=function(t){if(f<r.length&&r[f].type===t)return r[f++].value},h=function(t){var n=a(t);if(void 0!==n)return n;var i=r[f],e=i.index;throw new TypeError("Unexpected ".concat(i.type," at ").concat(e,", expected ").concat(t))},v=function(){for(var t,n="";t=a("CHAR")||a("ESCAPED_CHAR");)n+=t;return n};f<r.length;){var d=a("CHAR"),p=a("NAME"),m=a("PATTERN");if(p||m) -1===e.indexOf(b=d||"")&&(c+=b,b=""),c&&(u.push(c),c=""),u.push({name:p||s++,prefix:b,suffix:"",pattern:m||o,modifier:a("MODIFIER")||""});else {var w=d||a("ESCAPED_CHAR");if(w)c+=w;else if(c&&(u.push(c),c=""),a("OPEN")){var b=v(),y=a("NAME")||"",P=a("PATTERN")||"",E=v();h("CLOSE"),u.push({name:y||(P?s++:""),pattern:y&&!P?o:P,prefix:b,suffix:E,modifier:a("MODIFIER")||""});}else h("END");}}return u}(t,r),n,r)}(n,r,i)},g$1={__proto__:null,update:P$1,nextTick:function(){return new Promise(function(t){window.requestAnimationFrame(t);})},pathToRegexp:E$1},x$1=function(){return window.location.origin},R=function(t){return void 0===t&&(t=window.location.href),k$1(t).port},k$1=function(t){var n,r=t.match(/:\d+/);if(null===r)/^http/.test(t)&&(n=80),/^https/.test(t)&&(n=443);else {var i=r[0].substring(1);n=parseInt(i,10);}var e,o=t.replace(x$1(),""),u={},s=o.indexOf("#");s>=0&&(e=o.slice(s+1),o=o.slice(0,s));var f=o.indexOf("?");return f>=0&&(u=O$1(o.slice(f+1)),o=o.slice(0,f)),{hash:e,path:o,port:n,query:u}},O$1=function(t){return t.split("&").reduce(function(t,n){var r=n.split("=");return t[r[0]]=r[1],t},{})},T$1=function(t){return void 0===t&&(t=window.location.href),t.replace(/(\/#.*|\/|#.*)$/,"")},A$1={__proto__:null,getHref:function(){return window.location.href},getAbsoluteHref:function(t,n){return void 0===n&&(n=document.baseURI),new URL(t,n).href},getOrigin:x$1,getPort:R,getPath:function(t){return void 0===t&&(t=window.location.href),k$1(t).path},getQuery:function(t,n){return void 0===n&&(n=false),n?JSON.stringify(k$1(t).query):k$1(t).query},getHash:function(t){return k$1(t).hash},parse:k$1,parseQuery:O$1,clean:T$1};function j$1(t,n,i,e,o){return void 0===n&&(n=2e3),new Promise(function(u,s){var f=new XMLHttpRequest;f.onreadystatechange=function(){if(f.readyState===XMLHttpRequest.DONE)if(200===f.status){var n=""!==f.responseURL&&f.responseURL!==t?f.responseURL:t;u({html:f.responseText,url:r({href:n},k$1(n))}),e.update(t,{status:"fulfilled",target:n});}else if(f.status){var o={status:f.status,statusText:f.statusText};i(t,o),s(o),e.update(t,{status:"rejected"});}},f.ontimeout=function(){var r=new Error("Timeout error ["+n+"]");i(t,r),s(r),e.update(t,{status:"rejected"});},f.onerror=function(){var n=new Error("Fetch error");i(t,n),s(n),e.update(t,{status:"rejected"});},f.open("GET",t),f.timeout=n,f.setRequestHeader("Accept","text/html,application/xhtml+xml,application/xml"),f.setRequestHeader("x-barba","yes"),o.all().forEach(function(t,n){f.setRequestHeader(n,t);}),f.send();})}function M$1(t){return !!t&&("object"==typeof t||"function"==typeof t)&&"function"==typeof t.then}function N$1(t,n){return void 0===n&&(n={}),function(){var r=arguments,i=false,e=new Promise(function(e,o){n.async=function(){return i=true,function(t,n){t?o(t):e(n);}};var u=t.apply(n,[].slice.call(r));i||(M$1(u)?u.then(e,o):e(u));});return e}}var S=new(/*#__PURE__*/function(t){function n(){var n;return (n=t.call(this)||this).logger=new d("@barba/core"),n.all=["ready","page","reset","currentAdded","currentRemoved","nextAdded","nextRemoved","beforeOnce","once","afterOnce","before","beforeLeave","leave","afterLeave","beforeEnter","enter","afterEnter","after"],n.registered=new Map,n.init(),n}i(n,t);var r=n.prototype;return r.init=function(){var t=this;this.registered.clear(),this.all.forEach(function(n){t[n]||(t[n]=function(r,i){t.registered.has(n)||t.registered.set(n,new Set),t.registered.get(n).add({ctx:i||{},fn:r});});});},r.do=function(t){var n=arguments,r=this;if(this.registered.has(t)){var i=Promise.resolve();return this.registered.get(t).forEach(function(t){i=i.then(function(){return N$1(t.fn,t.ctx).apply(void 0,[].slice.call(n,1))});}),i.catch(function(n){r.logger.debug("Hook error ["+t+"]"),r.logger.error(n);})}return Promise.resolve()},r.clear=function(){var t=this;this.all.forEach(function(n){delete t[n];}),this.init();},r.help=function(){this.logger.info("Available hooks: "+this.all.join(","));var t=[];this.registered.forEach(function(n,r){return t.push(r)}),this.logger.info("Registered hooks: "+t.join(","));},n}(h)),C$1=/*#__PURE__*/function(){function t(t){if(this.k=void 0,this.O=[],"boolean"==typeof t)this.k=t;else {var n=Array.isArray(t)?t:[t];this.O=n.map(function(t){return E$1(t)});}}return t.prototype.checkHref=function(t){if("boolean"==typeof this.k)return this.k;var n=k$1(t).path;return this.O.some(function(t){return null!==t.exec(n)})},t}(),L$1=/*#__PURE__*/function(t){function n(n){var r;return (r=t.call(this,n)||this).T=new Map,r}i(n,t);var e=n.prototype;return e.set=function(t,n,r,i,e){return this.T.set(t,{action:r,request:n,status:i,target:null!=e?e:t}),{action:r,request:n,status:i,target:e}},e.get=function(t){return this.T.get(t)},e.getRequest=function(t){return this.T.get(t).request},e.getAction=function(t){return this.T.get(t).action},e.getStatus=function(t){return this.T.get(t).status},e.getTarget=function(t){return this.T.get(t).target},e.has=function(t){return !this.checkHref(t)&&this.T.has(t)},e.delete=function(t){return this.T.delete(t)},e.update=function(t,n){var i=r({},this.T.get(t),n);return this.T.set(t,i),i},n}(C$1),H=/*#__PURE__*/function(){function t(){this.A=new Map;}var n=t.prototype;return n.set=function(t,n){return this.A.set(t,n),{name:n}},n.get=function(t){return this.A.get(t)},n.all=function(){return this.A},n.has=function(t){return this.A.has(t)},n.delete=function(t){return this.A.delete(t)},n.clear=function(){return this.A.clear()},t}(),_$1=function(){return !window.history.pushState},D$1=function(t){return !t.el||!t.href},B$1=function(t){var n=t.event;return n.which>1||n.metaKey||n.ctrlKey||n.shiftKey||n.altKey},q$1=function(t){var n=t.el;return n.hasAttribute("target")&&"_blank"===n.target},F$1=function(t){var n=t.el;return void 0!==n.protocol&&window.location.protocol!==n.protocol||void 0!==n.hostname&&window.location.hostname!==n.hostname},I=function(t){var n=t.el;return void 0!==n.port&&R()!==R(n.href)},U$1=function(t){var n=t.el;return n.getAttribute&&"string"==typeof n.getAttribute("download")},$$1=function(t){return t.el.hasAttribute(m$1.prefix+"-"+m$1.prevent)},Q$1=function(t){return Boolean(t.el.closest("["+m$1.prefix+"-"+m$1.prevent+'="all"]'))},X$1=function(t){var n=t.href;return T$1(n)===T$1()&&R(n)===R()},z$1=/*#__PURE__*/function(t){function n(n){var r;return (r=t.call(this,n)||this).suite=[],r.tests=new Map,r.init(),r}i(n,t);var r=n.prototype;return r.init=function(){this.add("pushState",_$1),this.add("exists",D$1),this.add("newTab",B$1),this.add("blank",q$1),this.add("corsDomain",F$1),this.add("corsPort",I),this.add("download",U$1),this.add("preventSelf",$$1),this.add("preventAll",Q$1),this.add("sameUrl",X$1,false);},r.add=function(t,n,r){ void 0===r&&(r=true),this.tests.set(t,n),r&&this.suite.push(t);},r.run=function(t,n,r,i){return this.tests.get(t)({el:n,event:r,href:i})},r.checkLink=function(t,n,r){var i=this;return this.suite.some(function(e){return i.run(e,t,n,r)})},n}(C$1),G$1=/*#__PURE__*/function(t){function n(r,i){var e;return void 0===i&&(i="Barba error"),(e=t.call.apply(t,[this].concat([].slice.call(arguments,2)))||this).error=void 0,e.label=void 0,e.error=r,e.label=i,Error.captureStackTrace&&Error.captureStackTrace(c(e),n),e.name="BarbaError",e}return i(n,t),n}(/*#__PURE__*/f(Error)),J$1=/*#__PURE__*/function(){function t(t){ void 0===t&&(t=[]),this.logger=new d("@barba/core"),this.all=[],this.page=[],this.once=[],this.j=[{name:"namespace",type:"strings"},{name:"custom",type:"function"}],t&&(this.all=this.all.concat(t)),this.update();}var n=t.prototype;return n.add=function(t,n){"rule"===t?this.j.splice(n.position||0,0,n.value):this.all.push(n),this.update();},n.resolve=function(t,n){var r=this;void 0===n&&(n={});var i=n.once?this.once:this.page;i=i.filter(n.self?function(t){return t.name&&"self"===t.name}:function(t){return !t.name||"self"!==t.name});var e=new Map,o=i.find(function(i){var o=true,u={};return n.self&&"self"===i.name?(e.set(i,u),true):(r.j.reverse().forEach(function(n){o&&(o=r.M(i,n,t,u),i.from&&i.to&&(o=r.M(i,n,t,u,"from")&&r.M(i,n,t,u,"to")),i.from&&!i.to&&(o=r.M(i,n,t,u,"from")),!i.from&&i.to&&(o=r.M(i,n,t,u,"to")));}),e.set(i,u),o)}),u=e.get(o),s=[];if(s.push(n.once?"once":"page"),n.self&&s.push("self"),u){var f,c=[o];Object.keys(u).length>0&&c.push(u),(f=this.logger).info.apply(f,["Transition found ["+s.join(",")+"]"].concat(c));}else this.logger.info("No transition found ["+s.join(",")+"]");return o},n.update=function(){var t=this;this.all=this.all.map(function(n){return t.N(n)}).sort(function(t,n){return t.priority-n.priority}).reverse().map(function(t){return delete t.priority,t}),this.page=this.all.filter(function(t){return void 0!==t.leave||void 0!==t.enter}),this.once=this.all.filter(function(t){return void 0!==t.once});},n.M=function(t,n,r,i,e){var o=true,u=false,s=t,f=n.name,c=f,a=f,h=f,v=e?s[e]:s,d="to"===e?r.next:r.current;if(e?v&&v[f]:v[f]){switch(n.type){case "strings":default:var l=Array.isArray(v[c])?v[c]:[v[c]];d[c]&&-1!==l.indexOf(d[c])&&(u=true),-1===l.indexOf(d[c])&&(o=false);break;case "object":var p=Array.isArray(v[a])?v[a]:[v[a]];d[a]?(d[a].name&&-1!==p.indexOf(d[a].name)&&(u=true),-1===p.indexOf(d[a].name)&&(o=false)):o=false;break;case "function":v[h](r)?u=true:o=false;}u&&(e?(i[e]=i[e]||{},i[e][f]=s[e][f]):i[f]=s[f]);}return o},n.S=function(t,n,r){var i=0;return (t[n]||t.from&&t.from[n]||t.to&&t.to[n])&&(i+=Math.pow(10,r),t.from&&t.from[n]&&(i+=1),t.to&&t.to[n]&&(i+=2)),i},n.N=function(t){var n=this;t.priority=0;var r=0;return this.j.forEach(function(i,e){r+=n.S(t,i.name,e+1);}),t.priority=r,t},t}();function W$1(t,n){try{var r=t();}catch(t){return n(t)}return r&&r.then?r.then(void 0,n):r}var K$1=/*#__PURE__*/function(){function t(t){ void 0===t&&(t=[]),this.logger=new d("@barba/core"),this.store=void 0,this.C=false,this.store=new J$1(t);}var r=t.prototype;return r.get=function(t,n){return this.store.resolve(t,n)},r.doOnce=function(t){var n=t.data,r=t.transition;try{var i=function(){e.C=!1;},e=this,o=r||{};e.C=!0;var u=W$1(function(){return Promise.resolve(e.L("beforeOnce",n,o)).then(function(){return Promise.resolve(e.once(n,o)).then(function(){return Promise.resolve(e.L("afterOnce",n,o)).then(function(){})})})},function(t){e.C=!1,e.logger.debug("Transition error [before/after/once]"),e.logger.error(t);});return Promise.resolve(u&&u.then?u.then(i):i())}catch(t){return Promise.reject(t)}},r.doPage=function(t){var n=t.data,r=t.transition,i=t.page,e=t.wrapper;try{var o=function(t){u.C=!1;},u=this,s=r||{},f=!0===s.sync||!1;u.C=!0;var c=W$1(function(){function t(){return Promise.resolve(u.L("before",n,s)).then(function(){function t(t){return Promise.resolve(u.remove(n)).then(function(){return Promise.resolve(u.L("after",n,s)).then(function(){})})}var r=function(){if(f)return W$1(function(){return Promise.resolve(u.add(n,e)).then(function(){return Promise.resolve(u.L("beforeLeave",n,s)).then(function(){return Promise.resolve(u.L("beforeEnter",n,s)).then(function(){return Promise.resolve(Promise.all([u.leave(n,s),u.enter(n,s)])).then(function(){return Promise.resolve(u.L("afterLeave",n,s)).then(function(){return Promise.resolve(u.L("afterEnter",n,s)).then(function(){})})})})})})},function(t){if(u.H(t))throw new G$1(t,"Transition error [sync]")});var t=function(t){return W$1(function(){var t=function(){if(!1!==r)return Promise.resolve(u.add(n,e)).then(function(){return Promise.resolve(u.L("beforeEnter",n,s)).then(function(){return Promise.resolve(u.enter(n,s,r)).then(function(){return Promise.resolve(u.L("afterEnter",n,s)).then(function(){})})})})}();if(t&&t.then)return t.then(function(){})},function(t){if(u.H(t))throw new G$1(t,"Transition error [before/after/enter]")})},r=!1,o=W$1(function(){return Promise.resolve(u.L("beforeLeave",n,s)).then(function(){return Promise.resolve(Promise.all([u.leave(n,s),P$1(i,n)]).then(function(t){return t[0]})).then(function(t){return r=t,Promise.resolve(u.L("afterLeave",n,s)).then(function(){})})})},function(t){if(u.H(t))throw new G$1(t,"Transition error [before/after/leave]")});return o&&o.then?o.then(t):t()}();return r&&r.then?r.then(t):t()})}var r=function(){if(f)return Promise.resolve(P$1(i,n)).then(function(){})}();return r&&r.then?r.then(t):t()},function(t){if(u.C=!1,t.name&&"BarbaError"===t.name)throw u.logger.debug(t.label),u.logger.error(t.error),t;throw u.logger.debug("Transition error [page]"),u.logger.error(t),t});return Promise.resolve(c&&c.then?c.then(o):o())}catch(t){return Promise.reject(t)}},r.once=function(t,n){try{return Promise.resolve(S.do("once",t,n)).then(function(){return n.once?N$1(n.once,n)(t):Promise.resolve()})}catch(t){return Promise.reject(t)}},r.leave=function(t,n){try{return Promise.resolve(S.do("leave",t,n)).then(function(){return n.leave?N$1(n.leave,n)(t):Promise.resolve()})}catch(t){return Promise.reject(t)}},r.enter=function(t,n,r){try{return Promise.resolve(S.do("enter",t,n)).then(function(){return n.enter?N$1(n.enter,n)(t,r):Promise.resolve()})}catch(t){return Promise.reject(t)}},r.add=function(t,n){try{return w$1.addContainer(t.next.container,n),S.do("nextAdded",t),Promise.resolve()}catch(t){return Promise.reject(t)}},r.remove=function(t){try{return w$1.removeContainer(t.current.container),S.do("currentRemoved",t),Promise.resolve()}catch(t){return Promise.reject(t)}},r.H=function(t){return t.message?!/Timeout error|Fetch error/.test(t.message):!t.status},r.L=function(t,n,r){try{return Promise.resolve(S.do(t,n,r)).then(function(){return r[t]?N$1(r[t],r)(n):Promise.resolve()})}catch(t){return Promise.reject(t)}},n(t,[{key:"isRunning",get:function(){return this.C},set:function(t){this.C=t;}},{key:"hasOnce",get:function(){return this.store.once.length>0}},{key:"hasSelf",get:function(){return this.store.all.some(function(t){return "self"===t.name})}},{key:"shouldWait",get:function(){return this.store.all.some(function(t){return t.to&&!t.to.route||t.sync})}}]),t}(),V=/*#__PURE__*/function(){function t(t){var n=this;this.names=["beforeLeave","afterLeave","beforeEnter","afterEnter"],this.byNamespace=new Map,0!==t.length&&(t.forEach(function(t){n.byNamespace.set(t.namespace,t);}),this.names.forEach(function(t){S[t](n._(t));}));}return t.prototype._=function(t){var n=this;return function(r){var i=t.match(/enter/i)?r.next:r.current,e=n.byNamespace.get(i.namespace);return e&&e[t]?N$1(e[t],e)(r):Promise.resolve()}},t}();Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(t){var n=this;do{if(n.matches(t))return n;n=n.parentElement||n.parentNode;}while(null!==n&&1===n.nodeType);return null});var Y={container:null,html:"",namespace:"",url:{hash:"",href:"",path:"",port:null,query:{}}},Z$1=new(/*#__PURE__*/function(){function t(){this.version="2.10.3",this.schemaPage=Y,this.Logger=d,this.logger=new d("@barba/core"),this.plugins=[],this.timeout=void 0,this.cacheIgnore=void 0,this.cacheFirstPage=void 0,this.prefetchIgnore=void 0,this.preventRunning=void 0,this.hooks=S,this.cache=void 0,this.headers=void 0,this.prevent=void 0,this.transitions=void 0,this.views=void 0,this.dom=w$1,this.helpers=g$1,this.history=y$1,this.request=j$1,this.url=A$1,this.D=void 0,this.B=void 0,this.q=void 0,this.F=void 0;}var i=t.prototype;return i.use=function(t,n){var r=this.plugins;r.indexOf(t)>-1?this.logger.warn("Plugin ["+t.name+"] already installed."):"function"==typeof t.install?(t.install(this,n),r.push(t)):this.logger.warn("Plugin ["+t.name+'] has no "install" method.');},i.init=function(t){var n=void 0===t?{}:t,i=n.transitions,e=void 0===i?[]:i,o=n.views,u=void 0===o?[]:o,s=n.schema,f=void 0===s?m$1:s,c=n.requestError,a=n.timeout,h=void 0===a?2e3:a,v=n.cacheIgnore,l=void 0!==v&&v,p=n.cacheFirstPage,w=void 0!==p&&p,b=n.prefetchIgnore,y=void 0!==b&&b,P=n.preventRunning,E=void 0!==P&&P,g=n.prevent,x=void 0===g?null:g,R=n.debug,k=n.logLevel;if(d.setLevel(true===(void 0!==R&&R)?"debug":void 0===k?"off":k),this.logger.info(this.version),Object.keys(f).forEach(function(t){m$1[t]&&(m$1[t]=f[t]);}),this.B=c,this.timeout=h,this.cacheIgnore=l,this.cacheFirstPage=w,this.prefetchIgnore=y,this.preventRunning=E,this.q=this.dom.getWrapper(),!this.q)throw new Error("[@barba/core] No Barba wrapper found");this.I();var O=this.data.current;if(!O.container)throw new Error("[@barba/core] No Barba container found");if(this.cache=new L$1(l),this.headers=new H,this.prevent=new z$1(y),this.transitions=new K$1(e),this.views=new V(u),null!==x){if("function"!=typeof x)throw new Error("[@barba/core] Prevent should be a function");this.prevent.add("preventCustom",x);}this.history.init(O.url.href,O.namespace),w&&this.cache.set(O.url.href,Promise.resolve({html:O.html,url:O.url}),"init","fulfilled"),this.U=this.U.bind(this),this.$=this.$.bind(this),this.X=this.X.bind(this),this.G(),this.plugins.forEach(function(t){return t.init()});var T=this.data;T.trigger="barba",T.next=T.current,T.current=r({},this.schemaPage),this.hooks.do("ready",T),this.once(T),this.I();},i.destroy=function(){this.I(),this.J(),this.history.clear(),this.hooks.clear(),this.plugins=[];},i.force=function(t){window.location.assign(t);},i.go=function(t,n,r){var i;if(void 0===n&&(n="barba"),this.F=null,this.transitions.isRunning)this.force(t);else if(!(i="popstate"===n?this.history.current&&this.url.getPath(this.history.current.url)===this.url.getPath(t)&&this.url.getQuery(this.history.current.url,true)===this.url.getQuery(t,true):this.prevent.run("sameUrl",null,null,t))||this.transitions.hasSelf)return n=this.history.change(this.cache.has(t)?this.cache.get(t).target:t,n,r),r&&(r.stopPropagation(),r.preventDefault()),this.page(t,n,null!=r?r:void 0,i)},i.once=function(t){try{var n=this;return Promise.resolve(n.hooks.do("beforeEnter",t)).then(function(){function r(){return Promise.resolve(n.hooks.do("afterEnter",t)).then(function(){})}var i=function(){if(n.transitions.hasOnce){var r=n.transitions.get(t,{once:!0});return Promise.resolve(n.transitions.doOnce({transition:r,data:t})).then(function(){})}}();return i&&i.then?i.then(r):r()})}catch(t){return Promise.reject(t)}},i.page=function(t,n,i,e){try{var o,u=function(){var t=s.data;return Promise.resolve(s.hooks.do("page",t)).then(function(){var n=function(n,r){try{var i=(u=s.transitions.get(t,{once:!1,self:e}),Promise.resolve(s.transitions.doPage({data:t,page:o,transition:u,wrapper:s.q})).then(function(){s.I();}));}catch(t){return r()}var u;return i&&i.then?i.then(void 0,r):i}(0,function(){0===d.getLevel()&&s.force(t.next.url.href);});if(n&&n.then)return n.then(function(){})})},s=this;if(s.data.next.url=r({href:t},s.url.parse(t)),s.data.trigger=n,s.data.event=i,s.cache.has(t))o=s.cache.update(t,{action:"click"}).request;else {var f=s.request(t,s.timeout,s.onRequestError.bind(s,n),s.cache,s.headers);f.then(function(r){r.url.href!==t&&s.history.add(r.url.href,n,"replace");}),o=s.cache.set(t,f,"click","pending").request;}var c=function(){if(s.transitions.shouldWait)return Promise.resolve(P$1(o,s.data)).then(function(){})}();return Promise.resolve(c&&c.then?c.then(u):u())}catch(t){return Promise.reject(t)}},i.onRequestError=function(t){this.transitions.isRunning=false;var n=[].slice.call(arguments,1),r=n[0],i=n[1],e=this.cache.getAction(r);return this.cache.delete(r),this.B&&false===this.B(t,e,r,i)||"click"===e&&this.force(r),false},i.prefetch=function(t){var n=this;t=this.url.getAbsoluteHref(t),this.cache.has(t)||this.cache.set(t,this.request(t,this.timeout,this.onRequestError.bind(this,"barba"),this.cache,this.headers).catch(function(t){n.logger.error(t);}),"prefetch","pending");},i.G=function(){ true!==this.prefetchIgnore&&(document.addEventListener("mouseover",this.U),document.addEventListener("touchstart",this.U)),document.addEventListener("click",this.$),window.addEventListener("popstate",this.X);},i.J=function(){ true!==this.prefetchIgnore&&(document.removeEventListener("mouseover",this.U),document.removeEventListener("touchstart",this.U)),document.removeEventListener("click",this.$),window.removeEventListener("popstate",this.X);},i.U=function(t){var n=this,r=this.W(t);if(r){var i=this.url.getAbsoluteHref(this.dom.getHref(r));this.prevent.checkHref(i)||this.cache.has(i)||this.cache.set(i,this.request(i,this.timeout,this.onRequestError.bind(this,r),this.cache,this.headers).catch(function(t){n.logger.error(t);}),"enter","pending");}},i.$=function(t){var n=this.W(t);if(n){if(this.transitions.isRunning&&this.preventRunning)return t.preventDefault(),void t.stopPropagation();this.F=t,this.go(this.dom.getHref(n),n,t);}},i.X=function(t){this.go(this.url.getHref(),"popstate",t);},i.W=function(t){for(var n=t.target;n&&!this.dom.getHref(n);)n=n.parentNode;if(n&&!this.prevent.checkLink(n,t,this.dom.getHref(n)))return n},i.I=function(){var t=this.url.getHref(),n={container:this.dom.getContainer(),html:this.dom.getHtml(),namespace:this.dom.getNamespace(),url:r({href:t},this.url.parse(t))};this.D={current:n,event:void 0,next:r({},this.schemaPage),trigger:void 0},this.hooks.do("reset",this.data);},n(t,[{key:"data",get:function(){return this.D}},{key:"wrapper",get:function(){return this.q}}]),t}());
 
   const rtfAuto = new Intl.RelativeTimeFormat("fr-CA", { numeric: "auto" });
   const rtfAlways = new Intl.RelativeTimeFormat("fr-CA", { numeric: "always" });
@@ -540,11 +540,15 @@
     _nsHooks.set(ns, { ...(handlers || {}) });
   }
 
+  function registerModule(m) {
+    modules.push(m);
+  }
+
   function initBarba() {
     if (_initialized) return { destroy };
     _initialized = true;
 
-    if (!Z?.init) {
+    if (!Z$1?.init) {
       console.warn("[barba] introuvable. Charge @barba/core avant initBarba().");
       Context.container = qs(CFG.CONTAINER_SEL) || document;
       return { destroy };
@@ -560,7 +564,7 @@
     mountModules(document);
     updateTyme(document);
 
-    Z.init({
+    Z$1.init({
       prevent: ({ el }) => el?.hasAttribute?.("data-barba-prevent"),
 
       transitions: [
@@ -721,7 +725,7 @@
 
   function destroy() {
     try {
-      Z?.destroy?.();
+      Z$1?.destroy?.();
     } catch {}
 
     if (Pager._onPopState) {
@@ -2853,7 +2857,7 @@
   potion.addFilter = addFilter;
   potion.applyFilter = applyFilter;
 
-  const FORUMS_REFRESH_MS = 30 * 1000;
+  const FORUMS_REFRESH_MS = 5 * 60 * 1000;
 
   let NAV = potion.sync("nav", {
     forums: [],
@@ -2949,13 +2953,13 @@
   }
 
   const icons = {
-    f1: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="hash" aria-hidden="true" class="lucide lucide-hash w-4 h-4 text-blue-500 mr-2"><line x1="4" x2="20" y1="9" y2="9"></line><line x1="4" x2="20" y1="15" y2="15"></line><line x1="10" x2="8" y1="3" y2="21"></line><line x1="16" x2="14" y1="3" y2="21"></line></svg>`,
-    f2: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" aria-hidden="true" class="lucide lucide-help-circle w-4 h-4 text-emerald-500 mr-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>`,
-    f3: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="code" aria-hidden="true" class="lucide lucide-code w-4 h-4 text-purple-500 mr-2"><path d="m16 18 6-6-6-6"></path><path d="m8 6-6 6 6 6"></path></svg>`,
-    f4: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="palette" aria-hidden="true" class="lucide lucide-palette w-4 h-4 text-rose-500 mr-2"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>`,
-    f5: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="folder-kanban" aria-hidden="true" class="lucide lucide-folder-kanban w-4 h-4 mr-2 text-orange-500"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path><path d="M8 10v4"></path><path d="M12 10v2"></path><path d="M16 10v6"></path></svg>`,
-    f6: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="coffee" aria-hidden="true" class="lucide lucide-coffee w-4 h-4 text-yellow-500 mr-2"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg>`,
-    default: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="hash" aria-hidden="true" class="lucide lucide-hash w-4 h-4 text-blue-500 mr-2"><line x1="4" x2="20" y1="9" y2="9"></line><line x1="4" x2="20" y1="15" y2="15"></line><line x1="10" x2="8" y1="3" y2="21"></line><line x1="16" x2="14" y1="3" y2="21"></line></svg>`,
+    f1: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="hash" aria-hidden="true" class="lucide lucide-hash w-4 h-4 text-blue-600"><line x1="4" x2="20" y1="9" y2="9"></line><line x1="4" x2="20" y1="15" y2="15"></line><line x1="10" x2="8" y1="3" y2="21"></line><line x1="16" x2="14" y1="3" y2="21"></line></svg>`,
+    f2: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" aria-hidden="true" class="lucide lucide-help-circle w-4 h-4 text-emerald-600"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>`,
+    f3: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="code" aria-hidden="true" class="lucide lucide-code w-4 h-4 text-purple-600"><path d="m16 18 6-6-6-6"></path><path d="m8 6-6 6 6 6"></path></svg>`,
+    f4: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="palette" aria-hidden="true" class="lucide lucide-palette w-4 h-4 text-rose-600"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>`,
+    f5: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="folder-kanban" aria-hidden="true" class="lucide lucide-folder-kanban w-4 h-4 text-orange-600"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path><path d="M8 10v4"></path><path d="M12 10v2"></path><path d="M16 10v6"></path></svg>`,
+    f6: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="coffee" aria-hidden="true" class="lucide lucide-coffee w-4 h-4 text-yellow-600"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg>`,
+    default: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="hash" aria-hidden="true" class="lucide lucide-hash w-4 h-4 text-blue-600"><line x1="4" x2="20" y1="9" y2="9"></line><line x1="4" x2="20" y1="15" y2="15"></line><line x1="10" x2="8" y1="3" y2="21"></line><line x1="16" x2="14" y1="3" y2="21"></line></svg>`,
   };
 
   function stripHtml(html) {
@@ -3096,8 +3100,9 @@
     const buttons = Array.from(group.querySelectorAll("button[data-view]"));
     const VALID = new Set(["split", "forum", "chat"]);
 
-    const ACTIVE = "bg-white text-indigo-600 shadow-sm";
-    const INACTIVE = "text-slate-600 hover:text-indigo-600";
+    const ACTIVE = "bg-white shadow-sm dark:bg-zinc-700";
+    const INACTIVE =
+      "bg-transparent cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700";
 
     function setActiveButton(mode) {
       buttons.forEach((btn) => {
@@ -3142,7 +3147,12 @@
     let handle = document.getElementById("panel-resizer");
     if (!handle) {
       handle = document.createElement("div");
-      handle.classList.add("bg-zinc-200", "dark:bg-zinc-800");
+      handle.classList.add(
+        "bg-zinc-200",
+        "dark:bg-zinc-800",
+        "hover:before:bg-black/5",
+        "dark:hover:before:bg-white/10",
+      );
       handle.id = "panel-resizer";
       handle.setAttribute("aria-hidden", "true");
       // insérer entre forum et chat
@@ -3173,8 +3183,7 @@
 
     // Double click = reset (optionnel)
     handle.addEventListener("dblclick", () => {
-      localStorage.removeItem(LS_KEY);
-      content.style.removeProperty("--chat-w");
+      setChatWidth(MIN_CHAT);
     });
 
     let dragging = false;
@@ -3227,6 +3236,3206 @@
     window.addEventListener("resize", () => stopDrag());
   };
 
+  var UNICODE_EMOJI = {emojis:[{emoji:"😀",description:"grinning face",version:"1.0",keywords:["cheerful","cheery","face","grin","grinning","happy","laugh","nice","smile","smiling","teeth"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😃",description:"grinning face with big eyes",version:"0.6",keywords:["awesome","big","eyes","face","grin","grinning","happy","mouth","open","smile","smiling","teeth","yay"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😄",description:"grinning face with smiling eyes",version:"0.6",keywords:["eye","eyes","face","grin","grinning","happy","laugh","lol","mouth","open","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😁",description:"beaming face with smiling eyes",version:"0.6",keywords:["beaming","eye","eyes","face","grin","grinning","happy","nice","smile","smiling","teeth"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😆",description:"grinning squinting face",version:"0.6",keywords:["closed","eyes","face","grinning","haha","hahaha","happy","laugh","lol","mouth","open","rofl","smile","smiling","squinting"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😅",description:"grinning face with sweat",version:"0.6",keywords:["cold","dejected","excited","face","grinning","mouth","nervous","open","smile","smiling","stress","stressed","sweat"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"🤣",description:"rolling on the floor laughing",version:"3.0",keywords:["crying","face","floor","funny","haha","happy","hehe","hilarious","joy","laugh","lmao","lol","rofl","roflmao","rolling","tear"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😂",description:"face with tears of joy",version:"0.6",keywords:["crying","face","feels","funny","haha","happy","hehe","hilarious","joy","laugh","lmao","lol","rofl","roflmao","tear"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"🙂",description:"slightly smiling face",version:"1.0",keywords:["face","happy","slightly","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"🙃",description:"upside-down face",version:"1.0",keywords:["face","hehe","smile","upside-down"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"🫠",description:"melting face",version:"14.0",keywords:["disappear","dissolve","embarrassed","face","haha","heat","hot","liquid","lol","melt","melting","sarcasm","sarcastic"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😉",description:"winking face",version:"0.6",keywords:["face","flirt","heartbreaker","sexy","slide","tease","wink","winking","winks"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😊",description:"smiling face with smiling eyes",version:"0.6",keywords:["blush","eye","eyes","face","glad","satisfied","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"😇",description:"smiling face with halo",version:"1.0",keywords:["angel","angelic","angels","blessed","face","fairy","fairytale","fantasy","halo","happy","innocent","peaceful","smile","smiling","spirit","tale"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-smiling"},{emoji:"🥰",description:"smiling face with hearts",version:"11.0",keywords:["3","adore","crush","face","heart","hearts","ily","love","romance","smile","smiling","you"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"😍",description:"smiling face with heart-eyes",version:"0.6",keywords:["143","bae","eye","face","feels","heart-eyes","hearts","ily","kisses","love","romance","romantic","smile","xoxo"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"🤩",description:"star-struck",version:"5.0",keywords:["excited","eyes","face","grinning","smile","star","star-struck","starry-eyed","wow"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"😘",description:"face blowing a kiss",version:"0.6",keywords:["adorbs","bae","blowing","face","flirt","heart","ily","kiss","love","lover","miss","muah","romantic","smooch","xoxo","you"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"😗",description:"kissing face",version:"1.0",keywords:["143","date","dating","face","flirt","ily","kiss","love","smooch","smooches","xoxo","you"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"☺️",description:"smiling face",version:"0.6",keywords:["face","happy","outlined","relaxed","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"😚",description:"kissing face with closed eyes",version:"0.6",keywords:["143","bae","blush","closed","date","dating","eye","eyes","face","flirt","ily","kisses","kissing","smooches","xoxo"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"😙",description:"kissing face with smiling eyes",version:"1.0",keywords:["143","closed","date","dating","eye","eyes","face","flirt","ily","kiss","kisses","kissing","love","night","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"🥲",description:"smiling face with tear",version:"13.0",keywords:["face","glad","grateful","happy","joy","pain","proud","relieved","smile","smiley","smiling","tear","touched"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-affection"},{emoji:"😋",description:"face savoring food",version:"0.6",keywords:["delicious","eat","face","food","full","hungry","savor","smile","smiling","tasty","um","yum","yummy"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-tongue"},{emoji:"😛",description:"face with tongue",version:"1.0",keywords:["awesome","cool","face","nice","party","stuck-out","sweet","tongue"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-tongue"},{emoji:"😜",description:"winking face with tongue",version:"0.6",keywords:["crazy","epic","eye","face","funny","joke","loopy","nutty","party","stuck-out","tongue","wacky","weirdo","wink","winking","yolo"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-tongue"},{emoji:"🤪",description:"zany face",version:"5.0",keywords:["crazy","eye","eyes","face","goofy","large","small","zany"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-tongue"},{emoji:"😝",description:"squinting face with tongue",version:"0.6",keywords:["closed","eye","eyes","face","gross","horrible","omg","squinting","stuck-out","taste","tongue","whatever","yolo"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-tongue"},{emoji:"🤑",description:"money-mouth face",version:"1.0",keywords:["face","money","money-mouth","mouth","paid"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-tongue"},{emoji:"🤗",description:"smiling face with open hands",version:"1.0",keywords:["face","hands","hug","hugging","open","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hand"},{emoji:"🤭",description:"face with hand over mouth",version:"5.0",keywords:["face","giggle","giggling","hand","mouth","oops","realization","secret","shock","sudden","surprise","whoops"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hand"},{emoji:"🫢",description:"face with open eyes and hand over mouth",version:"14.0",keywords:["amazement","awe","disbelief","embarrass","eyes","face","gasp","hand","mouth","omg","open","over","quiet","scared","shock","surprise"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hand"},{emoji:"🫣",description:"face with peeking eye",version:"14.0",keywords:["captivated","embarrass","eye","face","hide","hiding","peek","peeking","peep","scared","shy","stare"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hand"},{emoji:"🤫",description:"shushing face",version:"5.0",keywords:["face","quiet","shh","shush","shushing"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hand"},{emoji:"🤔",description:"thinking face",version:"1.0",keywords:["chin","consider","face","hmm","ponder","pondering","thinking","wondering"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hand"},{emoji:"🫡",description:"saluting face",version:"14.0",keywords:["face","good","luck","ma’am","OK","respect","salute","saluting","sir","troops","yes"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hand"},{emoji:"🤐",description:"zipper-mouth face",version:"1.0",keywords:["face","keep","mouth","quiet","secret","shut","zip","zipper","zipper-mouth"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"🤨",description:"face with raised eyebrow",version:"5.0",keywords:["disapproval","disbelief","distrust","emoji","eyebrow","face","hmm","mild","raised","skeptic","skeptical","skepticism","surprise","what"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😐",description:"neutral face",version:"0.7",keywords:["awkward","blank","deadpan","expressionless","face","fine","jealous","meh","neutral","oh","shade","straight","unamused","unhappy","unimpressed","whatever"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😑",description:"expressionless face",version:"1.0",keywords:["awkward","dead","expressionless","face","fine","inexpressive","jealous","meh","not","oh","omg","straight","uh","unhappy","unimpressed","whatever"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😶",description:"face without mouth",version:"1.0",keywords:["awkward","blank","expressionless","face","mouth","mouthless","mute","quiet","secret","silence","silent","speechless"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"🫥",description:"dotted line face",version:"14.0",keywords:["depressed","disappear","dotted","face","hidden","hide","introvert","invisible","line","meh","whatever","wtv"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😶‍🌫️",description:"face in clouds",version:"13.1",keywords:["absentminded","clouds","face","fog","head"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😏",description:"smirking face",version:"0.6",keywords:["boss","dapper","face","flirt","homie","kidding","leer","shade","slick","sly","smirk","smug","snicker","suave","suspicious","swag"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😒",description:"unamused face",version:"0.6",keywords:["...","bored","face","fine","jealous","jel","jelly","pissed","smh","ugh","uhh","unamused","unhappy","weird","whatever"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"🙄",description:"face with rolling eyes",version:"1.0",keywords:["eyeroll","eyes","face","rolling","shade","ugh","whatever"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😬",description:"grimacing face",version:"1.0",keywords:["awk","awkward","dentist","face","grimace","grimacing","grinning","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😮‍💨",description:"face exhaling",version:"13.1",keywords:["blow","blowing","exhale","exhaling","exhausted","face","gasp","groan","relief","sigh","smiley","smoke","whisper","whistle"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"🤥",description:"lying face",version:"3.0",keywords:["face","liar","lie","lying","pinocchio"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"🫨",description:"shaking face",version:"15.0",keywords:["crazy","daze","earthquake","face","omg","panic","shaking","shock","surprise","vibrate","whoa","wow"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"🙂‍↔️",description:"head shaking horizontally",version:"15.1",keywords:["head","horizontally","no","shake","shaking"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"🙂‍↕️",description:"head shaking vertically",version:"15.1",keywords:["head","nod","shaking","vertically","yes"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-neutral-skeptical"},{emoji:"😌",description:"relieved face",version:"0.6",keywords:["calm","face","peace","relief","relieved","zen"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-sleepy"},{emoji:"😔",description:"pensive face",version:"0.6",keywords:["awful","bored","dejected","died","disappointed","face","losing","lost","pensive","sad","sucks"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-sleepy"},{emoji:"😪",description:"sleepy face",version:"0.6",keywords:["crying","face","good","night","sad","sleep","sleeping","sleepy","tired"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-sleepy"},{emoji:"🤤",description:"drooling face",version:"3.0",keywords:["drooling","face"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-sleepy"},{emoji:"😴",description:"sleeping face",version:"1.0",keywords:["bed","bedtime","face","good","goodnight","nap","night","sleep","sleeping","tired","whatever","yawn","zzz"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-sleepy"},{emoji:"🫩",description:"face with bags under eyes",version:"16.0",keywords:["bags","bored","exhausted","eyes","face","fatigued","late","sleepy","tired","weary"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-sleepy"},{emoji:"😷",description:"face with medical mask",version:"0.6",keywords:["cold","dentist","dermatologist","doctor","dr","face","germs","mask","medical","medicine","sick"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🤒",description:"face with thermometer",version:"1.0",keywords:["face","ill","sick","thermometer"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🤕",description:"face with head-bandage",version:"1.0",keywords:["bandage","face","head-bandage","hurt","injury","ouch"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🤢",description:"nauseated face",version:"3.0",keywords:["face","gross","nasty","nauseated","sick","vomit"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🤮",description:"face vomiting",version:"5.0",keywords:["barf","ew","face","gross","puke","sick","spew","throw","up","vomit","vomiting"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🤧",description:"sneezing face",version:"3.0",keywords:["face","fever","flu","gesundheit","sick","sneeze","sneezing"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🥵",description:"hot face",version:"11.0",keywords:["dying","face","feverish","heat","hot","panting","red-faced","stroke","sweating","tongue"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🥶",description:"cold face",version:"11.0",keywords:["blue","blue-faced","cold","face","freezing","frostbite","icicles","subzero","teeth"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🥴",description:"woozy face",version:"11.0",keywords:["dizzy","drunk","eyes","face","intoxicated","mouth","tipsy","uneven","wavy","woozy"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"😵",description:"face with crossed-out eyes",version:"0.6",keywords:["crossed-out","dead","dizzy","eyes","face","feels","knocked","out","sick","tired"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"😵‍💫",description:"face with spiral eyes",version:"13.1",keywords:["confused","dizzy","eyes","face","hypnotized","omg","smiley","spiral","trouble","whoa","woah","woozy"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🤯",description:"exploding head",version:"5.0",keywords:["blown","explode","exploding","head","mind","mindblown","no","shocked","way"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-unwell"},{emoji:"🤠",description:"cowboy hat face",version:"3.0",keywords:["cowboy","cowgirl","face","hat"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hat"},{emoji:"🥳",description:"partying face",version:"11.0",keywords:["bday","birthday","celebrate","celebration","excited","face","happy","hat","hooray","horn","party","partying"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hat"},{emoji:"🥸",description:"disguised face",version:"13.0",keywords:["disguise","eyebrow","face","glasses","incognito","moustache","mustache","nose","person","spy","tache","tash"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-hat"},{emoji:"😎",description:"smiling face with sunglasses",version:"1.0",keywords:["awesome","beach","bright","bro","chilling","cool","face","rad","relaxed","shades","slay","smile","style","sunglasses","swag","win"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-glasses"},{emoji:"🤓",description:"nerd face",version:"1.0",keywords:["brainy","clever","expert","face","geek","gifted","glasses","intelligent","nerd","smart"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-glasses"},{emoji:"🧐",description:"face with monocle",version:"5.0",keywords:["classy","face","fancy","monocle","rich","stuffy","wealthy"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-glasses"},{emoji:"😕",description:"confused face",version:"1.0",keywords:["befuddled","confused","confusing","dunno","face","frown","hm","meh","not","sad","sorry","sure"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"🫤",description:"face with diagonal mouth",version:"14.0",keywords:["confused","confusion","diagonal","disappointed","doubt","doubtful","face","frustrated","frustration","meh","mouth","skeptical","unsure","whatever","wtv"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😟",description:"worried face",version:"1.0",keywords:["anxious","butterflies","face","nerves","nervous","sad","stress","stressed","surprised","worried","worry"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"🙁",description:"slightly frowning face",version:"1.0",keywords:["face","frown","frowning","sad","slightly"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"☹️",description:"frowning face",version:"0.7",keywords:["face","frown","frowning","sad"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😮",description:"face with open mouth",version:"1.0",keywords:["believe","face","forgot","mouth","omg","open","shocked","surprised","sympathy","unbelievable","unreal","whoa","wow","you"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😯",description:"hushed face",version:"1.0",keywords:["epic","face","hushed","omg","stunned","surprised","whoa","woah"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😲",description:"astonished face",version:"0.6",keywords:["astonished","cost","face","no","omg","shocked","totally","way"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😳",description:"flushed face",version:"0.6",keywords:["amazed","awkward","crazy","dazed","dead","disbelief","embarrassed","face","flushed","geez","heat","hot","impressed","jeez","what","wow"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"🥺",description:"pleading face",version:"11.0",keywords:["begging","big","eyes","face","mercy","not","pleading","please","pretty","puppy","sad","why"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"🥹",description:"face holding back tears",version:"14.0",keywords:["admiration","aww","back","cry","embarrassed","face","feelings","grateful","gratitude","holding","joy","please","proud","resist","sad","tears"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😦",description:"frowning face with open mouth",version:"1.0",keywords:["caught","face","frown","frowning","guard","mouth","open","scared","scary","surprise","what","wow"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😧",description:"anguished face",version:"1.0",keywords:["anguished","face","forgot","scared","scary","stressed","surprise","unhappy","what","wow"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😨",description:"fearful face",version:"0.6",keywords:["afraid","anxious","blame","face","fear","fearful","scared","worried"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😰",description:"anxious face with sweat",version:"0.6",keywords:["anxious","blue","cold","eek","face","mouth","nervous","open","rushed","scared","sweat","yikes"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😥",description:"sad but relieved face",version:"0.6",keywords:["anxious","call","close","complicated","disappointed","face","not","relieved","sad","sweat","time","whew"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😢",description:"crying face",version:"0.6",keywords:["awful","cry","crying","face","feels","miss","sad","tear","triste","unhappy"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😭",description:"loudly crying face",version:"0.6",keywords:["bawling","cry","crying","face","loudly","sad","sob","tear","tears","unhappy"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😱",description:"face screaming in fear",version:"0.6",keywords:["epic","face","fear","fearful","munch","scared","scream","screamer","screaming","shocked","surprised","woah"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😖",description:"confounded face",version:"0.6",keywords:["annoyed","confounded","confused","cringe","distraught","face","feels","frustrated","mad","sad"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😣",description:"persevering face",version:"0.6",keywords:["concentrate","concentration","face","focus","headache","persevere","persevering"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😞",description:"disappointed face",version:"0.6",keywords:["awful","blame","dejected","disappointed","face","fail","losing","sad","unhappy"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😓",description:"downcast face with sweat",version:"0.6",keywords:["close","cold","downcast","face","feels","headache","nervous","sad","scared","sweat","yikes"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😩",description:"weary face",version:"0.6",keywords:["crying","face","fail","feels","hungry","mad","nooo","sad","sleepy","tired","unhappy","weary"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😫",description:"tired face",version:"0.6",keywords:["cost","face","feels","nap","sad","sneeze","tired"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"🥱",description:"yawning face",version:"12.0",keywords:["bedtime","bored","face","goodnight","nap","night","sleep","sleepy","tired","whatever","yawn","yawning","zzz"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-concerned"},{emoji:"😤",description:"face with steam from nose",version:"0.6",keywords:["anger","angry","face","feels","fume","fuming","furious","fury","mad","nose","steam","triumph","unhappy","won"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-negative"},{emoji:"😡",description:"enraged face",version:"0.6",keywords:["anger","angry","enraged","face","feels","mad","maddening","pouting","rage","red","shade","unhappy","upset"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-negative"},{emoji:"😠",description:"angry face",version:"0.6",keywords:["anger","angry","blame","face","feels","frustrated","mad","maddening","rage","shade","unhappy","upset"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-negative"},{emoji:"🤬",description:"face with symbols on mouth",version:"5.0",keywords:["censor","cursing","cussing","face","mad","mouth","pissed","swearing","symbols"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-negative"},{emoji:"😈",description:"smiling face with horns",version:"1.0",keywords:["demon","devil","evil","face","fairy","fairytale","fantasy","horns","purple","shade","smile","smiling","tale"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-negative"},{emoji:"👿",description:"angry face with horns",version:"0.6",keywords:["angry","demon","devil","evil","face","fairy","fairytale","fantasy","horns","imp","mischievous","purple","shade","tale"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-negative"},{emoji:"💀",description:"skull",version:"0.6",keywords:["body","dead","death","face","fairy","fairytale","i’m","lmao","monster","skull","tale","yolo"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-negative"},{emoji:"☠️",description:"skull and crossbones",version:"1.0",keywords:["bone","crossbones","dead","death","face","monster","skull"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-negative"},{emoji:"💩",description:"pile of poo",version:"0.6",keywords:["bs","comic","doo","dung","face","fml","monster","pile","poo","poop","smelly","smh","stink","stinks","stinky","turd"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-costume"},{emoji:"🤡",description:"clown face",version:"3.0",keywords:["clown","face"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-costume"},{emoji:"👹",description:"ogre",version:"0.6",keywords:["creature","devil","face","fairy","fairytale","fantasy","mask","monster","ogre","scary","tale"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-costume"},{emoji:"👺",description:"goblin",version:"0.6",keywords:["angry","creature","face","fairy","fairytale","fantasy","goblin","mask","mean","monster","tale"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-costume"},{emoji:"👻",description:"ghost",version:"0.6",keywords:["boo","creature","excited","face","fairy","fairytale","fantasy","ghost","halloween","haunting","monster","scary","silly","tale"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-costume"},{emoji:"👽",description:"alien",version:"0.6",keywords:["alien","creature","extraterrestrial","face","fairy","fairytale","fantasy","monster","space","tale","ufo"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-costume"},{emoji:"👾",description:"alien monster",version:"0.6",keywords:["alien","creature","extraterrestrial","face","fairy","fairytale","fantasy","game","gamer","games","monster","pixelated","space","tale","ufo"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-costume"},{emoji:"🤖",description:"robot",version:"1.0",keywords:["face","monster","robot"],category:"face-emotion",group:"smileys-emotion",subgroup:"face-costume"},{emoji:"😺",description:"grinning cat",version:"0.6",keywords:["animal","cat","face","grinning","mouth","open","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"😸",description:"grinning cat with smiling eyes",version:"0.6",keywords:["animal","cat","eye","eyes","face","grin","grinning","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"😹",description:"cat with tears of joy",version:"0.6",keywords:["animal","cat","face","joy","laugh","laughing","lol","tear","tears"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"😻",description:"smiling cat with heart-eyes",version:"0.6",keywords:["animal","cat","eye","face","heart","heart-eyes","love","smile","smiling"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"😼",description:"cat with wry smile",version:"0.6",keywords:["animal","cat","face","ironic","smile","wry"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"😽",description:"kissing cat",version:"0.6",keywords:["animal","cat","closed","eye","eyes","face","kiss","kissing"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"🙀",description:"weary cat",version:"0.6",keywords:["animal","cat","face","oh","surprised","weary"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"😿",description:"crying cat",version:"0.6",keywords:["animal","cat","cry","crying","face","sad","tear"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"😾",description:"pouting cat",version:"0.6",keywords:["animal","cat","face","pouting"],category:"face-emotion",group:"smileys-emotion",subgroup:"cat-face"},{emoji:"🙈",description:"see-no-evil monkey",version:"0.6",keywords:["embarrassed","evil","face","forbidden","forgot","gesture","hide","monkey","no","omg","prohibited","scared","secret","smh","watch"],category:"face-emotion",group:"smileys-emotion",subgroup:"monkey-face"},{emoji:"🙉",description:"hear-no-evil monkey",version:"0.6",keywords:["animal","ears","evil","face","forbidden","gesture","hear","listen","monkey","no","not","prohibited","secret","shh","tmi"],category:"face-emotion",group:"smileys-emotion",subgroup:"monkey-face"},{emoji:"🙊",description:"speak-no-evil monkey",version:"0.6",keywords:["animal","evil","face","forbidden","gesture","monkey","no","not","oops","prohibited","quiet","secret","speak","stealth"],category:"face-emotion",group:"smileys-emotion",subgroup:"monkey-face"},{emoji:"💌",description:"love letter",version:"0.6",keywords:["heart","letter","love","mail","romance","valentine"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💘",description:"heart with arrow",version:"0.6",keywords:["143","adorbs","arrow","cupid","date","emotion","heart","ily","love","romance","valentine"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💝",description:"heart with ribbon",version:"0.6",keywords:["143","anniversary","emotion","heart","ily","kisses","ribbon","valentine","xoxo"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💖",description:"sparkling heart",version:"0.6",keywords:["143","emotion","excited","good","heart","ily","kisses","morning","night","sparkle","sparkling","xoxo"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💗",description:"growing heart",version:"0.6",keywords:["143","emotion","excited","growing","heart","heartpulse","ily","kisses","muah","nervous","pulse","xoxo"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💓",description:"beating heart",version:"0.6",keywords:["143","beating","cardio","emotion","heart","heartbeat","ily","love","pulsating","pulse"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💞",description:"revolving hearts",version:"0.6",keywords:["143","adorbs","anniversary","emotion","heart","hearts","revolving"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💕",description:"two hearts",version:"0.6",keywords:["143","anniversary","date","dating","emotion","heart","hearts","ily","kisses","love","loving","two","xoxo"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💟",description:"heart decoration",version:"0.6",keywords:["143","decoration","emotion","heart","hearth","purple","white"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"❣️",description:"heart exclamation",version:"1.0",keywords:["exclamation","heart","heavy","mark","punctuation"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💔",description:"broken heart",version:"0.6",keywords:["break","broken","crushed","emotion","heart","heartbroken","lonely","sad"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"❤️‍🔥",description:"heart on fire",version:"13.1",keywords:["burn","fire","heart","love","lust","sacred"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"❤️‍🩹",description:"mending heart",version:"13.1",keywords:["healthier","heart","improving","mending","recovering","recuperating","well"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"❤️",description:"red heart",version:"0.6",keywords:["emotion","heart","love","red"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"🩷",description:"pink heart",version:"15.0",keywords:["143","adorable","cute","emotion","heart","ily","like","love","pink","special","sweet"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"🧡",description:"orange heart",version:"5.0",keywords:["143","heart","orange"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💛",description:"yellow heart",version:"0.6",keywords:["143","cardiac","emotion","heart","ily","love","yellow"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💚",description:"green heart",version:"0.6",keywords:["143","emotion","green","heart","ily","love","romantic"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💙",description:"blue heart",version:"0.6",keywords:["143","blue","emotion","heart","ily","love","romance"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"🩵",description:"light blue heart",version:"15.0",keywords:["143","blue","cute","cyan","emotion","heart","ily","light","like","love","sky","special","teal"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💜",description:"purple heart",version:"0.6",keywords:["143","bestest","emotion","heart","ily","love","purple"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"🤎",description:"brown heart",version:"12.0",keywords:["143","brown","heart"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"🖤",description:"black heart",version:"3.0",keywords:["black","evil","heart","wicked"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"🩶",description:"grey heart",version:"15.0",keywords:["143","emotion","gray","grey","heart","ily","love","silver","slate","special"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"🤍",description:"white heart",version:"12.0",keywords:["143","heart","white"],category:"face-emotion",group:"smileys-emotion",subgroup:"heart"},{emoji:"💋",description:"kiss mark",version:"0.6",keywords:["dating","emotion","heart","kiss","kissing","lips","mark","romance","sexy"],category:"face-emotion",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💯",description:"hundred points",version:"0.6",keywords:["100","a+","agree","clearly","definitely","faithful","fleek","full","hundred","keep","perfect","point","score","TRUE","truth","yup"],category:"face-emotion",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💢",description:"anger symbol",version:"0.6",keywords:["anger","angry","comic","mad","symbol","upset"],category:"face-emotion",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💥",description:"collision",version:"0.6",keywords:["bomb","boom","collide","collision","comic","explode"],category:"face-emotion",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💫",description:"dizzy",version:"0.6",keywords:["comic","dizzy","shining","shooting","star","stars"],category:"face-emotion",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💦",description:"sweat droplets",version:"0.6",keywords:["comic","drip","droplet","droplets","drops","splashing","squirt","sweat","water","wet","work","workout"],category:"face-emotion",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💨",description:"dashing away",version:"0.6",keywords:["away","cloud","comic","dash","dashing","fart","fast","go","gone","gotta","running","smoke"],category:"face-emotion",group:"smileys-emotion",subgroup:"emotion"},{emoji:"🕳️",description:"hole",version:"0.7",keywords:["hole"],category:"symbols",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💬",description:"speech balloon",version:"0.6",keywords:["balloon","bubble","comic","dialog","message","sms","speech","talk","text","typing"],category:"symbols",group:"smileys-emotion",subgroup:"emotion"},{emoji:"👁️‍🗨️",description:"eye in speech bubble",version:"2.0",keywords:["balloon","bubble","eye","speech","witness"],category:"symbols",group:"smileys-emotion",subgroup:"emotion"},{emoji:"🗨️",description:"left speech bubble",version:"2.0",keywords:["balloon","bubble","dialog","left","speech"],category:"symbols",group:"smileys-emotion",subgroup:"emotion"},{emoji:"🗯️",description:"right anger bubble",version:"0.7",keywords:["anger","angry","balloon","bubble","mad","right"],category:"symbols",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💭",description:"thought balloon",version:"1.0",keywords:["balloon","bubble","cartoon","cloud","comic","daydream","decisions","dream","idea","invent","invention","realize","think","thoughts","wonder"],category:"symbols",group:"smileys-emotion",subgroup:"emotion"},{emoji:"💤",description:"ZZZ",version:"0.6",keywords:["comic","good","goodnight","night","sleep","sleeping","sleepy","tired","zzz"],category:"face-emotion",group:"smileys-emotion",subgroup:"emotion"},{emoji:"👋",description:"waving hand",version:"0.6",keywords:["bye","cya","g2g","greetings","gtg","hand","hello","hey","hi","later","outtie","ttfn","ttyl","wave","yo","you"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"👋🏻",description:"waving hand: light skin tone",version:"1.0"},{emoji:"👋🏼",description:"waving hand: medium-light skin tone",version:"1.0"},{emoji:"👋🏽",description:"waving hand: medium skin tone",version:"1.0"},{emoji:"👋🏾",description:"waving hand: medium-dark skin tone",version:"1.0"},{emoji:"👋🏿",description:"waving hand: dark skin tone",version:"1.0"}]},{emoji:"🤚",description:"raised back of hand",version:"3.0",keywords:["back","backhand","hand","raised"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🤚🏻",description:"raised back of hand: light skin tone",version:"3.0"},{emoji:"🤚🏼",description:"raised back of hand: medium-light skin tone",version:"3.0"},{emoji:"🤚🏽",description:"raised back of hand: medium skin tone",version:"3.0"},{emoji:"🤚🏾",description:"raised back of hand: medium-dark skin tone",version:"3.0"},{emoji:"🤚🏿",description:"raised back of hand: dark skin tone",version:"3.0"}]},{emoji:"🖐️",description:"hand with fingers splayed",version:"0.7",keywords:["finger","fingers","hand","raised","splayed","stop"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🖐🏻",description:"hand with fingers splayed: light skin tone",version:"1.0"},{emoji:"🖐🏼",description:"hand with fingers splayed: medium-light skin tone",version:"1.0"},{emoji:"🖐🏽",description:"hand with fingers splayed: medium skin tone",version:"1.0"},{emoji:"🖐🏾",description:"hand with fingers splayed: medium-dark skin tone",version:"1.0"},{emoji:"🖐🏿",description:"hand with fingers splayed: dark skin tone",version:"1.0"}]},{emoji:"✋",description:"raised hand",version:"0.6",keywords:["5","five","hand","high","raised","stop"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"✋🏻",description:"raised hand: light skin tone",version:"1.0"},{emoji:"✋🏼",description:"raised hand: medium-light skin tone",version:"1.0"},{emoji:"✋🏽",description:"raised hand: medium skin tone",version:"1.0"},{emoji:"✋🏾",description:"raised hand: medium-dark skin tone",version:"1.0"},{emoji:"✋🏿",description:"raised hand: dark skin tone",version:"1.0"}]},{emoji:"🖖",description:"vulcan salute",version:"1.0",keywords:["finger","hand","hands","salute","Vulcan"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🖖🏻",description:"vulcan salute: light skin tone",version:"1.0"},{emoji:"🖖🏼",description:"vulcan salute: medium-light skin tone",version:"1.0"},{emoji:"🖖🏽",description:"vulcan salute: medium skin tone",version:"1.0"},{emoji:"🖖🏾",description:"vulcan salute: medium-dark skin tone",version:"1.0"},{emoji:"🖖🏿",description:"vulcan salute: dark skin tone",version:"1.0"}]},{emoji:"🫱",description:"rightwards hand",version:"14.0",keywords:["hand","handshake","hold","reach","right","rightward","rightwards","shake"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🫱🏻",description:"rightwards hand: light skin tone",version:"14.0"},{emoji:"🫱🏼",description:"rightwards hand: medium-light skin tone",version:"14.0"},{emoji:"🫱🏽",description:"rightwards hand: medium skin tone",version:"14.0"},{emoji:"🫱🏾",description:"rightwards hand: medium-dark skin tone",version:"14.0"},{emoji:"🫱🏿",description:"rightwards hand: dark skin tone",version:"14.0"}]},{emoji:"🫲",description:"leftwards hand",version:"14.0",keywords:["hand","handshake","hold","left","leftward","leftwards","reach","shake"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🫲🏻",description:"leftwards hand: light skin tone",version:"14.0"},{emoji:"🫲🏼",description:"leftwards hand: medium-light skin tone",version:"14.0"},{emoji:"🫲🏽",description:"leftwards hand: medium skin tone",version:"14.0"},{emoji:"🫲🏾",description:"leftwards hand: medium-dark skin tone",version:"14.0"},{emoji:"🫲🏿",description:"leftwards hand: dark skin tone",version:"14.0"}]},{emoji:"🫳",description:"palm down hand",version:"14.0",keywords:["dismiss","down","drop","dropped","hand","palm","pick","shoo","up"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🫳🏻",description:"palm down hand: light skin tone",version:"14.0"},{emoji:"🫳🏼",description:"palm down hand: medium-light skin tone",version:"14.0"},{emoji:"🫳🏽",description:"palm down hand: medium skin tone",version:"14.0"},{emoji:"🫳🏾",description:"palm down hand: medium-dark skin tone",version:"14.0"},{emoji:"🫳🏿",description:"palm down hand: dark skin tone",version:"14.0"}]},{emoji:"🫴",description:"palm up hand",version:"14.0",keywords:["beckon","catch","come","hand","hold","know","lift","me","offer","palm","tell"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🫴🏻",description:"palm up hand: light skin tone",version:"14.0"},{emoji:"🫴🏼",description:"palm up hand: medium-light skin tone",version:"14.0"},{emoji:"🫴🏽",description:"palm up hand: medium skin tone",version:"14.0"},{emoji:"🫴🏾",description:"palm up hand: medium-dark skin tone",version:"14.0"},{emoji:"🫴🏿",description:"palm up hand: dark skin tone",version:"14.0"}]},{emoji:"🫷",description:"leftwards pushing hand",version:"15.0",keywords:["block","five","halt","hand","high","hold","leftward","leftwards","pause","push","pushing","refuse","slap","stop","wait"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🫷🏻",description:"leftwards pushing hand: light skin tone",version:"15.0"},{emoji:"🫷🏼",description:"leftwards pushing hand: medium-light skin tone",version:"15.0"},{emoji:"🫷🏽",description:"leftwards pushing hand: medium skin tone",version:"15.0"},{emoji:"🫷🏾",description:"leftwards pushing hand: medium-dark skin tone",version:"15.0"},{emoji:"🫷🏿",description:"leftwards pushing hand: dark skin tone",version:"15.0"}]},{emoji:"🫸",description:"rightwards pushing hand",version:"15.0",keywords:["block","five","halt","hand","high","hold","pause","push","pushing","refuse","rightward","rightwards","slap","stop","wait"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-open",variations:[{emoji:"🫸🏻",description:"rightwards pushing hand: light skin tone",version:"15.0"},{emoji:"🫸🏼",description:"rightwards pushing hand: medium-light skin tone",version:"15.0"},{emoji:"🫸🏽",description:"rightwards pushing hand: medium skin tone",version:"15.0"},{emoji:"🫸🏾",description:"rightwards pushing hand: medium-dark skin tone",version:"15.0"},{emoji:"🫸🏿",description:"rightwards pushing hand: dark skin tone",version:"15.0"}]},{emoji:"👌",description:"OK hand",version:"0.6",keywords:["awesome","bet","dope","fleek","fosho","got","gotcha","hand","legit","OK","okay","pinch","rad","sure","sweet","three"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"👌🏻",description:"OK hand: light skin tone",version:"1.0"},{emoji:"👌🏼",description:"OK hand: medium-light skin tone",version:"1.0"},{emoji:"👌🏽",description:"OK hand: medium skin tone",version:"1.0"},{emoji:"👌🏾",description:"OK hand: medium-dark skin tone",version:"1.0"},{emoji:"👌🏿",description:"OK hand: dark skin tone",version:"1.0"}]},{emoji:"🤌",description:"pinched fingers",version:"13.0",keywords:["fingers","gesture","hand","hold","huh","interrogation","patience","pinched","relax","sarcastic","ugh","what","zip"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"🤌🏻",description:"pinched fingers: light skin tone",version:"13.0"},{emoji:"🤌🏼",description:"pinched fingers: medium-light skin tone",version:"13.0"},{emoji:"🤌🏽",description:"pinched fingers: medium skin tone",version:"13.0"},{emoji:"🤌🏾",description:"pinched fingers: medium-dark skin tone",version:"13.0"},{emoji:"🤌🏿",description:"pinched fingers: dark skin tone",version:"13.0"}]},{emoji:"🤏",description:"pinching hand",version:"12.0",keywords:["amount","bit","fingers","hand","little","pinching","small","sort"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"🤏🏻",description:"pinching hand: light skin tone",version:"12.0"},{emoji:"🤏🏼",description:"pinching hand: medium-light skin tone",version:"12.0"},{emoji:"🤏🏽",description:"pinching hand: medium skin tone",version:"12.0"},{emoji:"🤏🏾",description:"pinching hand: medium-dark skin tone",version:"12.0"},{emoji:"🤏🏿",description:"pinching hand: dark skin tone",version:"12.0"}]},{emoji:"✌️",description:"victory hand",version:"0.6",keywords:["hand","peace","v","victory"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"✌🏻",description:"victory hand: light skin tone",version:"1.0"},{emoji:"✌🏼",description:"victory hand: medium-light skin tone",version:"1.0"},{emoji:"✌🏽",description:"victory hand: medium skin tone",version:"1.0"},{emoji:"✌🏾",description:"victory hand: medium-dark skin tone",version:"1.0"},{emoji:"✌🏿",description:"victory hand: dark skin tone",version:"1.0"}]},{emoji:"🤞",description:"crossed fingers",version:"3.0",keywords:["cross","crossed","finger","fingers","hand","luck"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"🤞🏻",description:"crossed fingers: light skin tone",version:"3.0"},{emoji:"🤞🏼",description:"crossed fingers: medium-light skin tone",version:"3.0"},{emoji:"🤞🏽",description:"crossed fingers: medium skin tone",version:"3.0"},{emoji:"🤞🏾",description:"crossed fingers: medium-dark skin tone",version:"3.0"},{emoji:"🤞🏿",description:"crossed fingers: dark skin tone",version:"3.0"}]},{emoji:"🫰",description:"hand with index finger and thumb crossed",version:"14.0",keywords:["<3","crossed","expensive","finger","hand","heart","index","love","money","snap","thumb"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"🫰🏻",description:"hand with index finger and thumb crossed: light skin tone",version:"14.0"},{emoji:"🫰🏼",description:"hand with index finger and thumb crossed: medium-light skin tone",version:"14.0"},{emoji:"🫰🏽",description:"hand with index finger and thumb crossed: medium skin tone",version:"14.0"},{emoji:"🫰🏾",description:"hand with index finger and thumb crossed: medium-dark skin tone",version:"14.0"},{emoji:"🫰🏿",description:"hand with index finger and thumb crossed: dark skin tone",version:"14.0"}]},{emoji:"🤟",description:"love-you gesture",version:"5.0",keywords:["fingers","gesture","hand","ILY","love","love-you","three","you"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"🤟🏻",description:"love-you gesture: light skin tone",version:"5.0"},{emoji:"🤟🏼",description:"love-you gesture: medium-light skin tone",version:"5.0"},{emoji:"🤟🏽",description:"love-you gesture: medium skin tone",version:"5.0"},{emoji:"🤟🏾",description:"love-you gesture: medium-dark skin tone",version:"5.0"},{emoji:"🤟🏿",description:"love-you gesture: dark skin tone",version:"5.0"}]},{emoji:"🤘",description:"sign of the horns",version:"1.0",keywords:["finger","hand","horns","rock-on","sign"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"🤘🏻",description:"sign of the horns: light skin tone",version:"1.0"},{emoji:"🤘🏼",description:"sign of the horns: medium-light skin tone",version:"1.0"},{emoji:"🤘🏽",description:"sign of the horns: medium skin tone",version:"1.0"},{emoji:"🤘🏾",description:"sign of the horns: medium-dark skin tone",version:"1.0"},{emoji:"🤘🏿",description:"sign of the horns: dark skin tone",version:"1.0"}]},{emoji:"🤙",description:"call me hand",version:"3.0",keywords:["call","hand","hang","loose","me","Shaka"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-partial",variations:[{emoji:"🤙🏻",description:"call me hand: light skin tone",version:"3.0"},{emoji:"🤙🏼",description:"call me hand: medium-light skin tone",version:"3.0"},{emoji:"🤙🏽",description:"call me hand: medium skin tone",version:"3.0"},{emoji:"🤙🏾",description:"call me hand: medium-dark skin tone",version:"3.0"},{emoji:"🤙🏿",description:"call me hand: dark skin tone",version:"3.0"}]},{emoji:"👈",description:"backhand index pointing left",version:"0.6",keywords:["backhand","finger","hand","index","left","point","pointing"],category:"face-emotion",group:"people-body",subgroup:"hand-single-finger",variations:[{emoji:"👈🏻",description:"backhand index pointing left: light skin tone",version:"1.0"},{emoji:"👈🏼",description:"backhand index pointing left: medium-light skin tone",version:"1.0"},{emoji:"👈🏽",description:"backhand index pointing left: medium skin tone",version:"1.0"},{emoji:"👈🏾",description:"backhand index pointing left: medium-dark skin tone",version:"1.0"},{emoji:"👈🏿",description:"backhand index pointing left: dark skin tone",version:"1.0"}]},{emoji:"👉",description:"backhand index pointing right",version:"0.6",keywords:["backhand","finger","hand","index","point","pointing","right"],category:"face-emotion",group:"people-body",subgroup:"hand-single-finger",variations:[{emoji:"👉🏻",description:"backhand index pointing right: light skin tone",version:"1.0"},{emoji:"👉🏼",description:"backhand index pointing right: medium-light skin tone",version:"1.0"},{emoji:"👉🏽",description:"backhand index pointing right: medium skin tone",version:"1.0"},{emoji:"👉🏾",description:"backhand index pointing right: medium-dark skin tone",version:"1.0"},{emoji:"👉🏿",description:"backhand index pointing right: dark skin tone",version:"1.0"}]},{emoji:"👆",description:"backhand index pointing up",version:"0.6",keywords:["backhand","finger","hand","index","point","pointing","up"],category:"face-emotion",group:"people-body",subgroup:"hand-single-finger",variations:[{emoji:"👆🏻",description:"backhand index pointing up: light skin tone",version:"1.0"},{emoji:"👆🏼",description:"backhand index pointing up: medium-light skin tone",version:"1.0"},{emoji:"👆🏽",description:"backhand index pointing up: medium skin tone",version:"1.0"},{emoji:"👆🏾",description:"backhand index pointing up: medium-dark skin tone",version:"1.0"},{emoji:"👆🏿",description:"backhand index pointing up: dark skin tone",version:"1.0"}]},{emoji:"🖕",description:"middle finger",version:"1.0",keywords:["finger","hand","middle"],category:"face-emotion",group:"people-body",subgroup:"hand-single-finger",variations:[{emoji:"🖕🏻",description:"middle finger: light skin tone",version:"1.0"},{emoji:"🖕🏼",description:"middle finger: medium-light skin tone",version:"1.0"},{emoji:"🖕🏽",description:"middle finger: medium skin tone",version:"1.0"},{emoji:"🖕🏾",description:"middle finger: medium-dark skin tone",version:"1.0"},{emoji:"🖕🏿",description:"middle finger: dark skin tone",version:"1.0"}]},{emoji:"👇",description:"backhand index pointing down",version:"0.6",keywords:["backhand","down","finger","hand","index","point","pointing"],category:"face-emotion",group:"people-body",subgroup:"hand-single-finger",variations:[{emoji:"👇🏻",description:"backhand index pointing down: light skin tone",version:"1.0"},{emoji:"👇🏼",description:"backhand index pointing down: medium-light skin tone",version:"1.0"},{emoji:"👇🏽",description:"backhand index pointing down: medium skin tone",version:"1.0"},{emoji:"👇🏾",description:"backhand index pointing down: medium-dark skin tone",version:"1.0"},{emoji:"👇🏿",description:"backhand index pointing down: dark skin tone",version:"1.0"}]},{emoji:"☝️",description:"index pointing up",version:"0.6",keywords:["finger","hand","index","point","pointing","this","up"],category:"face-emotion",group:"people-body",subgroup:"hand-single-finger",variations:[{emoji:"☝🏻",description:"index pointing up: light skin tone",version:"1.0"},{emoji:"☝🏼",description:"index pointing up: medium-light skin tone",version:"1.0"},{emoji:"☝🏽",description:"index pointing up: medium skin tone",version:"1.0"},{emoji:"☝🏾",description:"index pointing up: medium-dark skin tone",version:"1.0"},{emoji:"☝🏿",description:"index pointing up: dark skin tone",version:"1.0"}]},{emoji:"🫵",description:"index pointing at the viewer",version:"14.0",keywords:["at","finger","hand","index","pointing","poke","viewer","you"],category:"face-emotion",group:"people-body",subgroup:"hand-single-finger",variations:[{emoji:"🫵🏻",description:"index pointing at the viewer: light skin tone",version:"14.0"},{emoji:"🫵🏼",description:"index pointing at the viewer: medium-light skin tone",version:"14.0"},{emoji:"🫵🏽",description:"index pointing at the viewer: medium skin tone",version:"14.0"},{emoji:"🫵🏾",description:"index pointing at the viewer: medium-dark skin tone",version:"14.0"},{emoji:"🫵🏿",description:"index pointing at the viewer: dark skin tone",version:"14.0"}]},{emoji:"👍",description:"thumbs up",version:"0.6",keywords:["+1","good","hand","like","thumb","up","yes"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-closed",variations:[{emoji:"👍🏻",description:"thumbs up: light skin tone",version:"1.0"},{emoji:"👍🏼",description:"thumbs up: medium-light skin tone",version:"1.0"},{emoji:"👍🏽",description:"thumbs up: medium skin tone",version:"1.0"},{emoji:"👍🏾",description:"thumbs up: medium-dark skin tone",version:"1.0"},{emoji:"👍🏿",description:"thumbs up: dark skin tone",version:"1.0"}]},{emoji:"👎",description:"thumbs down",version:"0.6",keywords:["-1","bad","dislike","down","good","hand","no","nope","thumb","thumbs"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-closed",variations:[{emoji:"👎🏻",description:"thumbs down: light skin tone",version:"1.0"},{emoji:"👎🏼",description:"thumbs down: medium-light skin tone",version:"1.0"},{emoji:"👎🏽",description:"thumbs down: medium skin tone",version:"1.0"},{emoji:"👎🏾",description:"thumbs down: medium-dark skin tone",version:"1.0"},{emoji:"👎🏿",description:"thumbs down: dark skin tone",version:"1.0"}]},{emoji:"✊",description:"raised fist",version:"0.6",keywords:["clenched","fist","hand","punch","raised","solidarity"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-closed",variations:[{emoji:"✊🏻",description:"raised fist: light skin tone",version:"1.0"},{emoji:"✊🏼",description:"raised fist: medium-light skin tone",version:"1.0"},{emoji:"✊🏽",description:"raised fist: medium skin tone",version:"1.0"},{emoji:"✊🏾",description:"raised fist: medium-dark skin tone",version:"1.0"},{emoji:"✊🏿",description:"raised fist: dark skin tone",version:"1.0"}]},{emoji:"👊",description:"oncoming fist",version:"0.6",keywords:["absolutely","agree","boom","bro","bruh","bump","clenched","correct","fist","hand","knuckle","oncoming","pound","punch","rock","ttyl"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-closed",variations:[{emoji:"👊🏻",description:"oncoming fist: light skin tone",version:"1.0"},{emoji:"👊🏼",description:"oncoming fist: medium-light skin tone",version:"1.0"},{emoji:"👊🏽",description:"oncoming fist: medium skin tone",version:"1.0"},{emoji:"👊🏾",description:"oncoming fist: medium-dark skin tone",version:"1.0"},{emoji:"👊🏿",description:"oncoming fist: dark skin tone",version:"1.0"}]},{emoji:"🤛",description:"left-facing fist",version:"3.0",keywords:["fist","left-facing","leftwards"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-closed",variations:[{emoji:"🤛🏻",description:"left-facing fist: light skin tone",version:"3.0"},{emoji:"🤛🏼",description:"left-facing fist: medium-light skin tone",version:"3.0"},{emoji:"🤛🏽",description:"left-facing fist: medium skin tone",version:"3.0"},{emoji:"🤛🏾",description:"left-facing fist: medium-dark skin tone",version:"3.0"},{emoji:"🤛🏿",description:"left-facing fist: dark skin tone",version:"3.0"}]},{emoji:"🤜",description:"right-facing fist",version:"3.0",keywords:["fist","right-facing","rightwards"],category:"face-emotion",group:"people-body",subgroup:"hand-fingers-closed",variations:[{emoji:"🤜🏻",description:"right-facing fist: light skin tone",version:"3.0"},{emoji:"🤜🏼",description:"right-facing fist: medium-light skin tone",version:"3.0"},{emoji:"🤜🏽",description:"right-facing fist: medium skin tone",version:"3.0"},{emoji:"🤜🏾",description:"right-facing fist: medium-dark skin tone",version:"3.0"},{emoji:"🤜🏿",description:"right-facing fist: dark skin tone",version:"3.0"}]},{emoji:"👏",description:"clapping hands",version:"0.6",keywords:["applause","approval","awesome","clap","congrats","congratulations","excited","good","great","hand","homie","job","nice","prayed","well","yay"],category:"face-emotion",group:"people-body",subgroup:"hands",variations:[{emoji:"👏🏻",description:"clapping hands: light skin tone",version:"1.0"},{emoji:"👏🏼",description:"clapping hands: medium-light skin tone",version:"1.0"},{emoji:"👏🏽",description:"clapping hands: medium skin tone",version:"1.0"},{emoji:"👏🏾",description:"clapping hands: medium-dark skin tone",version:"1.0"},{emoji:"👏🏿",description:"clapping hands: dark skin tone",version:"1.0"}]},{emoji:"🙌",description:"raising hands",version:"0.6",keywords:["celebration","gesture","hand","hands","hooray","praise","raised","raising"],category:"face-emotion",group:"people-body",subgroup:"hands",variations:[{emoji:"🙌🏻",description:"raising hands: light skin tone",version:"1.0"},{emoji:"🙌🏼",description:"raising hands: medium-light skin tone",version:"1.0"},{emoji:"🙌🏽",description:"raising hands: medium skin tone",version:"1.0"},{emoji:"🙌🏾",description:"raising hands: medium-dark skin tone",version:"1.0"},{emoji:"🙌🏿",description:"raising hands: dark skin tone",version:"1.0"}]},{emoji:"🫶",description:"heart hands",version:"14.0",keywords:["<3","hands","heart","love","you"],category:"face-emotion",group:"people-body",subgroup:"hands",variations:[{emoji:"🫶🏻",description:"heart hands: light skin tone",version:"14.0"},{emoji:"🫶🏼",description:"heart hands: medium-light skin tone",version:"14.0"},{emoji:"🫶🏽",description:"heart hands: medium skin tone",version:"14.0"},{emoji:"🫶🏾",description:"heart hands: medium-dark skin tone",version:"14.0"},{emoji:"🫶🏿",description:"heart hands: dark skin tone",version:"14.0"}]},{emoji:"👐",description:"open hands",version:"0.6",keywords:["hand","hands","hug","jazz","open","swerve"],category:"face-emotion",group:"people-body",subgroup:"hands",variations:[{emoji:"👐🏻",description:"open hands: light skin tone",version:"1.0"},{emoji:"👐🏼",description:"open hands: medium-light skin tone",version:"1.0"},{emoji:"👐🏽",description:"open hands: medium skin tone",version:"1.0"},{emoji:"👐🏾",description:"open hands: medium-dark skin tone",version:"1.0"},{emoji:"👐🏿",description:"open hands: dark skin tone",version:"1.0"}]},{emoji:"🤲",description:"palms up together",version:"5.0",keywords:["cupped","dua","hands","palms","pray","prayer","together","up","wish"],category:"face-emotion",group:"people-body",subgroup:"hands",variations:[{emoji:"🤲🏻",description:"palms up together: light skin tone",version:"5.0"},{emoji:"🤲🏼",description:"palms up together: medium-light skin tone",version:"5.0"},{emoji:"🤲🏽",description:"palms up together: medium skin tone",version:"5.0"},{emoji:"🤲🏾",description:"palms up together: medium-dark skin tone",version:"5.0"},{emoji:"🤲🏿",description:"palms up together: dark skin tone",version:"5.0"}]},{emoji:"🤝",description:"handshake",version:"3.0",keywords:["agreement","deal","hand","handshake","meeting","shake"],category:"face-emotion",group:"people-body",subgroup:"hands",variations:[{emoji:"🤝🏻",description:"handshake: light skin tone",version:"14.0"},{emoji:"🤝🏼",description:"handshake: medium-light skin tone",version:"14.0"},{emoji:"🤝🏽",description:"handshake: medium skin tone",version:"14.0"},{emoji:"🤝🏾",description:"handshake: medium-dark skin tone",version:"14.0"},{emoji:"🤝🏿",description:"handshake: dark skin tone",version:"14.0"},{emoji:"🫱🏻‍🫲🏼",description:"handshake: light skin tone, medium-light skin tone",version:"14.0"},{emoji:"🫱🏻‍🫲🏽",description:"handshake: light skin tone, medium skin tone",version:"14.0"},{emoji:"🫱🏻‍🫲🏾",description:"handshake: light skin tone, medium-dark skin tone",version:"14.0"},{emoji:"🫱🏻‍🫲🏿",description:"handshake: light skin tone, dark skin tone",version:"14.0"},{emoji:"🫱🏼‍🫲🏻",description:"handshake: medium-light skin tone, light skin tone",version:"14.0"},{emoji:"🫱🏼‍🫲🏽",description:"handshake: medium-light skin tone, medium skin tone",version:"14.0"},{emoji:"🫱🏼‍🫲🏾",description:"handshake: medium-light skin tone, medium-dark skin tone",version:"14.0"},{emoji:"🫱🏼‍🫲🏿",description:"handshake: medium-light skin tone, dark skin tone",version:"14.0"},{emoji:"🫱🏽‍🫲🏻",description:"handshake: medium skin tone, light skin tone",version:"14.0"},{emoji:"🫱🏽‍🫲🏼",description:"handshake: medium skin tone, medium-light skin tone",version:"14.0"},{emoji:"🫱🏽‍🫲🏾",description:"handshake: medium skin tone, medium-dark skin tone",version:"14.0"},{emoji:"🫱🏽‍🫲🏿",description:"handshake: medium skin tone, dark skin tone",version:"14.0"},{emoji:"🫱🏾‍🫲🏻",description:"handshake: medium-dark skin tone, light skin tone",version:"14.0"},{emoji:"🫱🏾‍🫲🏼",description:"handshake: medium-dark skin tone, medium-light skin tone",version:"14.0"},{emoji:"🫱🏾‍🫲🏽",description:"handshake: medium-dark skin tone, medium skin tone",version:"14.0"},{emoji:"🫱🏾‍🫲🏿",description:"handshake: medium-dark skin tone, dark skin tone",version:"14.0"},{emoji:"🫱🏿‍🫲🏻",description:"handshake: dark skin tone, light skin tone",version:"14.0"},{emoji:"🫱🏿‍🫲🏼",description:"handshake: dark skin tone, medium-light skin tone",version:"14.0"},{emoji:"🫱🏿‍🫲🏽",description:"handshake: dark skin tone, medium skin tone",version:"14.0"},{emoji:"🫱🏿‍🫲🏾",description:"handshake: dark skin tone, medium-dark skin tone",version:"14.0"}]},{emoji:"🙏",description:"folded hands",version:"0.6",keywords:["appreciate","ask","beg","blessed","bow","cmon","five","folded","gesture","hand","high","please","pray","thanks","thx"],category:"face-emotion",group:"people-body",subgroup:"hands",variations:[{emoji:"🙏🏻",description:"folded hands: light skin tone",version:"1.0"},{emoji:"🙏🏼",description:"folded hands: medium-light skin tone",version:"1.0"},{emoji:"🙏🏽",description:"folded hands: medium skin tone",version:"1.0"},{emoji:"🙏🏾",description:"folded hands: medium-dark skin tone",version:"1.0"},{emoji:"🙏🏿",description:"folded hands: dark skin tone",version:"1.0"}]},{emoji:"✍️",description:"writing hand",version:"0.7",keywords:["hand","write","writing"],category:"face-emotion",group:"people-body",subgroup:"hand-prop",variations:[{emoji:"✍🏻",description:"writing hand: light skin tone",version:"1.0"},{emoji:"✍🏼",description:"writing hand: medium-light skin tone",version:"1.0"},{emoji:"✍🏽",description:"writing hand: medium skin tone",version:"1.0"},{emoji:"✍🏾",description:"writing hand: medium-dark skin tone",version:"1.0"},{emoji:"✍🏿",description:"writing hand: dark skin tone",version:"1.0"}]},{emoji:"💅",description:"nail polish",version:"0.6",keywords:["bored","care","cosmetics","done","makeup","manicure","nail","polish","whatever"],category:"face-emotion",group:"people-body",subgroup:"hand-prop",variations:[{emoji:"💅🏻",description:"nail polish: light skin tone",version:"1.0"},{emoji:"💅🏼",description:"nail polish: medium-light skin tone",version:"1.0"},{emoji:"💅🏽",description:"nail polish: medium skin tone",version:"1.0"},{emoji:"💅🏾",description:"nail polish: medium-dark skin tone",version:"1.0"},{emoji:"💅🏿",description:"nail polish: dark skin tone",version:"1.0"}]},{emoji:"🤳",description:"selfie",version:"3.0",keywords:["camera","phone","selfie"],category:"face-emotion",group:"people-body",subgroup:"hand-prop",variations:[{emoji:"🤳🏻",description:"selfie: light skin tone",version:"3.0"},{emoji:"🤳🏼",description:"selfie: medium-light skin tone",version:"3.0"},{emoji:"🤳🏽",description:"selfie: medium skin tone",version:"3.0"},{emoji:"🤳🏾",description:"selfie: medium-dark skin tone",version:"3.0"},{emoji:"🤳🏿",description:"selfie: dark skin tone",version:"3.0"}]},{emoji:"💪",description:"flexed biceps",version:"0.6",keywords:["arm","beast","bench","biceps","bodybuilder","bro","curls","flex","gains","gym","jacked","muscle","press","ripped","strong","weightlift"],category:"face-emotion",group:"people-body",subgroup:"body-parts",variations:[{emoji:"💪🏻",description:"flexed biceps: light skin tone",version:"1.0"},{emoji:"💪🏼",description:"flexed biceps: medium-light skin tone",version:"1.0"},{emoji:"💪🏽",description:"flexed biceps: medium skin tone",version:"1.0"},{emoji:"💪🏾",description:"flexed biceps: medium-dark skin tone",version:"1.0"},{emoji:"💪🏿",description:"flexed biceps: dark skin tone",version:"1.0"}]},{emoji:"🦾",description:"mechanical arm",version:"12.0",keywords:["accessibility","arm","mechanical","prosthetic"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"🦿",description:"mechanical leg",version:"12.0",keywords:["accessibility","leg","mechanical","prosthetic"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"🦵",description:"leg",version:"11.0",keywords:["bent","foot","kick","knee","leg","limb"],category:"face-emotion",group:"people-body",subgroup:"body-parts",variations:[{emoji:"🦵🏻",description:"leg: light skin tone",version:"11.0"},{emoji:"🦵🏼",description:"leg: medium-light skin tone",version:"11.0"},{emoji:"🦵🏽",description:"leg: medium skin tone",version:"11.0"},{emoji:"🦵🏾",description:"leg: medium-dark skin tone",version:"11.0"},{emoji:"🦵🏿",description:"leg: dark skin tone",version:"11.0"}]},{emoji:"🦶",description:"foot",version:"11.0",keywords:["ankle","feet","foot","kick","stomp"],category:"face-emotion",group:"people-body",subgroup:"body-parts",variations:[{emoji:"🦶🏻",description:"foot: light skin tone",version:"11.0"},{emoji:"🦶🏼",description:"foot: medium-light skin tone",version:"11.0"},{emoji:"🦶🏽",description:"foot: medium skin tone",version:"11.0"},{emoji:"🦶🏾",description:"foot: medium-dark skin tone",version:"11.0"},{emoji:"🦶🏿",description:"foot: dark skin tone",version:"11.0"}]},{emoji:"👂",description:"ear",version:"0.6",keywords:["body","ear","ears","hear","hearing","listen","listening","sound"],category:"face-emotion",group:"people-body",subgroup:"body-parts",variations:[{emoji:"👂🏻",description:"ear: light skin tone",version:"1.0"},{emoji:"👂🏼",description:"ear: medium-light skin tone",version:"1.0"},{emoji:"👂🏽",description:"ear: medium skin tone",version:"1.0"},{emoji:"👂🏾",description:"ear: medium-dark skin tone",version:"1.0"},{emoji:"👂🏿",description:"ear: dark skin tone",version:"1.0"}]},{emoji:"🦻",description:"ear with hearing aid",version:"12.0",keywords:["accessibility","aid","ear","hard","hearing"],category:"face-emotion",group:"people-body",subgroup:"body-parts",variations:[{emoji:"🦻🏻",description:"ear with hearing aid: light skin tone",version:"12.0"},{emoji:"🦻🏼",description:"ear with hearing aid: medium-light skin tone",version:"12.0"},{emoji:"🦻🏽",description:"ear with hearing aid: medium skin tone",version:"12.0"},{emoji:"🦻🏾",description:"ear with hearing aid: medium-dark skin tone",version:"12.0"},{emoji:"🦻🏿",description:"ear with hearing aid: dark skin tone",version:"12.0"}]},{emoji:"👃",description:"nose",version:"0.6",keywords:["body","nose","noses","nosey","odor","smell","smells"],category:"face-emotion",group:"people-body",subgroup:"body-parts",variations:[{emoji:"👃🏻",description:"nose: light skin tone",version:"1.0"},{emoji:"👃🏼",description:"nose: medium-light skin tone",version:"1.0"},{emoji:"👃🏽",description:"nose: medium skin tone",version:"1.0"},{emoji:"👃🏾",description:"nose: medium-dark skin tone",version:"1.0"},{emoji:"👃🏿",description:"nose: dark skin tone",version:"1.0"}]},{emoji:"🧠",description:"brain",version:"5.0",keywords:["brain","intelligent","smart"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"🫀",description:"anatomical heart",version:"13.0",keywords:["anatomical","beat","cardiology","heart","heartbeat","organ","pulse","real","red"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"🫁",description:"lungs",version:"13.0",keywords:["breath","breathe","exhalation","inhalation","lung","lungs","organ","respiration"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"🦷",description:"tooth",version:"11.0",keywords:["dentist","pearly","teeth","tooth","white"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"🦴",description:"bone",version:"11.0",keywords:["bone","bones","dog","skeleton","wishbone"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"👀",description:"eyes",version:"0.6",keywords:["body","eye","eyes","face","googly","look","looking","omg","peep","see","seeing"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"👁️",description:"eye",version:"0.7",keywords:["1","body","eye","one"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"👅",description:"tongue",version:"0.6",keywords:["body","lick","slurp","tongue"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"👄",description:"mouth",version:"0.6",keywords:["beauty","body","kiss","kissing","lips","lipstick","mouth"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"🫦",description:"biting lip",version:"14.0",keywords:["anxious","bite","biting","fear","flirt","flirting","kiss","lip","lipstick","nervous","sexy","uncomfortable","worried","worry"],category:"face-emotion",group:"people-body",subgroup:"body-parts"},{emoji:"👶",description:"baby",version:"0.6",keywords:["babies","baby","children","goo","infant","newborn","pregnant","young"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"👶🏻",description:"baby: light skin tone",version:"1.0"},{emoji:"👶🏼",description:"baby: medium-light skin tone",version:"1.0"},{emoji:"👶🏽",description:"baby: medium skin tone",version:"1.0"},{emoji:"👶🏾",description:"baby: medium-dark skin tone",version:"1.0"},{emoji:"👶🏿",description:"baby: dark skin tone",version:"1.0"}]},{emoji:"🧒",description:"child",version:"5.0",keywords:["bright-eyed","child","grandchild","kid","young","younger"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"🧒🏻",description:"child: light skin tone",version:"5.0"},{emoji:"🧒🏼",description:"child: medium-light skin tone",version:"5.0"},{emoji:"🧒🏽",description:"child: medium skin tone",version:"5.0"},{emoji:"🧒🏾",description:"child: medium-dark skin tone",version:"5.0"},{emoji:"🧒🏿",description:"child: dark skin tone",version:"5.0"}]},{emoji:"👦",description:"boy",version:"0.6",keywords:["boy","bright-eyed","child","grandson","kid","son","young","younger"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"👦🏻",description:"boy: light skin tone",version:"1.0"},{emoji:"👦🏼",description:"boy: medium-light skin tone",version:"1.0"},{emoji:"👦🏽",description:"boy: medium skin tone",version:"1.0"},{emoji:"👦🏾",description:"boy: medium-dark skin tone",version:"1.0"},{emoji:"👦🏿",description:"boy: dark skin tone",version:"1.0"}]},{emoji:"👧",description:"girl",version:"0.6",keywords:["bright-eyed","child","daughter","girl","granddaughter","kid","Virgo","young","younger","zodiac"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"👧🏻",description:"girl: light skin tone",version:"1.0"},{emoji:"👧🏼",description:"girl: medium-light skin tone",version:"1.0"},{emoji:"👧🏽",description:"girl: medium skin tone",version:"1.0"},{emoji:"👧🏾",description:"girl: medium-dark skin tone",version:"1.0"},{emoji:"👧🏿",description:"girl: dark skin tone",version:"1.0"}]},{emoji:"🧑",description:"person",version:"5.0",keywords:["adult","person"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"🧑🏻",description:"person: light skin tone",version:"5.0"},{emoji:"🧑🏼",description:"person: medium-light skin tone",version:"5.0"},{emoji:"🧑🏽",description:"person: medium skin tone",version:"5.0"},{emoji:"🧑🏾",description:"person: medium-dark skin tone",version:"5.0"},{emoji:"🧑🏿",description:"person: dark skin tone",version:"5.0"},{emoji:"👱",description:"person: blond hair",version:"0.6"},{emoji:"👱🏻",description:"person: light skin tone, blond hair",version:"1.0"},{emoji:"👱🏼",description:"person: medium-light skin tone, blond hair",version:"1.0"},{emoji:"👱🏽",description:"person: medium skin tone, blond hair",version:"1.0"},{emoji:"👱🏾",description:"person: medium-dark skin tone, blond hair",version:"1.0"},{emoji:"👱🏿",description:"person: dark skin tone, blond hair",version:"1.0"},{emoji:"🧔",description:"person: beard",version:"5.0"},{emoji:"🧔🏻",description:"person: light skin tone, beard",version:"5.0"},{emoji:"🧔🏼",description:"person: medium-light skin tone, beard",version:"5.0"},{emoji:"🧔🏽",description:"person: medium skin tone, beard",version:"5.0"},{emoji:"🧔🏾",description:"person: medium-dark skin tone, beard",version:"5.0"},{emoji:"🧔🏿",description:"person: dark skin tone, beard",version:"5.0"},{emoji:"🧑‍🦰",description:"person: red hair",version:"12.1"},{emoji:"🧑🏻‍🦰",description:"person: light skin tone, red hair",version:"12.1"},{emoji:"🧑🏼‍🦰",description:"person: medium-light skin tone, red hair",version:"12.1"},{emoji:"🧑🏽‍🦰",description:"person: medium skin tone, red hair",version:"12.1"},{emoji:"🧑🏾‍🦰",description:"person: medium-dark skin tone, red hair",version:"12.1"},{emoji:"🧑🏿‍🦰",description:"person: dark skin tone, red hair",version:"12.1"},{emoji:"🧑‍🦱",description:"person: curly hair",version:"12.1"},{emoji:"🧑🏻‍🦱",description:"person: light skin tone, curly hair",version:"12.1"},{emoji:"🧑🏼‍🦱",description:"person: medium-light skin tone, curly hair",version:"12.1"},{emoji:"🧑🏽‍🦱",description:"person: medium skin tone, curly hair",version:"12.1"},{emoji:"🧑🏾‍🦱",description:"person: medium-dark skin tone, curly hair",version:"12.1"},{emoji:"🧑🏿‍🦱",description:"person: dark skin tone, curly hair",version:"12.1"},{emoji:"🧑‍🦳",description:"person: white hair",version:"12.1"},{emoji:"🧑🏻‍🦳",description:"person: light skin tone, white hair",version:"12.1"},{emoji:"🧑🏼‍🦳",description:"person: medium-light skin tone, white hair",version:"12.1"},{emoji:"🧑🏽‍🦳",description:"person: medium skin tone, white hair",version:"12.1"},{emoji:"🧑🏾‍🦳",description:"person: medium-dark skin tone, white hair",version:"12.1"},{emoji:"🧑🏿‍🦳",description:"person: dark skin tone, white hair",version:"12.1"},{emoji:"🧑‍🦲",description:"person: bald",version:"12.1"},{emoji:"🧑🏻‍🦲",description:"person: light skin tone, bald",version:"12.1"},{emoji:"🧑🏼‍🦲",description:"person: medium-light skin tone, bald",version:"12.1"},{emoji:"🧑🏽‍🦲",description:"person: medium skin tone, bald",version:"12.1"},{emoji:"🧑🏾‍🦲",description:"person: medium-dark skin tone, bald",version:"12.1"},{emoji:"🧑🏿‍🦲",description:"person: dark skin tone, bald",version:"12.1"}]},{emoji:"👨",description:"man",version:"0.6",keywords:["adult","bro","man"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"👨🏻",description:"man: light skin tone",version:"1.0"},{emoji:"👨🏼",description:"man: medium-light skin tone",version:"1.0"},{emoji:"👨🏽",description:"man: medium skin tone",version:"1.0"},{emoji:"👨🏾",description:"man: medium-dark skin tone",version:"1.0"},{emoji:"👨🏿",description:"man: dark skin tone",version:"1.0"},{emoji:"🧔‍♂️",description:"man: beard",version:"13.1"},{emoji:"🧔🏻‍♂️",description:"man: light skin tone, beard",version:"13.1"},{emoji:"🧔🏼‍♂️",description:"man: medium-light skin tone, beard",version:"13.1"},{emoji:"🧔🏽‍♂️",description:"man: medium skin tone, beard",version:"13.1"},{emoji:"🧔🏾‍♂️",description:"man: medium-dark skin tone, beard",version:"13.1"},{emoji:"🧔🏿‍♂️",description:"man: dark skin tone, beard",version:"13.1"},{emoji:"👨‍🦰",description:"man: red hair",version:"11.0"},{emoji:"👨🏻‍🦰",description:"man: light skin tone, red hair",version:"11.0"},{emoji:"👨🏼‍🦰",description:"man: medium-light skin tone, red hair",version:"11.0"},{emoji:"👨🏽‍🦰",description:"man: medium skin tone, red hair",version:"11.0"},{emoji:"👨🏾‍🦰",description:"man: medium-dark skin tone, red hair",version:"11.0"},{emoji:"👨🏿‍🦰",description:"man: dark skin tone, red hair",version:"11.0"},{emoji:"👨‍🦱",description:"man: curly hair",version:"11.0"},{emoji:"👨🏻‍🦱",description:"man: light skin tone, curly hair",version:"11.0"},{emoji:"👨🏼‍🦱",description:"man: medium-light skin tone, curly hair",version:"11.0"},{emoji:"👨🏽‍🦱",description:"man: medium skin tone, curly hair",version:"11.0"},{emoji:"👨🏾‍🦱",description:"man: medium-dark skin tone, curly hair",version:"11.0"},{emoji:"👨🏿‍🦱",description:"man: dark skin tone, curly hair",version:"11.0"},{emoji:"👨‍🦳",description:"man: white hair",version:"11.0"},{emoji:"👨🏻‍🦳",description:"man: light skin tone, white hair",version:"11.0"},{emoji:"👨🏼‍🦳",description:"man: medium-light skin tone, white hair",version:"11.0"},{emoji:"👨🏽‍🦳",description:"man: medium skin tone, white hair",version:"11.0"},{emoji:"👨🏾‍🦳",description:"man: medium-dark skin tone, white hair",version:"11.0"},{emoji:"👨🏿‍🦳",description:"man: dark skin tone, white hair",version:"11.0"},{emoji:"👨‍🦲",description:"man: bald",version:"11.0"},{emoji:"👨🏻‍🦲",description:"man: light skin tone, bald",version:"11.0"},{emoji:"👨🏼‍🦲",description:"man: medium-light skin tone, bald",version:"11.0"},{emoji:"👨🏽‍🦲",description:"man: medium skin tone, bald",version:"11.0"},{emoji:"👨🏾‍🦲",description:"man: medium-dark skin tone, bald",version:"11.0"},{emoji:"👨🏿‍🦲",description:"man: dark skin tone, bald",version:"11.0"},{emoji:"👱‍♂️",description:"man: blond hair",version:"4.0"},{emoji:"👱🏻‍♂️",description:"man: light skin tone, blond hair",version:"4.0"},{emoji:"👱🏼‍♂️",description:"man: medium-light skin tone, blond hair",version:"4.0"},{emoji:"👱🏽‍♂️",description:"man: medium skin tone, blond hair",version:"4.0"},{emoji:"👱🏾‍♂️",description:"man: medium-dark skin tone, blond hair",version:"4.0"},{emoji:"👱🏿‍♂️",description:"man: dark skin tone, blond hair",version:"4.0"}]},{emoji:"👩",description:"woman",version:"0.6",keywords:["adult","lady","woman"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"👩🏻",description:"woman: light skin tone",version:"1.0"},{emoji:"👩🏼",description:"woman: medium-light skin tone",version:"1.0"},{emoji:"👩🏽",description:"woman: medium skin tone",version:"1.0"},{emoji:"👩🏾",description:"woman: medium-dark skin tone",version:"1.0"},{emoji:"👩🏿",description:"woman: dark skin tone",version:"1.0"},{emoji:"👩‍🦰",description:"woman: red hair",version:"11.0"},{emoji:"👩🏻‍🦰",description:"woman: light skin tone, red hair",version:"11.0"},{emoji:"👩🏼‍🦰",description:"woman: medium-light skin tone, red hair",version:"11.0"},{emoji:"👩🏽‍🦰",description:"woman: medium skin tone, red hair",version:"11.0"},{emoji:"👩🏾‍🦰",description:"woman: medium-dark skin tone, red hair",version:"11.0"},{emoji:"👩🏿‍🦰",description:"woman: dark skin tone, red hair",version:"11.0"},{emoji:"👩‍🦱",description:"woman: curly hair",version:"11.0"},{emoji:"👩🏻‍🦱",description:"woman: light skin tone, curly hair",version:"11.0"},{emoji:"👩🏼‍🦱",description:"woman: medium-light skin tone, curly hair",version:"11.0"},{emoji:"👩🏽‍🦱",description:"woman: medium skin tone, curly hair",version:"11.0"},{emoji:"👩🏾‍🦱",description:"woman: medium-dark skin tone, curly hair",version:"11.0"},{emoji:"👩🏿‍🦱",description:"woman: dark skin tone, curly hair",version:"11.0"},{emoji:"👩‍🦳",description:"woman: white hair",version:"11.0"},{emoji:"👩🏻‍🦳",description:"woman: light skin tone, white hair",version:"11.0"},{emoji:"👩🏼‍🦳",description:"woman: medium-light skin tone, white hair",version:"11.0"},{emoji:"👩🏽‍🦳",description:"woman: medium skin tone, white hair",version:"11.0"},{emoji:"👩🏾‍🦳",description:"woman: medium-dark skin tone, white hair",version:"11.0"},{emoji:"👩🏿‍🦳",description:"woman: dark skin tone, white hair",version:"11.0"},{emoji:"👩‍🦲",description:"woman: bald",version:"11.0"},{emoji:"👩🏻‍🦲",description:"woman: light skin tone, bald",version:"11.0"},{emoji:"👩🏼‍🦲",description:"woman: medium-light skin tone, bald",version:"11.0"},{emoji:"👩🏽‍🦲",description:"woman: medium skin tone, bald",version:"11.0"},{emoji:"👩🏾‍🦲",description:"woman: medium-dark skin tone, bald",version:"11.0"},{emoji:"👩🏿‍🦲",description:"woman: dark skin tone, bald",version:"11.0"},{emoji:"👱‍♀️",description:"woman: blond hair",version:"4.0"},{emoji:"👱🏻‍♀️",description:"woman: light skin tone, blond hair",version:"4.0"},{emoji:"👱🏼‍♀️",description:"woman: medium-light skin tone, blond hair",version:"4.0"},{emoji:"👱🏽‍♀️",description:"woman: medium skin tone, blond hair",version:"4.0"},{emoji:"👱🏾‍♀️",description:"woman: medium-dark skin tone, blond hair",version:"4.0"},{emoji:"👱🏿‍♀️",description:"woman: dark skin tone, blond hair",version:"4.0"},{emoji:"🧔‍♀️",description:"woman: beard",version:"13.1"},{emoji:"🧔🏻‍♀️",description:"woman: light skin tone, beard",version:"13.1"},{emoji:"🧔🏼‍♀️",description:"woman: medium-light skin tone, beard",version:"13.1"},{emoji:"🧔🏽‍♀️",description:"woman: medium skin tone, beard",version:"13.1"},{emoji:"🧔🏾‍♀️",description:"woman: medium-dark skin tone, beard",version:"13.1"},{emoji:"🧔🏿‍♀️",description:"woman: dark skin tone, beard",version:"13.1"}]},{emoji:"🧓",description:"older person",version:"5.0",keywords:["adult","elderly","grandparent","old","person","wise"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"🧓🏻",description:"older person: light skin tone",version:"5.0"},{emoji:"🧓🏼",description:"older person: medium-light skin tone",version:"5.0"},{emoji:"🧓🏽",description:"older person: medium skin tone",version:"5.0"},{emoji:"🧓🏾",description:"older person: medium-dark skin tone",version:"5.0"},{emoji:"🧓🏿",description:"older person: dark skin tone",version:"5.0"}]},{emoji:"👴",description:"old man",version:"0.6",keywords:["adult","bald","elderly","gramps","grandfather","grandpa","man","old","wise"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"👴🏻",description:"old man: light skin tone",version:"1.0"},{emoji:"👴🏼",description:"old man: medium-light skin tone",version:"1.0"},{emoji:"👴🏽",description:"old man: medium skin tone",version:"1.0"},{emoji:"👴🏾",description:"old man: medium-dark skin tone",version:"1.0"},{emoji:"👴🏿",description:"old man: dark skin tone",version:"1.0"}]},{emoji:"👵",description:"old woman",version:"0.6",keywords:["adult","elderly","grandma","grandmother","granny","lady","old","wise","woman"],category:"person-people",group:"people-body",subgroup:"person",variations:[{emoji:"👵🏻",description:"old woman: light skin tone",version:"1.0"},{emoji:"👵🏼",description:"old woman: medium-light skin tone",version:"1.0"},{emoji:"👵🏽",description:"old woman: medium skin tone",version:"1.0"},{emoji:"👵🏾",description:"old woman: medium-dark skin tone",version:"1.0"},{emoji:"👵🏿",description:"old woman: dark skin tone",version:"1.0"}]},{emoji:"🙍",description:"person frowning",version:"0.6",keywords:["annoyed","disappointed","disgruntled","disturbed","frown","frowning","frustrated","gesture","irritated","person","upset"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙍🏻",description:"person frowning: light skin tone",version:"1.0"},{emoji:"🙍🏼",description:"person frowning: medium-light skin tone",version:"1.0"},{emoji:"🙍🏽",description:"person frowning: medium skin tone",version:"1.0"},{emoji:"🙍🏾",description:"person frowning: medium-dark skin tone",version:"1.0"},{emoji:"🙍🏿",description:"person frowning: dark skin tone",version:"1.0"}]},{emoji:"🙍‍♂️",description:"man frowning",version:"4.0",keywords:["annoyed","disappointed","disgruntled","disturbed","frown","frowning","frustrated","gesture","irritated","man","upset"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙍🏻‍♂️",description:"man frowning: light skin tone",version:"4.0"},{emoji:"🙍🏼‍♂️",description:"man frowning: medium-light skin tone",version:"4.0"},{emoji:"🙍🏽‍♂️",description:"man frowning: medium skin tone",version:"4.0"},{emoji:"🙍🏾‍♂️",description:"man frowning: medium-dark skin tone",version:"4.0"},{emoji:"🙍🏿‍♂️",description:"man frowning: dark skin tone",version:"4.0"}]},{emoji:"🙍‍♀️",description:"woman frowning",version:"4.0",keywords:["annoyed","disappointed","disgruntled","disturbed","frown","frowning","frustrated","gesture","irritated","upset","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙍🏻‍♀️",description:"woman frowning: light skin tone",version:"4.0"},{emoji:"🙍🏼‍♀️",description:"woman frowning: medium-light skin tone",version:"4.0"},{emoji:"🙍🏽‍♀️",description:"woman frowning: medium skin tone",version:"4.0"},{emoji:"🙍🏾‍♀️",description:"woman frowning: medium-dark skin tone",version:"4.0"},{emoji:"🙍🏿‍♀️",description:"woman frowning: dark skin tone",version:"4.0"}]},{emoji:"🙎",description:"person pouting",version:"0.6",keywords:["disappointed","downtrodden","frown","grimace","person","pouting","scowl","sulk","upset","whine"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙎🏻",description:"person pouting: light skin tone",version:"1.0"},{emoji:"🙎🏼",description:"person pouting: medium-light skin tone",version:"1.0"},{emoji:"🙎🏽",description:"person pouting: medium skin tone",version:"1.0"},{emoji:"🙎🏾",description:"person pouting: medium-dark skin tone",version:"1.0"},{emoji:"🙎🏿",description:"person pouting: dark skin tone",version:"1.0"}]},{emoji:"🙎‍♂️",description:"man pouting",version:"4.0",keywords:["disappointed","downtrodden","frown","grimace","man","pouting","scowl","sulk","upset","whine"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙎🏻‍♂️",description:"man pouting: light skin tone",version:"4.0"},{emoji:"🙎🏼‍♂️",description:"man pouting: medium-light skin tone",version:"4.0"},{emoji:"🙎🏽‍♂️",description:"man pouting: medium skin tone",version:"4.0"},{emoji:"🙎🏾‍♂️",description:"man pouting: medium-dark skin tone",version:"4.0"},{emoji:"🙎🏿‍♂️",description:"man pouting: dark skin tone",version:"4.0"}]},{emoji:"🙎‍♀️",description:"woman pouting",version:"4.0",keywords:["disappointed","downtrodden","frown","grimace","pouting","scowl","sulk","upset","whine","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙎🏻‍♀️",description:"woman pouting: light skin tone",version:"4.0"},{emoji:"🙎🏼‍♀️",description:"woman pouting: medium-light skin tone",version:"4.0"},{emoji:"🙎🏽‍♀️",description:"woman pouting: medium skin tone",version:"4.0"},{emoji:"🙎🏾‍♀️",description:"woman pouting: medium-dark skin tone",version:"4.0"},{emoji:"🙎🏿‍♀️",description:"woman pouting: dark skin tone",version:"4.0"}]},{emoji:"🙅",description:"person gesturing NO",version:"0.6",keywords:["forbidden","gesture","hand","NO","not","person","prohibit"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙅🏻",description:"person gesturing NO: light skin tone",version:"1.0"},{emoji:"🙅🏼",description:"person gesturing NO: medium-light skin tone",version:"1.0"},{emoji:"🙅🏽",description:"person gesturing NO: medium skin tone",version:"1.0"},{emoji:"🙅🏾",description:"person gesturing NO: medium-dark skin tone",version:"1.0"},{emoji:"🙅🏿",description:"person gesturing NO: dark skin tone",version:"1.0"}]},{emoji:"🙅‍♂️",description:"man gesturing NO",version:"4.0",keywords:["forbidden","gesture","hand","man","NO","not","prohibit"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙅🏻‍♂️",description:"man gesturing NO: light skin tone",version:"4.0"},{emoji:"🙅🏼‍♂️",description:"man gesturing NO: medium-light skin tone",version:"4.0"},{emoji:"🙅🏽‍♂️",description:"man gesturing NO: medium skin tone",version:"4.0"},{emoji:"🙅🏾‍♂️",description:"man gesturing NO: medium-dark skin tone",version:"4.0"},{emoji:"🙅🏿‍♂️",description:"man gesturing NO: dark skin tone",version:"4.0"}]},{emoji:"🙅‍♀️",description:"woman gesturing NO",version:"4.0",keywords:["forbidden","gesture","hand","NO","not","prohibit","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙅🏻‍♀️",description:"woman gesturing NO: light skin tone",version:"4.0"},{emoji:"🙅🏼‍♀️",description:"woman gesturing NO: medium-light skin tone",version:"4.0"},{emoji:"🙅🏽‍♀️",description:"woman gesturing NO: medium skin tone",version:"4.0"},{emoji:"🙅🏾‍♀️",description:"woman gesturing NO: medium-dark skin tone",version:"4.0"},{emoji:"🙅🏿‍♀️",description:"woman gesturing NO: dark skin tone",version:"4.0"}]},{emoji:"🙆",description:"person gesturing OK",version:"0.6",keywords:["exercise","gesture","gesturing","hand","OK","omg","person"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙆🏻",description:"person gesturing OK: light skin tone",version:"1.0"},{emoji:"🙆🏼",description:"person gesturing OK: medium-light skin tone",version:"1.0"},{emoji:"🙆🏽",description:"person gesturing OK: medium skin tone",version:"1.0"},{emoji:"🙆🏾",description:"person gesturing OK: medium-dark skin tone",version:"1.0"},{emoji:"🙆🏿",description:"person gesturing OK: dark skin tone",version:"1.0"}]},{emoji:"🙆‍♂️",description:"man gesturing OK",version:"4.0",keywords:["exercise","gesture","gesturing","hand","man","OK","omg"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙆🏻‍♂️",description:"man gesturing OK: light skin tone",version:"4.0"},{emoji:"🙆🏼‍♂️",description:"man gesturing OK: medium-light skin tone",version:"4.0"},{emoji:"🙆🏽‍♂️",description:"man gesturing OK: medium skin tone",version:"4.0"},{emoji:"🙆🏾‍♂️",description:"man gesturing OK: medium-dark skin tone",version:"4.0"},{emoji:"🙆🏿‍♂️",description:"man gesturing OK: dark skin tone",version:"4.0"}]},{emoji:"🙆‍♀️",description:"woman gesturing OK",version:"4.0",keywords:["exercise","gesture","gesturing","hand","OK","omg","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙆🏻‍♀️",description:"woman gesturing OK: light skin tone",version:"4.0"},{emoji:"🙆🏼‍♀️",description:"woman gesturing OK: medium-light skin tone",version:"4.0"},{emoji:"🙆🏽‍♀️",description:"woman gesturing OK: medium skin tone",version:"4.0"},{emoji:"🙆🏾‍♀️",description:"woman gesturing OK: medium-dark skin tone",version:"4.0"},{emoji:"🙆🏿‍♀️",description:"woman gesturing OK: dark skin tone",version:"4.0"}]},{emoji:"💁",description:"person tipping hand",version:"0.6",keywords:["fetch","flick","flip","gossip","hand","person","sarcasm","sarcastic","sassy","seriously","tipping","whatever"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"💁🏻",description:"person tipping hand: light skin tone",version:"1.0"},{emoji:"💁🏼",description:"person tipping hand: medium-light skin tone",version:"1.0"},{emoji:"💁🏽",description:"person tipping hand: medium skin tone",version:"1.0"},{emoji:"💁🏾",description:"person tipping hand: medium-dark skin tone",version:"1.0"},{emoji:"💁🏿",description:"person tipping hand: dark skin tone",version:"1.0"}]},{emoji:"💁‍♂️",description:"man tipping hand",version:"4.0",keywords:["fetch","flick","flip","gossip","hand","man","sarcasm","sarcastic","sassy","seriously","tipping","whatever"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"💁🏻‍♂️",description:"man tipping hand: light skin tone",version:"4.0"},{emoji:"💁🏼‍♂️",description:"man tipping hand: medium-light skin tone",version:"4.0"},{emoji:"💁🏽‍♂️",description:"man tipping hand: medium skin tone",version:"4.0"},{emoji:"💁🏾‍♂️",description:"man tipping hand: medium-dark skin tone",version:"4.0"},{emoji:"💁🏿‍♂️",description:"man tipping hand: dark skin tone",version:"4.0"}]},{emoji:"💁‍♀️",description:"woman tipping hand",version:"4.0",keywords:["fetch","flick","flip","gossip","hand","sarcasm","sarcastic","sassy","seriously","tipping","whatever","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"💁🏻‍♀️",description:"woman tipping hand: light skin tone",version:"4.0"},{emoji:"💁🏼‍♀️",description:"woman tipping hand: medium-light skin tone",version:"4.0"},{emoji:"💁🏽‍♀️",description:"woman tipping hand: medium skin tone",version:"4.0"},{emoji:"💁🏾‍♀️",description:"woman tipping hand: medium-dark skin tone",version:"4.0"},{emoji:"💁🏿‍♀️",description:"woman tipping hand: dark skin tone",version:"4.0"}]},{emoji:"🙋",description:"person raising hand",version:"0.6",keywords:["gesture","hand","here","know","me","person","pick","question","raise","raising"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙋🏻",description:"person raising hand: light skin tone",version:"1.0"},{emoji:"🙋🏼",description:"person raising hand: medium-light skin tone",version:"1.0"},{emoji:"🙋🏽",description:"person raising hand: medium skin tone",version:"1.0"},{emoji:"🙋🏾",description:"person raising hand: medium-dark skin tone",version:"1.0"},{emoji:"🙋🏿",description:"person raising hand: dark skin tone",version:"1.0"}]},{emoji:"🙋‍♂️",description:"man raising hand",version:"4.0",keywords:["gesture","hand","here","know","man","me","pick","question","raise","raising"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙋🏻‍♂️",description:"man raising hand: light skin tone",version:"4.0"},{emoji:"🙋🏼‍♂️",description:"man raising hand: medium-light skin tone",version:"4.0"},{emoji:"🙋🏽‍♂️",description:"man raising hand: medium skin tone",version:"4.0"},{emoji:"🙋🏾‍♂️",description:"man raising hand: medium-dark skin tone",version:"4.0"},{emoji:"🙋🏿‍♂️",description:"man raising hand: dark skin tone",version:"4.0"}]},{emoji:"🙋‍♀️",description:"woman raising hand",version:"4.0",keywords:["gesture","hand","here","know","me","pick","question","raise","raising","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙋🏻‍♀️",description:"woman raising hand: light skin tone",version:"4.0"},{emoji:"🙋🏼‍♀️",description:"woman raising hand: medium-light skin tone",version:"4.0"},{emoji:"🙋🏽‍♀️",description:"woman raising hand: medium skin tone",version:"4.0"},{emoji:"🙋🏾‍♀️",description:"woman raising hand: medium-dark skin tone",version:"4.0"},{emoji:"🙋🏿‍♀️",description:"woman raising hand: dark skin tone",version:"4.0"}]},{emoji:"🧏",description:"deaf person",version:"12.0",keywords:["accessibility","deaf","ear","gesture","hear","person"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🧏🏻",description:"deaf person: light skin tone",version:"12.0"},{emoji:"🧏🏼",description:"deaf person: medium-light skin tone",version:"12.0"},{emoji:"🧏🏽",description:"deaf person: medium skin tone",version:"12.0"},{emoji:"🧏🏾",description:"deaf person: medium-dark skin tone",version:"12.0"},{emoji:"🧏🏿",description:"deaf person: dark skin tone",version:"12.0"}]},{emoji:"🧏‍♂️",description:"deaf man",version:"12.0",keywords:["accessibility","deaf","ear","gesture","hear","man"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🧏🏻‍♂️",description:"deaf man: light skin tone",version:"12.0"},{emoji:"🧏🏼‍♂️",description:"deaf man: medium-light skin tone",version:"12.0"},{emoji:"🧏🏽‍♂️",description:"deaf man: medium skin tone",version:"12.0"},{emoji:"🧏🏾‍♂️",description:"deaf man: medium-dark skin tone",version:"12.0"},{emoji:"🧏🏿‍♂️",description:"deaf man: dark skin tone",version:"12.0"}]},{emoji:"🧏‍♀️",description:"deaf woman",version:"12.0",keywords:["accessibility","deaf","ear","gesture","hear","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🧏🏻‍♀️",description:"deaf woman: light skin tone",version:"12.0"},{emoji:"🧏🏼‍♀️",description:"deaf woman: medium-light skin tone",version:"12.0"},{emoji:"🧏🏽‍♀️",description:"deaf woman: medium skin tone",version:"12.0"},{emoji:"🧏🏾‍♀️",description:"deaf woman: medium-dark skin tone",version:"12.0"},{emoji:"🧏🏿‍♀️",description:"deaf woman: dark skin tone",version:"12.0"}]},{emoji:"🙇",description:"person bowing",version:"0.6",keywords:["apology","ask","beg","bow","bowing","favor","forgive","gesture","meditate","meditation","person","pity","regret","sorry"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙇🏻",description:"person bowing: light skin tone",version:"1.0"},{emoji:"🙇🏼",description:"person bowing: medium-light skin tone",version:"1.0"},{emoji:"🙇🏽",description:"person bowing: medium skin tone",version:"1.0"},{emoji:"🙇🏾",description:"person bowing: medium-dark skin tone",version:"1.0"},{emoji:"🙇🏿",description:"person bowing: dark skin tone",version:"1.0"}]},{emoji:"🙇‍♂️",description:"man bowing",version:"4.0",keywords:["apology","ask","beg","bow","bowing","favor","forgive","gesture","man","meditate","meditation","pity","regret","sorry"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙇🏻‍♂️",description:"man bowing: light skin tone",version:"4.0"},{emoji:"🙇🏼‍♂️",description:"man bowing: medium-light skin tone",version:"4.0"},{emoji:"🙇🏽‍♂️",description:"man bowing: medium skin tone",version:"4.0"},{emoji:"🙇🏾‍♂️",description:"man bowing: medium-dark skin tone",version:"4.0"},{emoji:"🙇🏿‍♂️",description:"man bowing: dark skin tone",version:"4.0"}]},{emoji:"🙇‍♀️",description:"woman bowing",version:"4.0",keywords:["apology","ask","beg","bow","bowing","favor","forgive","gesture","meditate","meditation","pity","regret","sorry","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🙇🏻‍♀️",description:"woman bowing: light skin tone",version:"4.0"},{emoji:"🙇🏼‍♀️",description:"woman bowing: medium-light skin tone",version:"4.0"},{emoji:"🙇🏽‍♀️",description:"woman bowing: medium skin tone",version:"4.0"},{emoji:"🙇🏾‍♀️",description:"woman bowing: medium-dark skin tone",version:"4.0"},{emoji:"🙇🏿‍♀️",description:"woman bowing: dark skin tone",version:"4.0"}]},{emoji:"🤦",description:"person facepalming",version:"3.0",keywords:["again","bewilder","disbelief","exasperation","facepalm","no","not","oh","omg","person","shock","smh"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🤦🏻",description:"person facepalming: light skin tone",version:"3.0"},{emoji:"🤦🏼",description:"person facepalming: medium-light skin tone",version:"3.0"},{emoji:"🤦🏽",description:"person facepalming: medium skin tone",version:"3.0"},{emoji:"🤦🏾",description:"person facepalming: medium-dark skin tone",version:"3.0"},{emoji:"🤦🏿",description:"person facepalming: dark skin tone",version:"3.0"}]},{emoji:"🤦‍♂️",description:"man facepalming",version:"4.0",keywords:["again","bewilder","disbelief","exasperation","facepalm","man","no","not","oh","omg","shock","smh"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🤦🏻‍♂️",description:"man facepalming: light skin tone",version:"4.0"},{emoji:"🤦🏼‍♂️",description:"man facepalming: medium-light skin tone",version:"4.0"},{emoji:"🤦🏽‍♂️",description:"man facepalming: medium skin tone",version:"4.0"},{emoji:"🤦🏾‍♂️",description:"man facepalming: medium-dark skin tone",version:"4.0"},{emoji:"🤦🏿‍♂️",description:"man facepalming: dark skin tone",version:"4.0"}]},{emoji:"🤦‍♀️",description:"woman facepalming",version:"4.0",keywords:["again","bewilder","disbelief","exasperation","facepalm","no","not","oh","omg","shock","smh","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🤦🏻‍♀️",description:"woman facepalming: light skin tone",version:"4.0"},{emoji:"🤦🏼‍♀️",description:"woman facepalming: medium-light skin tone",version:"4.0"},{emoji:"🤦🏽‍♀️",description:"woman facepalming: medium skin tone",version:"4.0"},{emoji:"🤦🏾‍♀️",description:"woman facepalming: medium-dark skin tone",version:"4.0"},{emoji:"🤦🏿‍♀️",description:"woman facepalming: dark skin tone",version:"4.0"}]},{emoji:"🤷",description:"person shrugging",version:"3.0",keywords:["doubt","dunno","guess","idk","ignorance","indifference","knows","maybe","person","shrug","shrugging","whatever","who"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🤷🏻",description:"person shrugging: light skin tone",version:"3.0"},{emoji:"🤷🏼",description:"person shrugging: medium-light skin tone",version:"3.0"},{emoji:"🤷🏽",description:"person shrugging: medium skin tone",version:"3.0"},{emoji:"🤷🏾",description:"person shrugging: medium-dark skin tone",version:"3.0"},{emoji:"🤷🏿",description:"person shrugging: dark skin tone",version:"3.0"}]},{emoji:"🤷‍♂️",description:"man shrugging",version:"4.0",keywords:["doubt","dunno","guess","idk","ignorance","indifference","knows","man","maybe","shrug","shrugging","whatever","who"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🤷🏻‍♂️",description:"man shrugging: light skin tone",version:"4.0"},{emoji:"🤷🏼‍♂️",description:"man shrugging: medium-light skin tone",version:"4.0"},{emoji:"🤷🏽‍♂️",description:"man shrugging: medium skin tone",version:"4.0"},{emoji:"🤷🏾‍♂️",description:"man shrugging: medium-dark skin tone",version:"4.0"},{emoji:"🤷🏿‍♂️",description:"man shrugging: dark skin tone",version:"4.0"}]},{emoji:"🤷‍♀️",description:"woman shrugging",version:"4.0",keywords:["doubt","dunno","guess","idk","ignorance","indifference","knows","maybe","shrug","shrugging","whatever","who","woman"],category:"person-people",group:"people-body",subgroup:"person-gesture",variations:[{emoji:"🤷🏻‍♀️",description:"woman shrugging: light skin tone",version:"4.0"},{emoji:"🤷🏼‍♀️",description:"woman shrugging: medium-light skin tone",version:"4.0"},{emoji:"🤷🏽‍♀️",description:"woman shrugging: medium skin tone",version:"4.0"},{emoji:"🤷🏾‍♀️",description:"woman shrugging: medium-dark skin tone",version:"4.0"},{emoji:"🤷🏿‍♀️",description:"woman shrugging: dark skin tone",version:"4.0"}]},{emoji:"🧑‍⚕️",description:"health worker",version:"12.1",keywords:["doctor","health","healthcare","nurse","therapist","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍⚕️",description:"health worker: light skin tone",version:"12.1"},{emoji:"🧑🏼‍⚕️",description:"health worker: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍⚕️",description:"health worker: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍⚕️",description:"health worker: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍⚕️",description:"health worker: dark skin tone",version:"12.1"}]},{emoji:"👨‍⚕️",description:"man health worker",version:"4.0",keywords:["doctor","health","healthcare","man","nurse","therapist","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍⚕️",description:"man health worker: light skin tone",version:"4.0"},{emoji:"👨🏼‍⚕️",description:"man health worker: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍⚕️",description:"man health worker: medium skin tone",version:"4.0"},{emoji:"👨🏾‍⚕️",description:"man health worker: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍⚕️",description:"man health worker: dark skin tone",version:"4.0"}]},{emoji:"👩‍⚕️",description:"woman health worker",version:"4.0",keywords:["doctor","health","healthcare","nurse","therapist","woman","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍⚕️",description:"woman health worker: light skin tone",version:"4.0"},{emoji:"👩🏼‍⚕️",description:"woman health worker: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍⚕️",description:"woman health worker: medium skin tone",version:"4.0"},{emoji:"👩🏾‍⚕️",description:"woman health worker: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍⚕️",description:"woman health worker: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🎓",description:"student",version:"12.1",keywords:["graduate","student"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🎓",description:"student: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🎓",description:"student: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🎓",description:"student: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🎓",description:"student: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🎓",description:"student: dark skin tone",version:"12.1"}]},{emoji:"👨‍🎓",description:"man student",version:"4.0",keywords:["graduate","man","student"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🎓",description:"man student: light skin tone",version:"4.0"},{emoji:"👨🏼‍🎓",description:"man student: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🎓",description:"man student: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🎓",description:"man student: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🎓",description:"man student: dark skin tone",version:"4.0"}]},{emoji:"👩‍🎓",description:"woman student",version:"4.0",keywords:["graduate","student","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🎓",description:"woman student: light skin tone",version:"4.0"},{emoji:"👩🏼‍🎓",description:"woman student: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🎓",description:"woman student: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🎓",description:"woman student: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🎓",description:"woman student: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🏫",description:"teacher",version:"12.1",keywords:["instructor","lecturer","professor","teacher"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🏫",description:"teacher: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🏫",description:"teacher: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🏫",description:"teacher: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🏫",description:"teacher: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🏫",description:"teacher: dark skin tone",version:"12.1"}]},{emoji:"👨‍🏫",description:"man teacher",version:"4.0",keywords:["instructor","lecturer","man","professor","teacher"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🏫",description:"man teacher: light skin tone",version:"4.0"},{emoji:"👨🏼‍🏫",description:"man teacher: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🏫",description:"man teacher: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🏫",description:"man teacher: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🏫",description:"man teacher: dark skin tone",version:"4.0"}]},{emoji:"👩‍🏫",description:"woman teacher",version:"4.0",keywords:["instructor","lecturer","professor","teacher","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🏫",description:"woman teacher: light skin tone",version:"4.0"},{emoji:"👩🏼‍🏫",description:"woman teacher: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🏫",description:"woman teacher: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🏫",description:"woman teacher: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🏫",description:"woman teacher: dark skin tone",version:"4.0"}]},{emoji:"🧑‍⚖️",description:"judge",version:"12.1",keywords:["judge","justice","law","scales"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍⚖️",description:"judge: light skin tone",version:"12.1"},{emoji:"🧑🏼‍⚖️",description:"judge: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍⚖️",description:"judge: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍⚖️",description:"judge: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍⚖️",description:"judge: dark skin tone",version:"12.1"}]},{emoji:"👨‍⚖️",description:"man judge",version:"4.0",keywords:["judge","justice","law","man","scales"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍⚖️",description:"man judge: light skin tone",version:"4.0"},{emoji:"👨🏼‍⚖️",description:"man judge: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍⚖️",description:"man judge: medium skin tone",version:"4.0"},{emoji:"👨🏾‍⚖️",description:"man judge: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍⚖️",description:"man judge: dark skin tone",version:"4.0"}]},{emoji:"👩‍⚖️",description:"woman judge",version:"4.0",keywords:["judge","justice","law","scales","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍⚖️",description:"woman judge: light skin tone",version:"4.0"},{emoji:"👩🏼‍⚖️",description:"woman judge: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍⚖️",description:"woman judge: medium skin tone",version:"4.0"},{emoji:"👩🏾‍⚖️",description:"woman judge: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍⚖️",description:"woman judge: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🌾",description:"farmer",version:"12.1",keywords:["farmer","gardener","rancher"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🌾",description:"farmer: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🌾",description:"farmer: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🌾",description:"farmer: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🌾",description:"farmer: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🌾",description:"farmer: dark skin tone",version:"12.1"}]},{emoji:"👨‍🌾",description:"man farmer",version:"4.0",keywords:["farmer","gardener","man","rancher"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🌾",description:"man farmer: light skin tone",version:"4.0"},{emoji:"👨🏼‍🌾",description:"man farmer: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🌾",description:"man farmer: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🌾",description:"man farmer: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🌾",description:"man farmer: dark skin tone",version:"4.0"}]},{emoji:"👩‍🌾",description:"woman farmer",version:"4.0",keywords:["farmer","gardener","rancher","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🌾",description:"woman farmer: light skin tone",version:"4.0"},{emoji:"👩🏼‍🌾",description:"woman farmer: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🌾",description:"woman farmer: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🌾",description:"woman farmer: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🌾",description:"woman farmer: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🍳",description:"cook",version:"12.1",keywords:["chef","cook"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🍳",description:"cook: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🍳",description:"cook: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🍳",description:"cook: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🍳",description:"cook: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🍳",description:"cook: dark skin tone",version:"12.1"}]},{emoji:"👨‍🍳",description:"man cook",version:"4.0",keywords:["chef","cook","man"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🍳",description:"man cook: light skin tone",version:"4.0"},{emoji:"👨🏼‍🍳",description:"man cook: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🍳",description:"man cook: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🍳",description:"man cook: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🍳",description:"man cook: dark skin tone",version:"4.0"}]},{emoji:"👩‍🍳",description:"woman cook",version:"4.0",keywords:["chef","cook","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🍳",description:"woman cook: light skin tone",version:"4.0"},{emoji:"👩🏼‍🍳",description:"woman cook: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🍳",description:"woman cook: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🍳",description:"woman cook: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🍳",description:"woman cook: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🔧",description:"mechanic",version:"12.1",keywords:["electrician","mechanic","plumber","tradesperson"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🔧",description:"mechanic: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🔧",description:"mechanic: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🔧",description:"mechanic: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🔧",description:"mechanic: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🔧",description:"mechanic: dark skin tone",version:"12.1"}]},{emoji:"👨‍🔧",description:"man mechanic",version:"4.0",keywords:["electrician","man","mechanic","plumber","tradesperson"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🔧",description:"man mechanic: light skin tone",version:"4.0"},{emoji:"👨🏼‍🔧",description:"man mechanic: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🔧",description:"man mechanic: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🔧",description:"man mechanic: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🔧",description:"man mechanic: dark skin tone",version:"4.0"}]},{emoji:"👩‍🔧",description:"woman mechanic",version:"4.0",keywords:["electrician","mechanic","plumber","tradesperson","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🔧",description:"woman mechanic: light skin tone",version:"4.0"},{emoji:"👩🏼‍🔧",description:"woman mechanic: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🔧",description:"woman mechanic: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🔧",description:"woman mechanic: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🔧",description:"woman mechanic: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🏭",description:"factory worker",version:"12.1",keywords:["assembly","factory","industrial","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🏭",description:"factory worker: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🏭",description:"factory worker: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🏭",description:"factory worker: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🏭",description:"factory worker: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🏭",description:"factory worker: dark skin tone",version:"12.1"}]},{emoji:"👨‍🏭",description:"man factory worker",version:"4.0",keywords:["assembly","factory","industrial","man","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🏭",description:"man factory worker: light skin tone",version:"4.0"},{emoji:"👨🏼‍🏭",description:"man factory worker: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🏭",description:"man factory worker: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🏭",description:"man factory worker: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🏭",description:"man factory worker: dark skin tone",version:"4.0"}]},{emoji:"👩‍🏭",description:"woman factory worker",version:"4.0",keywords:["assembly","factory","industrial","woman","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🏭",description:"woman factory worker: light skin tone",version:"4.0"},{emoji:"👩🏼‍🏭",description:"woman factory worker: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🏭",description:"woman factory worker: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🏭",description:"woman factory worker: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🏭",description:"woman factory worker: dark skin tone",version:"4.0"}]},{emoji:"🧑‍💼",description:"office worker",version:"12.1",keywords:["architect","business","manager","office","white-collar","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍💼",description:"office worker: light skin tone",version:"12.1"},{emoji:"🧑🏼‍💼",description:"office worker: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍💼",description:"office worker: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍💼",description:"office worker: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍💼",description:"office worker: dark skin tone",version:"12.1"}]},{emoji:"👨‍💼",description:"man office worker",version:"4.0",keywords:["architect","business","man","manager","office","white-collar","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍💼",description:"man office worker: light skin tone",version:"4.0"},{emoji:"👨🏼‍💼",description:"man office worker: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍💼",description:"man office worker: medium skin tone",version:"4.0"},{emoji:"👨🏾‍💼",description:"man office worker: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍💼",description:"man office worker: dark skin tone",version:"4.0"}]},{emoji:"👩‍💼",description:"woman office worker",version:"4.0",keywords:["architect","business","manager","office","white-collar","woman","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍💼",description:"woman office worker: light skin tone",version:"4.0"},{emoji:"👩🏼‍💼",description:"woman office worker: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍💼",description:"woman office worker: medium skin tone",version:"4.0"},{emoji:"👩🏾‍💼",description:"woman office worker: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍💼",description:"woman office worker: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🔬",description:"scientist",version:"12.1",keywords:["biologist","chemist","engineer","mathematician","physicist","scientist"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🔬",description:"scientist: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🔬",description:"scientist: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🔬",description:"scientist: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🔬",description:"scientist: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🔬",description:"scientist: dark skin tone",version:"12.1"}]},{emoji:"👨‍🔬",description:"man scientist",version:"4.0",keywords:["biologist","chemist","engineer","man","mathematician","physicist","scientist"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🔬",description:"man scientist: light skin tone",version:"4.0"},{emoji:"👨🏼‍🔬",description:"man scientist: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🔬",description:"man scientist: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🔬",description:"man scientist: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🔬",description:"man scientist: dark skin tone",version:"4.0"}]},{emoji:"👩‍🔬",description:"woman scientist",version:"4.0",keywords:["biologist","chemist","engineer","mathematician","physicist","scientist","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🔬",description:"woman scientist: light skin tone",version:"4.0"},{emoji:"👩🏼‍🔬",description:"woman scientist: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🔬",description:"woman scientist: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🔬",description:"woman scientist: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🔬",description:"woman scientist: dark skin tone",version:"4.0"}]},{emoji:"🧑‍💻",description:"technologist",version:"12.1",keywords:["coder","computer","developer","inventor","software","technologist"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍💻",description:"technologist: light skin tone",version:"12.1"},{emoji:"🧑🏼‍💻",description:"technologist: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍💻",description:"technologist: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍💻",description:"technologist: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍💻",description:"technologist: dark skin tone",version:"12.1"}]},{emoji:"👨‍💻",description:"man technologist",version:"4.0",keywords:["coder","computer","developer","inventor","man","software","technologist"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍💻",description:"man technologist: light skin tone",version:"4.0"},{emoji:"👨🏼‍💻",description:"man technologist: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍💻",description:"man technologist: medium skin tone",version:"4.0"},{emoji:"👨🏾‍💻",description:"man technologist: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍💻",description:"man technologist: dark skin tone",version:"4.0"}]},{emoji:"👩‍💻",description:"woman technologist",version:"4.0",keywords:["coder","computer","developer","inventor","software","technologist","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍💻",description:"woman technologist: light skin tone",version:"4.0"},{emoji:"👩🏼‍💻",description:"woman technologist: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍💻",description:"woman technologist: medium skin tone",version:"4.0"},{emoji:"👩🏾‍💻",description:"woman technologist: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍💻",description:"woman technologist: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🎤",description:"singer",version:"12.1",keywords:["actor","entertainer","rock","rockstar","singer","star"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🎤",description:"singer: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🎤",description:"singer: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🎤",description:"singer: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🎤",description:"singer: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🎤",description:"singer: dark skin tone",version:"12.1"}]},{emoji:"👨‍🎤",description:"man singer",version:"4.0",keywords:["actor","entertainer","man","rock","rockstar","singer","star"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🎤",description:"man singer: light skin tone",version:"4.0"},{emoji:"👨🏼‍🎤",description:"man singer: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🎤",description:"man singer: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🎤",description:"man singer: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🎤",description:"man singer: dark skin tone",version:"4.0"}]},{emoji:"👩‍🎤",description:"woman singer",version:"4.0",keywords:["actor","entertainer","rock","rockstar","singer","star","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🎤",description:"woman singer: light skin tone",version:"4.0"},{emoji:"👩🏼‍🎤",description:"woman singer: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🎤",description:"woman singer: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🎤",description:"woman singer: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🎤",description:"woman singer: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🎨",description:"artist",version:"12.1",keywords:["artist","palette"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🎨",description:"artist: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🎨",description:"artist: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🎨",description:"artist: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🎨",description:"artist: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🎨",description:"artist: dark skin tone",version:"12.1"}]},{emoji:"👨‍🎨",description:"man artist",version:"4.0",keywords:["artist","man","palette"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🎨",description:"man artist: light skin tone",version:"4.0"},{emoji:"👨🏼‍🎨",description:"man artist: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🎨",description:"man artist: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🎨",description:"man artist: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🎨",description:"man artist: dark skin tone",version:"4.0"}]},{emoji:"👩‍🎨",description:"woman artist",version:"4.0",keywords:["artist","palette","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🎨",description:"woman artist: light skin tone",version:"4.0"},{emoji:"👩🏼‍🎨",description:"woman artist: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🎨",description:"woman artist: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🎨",description:"woman artist: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🎨",description:"woman artist: dark skin tone",version:"4.0"}]},{emoji:"🧑‍✈️",description:"pilot",version:"12.1",keywords:["pilot","plane"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍✈️",description:"pilot: light skin tone",version:"12.1"},{emoji:"🧑🏼‍✈️",description:"pilot: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍✈️",description:"pilot: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍✈️",description:"pilot: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍✈️",description:"pilot: dark skin tone",version:"12.1"}]},{emoji:"👨‍✈️",description:"man pilot",version:"4.0",keywords:["man","pilot","plane"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍✈️",description:"man pilot: light skin tone",version:"4.0"},{emoji:"👨🏼‍✈️",description:"man pilot: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍✈️",description:"man pilot: medium skin tone",version:"4.0"},{emoji:"👨🏾‍✈️",description:"man pilot: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍✈️",description:"man pilot: dark skin tone",version:"4.0"}]},{emoji:"👩‍✈️",description:"woman pilot",version:"4.0",keywords:["pilot","plane","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍✈️",description:"woman pilot: light skin tone",version:"4.0"},{emoji:"👩🏼‍✈️",description:"woman pilot: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍✈️",description:"woman pilot: medium skin tone",version:"4.0"},{emoji:"👩🏾‍✈️",description:"woman pilot: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍✈️",description:"woman pilot: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🚀",description:"astronaut",version:"12.1",keywords:["astronaut","rocket","space"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🚀",description:"astronaut: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🚀",description:"astronaut: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🚀",description:"astronaut: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🚀",description:"astronaut: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🚀",description:"astronaut: dark skin tone",version:"12.1"}]},{emoji:"👨‍🚀",description:"man astronaut",version:"4.0",keywords:["astronaut","man","rocket","space"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🚀",description:"man astronaut: light skin tone",version:"4.0"},{emoji:"👨🏼‍🚀",description:"man astronaut: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🚀",description:"man astronaut: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🚀",description:"man astronaut: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🚀",description:"man astronaut: dark skin tone",version:"4.0"}]},{emoji:"👩‍🚀",description:"woman astronaut",version:"4.0",keywords:["astronaut","rocket","space","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🚀",description:"woman astronaut: light skin tone",version:"4.0"},{emoji:"👩🏼‍🚀",description:"woman astronaut: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🚀",description:"woman astronaut: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🚀",description:"woman astronaut: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🚀",description:"woman astronaut: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🚒",description:"firefighter",version:"12.1",keywords:["fire","firefighter","firetruck"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🚒",description:"firefighter: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🚒",description:"firefighter: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🚒",description:"firefighter: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🚒",description:"firefighter: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🚒",description:"firefighter: dark skin tone",version:"12.1"}]},{emoji:"👨‍🚒",description:"man firefighter",version:"4.0",keywords:["fire","firefighter","firetruck","man"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🚒",description:"man firefighter: light skin tone",version:"4.0"},{emoji:"👨🏼‍🚒",description:"man firefighter: medium-light skin tone",version:"4.0"},{emoji:"👨🏽‍🚒",description:"man firefighter: medium skin tone",version:"4.0"},{emoji:"👨🏾‍🚒",description:"man firefighter: medium-dark skin tone",version:"4.0"},{emoji:"👨🏿‍🚒",description:"man firefighter: dark skin tone",version:"4.0"}]},{emoji:"👩‍🚒",description:"woman firefighter",version:"4.0",keywords:["fire","firefighter","firetruck","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🚒",description:"woman firefighter: light skin tone",version:"4.0"},{emoji:"👩🏼‍🚒",description:"woman firefighter: medium-light skin tone",version:"4.0"},{emoji:"👩🏽‍🚒",description:"woman firefighter: medium skin tone",version:"4.0"},{emoji:"👩🏾‍🚒",description:"woman firefighter: medium-dark skin tone",version:"4.0"},{emoji:"👩🏿‍🚒",description:"woman firefighter: dark skin tone",version:"4.0"}]},{emoji:"👮",description:"police officer",version:"0.6",keywords:["apprehend","arrest","citation","cop","law","officer","over","police","pulled","undercover"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👮🏻",description:"police officer: light skin tone",version:"1.0"},{emoji:"👮🏼",description:"police officer: medium-light skin tone",version:"1.0"},{emoji:"👮🏽",description:"police officer: medium skin tone",version:"1.0"},{emoji:"👮🏾",description:"police officer: medium-dark skin tone",version:"1.0"},{emoji:"👮🏿",description:"police officer: dark skin tone",version:"1.0"}]},{emoji:"👮‍♂️",description:"man police officer",version:"4.0",keywords:["apprehend","arrest","citation","cop","law","man","officer","over","police","pulled","undercover"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👮🏻‍♂️",description:"man police officer: light skin tone",version:"4.0"},{emoji:"👮🏼‍♂️",description:"man police officer: medium-light skin tone",version:"4.0"},{emoji:"👮🏽‍♂️",description:"man police officer: medium skin tone",version:"4.0"},{emoji:"👮🏾‍♂️",description:"man police officer: medium-dark skin tone",version:"4.0"},{emoji:"👮🏿‍♂️",description:"man police officer: dark skin tone",version:"4.0"}]},{emoji:"👮‍♀️",description:"woman police officer",version:"4.0",keywords:["apprehend","arrest","citation","cop","law","officer","over","police","pulled","undercover","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👮🏻‍♀️",description:"woman police officer: light skin tone",version:"4.0"},{emoji:"👮🏼‍♀️",description:"woman police officer: medium-light skin tone",version:"4.0"},{emoji:"👮🏽‍♀️",description:"woman police officer: medium skin tone",version:"4.0"},{emoji:"👮🏾‍♀️",description:"woman police officer: medium-dark skin tone",version:"4.0"},{emoji:"👮🏿‍♀️",description:"woman police officer: dark skin tone",version:"4.0"}]},{emoji:"🕵️",description:"detective",version:"0.7",keywords:["detective","sleuth","spy"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🕵🏻",description:"detective: light skin tone",version:"2.0"},{emoji:"🕵🏼",description:"detective: medium-light skin tone",version:"2.0"},{emoji:"🕵🏽",description:"detective: medium skin tone",version:"2.0"},{emoji:"🕵🏾",description:"detective: medium-dark skin tone",version:"2.0"},{emoji:"🕵🏿",description:"detective: dark skin tone",version:"2.0"}]},{emoji:"🕵️‍♂️",description:"man detective",version:"4.0",keywords:["detective","man","sleuth","spy"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🕵🏻‍♂️",description:"man detective: light skin tone",version:"4.0"},{emoji:"🕵🏼‍♂️",description:"man detective: medium-light skin tone",version:"4.0"},{emoji:"🕵🏽‍♂️",description:"man detective: medium skin tone",version:"4.0"},{emoji:"🕵🏾‍♂️",description:"man detective: medium-dark skin tone",version:"4.0"},{emoji:"🕵🏿‍♂️",description:"man detective: dark skin tone",version:"4.0"}]},{emoji:"🕵️‍♀️",description:"woman detective",version:"4.0",keywords:["detective","sleuth","spy","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🕵🏻‍♀️",description:"woman detective: light skin tone",version:"4.0"},{emoji:"🕵🏼‍♀️",description:"woman detective: medium-light skin tone",version:"4.0"},{emoji:"🕵🏽‍♀️",description:"woman detective: medium skin tone",version:"4.0"},{emoji:"🕵🏾‍♀️",description:"woman detective: medium-dark skin tone",version:"4.0"},{emoji:"🕵🏿‍♀️",description:"woman detective: dark skin tone",version:"4.0"}]},{emoji:"💂",description:"guard",version:"0.6",keywords:["buckingham","guard","helmet","london","palace"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"💂🏻",description:"guard: light skin tone",version:"1.0"},{emoji:"💂🏼",description:"guard: medium-light skin tone",version:"1.0"},{emoji:"💂🏽",description:"guard: medium skin tone",version:"1.0"},{emoji:"💂🏾",description:"guard: medium-dark skin tone",version:"1.0"},{emoji:"💂🏿",description:"guard: dark skin tone",version:"1.0"}]},{emoji:"💂‍♂️",description:"man guard",version:"4.0",keywords:["buckingham","guard","helmet","london","man","palace"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"💂🏻‍♂️",description:"man guard: light skin tone",version:"4.0"},{emoji:"💂🏼‍♂️",description:"man guard: medium-light skin tone",version:"4.0"},{emoji:"💂🏽‍♂️",description:"man guard: medium skin tone",version:"4.0"},{emoji:"💂🏾‍♂️",description:"man guard: medium-dark skin tone",version:"4.0"},{emoji:"💂🏿‍♂️",description:"man guard: dark skin tone",version:"4.0"}]},{emoji:"💂‍♀️",description:"woman guard",version:"4.0",keywords:["buckingham","guard","helmet","london","palace","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"💂🏻‍♀️",description:"woman guard: light skin tone",version:"4.0"},{emoji:"💂🏼‍♀️",description:"woman guard: medium-light skin tone",version:"4.0"},{emoji:"💂🏽‍♀️",description:"woman guard: medium skin tone",version:"4.0"},{emoji:"💂🏾‍♀️",description:"woman guard: medium-dark skin tone",version:"4.0"},{emoji:"💂🏿‍♀️",description:"woman guard: dark skin tone",version:"4.0"}]},{emoji:"🥷",description:"ninja",version:"13.0",keywords:["assassin","fight","fighter","hidden","ninja","person","secret","skills","sly","soldier","stealth","war"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🥷🏻",description:"ninja: light skin tone",version:"13.0"},{emoji:"🥷🏼",description:"ninja: medium-light skin tone",version:"13.0"},{emoji:"🥷🏽",description:"ninja: medium skin tone",version:"13.0"},{emoji:"🥷🏾",description:"ninja: medium-dark skin tone",version:"13.0"},{emoji:"🥷🏿",description:"ninja: dark skin tone",version:"13.0"}]},{emoji:"👷",description:"construction worker",version:"0.6",keywords:["build","construction","fix","hardhat","hat","man","person","rebuild","remodel","repair","work","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👷🏻",description:"construction worker: light skin tone",version:"1.0"},{emoji:"👷🏼",description:"construction worker: medium-light skin tone",version:"1.0"},{emoji:"👷🏽",description:"construction worker: medium skin tone",version:"1.0"},{emoji:"👷🏾",description:"construction worker: medium-dark skin tone",version:"1.0"},{emoji:"👷🏿",description:"construction worker: dark skin tone",version:"1.0"}]},{emoji:"👷‍♂️",description:"man construction worker",version:"4.0",keywords:["build","construction","fix","hardhat","hat","man","rebuild","remodel","repair","work","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👷🏻‍♂️",description:"man construction worker: light skin tone",version:"4.0"},{emoji:"👷🏼‍♂️",description:"man construction worker: medium-light skin tone",version:"4.0"},{emoji:"👷🏽‍♂️",description:"man construction worker: medium skin tone",version:"4.0"},{emoji:"👷🏾‍♂️",description:"man construction worker: medium-dark skin tone",version:"4.0"},{emoji:"👷🏿‍♂️",description:"man construction worker: dark skin tone",version:"4.0"}]},{emoji:"👷‍♀️",description:"woman construction worker",version:"4.0",keywords:["build","construction","fix","hardhat","hat","man","rebuild","remodel","repair","woman","work","worker"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👷🏻‍♀️",description:"woman construction worker: light skin tone",version:"4.0"},{emoji:"👷🏼‍♀️",description:"woman construction worker: medium-light skin tone",version:"4.0"},{emoji:"👷🏽‍♀️",description:"woman construction worker: medium skin tone",version:"4.0"},{emoji:"👷🏾‍♀️",description:"woman construction worker: medium-dark skin tone",version:"4.0"},{emoji:"👷🏿‍♀️",description:"woman construction worker: dark skin tone",version:"4.0"}]},{emoji:"🫅",description:"person with crown",version:"14.0",keywords:["crown","monarch","noble","person","regal","royal","royalty"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🫅🏻",description:"person with crown: light skin tone",version:"14.0"},{emoji:"🫅🏼",description:"person with crown: medium-light skin tone",version:"14.0"},{emoji:"🫅🏽",description:"person with crown: medium skin tone",version:"14.0"},{emoji:"🫅🏾",description:"person with crown: medium-dark skin tone",version:"14.0"},{emoji:"🫅🏿",description:"person with crown: dark skin tone",version:"14.0"}]},{emoji:"🤴",description:"prince",version:"3.0",keywords:["crown","fairy","fairytale","fantasy","king","prince","royal","royalty","tale"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🤴🏻",description:"prince: light skin tone",version:"3.0"},{emoji:"🤴🏼",description:"prince: medium-light skin tone",version:"3.0"},{emoji:"🤴🏽",description:"prince: medium skin tone",version:"3.0"},{emoji:"🤴🏾",description:"prince: medium-dark skin tone",version:"3.0"},{emoji:"🤴🏿",description:"prince: dark skin tone",version:"3.0"}]},{emoji:"👸",description:"princess",version:"0.6",keywords:["crown","fairy","fairytale","fantasy","princess","queen","royal","royalty","tale"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👸🏻",description:"princess: light skin tone",version:"1.0"},{emoji:"👸🏼",description:"princess: medium-light skin tone",version:"1.0"},{emoji:"👸🏽",description:"princess: medium skin tone",version:"1.0"},{emoji:"👸🏾",description:"princess: medium-dark skin tone",version:"1.0"},{emoji:"👸🏿",description:"princess: dark skin tone",version:"1.0"}]},{emoji:"👳",description:"person wearing turban",version:"0.6",keywords:["person","turban","wearing"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👳🏻",description:"person wearing turban: light skin tone",version:"1.0"},{emoji:"👳🏼",description:"person wearing turban: medium-light skin tone",version:"1.0"},{emoji:"👳🏽",description:"person wearing turban: medium skin tone",version:"1.0"},{emoji:"👳🏾",description:"person wearing turban: medium-dark skin tone",version:"1.0"},{emoji:"👳🏿",description:"person wearing turban: dark skin tone",version:"1.0"}]},{emoji:"👳‍♂️",description:"man wearing turban",version:"4.0",keywords:["man","turban","wearing"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👳🏻‍♂️",description:"man wearing turban: light skin tone",version:"4.0"},{emoji:"👳🏼‍♂️",description:"man wearing turban: medium-light skin tone",version:"4.0"},{emoji:"👳🏽‍♂️",description:"man wearing turban: medium skin tone",version:"4.0"},{emoji:"👳🏾‍♂️",description:"man wearing turban: medium-dark skin tone",version:"4.0"},{emoji:"👳🏿‍♂️",description:"man wearing turban: dark skin tone",version:"4.0"}]},{emoji:"👳‍♀️",description:"woman wearing turban",version:"4.0",keywords:["turban","wearing","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👳🏻‍♀️",description:"woman wearing turban: light skin tone",version:"4.0"},{emoji:"👳🏼‍♀️",description:"woman wearing turban: medium-light skin tone",version:"4.0"},{emoji:"👳🏽‍♀️",description:"woman wearing turban: medium skin tone",version:"4.0"},{emoji:"👳🏾‍♀️",description:"woman wearing turban: medium-dark skin tone",version:"4.0"},{emoji:"👳🏿‍♀️",description:"woman wearing turban: dark skin tone",version:"4.0"}]},{emoji:"👲",description:"person with skullcap",version:"0.6",keywords:["cap","Chinese","gua","guapi","hat","mao","person","pi","skullcap"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👲🏻",description:"person with skullcap: light skin tone",version:"1.0"},{emoji:"👲🏼",description:"person with skullcap: medium-light skin tone",version:"1.0"},{emoji:"👲🏽",description:"person with skullcap: medium skin tone",version:"1.0"},{emoji:"👲🏾",description:"person with skullcap: medium-dark skin tone",version:"1.0"},{emoji:"👲🏿",description:"person with skullcap: dark skin tone",version:"1.0"}]},{emoji:"🧕",description:"woman with headscarf",version:"5.0",keywords:["bandana","head","headscarf","hijab","kerchief","mantilla","tichel","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧕🏻",description:"woman with headscarf: light skin tone",version:"5.0"},{emoji:"🧕🏼",description:"woman with headscarf: medium-light skin tone",version:"5.0"},{emoji:"🧕🏽",description:"woman with headscarf: medium skin tone",version:"5.0"},{emoji:"🧕🏾",description:"woman with headscarf: medium-dark skin tone",version:"5.0"},{emoji:"🧕🏿",description:"woman with headscarf: dark skin tone",version:"5.0"}]},{emoji:"🤵",description:"person in tuxedo",version:"3.0",keywords:["formal","person","tuxedo","wedding"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🤵🏻",description:"person in tuxedo: light skin tone",version:"3.0"},{emoji:"🤵🏼",description:"person in tuxedo: medium-light skin tone",version:"3.0"},{emoji:"🤵🏽",description:"person in tuxedo: medium skin tone",version:"3.0"},{emoji:"🤵🏾",description:"person in tuxedo: medium-dark skin tone",version:"3.0"},{emoji:"🤵🏿",description:"person in tuxedo: dark skin tone",version:"3.0"}]},{emoji:"🤵‍♂️",description:"man in tuxedo",version:"13.0",keywords:["formal","groom","man","tuxedo","wedding"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🤵🏻‍♂️",description:"man in tuxedo: light skin tone",version:"13.0"},{emoji:"🤵🏼‍♂️",description:"man in tuxedo: medium-light skin tone",version:"13.0"},{emoji:"🤵🏽‍♂️",description:"man in tuxedo: medium skin tone",version:"13.0"},{emoji:"🤵🏾‍♂️",description:"man in tuxedo: medium-dark skin tone",version:"13.0"},{emoji:"🤵🏿‍♂️",description:"man in tuxedo: dark skin tone",version:"13.0"}]},{emoji:"🤵‍♀️",description:"woman in tuxedo",version:"13.0",keywords:["formal","tuxedo","wedding","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🤵🏻‍♀️",description:"woman in tuxedo: light skin tone",version:"13.0"},{emoji:"🤵🏼‍♀️",description:"woman in tuxedo: medium-light skin tone",version:"13.0"},{emoji:"🤵🏽‍♀️",description:"woman in tuxedo: medium skin tone",version:"13.0"},{emoji:"🤵🏾‍♀️",description:"woman in tuxedo: medium-dark skin tone",version:"13.0"},{emoji:"🤵🏿‍♀️",description:"woman in tuxedo: dark skin tone",version:"13.0"}]},{emoji:"👰",description:"person with veil",version:"0.6",keywords:["person","veil","wedding"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👰🏻",description:"person with veil: light skin tone",version:"1.0"},{emoji:"👰🏼",description:"person with veil: medium-light skin tone",version:"1.0"},{emoji:"👰🏽",description:"person with veil: medium skin tone",version:"1.0"},{emoji:"👰🏾",description:"person with veil: medium-dark skin tone",version:"1.0"},{emoji:"👰🏿",description:"person with veil: dark skin tone",version:"1.0"}]},{emoji:"👰‍♂️",description:"man with veil",version:"13.0",keywords:["man","veil","wedding"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👰🏻‍♂️",description:"man with veil: light skin tone",version:"13.0"},{emoji:"👰🏼‍♂️",description:"man with veil: medium-light skin tone",version:"13.0"},{emoji:"👰🏽‍♂️",description:"man with veil: medium skin tone",version:"13.0"},{emoji:"👰🏾‍♂️",description:"man with veil: medium-dark skin tone",version:"13.0"},{emoji:"👰🏿‍♂️",description:"man with veil: dark skin tone",version:"13.0"}]},{emoji:"👰‍♀️",description:"woman with veil",version:"13.0",keywords:["bride","veil","wedding","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👰🏻‍♀️",description:"woman with veil: light skin tone",version:"13.0"},{emoji:"👰🏼‍♀️",description:"woman with veil: medium-light skin tone",version:"13.0"},{emoji:"👰🏽‍♀️",description:"woman with veil: medium skin tone",version:"13.0"},{emoji:"👰🏾‍♀️",description:"woman with veil: medium-dark skin tone",version:"13.0"},{emoji:"👰🏿‍♀️",description:"woman with veil: dark skin tone",version:"13.0"}]},{emoji:"🤰",description:"pregnant woman",version:"3.0",keywords:["pregnant","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🤰🏻",description:"pregnant woman: light skin tone",version:"3.0"},{emoji:"🤰🏼",description:"pregnant woman: medium-light skin tone",version:"3.0"},{emoji:"🤰🏽",description:"pregnant woman: medium skin tone",version:"3.0"},{emoji:"🤰🏾",description:"pregnant woman: medium-dark skin tone",version:"3.0"},{emoji:"🤰🏿",description:"pregnant woman: dark skin tone",version:"3.0"}]},{emoji:"🫃",description:"pregnant man",version:"14.0",keywords:["belly","bloated","full","man","overeat","pregnant"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🫃🏻",description:"pregnant man: light skin tone",version:"14.0"},{emoji:"🫃🏼",description:"pregnant man: medium-light skin tone",version:"14.0"},{emoji:"🫃🏽",description:"pregnant man: medium skin tone",version:"14.0"},{emoji:"🫃🏾",description:"pregnant man: medium-dark skin tone",version:"14.0"},{emoji:"🫃🏿",description:"pregnant man: dark skin tone",version:"14.0"}]},{emoji:"🫄",description:"pregnant person",version:"14.0",keywords:["belly","bloated","full","overeat","person","pregnant","stuffed"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🫄🏻",description:"pregnant person: light skin tone",version:"14.0"},{emoji:"🫄🏼",description:"pregnant person: medium-light skin tone",version:"14.0"},{emoji:"🫄🏽",description:"pregnant person: medium skin tone",version:"14.0"},{emoji:"🫄🏾",description:"pregnant person: medium-dark skin tone",version:"14.0"},{emoji:"🫄🏿",description:"pregnant person: dark skin tone",version:"14.0"}]},{emoji:"🤱",description:"breast-feeding",version:"5.0",keywords:["baby","breast","breast-feeding","feeding","mom","mother","nursing","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🤱🏻",description:"breast-feeding: light skin tone",version:"5.0"},{emoji:"🤱🏼",description:"breast-feeding: medium-light skin tone",version:"5.0"},{emoji:"🤱🏽",description:"breast-feeding: medium skin tone",version:"5.0"},{emoji:"🤱🏾",description:"breast-feeding: medium-dark skin tone",version:"5.0"},{emoji:"🤱🏿",description:"breast-feeding: dark skin tone",version:"5.0"}]},{emoji:"👩‍🍼",description:"woman feeding baby",version:"13.0",keywords:["baby","feed","feeding","mom","mother","nanny","newborn","nursing","woman"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👩🏻‍🍼",description:"woman feeding baby: light skin tone",version:"13.0"},{emoji:"👩🏼‍🍼",description:"woman feeding baby: medium-light skin tone",version:"13.0"},{emoji:"👩🏽‍🍼",description:"woman feeding baby: medium skin tone",version:"13.0"},{emoji:"👩🏾‍🍼",description:"woman feeding baby: medium-dark skin tone",version:"13.0"},{emoji:"👩🏿‍🍼",description:"woman feeding baby: dark skin tone",version:"13.0"}]},{emoji:"👨‍🍼",description:"man feeding baby",version:"13.0",keywords:["baby","dad","father","feed","feeding","man","nanny","newborn","nursing"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"👨🏻‍🍼",description:"man feeding baby: light skin tone",version:"13.0"},{emoji:"👨🏼‍🍼",description:"man feeding baby: medium-light skin tone",version:"13.0"},{emoji:"👨🏽‍🍼",description:"man feeding baby: medium skin tone",version:"13.0"},{emoji:"👨🏾‍🍼",description:"man feeding baby: medium-dark skin tone",version:"13.0"},{emoji:"👨🏿‍🍼",description:"man feeding baby: dark skin tone",version:"13.0"}]},{emoji:"🧑‍🍼",description:"person feeding baby",version:"13.0",keywords:["baby","feed","feeding","nanny","newborn","nursing","parent"],category:"person-people",group:"people-body",subgroup:"person-role",variations:[{emoji:"🧑🏻‍🍼",description:"person feeding baby: light skin tone",version:"13.0"},{emoji:"🧑🏼‍🍼",description:"person feeding baby: medium-light skin tone",version:"13.0"},{emoji:"🧑🏽‍🍼",description:"person feeding baby: medium skin tone",version:"13.0"},{emoji:"🧑🏾‍🍼",description:"person feeding baby: medium-dark skin tone",version:"13.0"},{emoji:"🧑🏿‍🍼",description:"person feeding baby: dark skin tone",version:"13.0"}]},{emoji:"👼",description:"baby angel",version:"0.6",keywords:["angel","baby","church","face","fairy","fairytale","fantasy","tale"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"👼🏻",description:"baby angel: light skin tone",version:"1.0"},{emoji:"👼🏼",description:"baby angel: medium-light skin tone",version:"1.0"},{emoji:"👼🏽",description:"baby angel: medium skin tone",version:"1.0"},{emoji:"👼🏾",description:"baby angel: medium-dark skin tone",version:"1.0"},{emoji:"👼🏿",description:"baby angel: dark skin tone",version:"1.0"}]},{emoji:"🎅",description:"Santa Claus",version:"0.6",keywords:["celebration","Christmas","claus","fairy","fantasy","father","holiday","merry","santa","tale","xmas"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🎅🏻",description:"Santa Claus: light skin tone",version:"1.0"},{emoji:"🎅🏼",description:"Santa Claus: medium-light skin tone",version:"1.0"},{emoji:"🎅🏽",description:"Santa Claus: medium skin tone",version:"1.0"},{emoji:"🎅🏾",description:"Santa Claus: medium-dark skin tone",version:"1.0"},{emoji:"🎅🏿",description:"Santa Claus: dark skin tone",version:"1.0"}]},{emoji:"🤶",description:"Mrs. Claus",version:"3.0",keywords:["celebration","Christmas","claus","fairy","fantasy","holiday","merry","mother","Mrs","santa","tale","xmas"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🤶🏻",description:"Mrs. Claus: light skin tone",version:"3.0"},{emoji:"🤶🏼",description:"Mrs. Claus: medium-light skin tone",version:"3.0"},{emoji:"🤶🏽",description:"Mrs. Claus: medium skin tone",version:"3.0"},{emoji:"🤶🏾",description:"Mrs. Claus: medium-dark skin tone",version:"3.0"},{emoji:"🤶🏿",description:"Mrs. Claus: dark skin tone",version:"3.0"}]},{emoji:"🧑‍🎄",description:"Mx Claus",version:"13.0",keywords:["celebration","Christmas","claus","fairy","fantasy","holiday","merry","Mx","santa","tale","xmas"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧑🏻‍🎄",description:"Mx Claus: light skin tone",version:"13.0"},{emoji:"🧑🏼‍🎄",description:"Mx Claus: medium-light skin tone",version:"13.0"},{emoji:"🧑🏽‍🎄",description:"Mx Claus: medium skin tone",version:"13.0"},{emoji:"🧑🏾‍🎄",description:"Mx Claus: medium-dark skin tone",version:"13.0"},{emoji:"🧑🏿‍🎄",description:"Mx Claus: dark skin tone",version:"13.0"}]},{emoji:"🦸",description:"superhero",version:"11.0",keywords:["good","hero","superhero","superpower"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🦸🏻",description:"superhero: light skin tone",version:"11.0"},{emoji:"🦸🏼",description:"superhero: medium-light skin tone",version:"11.0"},{emoji:"🦸🏽",description:"superhero: medium skin tone",version:"11.0"},{emoji:"🦸🏾",description:"superhero: medium-dark skin tone",version:"11.0"},{emoji:"🦸🏿",description:"superhero: dark skin tone",version:"11.0"}]},{emoji:"🦸‍♂️",description:"man superhero",version:"11.0",keywords:["good","hero","man","superhero","superpower"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🦸🏻‍♂️",description:"man superhero: light skin tone",version:"11.0"},{emoji:"🦸🏼‍♂️",description:"man superhero: medium-light skin tone",version:"11.0"},{emoji:"🦸🏽‍♂️",description:"man superhero: medium skin tone",version:"11.0"},{emoji:"🦸🏾‍♂️",description:"man superhero: medium-dark skin tone",version:"11.0"},{emoji:"🦸🏿‍♂️",description:"man superhero: dark skin tone",version:"11.0"}]},{emoji:"🦸‍♀️",description:"woman superhero",version:"11.0",keywords:["good","hero","heroine","superhero","superpower","woman"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🦸🏻‍♀️",description:"woman superhero: light skin tone",version:"11.0"},{emoji:"🦸🏼‍♀️",description:"woman superhero: medium-light skin tone",version:"11.0"},{emoji:"🦸🏽‍♀️",description:"woman superhero: medium skin tone",version:"11.0"},{emoji:"🦸🏾‍♀️",description:"woman superhero: medium-dark skin tone",version:"11.0"},{emoji:"🦸🏿‍♀️",description:"woman superhero: dark skin tone",version:"11.0"}]},{emoji:"🦹",description:"supervillain",version:"11.0",keywords:["bad","criminal","evil","superpower","supervillain","villain"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🦹🏻",description:"supervillain: light skin tone",version:"11.0"},{emoji:"🦹🏼",description:"supervillain: medium-light skin tone",version:"11.0"},{emoji:"🦹🏽",description:"supervillain: medium skin tone",version:"11.0"},{emoji:"🦹🏾",description:"supervillain: medium-dark skin tone",version:"11.0"},{emoji:"🦹🏿",description:"supervillain: dark skin tone",version:"11.0"}]},{emoji:"🦹‍♂️",description:"man supervillain",version:"11.0",keywords:["bad","criminal","evil","man","superpower","supervillain","villain"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🦹🏻‍♂️",description:"man supervillain: light skin tone",version:"11.0"},{emoji:"🦹🏼‍♂️",description:"man supervillain: medium-light skin tone",version:"11.0"},{emoji:"🦹🏽‍♂️",description:"man supervillain: medium skin tone",version:"11.0"},{emoji:"🦹🏾‍♂️",description:"man supervillain: medium-dark skin tone",version:"11.0"},{emoji:"🦹🏿‍♂️",description:"man supervillain: dark skin tone",version:"11.0"}]},{emoji:"🦹‍♀️",description:"woman supervillain",version:"11.0",keywords:["bad","criminal","evil","superpower","supervillain","villain","woman"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🦹🏻‍♀️",description:"woman supervillain: light skin tone",version:"11.0"},{emoji:"🦹🏼‍♀️",description:"woman supervillain: medium-light skin tone",version:"11.0"},{emoji:"🦹🏽‍♀️",description:"woman supervillain: medium skin tone",version:"11.0"},{emoji:"🦹🏾‍♀️",description:"woman supervillain: medium-dark skin tone",version:"11.0"},{emoji:"🦹🏿‍♀️",description:"woman supervillain: dark skin tone",version:"11.0"}]},{emoji:"🧙",description:"mage",version:"5.0",keywords:["fantasy","mage","magic","play","sorcerer","sorceress","sorcery","spell","summon","witch","wizard"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧙🏻",description:"mage: light skin tone",version:"5.0"},{emoji:"🧙🏼",description:"mage: medium-light skin tone",version:"5.0"},{emoji:"🧙🏽",description:"mage: medium skin tone",version:"5.0"},{emoji:"🧙🏾",description:"mage: medium-dark skin tone",version:"5.0"},{emoji:"🧙🏿",description:"mage: dark skin tone",version:"5.0"}]},{emoji:"🧙‍♂️",description:"man mage",version:"5.0",keywords:["fantasy","mage","magic","man","play","sorcerer","sorceress","sorcery","spell","summon","witch","wizard"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧙🏻‍♂️",description:"man mage: light skin tone",version:"5.0"},{emoji:"🧙🏼‍♂️",description:"man mage: medium-light skin tone",version:"5.0"},{emoji:"🧙🏽‍♂️",description:"man mage: medium skin tone",version:"5.0"},{emoji:"🧙🏾‍♂️",description:"man mage: medium-dark skin tone",version:"5.0"},{emoji:"🧙🏿‍♂️",description:"man mage: dark skin tone",version:"5.0"}]},{emoji:"🧙‍♀️",description:"woman mage",version:"5.0",keywords:["fantasy","mage","magic","play","sorcerer","sorceress","sorcery","spell","summon","witch","wizard","woman"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧙🏻‍♀️",description:"woman mage: light skin tone",version:"5.0"},{emoji:"🧙🏼‍♀️",description:"woman mage: medium-light skin tone",version:"5.0"},{emoji:"🧙🏽‍♀️",description:"woman mage: medium skin tone",version:"5.0"},{emoji:"🧙🏾‍♀️",description:"woman mage: medium-dark skin tone",version:"5.0"},{emoji:"🧙🏿‍♀️",description:"woman mage: dark skin tone",version:"5.0"}]},{emoji:"🧚",description:"fairy",version:"5.0",keywords:["fairy","fairytale","fantasy","myth","person","pixie","tale","wings"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧚🏻",description:"fairy: light skin tone",version:"5.0"},{emoji:"🧚🏼",description:"fairy: medium-light skin tone",version:"5.0"},{emoji:"🧚🏽",description:"fairy: medium skin tone",version:"5.0"},{emoji:"🧚🏾",description:"fairy: medium-dark skin tone",version:"5.0"},{emoji:"🧚🏿",description:"fairy: dark skin tone",version:"5.0"}]},{emoji:"🧚‍♂️",description:"man fairy",version:"5.0",keywords:["fairy","fairytale","fantasy","man","myth","Oberon","person","pixie","Puck","tale","wings"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧚🏻‍♂️",description:"man fairy: light skin tone",version:"5.0"},{emoji:"🧚🏼‍♂️",description:"man fairy: medium-light skin tone",version:"5.0"},{emoji:"🧚🏽‍♂️",description:"man fairy: medium skin tone",version:"5.0"},{emoji:"🧚🏾‍♂️",description:"man fairy: medium-dark skin tone",version:"5.0"},{emoji:"🧚🏿‍♂️",description:"man fairy: dark skin tone",version:"5.0"}]},{emoji:"🧚‍♀️",description:"woman fairy",version:"5.0",keywords:["fairy","fairytale","fantasy","myth","person","pixie","tale","Titania","wings","woman"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧚🏻‍♀️",description:"woman fairy: light skin tone",version:"5.0"},{emoji:"🧚🏼‍♀️",description:"woman fairy: medium-light skin tone",version:"5.0"},{emoji:"🧚🏽‍♀️",description:"woman fairy: medium skin tone",version:"5.0"},{emoji:"🧚🏾‍♀️",description:"woman fairy: medium-dark skin tone",version:"5.0"},{emoji:"🧚🏿‍♀️",description:"woman fairy: dark skin tone",version:"5.0"}]},{emoji:"🧛",description:"vampire",version:"5.0",keywords:["blood","Dracula","fangs","halloween","scary","supernatural","teeth","undead","vampire"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧛🏻",description:"vampire: light skin tone",version:"5.0"},{emoji:"🧛🏼",description:"vampire: medium-light skin tone",version:"5.0"},{emoji:"🧛🏽",description:"vampire: medium skin tone",version:"5.0"},{emoji:"🧛🏾",description:"vampire: medium-dark skin tone",version:"5.0"},{emoji:"🧛🏿",description:"vampire: dark skin tone",version:"5.0"}]},{emoji:"🧛‍♂️",description:"man vampire",version:"5.0",keywords:["blood","fangs","halloween","man","scary","supernatural","teeth","undead","vampire"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧛🏻‍♂️",description:"man vampire: light skin tone",version:"5.0"},{emoji:"🧛🏼‍♂️",description:"man vampire: medium-light skin tone",version:"5.0"},{emoji:"🧛🏽‍♂️",description:"man vampire: medium skin tone",version:"5.0"},{emoji:"🧛🏾‍♂️",description:"man vampire: medium-dark skin tone",version:"5.0"},{emoji:"🧛🏿‍♂️",description:"man vampire: dark skin tone",version:"5.0"}]},{emoji:"🧛‍♀️",description:"woman vampire",version:"5.0",keywords:["blood","fangs","halloween","scary","supernatural","teeth","undead","vampire","woman"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧛🏻‍♀️",description:"woman vampire: light skin tone",version:"5.0"},{emoji:"🧛🏼‍♀️",description:"woman vampire: medium-light skin tone",version:"5.0"},{emoji:"🧛🏽‍♀️",description:"woman vampire: medium skin tone",version:"5.0"},{emoji:"🧛🏾‍♀️",description:"woman vampire: medium-dark skin tone",version:"5.0"},{emoji:"🧛🏿‍♀️",description:"woman vampire: dark skin tone",version:"5.0"}]},{emoji:"🧜",description:"merperson",version:"5.0",keywords:["creature","fairytale","folklore","merperson","ocean","sea","siren","trident"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧜🏻",description:"merperson: light skin tone",version:"5.0"},{emoji:"🧜🏼",description:"merperson: medium-light skin tone",version:"5.0"},{emoji:"🧜🏽",description:"merperson: medium skin tone",version:"5.0"},{emoji:"🧜🏾",description:"merperson: medium-dark skin tone",version:"5.0"},{emoji:"🧜🏿",description:"merperson: dark skin tone",version:"5.0"}]},{emoji:"🧜‍♂️",description:"merman",version:"5.0",keywords:["creature","fairytale","folklore","merman","Neptune","ocean","Poseidon","sea","siren","trident","Triton"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧜🏻‍♂️",description:"merman: light skin tone",version:"5.0"},{emoji:"🧜🏼‍♂️",description:"merman: medium-light skin tone",version:"5.0"},{emoji:"🧜🏽‍♂️",description:"merman: medium skin tone",version:"5.0"},{emoji:"🧜🏾‍♂️",description:"merman: medium-dark skin tone",version:"5.0"},{emoji:"🧜🏿‍♂️",description:"merman: dark skin tone",version:"5.0"}]},{emoji:"🧜‍♀️",description:"mermaid",version:"5.0",keywords:["creature","fairytale","folklore","mermaid","merwoman","ocean","sea","siren","trident"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧜🏻‍♀️",description:"mermaid: light skin tone",version:"5.0"},{emoji:"🧜🏼‍♀️",description:"mermaid: medium-light skin tone",version:"5.0"},{emoji:"🧜🏽‍♀️",description:"mermaid: medium skin tone",version:"5.0"},{emoji:"🧜🏾‍♀️",description:"mermaid: medium-dark skin tone",version:"5.0"},{emoji:"🧜🏿‍♀️",description:"mermaid: dark skin tone",version:"5.0"}]},{emoji:"🧝",description:"elf",version:"5.0",keywords:["elf","elves","enchantment","fantasy","folklore","magic","magical","myth"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧝🏻",description:"elf: light skin tone",version:"5.0"},{emoji:"🧝🏼",description:"elf: medium-light skin tone",version:"5.0"},{emoji:"🧝🏽",description:"elf: medium skin tone",version:"5.0"},{emoji:"🧝🏾",description:"elf: medium-dark skin tone",version:"5.0"},{emoji:"🧝🏿",description:"elf: dark skin tone",version:"5.0"}]},{emoji:"🧝‍♂️",description:"man elf",version:"5.0",keywords:["elf","elves","enchantment","fantasy","folklore","magic","magical","man","myth"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧝🏻‍♂️",description:"man elf: light skin tone",version:"5.0"},{emoji:"🧝🏼‍♂️",description:"man elf: medium-light skin tone",version:"5.0"},{emoji:"🧝🏽‍♂️",description:"man elf: medium skin tone",version:"5.0"},{emoji:"🧝🏾‍♂️",description:"man elf: medium-dark skin tone",version:"5.0"},{emoji:"🧝🏿‍♂️",description:"man elf: dark skin tone",version:"5.0"}]},{emoji:"🧝‍♀️",description:"woman elf",version:"5.0",keywords:["elf","elves","enchantment","fantasy","folklore","magic","magical","myth","woman"],category:"person-people",group:"people-body",subgroup:"person-fantasy",variations:[{emoji:"🧝🏻‍♀️",description:"woman elf: light skin tone",version:"5.0"},{emoji:"🧝🏼‍♀️",description:"woman elf: medium-light skin tone",version:"5.0"},{emoji:"🧝🏽‍♀️",description:"woman elf: medium skin tone",version:"5.0"},{emoji:"🧝🏾‍♀️",description:"woman elf: medium-dark skin tone",version:"5.0"},{emoji:"🧝🏿‍♀️",description:"woman elf: dark skin tone",version:"5.0"}]},{emoji:"🧞",description:"genie",version:"5.0",keywords:["djinn","fantasy","genie","jinn","lamp","myth","rub","wishes"],category:"person-people",group:"people-body",subgroup:"person-fantasy"},{emoji:"🧞‍♂️",description:"man genie",version:"5.0",keywords:["djinn","fantasy","genie","jinn","lamp","man","myth","rub","wishes"],category:"person-people",group:"people-body",subgroup:"person-fantasy"},{emoji:"🧞‍♀️",description:"woman genie",version:"5.0",keywords:["djinn","fantasy","genie","jinn","lamp","myth","rub","wishes","woman"],category:"person-people",group:"people-body",subgroup:"person-fantasy"},{emoji:"🧟",description:"zombie",version:"5.0",keywords:["apocalypse","dead","halloween","horror","scary","undead","walking","zombie"],category:"person-people",group:"people-body",subgroup:"person-fantasy"},{emoji:"🧟‍♂️",description:"man zombie",version:"5.0",keywords:["apocalypse","dead","halloween","horror","man","scary","undead","walking","zombie"],category:"person-people",group:"people-body",subgroup:"person-fantasy"},{emoji:"🧟‍♀️",description:"woman zombie",version:"5.0",keywords:["apocalypse","dead","halloween","horror","scary","undead","walking","woman","zombie"],category:"person-people",group:"people-body",subgroup:"person-fantasy"},{emoji:"🧌",description:"troll",version:"14.0",keywords:["fairy","fantasy","monster","tale","troll","trolling"],category:"person-people",group:"people-body",subgroup:"person-fantasy"},{emoji:"💆",description:"person getting massage",version:"0.6",keywords:["face","getting","headache","massage","person","relax","relaxing","salon","soothe","spa","tension","therapy","treatment"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"💆🏻",description:"person getting massage: light skin tone",version:"1.0"},{emoji:"💆🏼",description:"person getting massage: medium-light skin tone",version:"1.0"},{emoji:"💆🏽",description:"person getting massage: medium skin tone",version:"1.0"},{emoji:"💆🏾",description:"person getting massage: medium-dark skin tone",version:"1.0"},{emoji:"💆🏿",description:"person getting massage: dark skin tone",version:"1.0"}]},{emoji:"💆‍♂️",description:"man getting massage",version:"4.0",keywords:["face","getting","headache","man","massage","relax","relaxing","salon","soothe","spa","tension","therapy","treatment"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"💆🏻‍♂️",description:"man getting massage: light skin tone",version:"4.0"},{emoji:"💆🏼‍♂️",description:"man getting massage: medium-light skin tone",version:"4.0"},{emoji:"💆🏽‍♂️",description:"man getting massage: medium skin tone",version:"4.0"},{emoji:"💆🏾‍♂️",description:"man getting massage: medium-dark skin tone",version:"4.0"},{emoji:"💆🏿‍♂️",description:"man getting massage: dark skin tone",version:"4.0"}]},{emoji:"💆‍♀️",description:"woman getting massage",version:"4.0",keywords:["face","getting","headache","massage","relax","relaxing","salon","soothe","spa","tension","therapy","treatment","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"💆🏻‍♀️",description:"woman getting massage: light skin tone",version:"4.0"},{emoji:"💆🏼‍♀️",description:"woman getting massage: medium-light skin tone",version:"4.0"},{emoji:"💆🏽‍♀️",description:"woman getting massage: medium skin tone",version:"4.0"},{emoji:"💆🏾‍♀️",description:"woman getting massage: medium-dark skin tone",version:"4.0"},{emoji:"💆🏿‍♀️",description:"woman getting massage: dark skin tone",version:"4.0"}]},{emoji:"💇",description:"person getting haircut",version:"0.6",keywords:["barber","beauty","chop","cosmetology","cut","groom","hair","haircut","parlor","person","shears","style"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"💇🏻",description:"person getting haircut: light skin tone",version:"1.0"},{emoji:"💇🏼",description:"person getting haircut: medium-light skin tone",version:"1.0"},{emoji:"💇🏽",description:"person getting haircut: medium skin tone",version:"1.0"},{emoji:"💇🏾",description:"person getting haircut: medium-dark skin tone",version:"1.0"},{emoji:"💇🏿",description:"person getting haircut: dark skin tone",version:"1.0"}]},{emoji:"💇‍♂️",description:"man getting haircut",version:"4.0",keywords:["barber","beauty","chop","cosmetology","cut","groom","hair","haircut","man","parlor","person","shears","style"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"💇🏻‍♂️",description:"man getting haircut: light skin tone",version:"4.0"},{emoji:"💇🏼‍♂️",description:"man getting haircut: medium-light skin tone",version:"4.0"},{emoji:"💇🏽‍♂️",description:"man getting haircut: medium skin tone",version:"4.0"},{emoji:"💇🏾‍♂️",description:"man getting haircut: medium-dark skin tone",version:"4.0"},{emoji:"💇🏿‍♂️",description:"man getting haircut: dark skin tone",version:"4.0"}]},{emoji:"💇‍♀️",description:"woman getting haircut",version:"4.0",keywords:["barber","beauty","chop","cosmetology","cut","groom","hair","haircut","parlor","person","shears","style","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"💇🏻‍♀️",description:"woman getting haircut: light skin tone",version:"4.0"},{emoji:"💇🏼‍♀️",description:"woman getting haircut: medium-light skin tone",version:"4.0"},{emoji:"💇🏽‍♀️",description:"woman getting haircut: medium skin tone",version:"4.0"},{emoji:"💇🏾‍♀️",description:"woman getting haircut: medium-dark skin tone",version:"4.0"},{emoji:"💇🏿‍♀️",description:"woman getting haircut: dark skin tone",version:"4.0"}]},{emoji:"🚶",description:"person walking",version:"0.6",keywords:["amble","gait","hike","man","pace","pedestrian","person","stride","stroll","walk","walking"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🚶🏻",description:"person walking: light skin tone",version:"1.0"},{emoji:"🚶🏼",description:"person walking: medium-light skin tone",version:"1.0"},{emoji:"🚶🏽",description:"person walking: medium skin tone",version:"1.0"},{emoji:"🚶🏾",description:"person walking: medium-dark skin tone",version:"1.0"},{emoji:"🚶🏿",description:"person walking: dark skin tone",version:"1.0"}]},{emoji:"🚶‍♂️",description:"man walking",version:"4.0",keywords:["amble","gait","hike","man","pace","pedestrian","stride","stroll","walk","walking"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🚶🏻‍♂️",description:"man walking: light skin tone",version:"4.0"},{emoji:"🚶🏼‍♂️",description:"man walking: medium-light skin tone",version:"4.0"},{emoji:"🚶🏽‍♂️",description:"man walking: medium skin tone",version:"4.0"},{emoji:"🚶🏾‍♂️",description:"man walking: medium-dark skin tone",version:"4.0"},{emoji:"🚶🏿‍♂️",description:"man walking: dark skin tone",version:"4.0"}]},{emoji:"🚶‍♀️",description:"woman walking",version:"4.0",keywords:["amble","gait","hike","man","pace","pedestrian","stride","stroll","walk","walking","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🚶🏻‍♀️",description:"woman walking: light skin tone",version:"4.0"},{emoji:"🚶🏼‍♀️",description:"woman walking: medium-light skin tone",version:"4.0"},{emoji:"🚶🏽‍♀️",description:"woman walking: medium skin tone",version:"4.0"},{emoji:"🚶🏾‍♀️",description:"woman walking: medium-dark skin tone",version:"4.0"},{emoji:"🚶🏿‍♀️",description:"woman walking: dark skin tone",version:"4.0"}]},{emoji:"🚶‍➡️",description:"person walking facing right",version:"15.1",keywords:["amble","gait","hike","man","pace","pedestrian","person","stride","stroll","walk","walking"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🚶🏻‍➡️",description:"person walking facing right",version:"15.1"},{emoji:"🚶🏼‍➡️",description:"person walking facing right",version:"15.1"},{emoji:"🚶🏽‍➡️",description:"person walking facing right",version:"15.1"},{emoji:"🚶🏾‍➡️",description:"person walking facing right",version:"15.1"},{emoji:"🚶🏿‍➡️",description:"person walking facing right",version:"15.1"}]},{emoji:"🚶‍♀️‍➡️",description:"woman walking facing right",version:"15.1",keywords:["amble","gait","hike","man","pace","pedestrian","stride","stroll","walk","walking","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🚶🏻‍♀️‍➡️",description:"woman walking facing right",version:"15.1"},{emoji:"🚶🏼‍♀️‍➡️",description:"woman walking facing right",version:"15.1"},{emoji:"🚶🏽‍♀️‍➡️",description:"woman walking facing right",version:"15.1"},{emoji:"🚶🏾‍♀️‍➡️",description:"woman walking facing right",version:"15.1"},{emoji:"🚶🏿‍♀️‍➡️",description:"woman walking facing right",version:"15.1"}]},{emoji:"🚶‍♂️‍➡️",description:"man walking facing right",version:"15.1",keywords:["amble","gait","hike","man","pace","pedestrian","stride","stroll","walk","walking"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🚶🏻‍♂️‍➡️",description:"man walking facing right",version:"15.1"},{emoji:"🚶🏼‍♂️‍➡️",description:"man walking facing right",version:"15.1"},{emoji:"🚶🏽‍♂️‍➡️",description:"man walking facing right",version:"15.1"},{emoji:"🚶🏾‍♂️‍➡️",description:"man walking facing right",version:"15.1"},{emoji:"🚶🏿‍♂️‍➡️",description:"man walking facing right",version:"15.1"}]},{emoji:"🧍",description:"person standing",version:"12.0",keywords:["person","stand","standing"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧍🏻",description:"person standing: light skin tone",version:"12.0"},{emoji:"🧍🏼",description:"person standing: medium-light skin tone",version:"12.0"},{emoji:"🧍🏽",description:"person standing: medium skin tone",version:"12.0"},{emoji:"🧍🏾",description:"person standing: medium-dark skin tone",version:"12.0"},{emoji:"🧍🏿",description:"person standing: dark skin tone",version:"12.0"}]},{emoji:"🧍‍♂️",description:"man standing",version:"12.0",keywords:["man","stand","standing"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧍🏻‍♂️",description:"man standing: light skin tone",version:"12.0"},{emoji:"🧍🏼‍♂️",description:"man standing: medium-light skin tone",version:"12.0"},{emoji:"🧍🏽‍♂️",description:"man standing: medium skin tone",version:"12.0"},{emoji:"🧍🏾‍♂️",description:"man standing: medium-dark skin tone",version:"12.0"},{emoji:"🧍🏿‍♂️",description:"man standing: dark skin tone",version:"12.0"}]},{emoji:"🧍‍♀️",description:"woman standing",version:"12.0",keywords:["stand","standing","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧍🏻‍♀️",description:"woman standing: light skin tone",version:"12.0"},{emoji:"🧍🏼‍♀️",description:"woman standing: medium-light skin tone",version:"12.0"},{emoji:"🧍🏽‍♀️",description:"woman standing: medium skin tone",version:"12.0"},{emoji:"🧍🏾‍♀️",description:"woman standing: medium-dark skin tone",version:"12.0"},{emoji:"🧍🏿‍♀️",description:"woman standing: dark skin tone",version:"12.0"}]},{emoji:"🧎",description:"person kneeling",version:"12.0",keywords:["kneel","kneeling","knees","person"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧎🏻",description:"person kneeling: light skin tone",version:"12.0"},{emoji:"🧎🏼",description:"person kneeling: medium-light skin tone",version:"12.0"},{emoji:"🧎🏽",description:"person kneeling: medium skin tone",version:"12.0"},{emoji:"🧎🏾",description:"person kneeling: medium-dark skin tone",version:"12.0"},{emoji:"🧎🏿",description:"person kneeling: dark skin tone",version:"12.0"}]},{emoji:"🧎‍♂️",description:"man kneeling",version:"12.0",keywords:["kneel","kneeling","knees","man"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧎🏻‍♂️",description:"man kneeling: light skin tone",version:"12.0"},{emoji:"🧎🏼‍♂️",description:"man kneeling: medium-light skin tone",version:"12.0"},{emoji:"🧎🏽‍♂️",description:"man kneeling: medium skin tone",version:"12.0"},{emoji:"🧎🏾‍♂️",description:"man kneeling: medium-dark skin tone",version:"12.0"},{emoji:"🧎🏿‍♂️",description:"man kneeling: dark skin tone",version:"12.0"}]},{emoji:"🧎‍♀️",description:"woman kneeling",version:"12.0",keywords:["kneel","kneeling","knees","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧎🏻‍♀️",description:"woman kneeling: light skin tone",version:"12.0"},{emoji:"🧎🏼‍♀️",description:"woman kneeling: medium-light skin tone",version:"12.0"},{emoji:"🧎🏽‍♀️",description:"woman kneeling: medium skin tone",version:"12.0"},{emoji:"🧎🏾‍♀️",description:"woman kneeling: medium-dark skin tone",version:"12.0"},{emoji:"🧎🏿‍♀️",description:"woman kneeling: dark skin tone",version:"12.0"}]},{emoji:"🧎‍➡️",description:"person kneeling facing right",version:"15.1",keywords:["kneel","kneeling","knees","person"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧎🏻‍➡️",description:"person kneeling facing right",version:"15.1"},{emoji:"🧎🏼‍➡️",description:"person kneeling facing right",version:"15.1"},{emoji:"🧎🏽‍➡️",description:"person kneeling facing right",version:"15.1"},{emoji:"🧎🏾‍➡️",description:"person kneeling facing right",version:"15.1"},{emoji:"🧎🏿‍➡️",description:"person kneeling facing right",version:"15.1"}]},{emoji:"🧎‍♀️‍➡️",description:"woman kneeling facing right",version:"15.1",keywords:["kneel","kneeling","knees","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧎🏻‍♀️‍➡️",description:"woman kneeling facing right",version:"15.1"},{emoji:"🧎🏼‍♀️‍➡️",description:"woman kneeling facing right",version:"15.1"},{emoji:"🧎🏽‍♀️‍➡️",description:"woman kneeling facing right",version:"15.1"},{emoji:"🧎🏾‍♀️‍➡️",description:"woman kneeling facing right",version:"15.1"},{emoji:"🧎🏿‍♀️‍➡️",description:"woman kneeling facing right",version:"15.1"}]},{emoji:"🧎‍♂️‍➡️",description:"man kneeling facing right",version:"15.1",keywords:["kneel","kneeling","knees","man"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧎🏻‍♂️‍➡️",description:"man kneeling facing right",version:"15.1"},{emoji:"🧎🏼‍♂️‍➡️",description:"man kneeling facing right",version:"15.1"},{emoji:"🧎🏽‍♂️‍➡️",description:"man kneeling facing right",version:"15.1"},{emoji:"🧎🏾‍♂️‍➡️",description:"man kneeling facing right",version:"15.1"},{emoji:"🧎🏿‍♂️‍➡️",description:"man kneeling facing right",version:"15.1"}]},{emoji:"🧑‍🦯",description:"person with white cane",version:"12.1",keywords:["accessibility","blind","cane","person","probing","white"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧑🏻‍🦯",description:"person with white cane: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🦯",description:"person with white cane: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🦯",description:"person with white cane: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🦯",description:"person with white cane: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🦯",description:"person with white cane: dark skin tone",version:"12.1"}]},{emoji:"🧑‍🦯‍➡️",description:"person with white cane facing right",version:"15.1",keywords:["accessibility","blind","cane","person","probing","white"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧑🏻‍🦯‍➡️",description:"person with white cane facing right",version:"15.1"},{emoji:"🧑🏼‍🦯‍➡️",description:"person with white cane facing right",version:"15.1"},{emoji:"🧑🏽‍🦯‍➡️",description:"person with white cane facing right",version:"15.1"},{emoji:"🧑🏾‍🦯‍➡️",description:"person with white cane facing right",version:"15.1"},{emoji:"🧑🏿‍🦯‍➡️",description:"person with white cane facing right",version:"15.1"}]},{emoji:"👨‍🦯",description:"man with white cane",version:"12.0",keywords:["accessibility","blind","cane","man","probing","white"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👨🏻‍🦯",description:"man with white cane: light skin tone",version:"12.0"},{emoji:"👨🏼‍🦯",description:"man with white cane: medium-light skin tone",version:"12.0"},{emoji:"👨🏽‍🦯",description:"man with white cane: medium skin tone",version:"12.0"},{emoji:"👨🏾‍🦯",description:"man with white cane: medium-dark skin tone",version:"12.0"},{emoji:"👨🏿‍🦯",description:"man with white cane: dark skin tone",version:"12.0"}]},{emoji:"👨‍🦯‍➡️",description:"man with white cane facing right",version:"15.1",keywords:["accessibility","blind","cane","man","probing","white"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👨🏻‍🦯‍➡️",description:"man with white cane facing right",version:"15.1"},{emoji:"👨🏼‍🦯‍➡️",description:"man with white cane facing right",version:"15.1"},{emoji:"👨🏽‍🦯‍➡️",description:"man with white cane facing right",version:"15.1"},{emoji:"👨🏾‍🦯‍➡️",description:"man with white cane facing right",version:"15.1"},{emoji:"👨🏿‍🦯‍➡️",description:"man with white cane facing right",version:"15.1"}]},{emoji:"👩‍🦯",description:"woman with white cane",version:"12.0",keywords:["accessibility","blind","cane","probing","white","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👩🏻‍🦯",description:"woman with white cane: light skin tone",version:"12.0"},{emoji:"👩🏼‍🦯",description:"woman with white cane: medium-light skin tone",version:"12.0"},{emoji:"👩🏽‍🦯",description:"woman with white cane: medium skin tone",version:"12.0"},{emoji:"👩🏾‍🦯",description:"woman with white cane: medium-dark skin tone",version:"12.0"},{emoji:"👩🏿‍🦯",description:"woman with white cane: dark skin tone",version:"12.0"}]},{emoji:"👩‍🦯‍➡️",description:"woman with white cane facing right",version:"15.1",keywords:["accessibility","blind","cane","probing","white","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👩🏻‍🦯‍➡️",description:"woman with white cane facing right",version:"15.1"},{emoji:"👩🏼‍🦯‍➡️",description:"woman with white cane facing right",version:"15.1"},{emoji:"👩🏽‍🦯‍➡️",description:"woman with white cane facing right",version:"15.1"},{emoji:"👩🏾‍🦯‍➡️",description:"woman with white cane facing right",version:"15.1"},{emoji:"👩🏿‍🦯‍➡️",description:"woman with white cane facing right",version:"15.1"}]},{emoji:"🧑‍🦼",description:"person in motorized wheelchair",version:"12.1",keywords:["accessibility","motorized","person","wheelchair"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧑🏻‍🦼",description:"person in motorized wheelchair: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🦼",description:"person in motorized wheelchair: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🦼",description:"person in motorized wheelchair: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🦼",description:"person in motorized wheelchair: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🦼",description:"person in motorized wheelchair: dark skin tone",version:"12.1"}]},{emoji:"🧑‍🦼‍➡️",description:"person in motorized wheelchair facing right",version:"15.1",keywords:["accessibility","motorized","person","wheelchair"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧑🏻‍🦼‍➡️",description:"person in motorized wheelchair facing right",version:"15.1"},{emoji:"🧑🏼‍🦼‍➡️",description:"person in motorized wheelchair facing right",version:"15.1"},{emoji:"🧑🏽‍🦼‍➡️",description:"person in motorized wheelchair facing right",version:"15.1"},{emoji:"🧑🏾‍🦼‍➡️",description:"person in motorized wheelchair facing right",version:"15.1"},{emoji:"🧑🏿‍🦼‍➡️",description:"person in motorized wheelchair facing right",version:"15.1"}]},{emoji:"👨‍🦼",description:"man in motorized wheelchair",version:"12.0",keywords:["accessibility","man","motorized","wheelchair"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👨🏻‍🦼",description:"man in motorized wheelchair: light skin tone",version:"12.0"},{emoji:"👨🏼‍🦼",description:"man in motorized wheelchair: medium-light skin tone",version:"12.0"},{emoji:"👨🏽‍🦼",description:"man in motorized wheelchair: medium skin tone",version:"12.0"},{emoji:"👨🏾‍🦼",description:"man in motorized wheelchair: medium-dark skin tone",version:"12.0"},{emoji:"👨🏿‍🦼",description:"man in motorized wheelchair: dark skin tone",version:"12.0"}]},{emoji:"👨‍🦼‍➡️",description:"man in motorized wheelchair facing right",version:"15.1",keywords:["accessibility","man","motorized","wheelchair"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👨🏻‍🦼‍➡️",description:"man in motorized wheelchair facing right",version:"15.1"},{emoji:"👨🏼‍🦼‍➡️",description:"man in motorized wheelchair facing right",version:"15.1"},{emoji:"👨🏽‍🦼‍➡️",description:"man in motorized wheelchair facing right",version:"15.1"},{emoji:"👨🏾‍🦼‍➡️",description:"man in motorized wheelchair facing right",version:"15.1"},{emoji:"👨🏿‍🦼‍➡️",description:"man in motorized wheelchair facing right",version:"15.1"}]},{emoji:"👩‍🦼",description:"woman in motorized wheelchair",version:"12.0",keywords:["accessibility","motorized","wheelchair","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👩🏻‍🦼",description:"woman in motorized wheelchair: light skin tone",version:"12.0"},{emoji:"👩🏼‍🦼",description:"woman in motorized wheelchair: medium-light skin tone",version:"12.0"},{emoji:"👩🏽‍🦼",description:"woman in motorized wheelchair: medium skin tone",version:"12.0"},{emoji:"👩🏾‍🦼",description:"woman in motorized wheelchair: medium-dark skin tone",version:"12.0"},{emoji:"👩🏿‍🦼",description:"woman in motorized wheelchair: dark skin tone",version:"12.0"}]},{emoji:"👩‍🦼‍➡️",description:"woman in motorized wheelchair facing right",version:"15.1",keywords:["accessibility","motorized","wheelchair","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👩🏻‍🦼‍➡️",description:"woman in motorized wheelchair facing right",version:"15.1"},{emoji:"👩🏼‍🦼‍➡️",description:"woman in motorized wheelchair facing right",version:"15.1"},{emoji:"👩🏽‍🦼‍➡️",description:"woman in motorized wheelchair facing right",version:"15.1"},{emoji:"👩🏾‍🦼‍➡️",description:"woman in motorized wheelchair facing right",version:"15.1"},{emoji:"👩🏿‍🦼‍➡️",description:"woman in motorized wheelchair facing right",version:"15.1"}]},{emoji:"🧑‍🦽",description:"person in manual wheelchair",version:"12.1",keywords:["accessibility","manual","person","wheelchair"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧑🏻‍🦽",description:"person in manual wheelchair: light skin tone",version:"12.1"},{emoji:"🧑🏼‍🦽",description:"person in manual wheelchair: medium-light skin tone",version:"12.1"},{emoji:"🧑🏽‍🦽",description:"person in manual wheelchair: medium skin tone",version:"12.1"},{emoji:"🧑🏾‍🦽",description:"person in manual wheelchair: medium-dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🦽",description:"person in manual wheelchair: dark skin tone",version:"12.1"}]},{emoji:"🧑‍🦽‍➡️",description:"person in manual wheelchair facing right",version:"15.1",keywords:["accessibility","manual","person","wheelchair"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧑🏻‍🦽‍➡️",description:"person in manual wheelchair facing right",version:"15.1"},{emoji:"🧑🏼‍🦽‍➡️",description:"person in manual wheelchair facing right",version:"15.1"},{emoji:"🧑🏽‍🦽‍➡️",description:"person in manual wheelchair facing right",version:"15.1"},{emoji:"🧑🏾‍🦽‍➡️",description:"person in manual wheelchair facing right",version:"15.1"},{emoji:"🧑🏿‍🦽‍➡️",description:"person in manual wheelchair facing right",version:"15.1"}]},{emoji:"👨‍🦽",description:"man in manual wheelchair",version:"12.0",keywords:["accessibility","man","manual","wheelchair"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👨🏻‍🦽",description:"man in manual wheelchair: light skin tone",version:"12.0"},{emoji:"👨🏼‍🦽",description:"man in manual wheelchair: medium-light skin tone",version:"12.0"},{emoji:"👨🏽‍🦽",description:"man in manual wheelchair: medium skin tone",version:"12.0"},{emoji:"👨🏾‍🦽",description:"man in manual wheelchair: medium-dark skin tone",version:"12.0"},{emoji:"👨🏿‍🦽",description:"man in manual wheelchair: dark skin tone",version:"12.0"}]},{emoji:"👨‍🦽‍➡️",description:"man in manual wheelchair facing right",version:"15.1",keywords:["accessibility","man","manual","wheelchair"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👨🏻‍🦽‍➡️",description:"man in manual wheelchair facing right",version:"15.1"},{emoji:"👨🏼‍🦽‍➡️",description:"man in manual wheelchair facing right",version:"15.1"},{emoji:"👨🏽‍🦽‍➡️",description:"man in manual wheelchair facing right",version:"15.1"},{emoji:"👨🏾‍🦽‍➡️",description:"man in manual wheelchair facing right",version:"15.1"},{emoji:"👨🏿‍🦽‍➡️",description:"man in manual wheelchair facing right",version:"15.1"}]},{emoji:"👩‍🦽",description:"woman in manual wheelchair",version:"12.0",keywords:["accessibility","manual","wheelchair","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👩🏻‍🦽",description:"woman in manual wheelchair: light skin tone",version:"12.0"},{emoji:"👩🏼‍🦽",description:"woman in manual wheelchair: medium-light skin tone",version:"12.0"},{emoji:"👩🏽‍🦽",description:"woman in manual wheelchair: medium skin tone",version:"12.0"},{emoji:"👩🏾‍🦽",description:"woman in manual wheelchair: medium-dark skin tone",version:"12.0"},{emoji:"👩🏿‍🦽",description:"woman in manual wheelchair: dark skin tone",version:"12.0"}]},{emoji:"👩‍🦽‍➡️",description:"woman in manual wheelchair facing right",version:"15.1",keywords:["accessibility","manual","wheelchair","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"👩🏻‍🦽‍➡️",description:"woman in manual wheelchair facing right",version:"15.1"},{emoji:"👩🏼‍🦽‍➡️",description:"woman in manual wheelchair facing right",version:"15.1"},{emoji:"👩🏽‍🦽‍➡️",description:"woman in manual wheelchair facing right",version:"15.1"},{emoji:"👩🏾‍🦽‍➡️",description:"woman in manual wheelchair facing right",version:"15.1"},{emoji:"👩🏿‍🦽‍➡️",description:"woman in manual wheelchair facing right",version:"15.1"}]},{emoji:"🏃",description:"person running",version:"0.6",keywords:["fast","hurry","marathon","move","person","quick","race","racing","run","rush","speed"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🏃🏻",description:"person running: light skin tone",version:"1.0"},{emoji:"🏃🏼",description:"person running: medium-light skin tone",version:"1.0"},{emoji:"🏃🏽",description:"person running: medium skin tone",version:"1.0"},{emoji:"🏃🏾",description:"person running: medium-dark skin tone",version:"1.0"},{emoji:"🏃🏿",description:"person running: dark skin tone",version:"1.0"}]},{emoji:"🏃‍♂️",description:"man running",version:"4.0",keywords:["fast","hurry","man","marathon","move","quick","race","racing","run","rush","speed"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🏃🏻‍♂️",description:"man running: light skin tone",version:"4.0"},{emoji:"🏃🏼‍♂️",description:"man running: medium-light skin tone",version:"4.0"},{emoji:"🏃🏽‍♂️",description:"man running: medium skin tone",version:"4.0"},{emoji:"🏃🏾‍♂️",description:"man running: medium-dark skin tone",version:"4.0"},{emoji:"🏃🏿‍♂️",description:"man running: dark skin tone",version:"4.0"}]},{emoji:"🏃‍♀️",description:"woman running",version:"4.0",keywords:["fast","hurry","marathon","move","quick","race","racing","run","rush","speed","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🏃🏻‍♀️",description:"woman running: light skin tone",version:"4.0"},{emoji:"🏃🏼‍♀️",description:"woman running: medium-light skin tone",version:"4.0"},{emoji:"🏃🏽‍♀️",description:"woman running: medium skin tone",version:"4.0"},{emoji:"🏃🏾‍♀️",description:"woman running: medium-dark skin tone",version:"4.0"},{emoji:"🏃🏿‍♀️",description:"woman running: dark skin tone",version:"4.0"}]},{emoji:"🏃‍➡️",description:"person running facing right",version:"15.1",keywords:["fast","hurry","marathon","move","person","quick","race","racing","run","rush","speed"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🏃🏻‍➡️",description:"person running facing right",version:"15.1"},{emoji:"🏃🏼‍➡️",description:"person running facing right",version:"15.1"},{emoji:"🏃🏽‍➡️",description:"person running facing right",version:"15.1"},{emoji:"🏃🏾‍➡️",description:"person running facing right",version:"15.1"},{emoji:"🏃🏿‍➡️",description:"person running facing right",version:"15.1"}]},{emoji:"🏃‍♀️‍➡️",description:"woman running facing right",version:"15.1",keywords:["fast","hurry","marathon","move","quick","race","racing","run","rush","speed","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🏃🏻‍♀️‍➡️",description:"woman running facing right",version:"15.1"},{emoji:"🏃🏼‍♀️‍➡️",description:"woman running facing right",version:"15.1"},{emoji:"🏃🏽‍♀️‍➡️",description:"woman running facing right",version:"15.1"},{emoji:"🏃🏾‍♀️‍➡️",description:"woman running facing right",version:"15.1"},{emoji:"🏃🏿‍♀️‍➡️",description:"woman running facing right",version:"15.1"}]},{emoji:"🏃‍♂️‍➡️",description:"man running facing right",version:"15.1",keywords:["fast","hurry","man","marathon","move","quick","race","racing","run","rush","speed"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🏃🏻‍♂️‍➡️",description:"man running facing right",version:"15.1"},{emoji:"🏃🏼‍♂️‍➡️",description:"man running facing right",version:"15.1"},{emoji:"🏃🏽‍♂️‍➡️",description:"man running facing right",version:"15.1"},{emoji:"🏃🏾‍♂️‍➡️",description:"man running facing right",version:"15.1"},{emoji:"🏃🏿‍♂️‍➡️",description:"man running facing right",version:"15.1"}]},{emoji:"💃",description:"woman dancing",version:"0.6",keywords:["dance","dancer","dancing","elegant","festive","flair","flamenco","groove","let’s","salsa","tango","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"💃🏻",description:"woman dancing: light skin tone",version:"1.0"},{emoji:"💃🏼",description:"woman dancing: medium-light skin tone",version:"1.0"},{emoji:"💃🏽",description:"woman dancing: medium skin tone",version:"1.0"},{emoji:"💃🏾",description:"woman dancing: medium-dark skin tone",version:"1.0"},{emoji:"💃🏿",description:"woman dancing: dark skin tone",version:"1.0"}]},{emoji:"🕺",description:"man dancing",version:"3.0",keywords:["dance","dancer","dancing","elegant","festive","flair","flamenco","groove","let’s","man","salsa","tango"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🕺🏻",description:"man dancing: light skin tone",version:"3.0"},{emoji:"🕺🏼",description:"man dancing: medium-light skin tone",version:"3.0"},{emoji:"🕺🏽",description:"man dancing: medium skin tone",version:"3.0"},{emoji:"🕺🏾",description:"man dancing: medium-dark skin tone",version:"3.0"},{emoji:"🕺🏿",description:"man dancing: dark skin tone",version:"3.0"}]},{emoji:"🕴️",description:"person in suit levitating",version:"0.7",keywords:["business","levitating","person","suit"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🕴🏻",description:"person in suit levitating: light skin tone",version:"4.0"},{emoji:"🕴🏼",description:"person in suit levitating: medium-light skin tone",version:"4.0"},{emoji:"🕴🏽",description:"person in suit levitating: medium skin tone",version:"4.0"},{emoji:"🕴🏾",description:"person in suit levitating: medium-dark skin tone",version:"4.0"},{emoji:"🕴🏿",description:"person in suit levitating: dark skin tone",version:"4.0"}]},{emoji:"👯",description:"people with bunny ears",version:"0.6",keywords:["bestie","bff","bunny","counterpart","dancer","double","ear","identical","pair","party","partying","people","soulmate","twin","twinsies"],category:"person-people",group:"people-body",subgroup:"person-activity"},{emoji:"👯‍♂️",description:"men with bunny ears",version:"4.0",keywords:["bestie","bff","bunny","counterpart","dancer","double","ear","identical","men","pair","party","partying","people","soulmate","twin","twinsies"],category:"person-people",group:"people-body",subgroup:"person-activity"},{emoji:"👯‍♀️",description:"women with bunny ears",version:"4.0",keywords:["bestie","bff","bunny","counterpart","dancer","double","ear","identical","pair","party","partying","people","soulmate","twin","twinsies","women"],category:"person-people",group:"people-body",subgroup:"person-activity"},{emoji:"🧖",description:"person in steamy room",version:"5.0",keywords:["day","luxurious","pamper","person","relax","room","sauna","spa","steam","steambath","unwind"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧖🏻",description:"person in steamy room: light skin tone",version:"5.0"},{emoji:"🧖🏼",description:"person in steamy room: medium-light skin tone",version:"5.0"},{emoji:"🧖🏽",description:"person in steamy room: medium skin tone",version:"5.0"},{emoji:"🧖🏾",description:"person in steamy room: medium-dark skin tone",version:"5.0"},{emoji:"🧖🏿",description:"person in steamy room: dark skin tone",version:"5.0"}]},{emoji:"🧖‍♂️",description:"man in steamy room",version:"5.0",keywords:["day","luxurious","man","pamper","relax","room","sauna","spa","steam","steambath","unwind"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧖🏻‍♂️",description:"man in steamy room: light skin tone",version:"5.0"},{emoji:"🧖🏼‍♂️",description:"man in steamy room: medium-light skin tone",version:"5.0"},{emoji:"🧖🏽‍♂️",description:"man in steamy room: medium skin tone",version:"5.0"},{emoji:"🧖🏾‍♂️",description:"man in steamy room: medium-dark skin tone",version:"5.0"},{emoji:"🧖🏿‍♂️",description:"man in steamy room: dark skin tone",version:"5.0"}]},{emoji:"🧖‍♀️",description:"woman in steamy room",version:"5.0",keywords:["day","luxurious","pamper","relax","room","sauna","spa","steam","steambath","unwind","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧖🏻‍♀️",description:"woman in steamy room: light skin tone",version:"5.0"},{emoji:"🧖🏼‍♀️",description:"woman in steamy room: medium-light skin tone",version:"5.0"},{emoji:"🧖🏽‍♀️",description:"woman in steamy room: medium skin tone",version:"5.0"},{emoji:"🧖🏾‍♀️",description:"woman in steamy room: medium-dark skin tone",version:"5.0"},{emoji:"🧖🏿‍♀️",description:"woman in steamy room: dark skin tone",version:"5.0"}]},{emoji:"🧗",description:"person climbing",version:"5.0",keywords:["climb","climber","climbing","mountain","person","rock","scale","up"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧗🏻",description:"person climbing: light skin tone",version:"5.0"},{emoji:"🧗🏼",description:"person climbing: medium-light skin tone",version:"5.0"},{emoji:"🧗🏽",description:"person climbing: medium skin tone",version:"5.0"},{emoji:"🧗🏾",description:"person climbing: medium-dark skin tone",version:"5.0"},{emoji:"🧗🏿",description:"person climbing: dark skin tone",version:"5.0"}]},{emoji:"🧗‍♂️",description:"man climbing",version:"5.0",keywords:["climb","climber","climbing","man","mountain","rock","scale","up"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧗🏻‍♂️",description:"man climbing: light skin tone",version:"5.0"},{emoji:"🧗🏼‍♂️",description:"man climbing: medium-light skin tone",version:"5.0"},{emoji:"🧗🏽‍♂️",description:"man climbing: medium skin tone",version:"5.0"},{emoji:"🧗🏾‍♂️",description:"man climbing: medium-dark skin tone",version:"5.0"},{emoji:"🧗🏿‍♂️",description:"man climbing: dark skin tone",version:"5.0"}]},{emoji:"🧗‍♀️",description:"woman climbing",version:"5.0",keywords:["climb","climber","climbing","mountain","rock","scale","up","woman"],category:"person-people",group:"people-body",subgroup:"person-activity",variations:[{emoji:"🧗🏻‍♀️",description:"woman climbing: light skin tone",version:"5.0"},{emoji:"🧗🏼‍♀️",description:"woman climbing: medium-light skin tone",version:"5.0"},{emoji:"🧗🏽‍♀️",description:"woman climbing: medium skin tone",version:"5.0"},{emoji:"🧗🏾‍♀️",description:"woman climbing: medium-dark skin tone",version:"5.0"},{emoji:"🧗🏿‍♀️",description:"woman climbing: dark skin tone",version:"5.0"}]},{emoji:"🤺",description:"person fencing",version:"3.0",keywords:["fencer","fencing","person","sword"],category:"person-people",group:"people-body",subgroup:"person-sport"},{emoji:"🏇",description:"horse racing",version:"1.0",keywords:["horse","jockey","racehorse","racing","riding","sport"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏇🏻",description:"horse racing: light skin tone",version:"1.0"},{emoji:"🏇🏼",description:"horse racing: medium-light skin tone",version:"1.0"},{emoji:"🏇🏽",description:"horse racing: medium skin tone",version:"1.0"},{emoji:"🏇🏾",description:"horse racing: medium-dark skin tone",version:"1.0"},{emoji:"🏇🏿",description:"horse racing: dark skin tone",version:"1.0"}]},{emoji:"⛷️",description:"skier",version:"0.7",keywords:["ski","skier","snow"],category:"person-people",group:"people-body",subgroup:"person-sport"},{emoji:"🏂",description:"snowboarder",version:"0.6",keywords:["ski","snow","snowboard","snowboarder","sport"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏂🏻",description:"snowboarder: light skin tone",version:"1.0"},{emoji:"🏂🏼",description:"snowboarder: medium-light skin tone",version:"1.0"},{emoji:"🏂🏽",description:"snowboarder: medium skin tone",version:"1.0"},{emoji:"🏂🏾",description:"snowboarder: medium-dark skin tone",version:"1.0"},{emoji:"🏂🏿",description:"snowboarder: dark skin tone",version:"1.0"}]},{emoji:"🏌️",description:"person golfing",version:"0.7",keywords:["ball","birdie","caddy","driving","golf","golfing","green","person","pga","putt","range","tee"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏌🏻",description:"person golfing: light skin tone",version:"4.0"},{emoji:"🏌🏼",description:"person golfing: medium-light skin tone",version:"4.0"},{emoji:"🏌🏽",description:"person golfing: medium skin tone",version:"4.0"},{emoji:"🏌🏾",description:"person golfing: medium-dark skin tone",version:"4.0"},{emoji:"🏌🏿",description:"person golfing: dark skin tone",version:"4.0"}]},{emoji:"🏌️‍♂️",description:"man golfing",version:"4.0",keywords:["ball","birdie","caddy","driving","golf","golfing","green","man","pga","putt","range","tee"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏌🏻‍♂️",description:"man golfing: light skin tone",version:"4.0"},{emoji:"🏌🏼‍♂️",description:"man golfing: medium-light skin tone",version:"4.0"},{emoji:"🏌🏽‍♂️",description:"man golfing: medium skin tone",version:"4.0"},{emoji:"🏌🏾‍♂️",description:"man golfing: medium-dark skin tone",version:"4.0"},{emoji:"🏌🏿‍♂️",description:"man golfing: dark skin tone",version:"4.0"}]},{emoji:"🏌️‍♀️",description:"woman golfing",version:"4.0",keywords:["ball","birdie","caddy","driving","golf","golfing","green","pga","putt","range","tee","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏌🏻‍♀️",description:"woman golfing: light skin tone",version:"4.0"},{emoji:"🏌🏼‍♀️",description:"woman golfing: medium-light skin tone",version:"4.0"},{emoji:"🏌🏽‍♀️",description:"woman golfing: medium skin tone",version:"4.0"},{emoji:"🏌🏾‍♀️",description:"woman golfing: medium-dark skin tone",version:"4.0"},{emoji:"🏌🏿‍♀️",description:"woman golfing: dark skin tone",version:"4.0"}]},{emoji:"🏄",description:"person surfing",version:"0.6",keywords:["beach","ocean","person","sport","surf","surfer","surfing","swell","waves"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏄🏻",description:"person surfing: light skin tone",version:"1.0"},{emoji:"🏄🏼",description:"person surfing: medium-light skin tone",version:"1.0"},{emoji:"🏄🏽",description:"person surfing: medium skin tone",version:"1.0"},{emoji:"🏄🏾",description:"person surfing: medium-dark skin tone",version:"1.0"},{emoji:"🏄🏿",description:"person surfing: dark skin tone",version:"1.0"}]},{emoji:"🏄‍♂️",description:"man surfing",version:"4.0",keywords:["beach","man","ocean","sport","surf","surfer","surfing","swell","waves"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏄🏻‍♂️",description:"man surfing: light skin tone",version:"4.0"},{emoji:"🏄🏼‍♂️",description:"man surfing: medium-light skin tone",version:"4.0"},{emoji:"🏄🏽‍♂️",description:"man surfing: medium skin tone",version:"4.0"},{emoji:"🏄🏾‍♂️",description:"man surfing: medium-dark skin tone",version:"4.0"},{emoji:"🏄🏿‍♂️",description:"man surfing: dark skin tone",version:"4.0"}]},{emoji:"🏄‍♀️",description:"woman surfing",version:"4.0",keywords:["beach","ocean","person","sport","surf","surfer","surfing","swell","waves"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏄🏻‍♀️",description:"woman surfing: light skin tone",version:"4.0"},{emoji:"🏄🏼‍♀️",description:"woman surfing: medium-light skin tone",version:"4.0"},{emoji:"🏄🏽‍♀️",description:"woman surfing: medium skin tone",version:"4.0"},{emoji:"🏄🏾‍♀️",description:"woman surfing: medium-dark skin tone",version:"4.0"},{emoji:"🏄🏿‍♀️",description:"woman surfing: dark skin tone",version:"4.0"}]},{emoji:"🚣",description:"person rowing boat",version:"1.0",keywords:["boat","canoe","cruise","fishing","lake","oar","paddle","person","raft","river","row","rowboat","rowing"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚣🏻",description:"person rowing boat: light skin tone",version:"1.0"},{emoji:"🚣🏼",description:"person rowing boat: medium-light skin tone",version:"1.0"},{emoji:"🚣🏽",description:"person rowing boat: medium skin tone",version:"1.0"},{emoji:"🚣🏾",description:"person rowing boat: medium-dark skin tone",version:"1.0"},{emoji:"🚣🏿",description:"person rowing boat: dark skin tone",version:"1.0"}]},{emoji:"🚣‍♂️",description:"man rowing boat",version:"4.0",keywords:["boat","canoe","cruise","fishing","lake","man","oar","paddle","raft","river","row","rowboat","rowing"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚣🏻‍♂️",description:"man rowing boat: light skin tone",version:"4.0"},{emoji:"🚣🏼‍♂️",description:"man rowing boat: medium-light skin tone",version:"4.0"},{emoji:"🚣🏽‍♂️",description:"man rowing boat: medium skin tone",version:"4.0"},{emoji:"🚣🏾‍♂️",description:"man rowing boat: medium-dark skin tone",version:"4.0"},{emoji:"🚣🏿‍♂️",description:"man rowing boat: dark skin tone",version:"4.0"}]},{emoji:"🚣‍♀️",description:"woman rowing boat",version:"4.0",keywords:["boat","canoe","cruise","fishing","lake","oar","paddle","raft","river","row","rowboat","rowing","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚣🏻‍♀️",description:"woman rowing boat: light skin tone",version:"4.0"},{emoji:"🚣🏼‍♀️",description:"woman rowing boat: medium-light skin tone",version:"4.0"},{emoji:"🚣🏽‍♀️",description:"woman rowing boat: medium skin tone",version:"4.0"},{emoji:"🚣🏾‍♀️",description:"woman rowing boat: medium-dark skin tone",version:"4.0"},{emoji:"🚣🏿‍♀️",description:"woman rowing boat: dark skin tone",version:"4.0"}]},{emoji:"🏊",description:"person swimming",version:"0.6",keywords:["freestyle","person","sport","swim","swimmer","swimming","triathlon"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏊🏻",description:"person swimming: light skin tone",version:"1.0"},{emoji:"🏊🏼",description:"person swimming: medium-light skin tone",version:"1.0"},{emoji:"🏊🏽",description:"person swimming: medium skin tone",version:"1.0"},{emoji:"🏊🏾",description:"person swimming: medium-dark skin tone",version:"1.0"},{emoji:"🏊🏿",description:"person swimming: dark skin tone",version:"1.0"}]},{emoji:"🏊‍♂️",description:"man swimming",version:"4.0",keywords:["freestyle","man","sport","swim","swimmer","swimming","triathlon"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏊🏻‍♂️",description:"man swimming: light skin tone",version:"4.0"},{emoji:"🏊🏼‍♂️",description:"man swimming: medium-light skin tone",version:"4.0"},{emoji:"🏊🏽‍♂️",description:"man swimming: medium skin tone",version:"4.0"},{emoji:"🏊🏾‍♂️",description:"man swimming: medium-dark skin tone",version:"4.0"},{emoji:"🏊🏿‍♂️",description:"man swimming: dark skin tone",version:"4.0"}]},{emoji:"🏊‍♀️",description:"woman swimming",version:"4.0",keywords:["freestyle","man","sport","swim","swimmer","swimming","triathlon"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏊🏻‍♀️",description:"woman swimming: light skin tone",version:"4.0"},{emoji:"🏊🏼‍♀️",description:"woman swimming: medium-light skin tone",version:"4.0"},{emoji:"🏊🏽‍♀️",description:"woman swimming: medium skin tone",version:"4.0"},{emoji:"🏊🏾‍♀️",description:"woman swimming: medium-dark skin tone",version:"4.0"},{emoji:"🏊🏿‍♀️",description:"woman swimming: dark skin tone",version:"4.0"}]},{emoji:"⛹️",description:"person bouncing ball",version:"0.7",keywords:["athletic","ball","basketball","bouncing","championship","dribble","net","person","player","throw"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"⛹🏻",description:"person bouncing ball: light skin tone",version:"2.0"},{emoji:"⛹🏼",description:"person bouncing ball: medium-light skin tone",version:"2.0"},{emoji:"⛹🏽",description:"person bouncing ball: medium skin tone",version:"2.0"},{emoji:"⛹🏾",description:"person bouncing ball: medium-dark skin tone",version:"2.0"},{emoji:"⛹🏿",description:"person bouncing ball: dark skin tone",version:"2.0"}]},{emoji:"⛹️‍♂️",description:"man bouncing ball",version:"4.0",keywords:["athletic","ball","basketball","bouncing","championship","dribble","man","net","player","throw"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"⛹🏻‍♂️",description:"man bouncing ball: light skin tone",version:"4.0"},{emoji:"⛹🏼‍♂️",description:"man bouncing ball: medium-light skin tone",version:"4.0"},{emoji:"⛹🏽‍♂️",description:"man bouncing ball: medium skin tone",version:"4.0"},{emoji:"⛹🏾‍♂️",description:"man bouncing ball: medium-dark skin tone",version:"4.0"},{emoji:"⛹🏿‍♂️",description:"man bouncing ball: dark skin tone",version:"4.0"}]},{emoji:"⛹️‍♀️",description:"woman bouncing ball",version:"4.0",keywords:["athletic","ball","basketball","bouncing","championship","dribble","net","player","throw","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"⛹🏻‍♀️",description:"woman bouncing ball: light skin tone",version:"4.0"},{emoji:"⛹🏼‍♀️",description:"woman bouncing ball: medium-light skin tone",version:"4.0"},{emoji:"⛹🏽‍♀️",description:"woman bouncing ball: medium skin tone",version:"4.0"},{emoji:"⛹🏾‍♀️",description:"woman bouncing ball: medium-dark skin tone",version:"4.0"},{emoji:"⛹🏿‍♀️",description:"woman bouncing ball: dark skin tone",version:"4.0"}]},{emoji:"🏋️",description:"person lifting weights",version:"0.7",keywords:["barbell","bodybuilder","deadlift","lifter","lifting","person","powerlifting","weight","weightlifter","weights","workout"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏋🏻",description:"person lifting weights: light skin tone",version:"2.0"},{emoji:"🏋🏼",description:"person lifting weights: medium-light skin tone",version:"2.0"},{emoji:"🏋🏽",description:"person lifting weights: medium skin tone",version:"2.0"},{emoji:"🏋🏾",description:"person lifting weights: medium-dark skin tone",version:"2.0"},{emoji:"🏋🏿",description:"person lifting weights: dark skin tone",version:"2.0"}]},{emoji:"🏋️‍♂️",description:"man lifting weights",version:"4.0",keywords:["barbell","bodybuilder","deadlift","lifter","lifting","man","powerlifting","weight","weightlifter","weights","workout"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏋🏻‍♂️",description:"man lifting weights: light skin tone",version:"4.0"},{emoji:"🏋🏼‍♂️",description:"man lifting weights: medium-light skin tone",version:"4.0"},{emoji:"🏋🏽‍♂️",description:"man lifting weights: medium skin tone",version:"4.0"},{emoji:"🏋🏾‍♂️",description:"man lifting weights: medium-dark skin tone",version:"4.0"},{emoji:"🏋🏿‍♂️",description:"man lifting weights: dark skin tone",version:"4.0"}]},{emoji:"🏋️‍♀️",description:"woman lifting weights",version:"4.0",keywords:["barbell","bodybuilder","deadlift","lifter","lifting","powerlifting","weight","weightlifter","weights","woman","workout"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🏋🏻‍♀️",description:"woman lifting weights: light skin tone",version:"4.0"},{emoji:"🏋🏼‍♀️",description:"woman lifting weights: medium-light skin tone",version:"4.0"},{emoji:"🏋🏽‍♀️",description:"woman lifting weights: medium skin tone",version:"4.0"},{emoji:"🏋🏾‍♀️",description:"woman lifting weights: medium-dark skin tone",version:"4.0"},{emoji:"🏋🏿‍♀️",description:"woman lifting weights: dark skin tone",version:"4.0"}]},{emoji:"🚴",description:"person biking",version:"1.0",keywords:["bicycle","bicyclist","bike","biking","cycle","cyclist","person","riding","sport"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚴🏻",description:"person biking: light skin tone",version:"1.0"},{emoji:"🚴🏼",description:"person biking: medium-light skin tone",version:"1.0"},{emoji:"🚴🏽",description:"person biking: medium skin tone",version:"1.0"},{emoji:"🚴🏾",description:"person biking: medium-dark skin tone",version:"1.0"},{emoji:"🚴🏿",description:"person biking: dark skin tone",version:"1.0"}]},{emoji:"🚴‍♂️",description:"man biking",version:"4.0",keywords:["bicycle","bicyclist","bike","biking","cycle","cyclist","man","riding","sport"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚴🏻‍♂️",description:"man biking: light skin tone",version:"4.0"},{emoji:"🚴🏼‍♂️",description:"man biking: medium-light skin tone",version:"4.0"},{emoji:"🚴🏽‍♂️",description:"man biking: medium skin tone",version:"4.0"},{emoji:"🚴🏾‍♂️",description:"man biking: medium-dark skin tone",version:"4.0"},{emoji:"🚴🏿‍♂️",description:"man biking: dark skin tone",version:"4.0"}]},{emoji:"🚴‍♀️",description:"woman biking",version:"4.0",keywords:["bicycle","bicyclist","bike","biking","cycle","cyclist","riding","sport","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚴🏻‍♀️",description:"woman biking: light skin tone",version:"4.0"},{emoji:"🚴🏼‍♀️",description:"woman biking: medium-light skin tone",version:"4.0"},{emoji:"🚴🏽‍♀️",description:"woman biking: medium skin tone",version:"4.0"},{emoji:"🚴🏾‍♀️",description:"woman biking: medium-dark skin tone",version:"4.0"},{emoji:"🚴🏿‍♀️",description:"woman biking: dark skin tone",version:"4.0"}]},{emoji:"🚵",description:"person mountain biking",version:"1.0",keywords:["bicycle","bicyclist","bike","biking","cycle","cyclist","mountain","person","riding","sport"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚵🏻",description:"person mountain biking: light skin tone",version:"1.0"},{emoji:"🚵🏼",description:"person mountain biking: medium-light skin tone",version:"1.0"},{emoji:"🚵🏽",description:"person mountain biking: medium skin tone",version:"1.0"},{emoji:"🚵🏾",description:"person mountain biking: medium-dark skin tone",version:"1.0"},{emoji:"🚵🏿",description:"person mountain biking: dark skin tone",version:"1.0"}]},{emoji:"🚵‍♂️",description:"man mountain biking",version:"4.0",keywords:["bicycle","bicyclist","bike","biking","cycle","cyclist","man","mountain","riding","sport"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚵🏻‍♂️",description:"man mountain biking: light skin tone",version:"4.0"},{emoji:"🚵🏼‍♂️",description:"man mountain biking: medium-light skin tone",version:"4.0"},{emoji:"🚵🏽‍♂️",description:"man mountain biking: medium skin tone",version:"4.0"},{emoji:"🚵🏾‍♂️",description:"man mountain biking: medium-dark skin tone",version:"4.0"},{emoji:"🚵🏿‍♂️",description:"man mountain biking: dark skin tone",version:"4.0"}]},{emoji:"🚵‍♀️",description:"woman mountain biking",version:"4.0",keywords:["bicycle","bicyclist","bike","biking","cycle","cyclist","mountain","riding","sport","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🚵🏻‍♀️",description:"woman mountain biking: light skin tone",version:"4.0"},{emoji:"🚵🏼‍♀️",description:"woman mountain biking: medium-light skin tone",version:"4.0"},{emoji:"🚵🏽‍♀️",description:"woman mountain biking: medium skin tone",version:"4.0"},{emoji:"🚵🏾‍♀️",description:"woman mountain biking: medium-dark skin tone",version:"4.0"},{emoji:"🚵🏿‍♀️",description:"woman mountain biking: dark skin tone",version:"4.0"}]},{emoji:"🤸",description:"person cartwheeling",version:"3.0",keywords:["active","cartwheel","cartwheeling","excited","flip","gymnastics","happy","person","somersault"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤸🏻",description:"person cartwheeling: light skin tone",version:"3.0"},{emoji:"🤸🏼",description:"person cartwheeling: medium-light skin tone",version:"3.0"},{emoji:"🤸🏽",description:"person cartwheeling: medium skin tone",version:"3.0"},{emoji:"🤸🏾",description:"person cartwheeling: medium-dark skin tone",version:"3.0"},{emoji:"🤸🏿",description:"person cartwheeling: dark skin tone",version:"3.0"}]},{emoji:"🤸‍♂️",description:"man cartwheeling",version:"4.0",keywords:["active","cartwheel","cartwheeling","excited","flip","gymnastics","happy","man","somersault"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤸🏻‍♂️",description:"man cartwheeling: light skin tone",version:"4.0"},{emoji:"🤸🏼‍♂️",description:"man cartwheeling: medium-light skin tone",version:"4.0"},{emoji:"🤸🏽‍♂️",description:"man cartwheeling: medium skin tone",version:"4.0"},{emoji:"🤸🏾‍♂️",description:"man cartwheeling: medium-dark skin tone",version:"4.0"},{emoji:"🤸🏿‍♂️",description:"man cartwheeling: dark skin tone",version:"4.0"}]},{emoji:"🤸‍♀️",description:"woman cartwheeling",version:"4.0",keywords:["active","cartwheel","cartwheeling","excited","flip","gymnastics","happy","somersault","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤸🏻‍♀️",description:"woman cartwheeling: light skin tone",version:"4.0"},{emoji:"🤸🏼‍♀️",description:"woman cartwheeling: medium-light skin tone",version:"4.0"},{emoji:"🤸🏽‍♀️",description:"woman cartwheeling: medium skin tone",version:"4.0"},{emoji:"🤸🏾‍♀️",description:"woman cartwheeling: medium-dark skin tone",version:"4.0"},{emoji:"🤸🏿‍♀️",description:"woman cartwheeling: dark skin tone",version:"4.0"}]},{emoji:"🤼",description:"people wrestling",version:"3.0",keywords:["combat","duel","grapple","people","ring","tournament","wrestle","wrestling"],category:"person-people",group:"people-body",subgroup:"person-sport"},{emoji:"🤼‍♂️",description:"men wrestling",version:"4.0",keywords:["combat","duel","grapple","men","ring","tournament","wrestle","wrestling"],category:"person-people",group:"people-body",subgroup:"person-sport"},{emoji:"🤼‍♀️",description:"women wrestling",version:"4.0",keywords:["combat","duel","grapple","ring","tournament","women","wrestle","wrestling"],category:"person-people",group:"people-body",subgroup:"person-sport"},{emoji:"🤽",description:"person playing water polo",version:"3.0",keywords:["person","playing","polo","sport","swimming","water","waterpolo"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤽🏻",description:"person playing water polo: light skin tone",version:"3.0"},{emoji:"🤽🏼",description:"person playing water polo: medium-light skin tone",version:"3.0"},{emoji:"🤽🏽",description:"person playing water polo: medium skin tone",version:"3.0"},{emoji:"🤽🏾",description:"person playing water polo: medium-dark skin tone",version:"3.0"},{emoji:"🤽🏿",description:"person playing water polo: dark skin tone",version:"3.0"}]},{emoji:"🤽‍♂️",description:"man playing water polo",version:"4.0",keywords:["man","playing","polo","sport","swimming","water","waterpolo"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤽🏻‍♂️",description:"man playing water polo: light skin tone",version:"4.0"},{emoji:"🤽🏼‍♂️",description:"man playing water polo: medium-light skin tone",version:"4.0"},{emoji:"🤽🏽‍♂️",description:"man playing water polo: medium skin tone",version:"4.0"},{emoji:"🤽🏾‍♂️",description:"man playing water polo: medium-dark skin tone",version:"4.0"},{emoji:"🤽🏿‍♂️",description:"man playing water polo: dark skin tone",version:"4.0"}]},{emoji:"🤽‍♀️",description:"woman playing water polo",version:"4.0",keywords:["playing","polo","sport","swimming","water","waterpolo","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤽🏻‍♀️",description:"woman playing water polo: light skin tone",version:"4.0"},{emoji:"🤽🏼‍♀️",description:"woman playing water polo: medium-light skin tone",version:"4.0"},{emoji:"🤽🏽‍♀️",description:"woman playing water polo: medium skin tone",version:"4.0"},{emoji:"🤽🏾‍♀️",description:"woman playing water polo: medium-dark skin tone",version:"4.0"},{emoji:"🤽🏿‍♀️",description:"woman playing water polo: dark skin tone",version:"4.0"}]},{emoji:"🤾",description:"person playing handball",version:"3.0",keywords:["athletics","ball","catch","chuck","handball","hurl","lob","person","pitch","playing","sport","throw","toss"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤾🏻",description:"person playing handball: light skin tone",version:"3.0"},{emoji:"🤾🏼",description:"person playing handball: medium-light skin tone",version:"3.0"},{emoji:"🤾🏽",description:"person playing handball: medium skin tone",version:"3.0"},{emoji:"🤾🏾",description:"person playing handball: medium-dark skin tone",version:"3.0"},{emoji:"🤾🏿",description:"person playing handball: dark skin tone",version:"3.0"}]},{emoji:"🤾‍♂️",description:"man playing handball",version:"4.0",keywords:["athletics","ball","catch","chuck","handball","hurl","lob","man","pitch","playing","sport","throw","toss"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤾🏻‍♂️",description:"man playing handball: light skin tone",version:"4.0"},{emoji:"🤾🏼‍♂️",description:"man playing handball: medium-light skin tone",version:"4.0"},{emoji:"🤾🏽‍♂️",description:"man playing handball: medium skin tone",version:"4.0"},{emoji:"🤾🏾‍♂️",description:"man playing handball: medium-dark skin tone",version:"4.0"},{emoji:"🤾🏿‍♂️",description:"man playing handball: dark skin tone",version:"4.0"}]},{emoji:"🤾‍♀️",description:"woman playing handball",version:"4.0",keywords:["athletics","ball","catch","chuck","handball","hurl","lob","pitch","playing","sport","throw","toss","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤾🏻‍♀️",description:"woman playing handball: light skin tone",version:"4.0"},{emoji:"🤾🏼‍♀️",description:"woman playing handball: medium-light skin tone",version:"4.0"},{emoji:"🤾🏽‍♀️",description:"woman playing handball: medium skin tone",version:"4.0"},{emoji:"🤾🏾‍♀️",description:"woman playing handball: medium-dark skin tone",version:"4.0"},{emoji:"🤾🏿‍♀️",description:"woman playing handball: dark skin tone",version:"4.0"}]},{emoji:"🤹",description:"person juggling",version:"3.0",keywords:["act","balance","balancing","handle","juggle","juggling","manage","multitask","person","skill"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤹🏻",description:"person juggling: light skin tone",version:"3.0"},{emoji:"🤹🏼",description:"person juggling: medium-light skin tone",version:"3.0"},{emoji:"🤹🏽",description:"person juggling: medium skin tone",version:"3.0"},{emoji:"🤹🏾",description:"person juggling: medium-dark skin tone",version:"3.0"},{emoji:"🤹🏿",description:"person juggling: dark skin tone",version:"3.0"}]},{emoji:"🤹‍♂️",description:"man juggling",version:"4.0",keywords:["act","balance","balancing","handle","juggle","juggling","man","manage","multitask","skill"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤹🏻‍♂️",description:"man juggling: light skin tone",version:"4.0"},{emoji:"🤹🏼‍♂️",description:"man juggling: medium-light skin tone",version:"4.0"},{emoji:"🤹🏽‍♂️",description:"man juggling: medium skin tone",version:"4.0"},{emoji:"🤹🏾‍♂️",description:"man juggling: medium-dark skin tone",version:"4.0"},{emoji:"🤹🏿‍♂️",description:"man juggling: dark skin tone",version:"4.0"}]},{emoji:"🤹‍♀️",description:"woman juggling",version:"4.0",keywords:["act","balance","balancing","handle","juggle","juggling","manage","multitask","skill","woman"],category:"person-people",group:"people-body",subgroup:"person-sport",variations:[{emoji:"🤹🏻‍♀️",description:"woman juggling: light skin tone",version:"4.0"},{emoji:"🤹🏼‍♀️",description:"woman juggling: medium-light skin tone",version:"4.0"},{emoji:"🤹🏽‍♀️",description:"woman juggling: medium skin tone",version:"4.0"},{emoji:"🤹🏾‍♀️",description:"woman juggling: medium-dark skin tone",version:"4.0"},{emoji:"🤹🏿‍♀️",description:"woman juggling: dark skin tone",version:"4.0"}]},{emoji:"🧘",description:"person in lotus position",version:"5.0",keywords:["cross","legged","legs","lotus","meditation","peace","person","position","relax","serenity","yoga","yogi","zen"],category:"person-people",group:"people-body",subgroup:"person-resting",variations:[{emoji:"🧘🏻",description:"person in lotus position: light skin tone",version:"5.0"},{emoji:"🧘🏼",description:"person in lotus position: medium-light skin tone",version:"5.0"},{emoji:"🧘🏽",description:"person in lotus position: medium skin tone",version:"5.0"},{emoji:"🧘🏾",description:"person in lotus position: medium-dark skin tone",version:"5.0"},{emoji:"🧘🏿",description:"person in lotus position: dark skin tone",version:"5.0"}]},{emoji:"🧘‍♂️",description:"man in lotus position",version:"5.0",keywords:["cross","legged","legs","lotus","man","meditation","peace","position","relax","serenity","yoga","yogi","zen"],category:"person-people",group:"people-body",subgroup:"person-resting",variations:[{emoji:"🧘🏻‍♂️",description:"man in lotus position: light skin tone",version:"5.0"},{emoji:"🧘🏼‍♂️",description:"man in lotus position: medium-light skin tone",version:"5.0"},{emoji:"🧘🏽‍♂️",description:"man in lotus position: medium skin tone",version:"5.0"},{emoji:"🧘🏾‍♂️",description:"man in lotus position: medium-dark skin tone",version:"5.0"},{emoji:"🧘🏿‍♂️",description:"man in lotus position: dark skin tone",version:"5.0"}]},{emoji:"🧘‍♀️",description:"woman in lotus position",version:"5.0",keywords:["cross","legged","legs","lotus","meditation","peace","position","relax","serenity","woman","yoga","yogi","zen"],category:"person-people",group:"people-body",subgroup:"person-resting",variations:[{emoji:"🧘🏻‍♀️",description:"woman in lotus position: light skin tone",version:"5.0"},{emoji:"🧘🏼‍♀️",description:"woman in lotus position: medium-light skin tone",version:"5.0"},{emoji:"🧘🏽‍♀️",description:"woman in lotus position: medium skin tone",version:"5.0"},{emoji:"🧘🏾‍♀️",description:"woman in lotus position: medium-dark skin tone",version:"5.0"},{emoji:"🧘🏿‍♀️",description:"woman in lotus position: dark skin tone",version:"5.0"}]},{emoji:"🛀",description:"person taking bath",version:"0.6",keywords:["bath","bathtub","person","taking","tub"],category:"person-people",group:"people-body",subgroup:"person-resting",variations:[{emoji:"🛀🏻",description:"person taking bath: light skin tone",version:"1.0"},{emoji:"🛀🏼",description:"person taking bath: medium-light skin tone",version:"1.0"},{emoji:"🛀🏽",description:"person taking bath: medium skin tone",version:"1.0"},{emoji:"🛀🏾",description:"person taking bath: medium-dark skin tone",version:"1.0"},{emoji:"🛀🏿",description:"person taking bath: dark skin tone",version:"1.0"}]},{emoji:"🛌",description:"person in bed",version:"1.0",keywords:["bed","bedtime","good","goodnight","hotel","nap","night","person","sleep","tired","zzz"],category:"person-people",group:"people-body",subgroup:"person-resting",variations:[{emoji:"🛌🏻",description:"person in bed: light skin tone",version:"4.0"},{emoji:"🛌🏼",description:"person in bed: medium-light skin tone",version:"4.0"},{emoji:"🛌🏽",description:"person in bed: medium skin tone",version:"4.0"},{emoji:"🛌🏾",description:"person in bed: medium-dark skin tone",version:"4.0"},{emoji:"🛌🏿",description:"person in bed: dark skin tone",version:"4.0"}]},{emoji:"🧑‍🤝‍🧑",description:"people holding hands",version:"12.0",keywords:["bae","bestie","bff","couple","dating","flirt","friends","hand","hold","people","twins"],category:"person-people",group:"people-body",subgroup:"family",variations:[{emoji:"🧑🏻‍🤝‍🧑🏻",description:"people holding hands: light skin tone",version:"12.0"},{emoji:"🧑🏻‍🤝‍🧑🏼",description:"people holding hands: light skin tone, medium-light skin tone",version:"12.1"},{emoji:"🧑🏻‍🤝‍🧑🏽",description:"people holding hands: light skin tone, medium skin tone",version:"12.1"},{emoji:"🧑🏻‍🤝‍🧑🏾",description:"people holding hands: light skin tone, medium-dark skin tone",version:"12.1"},{emoji:"🧑🏻‍🤝‍🧑🏿",description:"people holding hands: light skin tone, dark skin tone",version:"12.1"},{emoji:"🧑🏼‍🤝‍🧑🏻",description:"people holding hands: medium-light skin tone, light skin tone",version:"12.0"},{emoji:"🧑🏼‍🤝‍🧑🏼",description:"people holding hands: medium-light skin tone",version:"12.0"},{emoji:"🧑🏼‍🤝‍🧑🏽",description:"people holding hands: medium-light skin tone, medium skin tone",version:"12.1"},{emoji:"🧑🏼‍🤝‍🧑🏾",description:"people holding hands: medium-light skin tone, medium-dark skin tone",version:"12.1"},{emoji:"🧑🏼‍🤝‍🧑🏿",description:"people holding hands: medium-light skin tone, dark skin tone",version:"12.1"},{emoji:"🧑🏽‍🤝‍🧑🏻",description:"people holding hands: medium skin tone, light skin tone",version:"12.0"},{emoji:"🧑🏽‍🤝‍🧑🏼",description:"people holding hands: medium skin tone, medium-light skin tone",version:"12.0"},{emoji:"🧑🏽‍🤝‍🧑🏽",description:"people holding hands: medium skin tone",version:"12.0"},{emoji:"🧑🏽‍🤝‍🧑🏾",description:"people holding hands: medium skin tone, medium-dark skin tone",version:"12.1"},{emoji:"🧑🏽‍🤝‍🧑🏿",description:"people holding hands: medium skin tone, dark skin tone",version:"12.1"},{emoji:"🧑🏾‍🤝‍🧑🏻",description:"people holding hands: medium-dark skin tone, light skin tone",version:"12.0"},{emoji:"🧑🏾‍🤝‍🧑🏼",description:"people holding hands: medium-dark skin tone, medium-light skin tone",version:"12.0"},{emoji:"🧑🏾‍🤝‍🧑🏽",description:"people holding hands: medium-dark skin tone, medium skin tone",version:"12.0"},{emoji:"🧑🏾‍🤝‍🧑🏾",description:"people holding hands: medium-dark skin tone",version:"12.0"},{emoji:"🧑🏾‍🤝‍🧑🏿",description:"people holding hands: medium-dark skin tone, dark skin tone",version:"12.1"},{emoji:"🧑🏿‍🤝‍🧑🏻",description:"people holding hands: dark skin tone, light skin tone",version:"12.0"},{emoji:"🧑🏿‍🤝‍🧑🏼",description:"people holding hands: dark skin tone, medium-light skin tone",version:"12.0"},{emoji:"🧑🏿‍🤝‍🧑🏽",description:"people holding hands: dark skin tone, medium skin tone",version:"12.0"},{emoji:"🧑🏿‍🤝‍🧑🏾",description:"people holding hands: dark skin tone, medium-dark skin tone",version:"12.0"},{emoji:"🧑🏿‍🤝‍🧑🏿",description:"people holding hands: dark skin tone",version:"12.0"}]},{emoji:"👭",description:"women holding hands",version:"1.0",keywords:["bae","bestie","bff","couple","dating","flirt","friends","girls","hand","hold","sisters","twins","women"],category:"person-people",group:"people-body",subgroup:"family",variations:[{emoji:"👭🏻",description:"women holding hands: light skin tone",version:"12.0"},{emoji:"👩🏻‍🤝‍👩🏼",description:"women holding hands: light skin tone, medium-light skin tone",version:"12.1"},{emoji:"👩🏻‍🤝‍👩🏽",description:"women holding hands: light skin tone, medium skin tone",version:"12.1"},{emoji:"👩🏻‍🤝‍👩🏾",description:"women holding hands: light skin tone, medium-dark skin tone",version:"12.1"},{emoji:"👩🏻‍🤝‍👩🏿",description:"women holding hands: light skin tone, dark skin tone",version:"12.1"},{emoji:"👩🏼‍🤝‍👩🏻",description:"women holding hands: medium-light skin tone, light skin tone",version:"12.0"},{emoji:"👭🏼",description:"women holding hands: medium-light skin tone",version:"12.0"},{emoji:"👩🏼‍🤝‍👩🏽",description:"women holding hands: medium-light skin tone, medium skin tone",version:"12.1"},{emoji:"👩🏼‍🤝‍👩🏾",description:"women holding hands: medium-light skin tone, medium-dark skin tone",version:"12.1"},{emoji:"👩🏼‍🤝‍👩🏿",description:"women holding hands: medium-light skin tone, dark skin tone",version:"12.1"},{emoji:"👩🏽‍🤝‍👩🏻",description:"women holding hands: medium skin tone, light skin tone",version:"12.0"},{emoji:"👩🏽‍🤝‍👩🏼",description:"women holding hands: medium skin tone, medium-light skin tone",version:"12.0"},{emoji:"👭🏽",description:"women holding hands: medium skin tone",version:"12.0"},{emoji:"👩🏽‍🤝‍👩🏾",description:"women holding hands: medium skin tone, medium-dark skin tone",version:"12.1"},{emoji:"👩🏽‍🤝‍👩🏿",description:"women holding hands: medium skin tone, dark skin tone",version:"12.1"},{emoji:"👩🏾‍🤝‍👩🏻",description:"women holding hands: medium-dark skin tone, light skin tone",version:"12.0"},{emoji:"👩🏾‍🤝‍👩🏼",description:"women holding hands: medium-dark skin tone, medium-light skin tone",version:"12.0"},{emoji:"👩🏾‍🤝‍👩🏽",description:"women holding hands: medium-dark skin tone, medium skin tone",version:"12.0"},{emoji:"👭🏾",description:"women holding hands: medium-dark skin tone",version:"12.0"},{emoji:"👩🏾‍🤝‍👩🏿",description:"women holding hands: medium-dark skin tone, dark skin tone",version:"12.1"},{emoji:"👩🏿‍🤝‍👩🏻",description:"women holding hands: dark skin tone, light skin tone",version:"12.0"},{emoji:"👩🏿‍🤝‍👩🏼",description:"women holding hands: dark skin tone, medium-light skin tone",version:"12.0"},{emoji:"👩🏿‍🤝‍👩🏽",description:"women holding hands: dark skin tone, medium skin tone",version:"12.0"},{emoji:"👩🏿‍🤝‍👩🏾",description:"women holding hands: dark skin tone, medium-dark skin tone",version:"12.0"},{emoji:"👭🏿",description:"women holding hands: dark skin tone",version:"12.0"}]},{emoji:"👫",description:"woman and man holding hands",version:"0.6",keywords:["bae","bestie","bff","couple","dating","flirt","friends","hand","hold","man","twins","woman"],category:"person-people",group:"people-body",subgroup:"family",variations:[{emoji:"👫🏻",description:"woman and man holding hands: light skin tone",version:"12.0"},{emoji:"👩🏻‍🤝‍👨🏼",description:"woman and man holding hands: light skin tone, medium-light skin tone",version:"12.0"},{emoji:"👩🏻‍🤝‍👨🏽",description:"woman and man holding hands: light skin tone, medium skin tone",version:"12.0"},{emoji:"👩🏻‍🤝‍👨🏾",description:"woman and man holding hands: light skin tone, medium-dark skin tone",version:"12.0"},{emoji:"👩🏻‍🤝‍👨🏿",description:"woman and man holding hands: light skin tone, dark skin tone",version:"12.0"},{emoji:"👩🏼‍🤝‍👨🏻",description:"woman and man holding hands: medium-light skin tone, light skin tone",version:"12.0"},{emoji:"👫🏼",description:"woman and man holding hands: medium-light skin tone",version:"12.0"},{emoji:"👩🏼‍🤝‍👨🏽",description:"woman and man holding hands: medium-light skin tone, medium skin tone",version:"12.0"},{emoji:"👩🏼‍🤝‍👨🏾",description:"woman and man holding hands: medium-light skin tone, medium-dark skin tone",version:"12.0"},{emoji:"👩🏼‍🤝‍👨🏿",description:"woman and man holding hands: medium-light skin tone, dark skin tone",version:"12.0"},{emoji:"👩🏽‍🤝‍👨🏻",description:"woman and man holding hands: medium skin tone, light skin tone",version:"12.0"},{emoji:"👩🏽‍🤝‍👨🏼",description:"woman and man holding hands: medium skin tone, medium-light skin tone",version:"12.0"},{emoji:"👫🏽",description:"woman and man holding hands: medium skin tone",version:"12.0"},{emoji:"👩🏽‍🤝‍👨🏾",description:"woman and man holding hands: medium skin tone, medium-dark skin tone",version:"12.0"},{emoji:"👩🏽‍🤝‍👨🏿",description:"woman and man holding hands: medium skin tone, dark skin tone",version:"12.0"},{emoji:"👩🏾‍🤝‍👨🏻",description:"woman and man holding hands: medium-dark skin tone, light skin tone",version:"12.0"},{emoji:"👩🏾‍🤝‍👨🏼",description:"woman and man holding hands: medium-dark skin tone, medium-light skin tone",version:"12.0"},{emoji:"👩🏾‍🤝‍👨🏽",description:"woman and man holding hands: medium-dark skin tone, medium skin tone",version:"12.0"},{emoji:"👫🏾",description:"woman and man holding hands: medium-dark skin tone",version:"12.0"},{emoji:"👩🏾‍🤝‍👨🏿",description:"woman and man holding hands: medium-dark skin tone, dark skin tone",version:"12.0"},{emoji:"👩🏿‍🤝‍👨🏻",description:"woman and man holding hands: dark skin tone, light skin tone",version:"12.0"},{emoji:"👩🏿‍🤝‍👨🏼",description:"woman and man holding hands: dark skin tone, medium-light skin tone",version:"12.0"},{emoji:"👩🏿‍🤝‍👨🏽",description:"woman and man holding hands: dark skin tone, medium skin tone",version:"12.0"},{emoji:"👩🏿‍🤝‍👨🏾",description:"woman and man holding hands: dark skin tone, medium-dark skin tone",version:"12.0"},{emoji:"👫🏿",description:"woman and man holding hands: dark skin tone",version:"12.0"}]},{emoji:"👬",description:"men holding hands",version:"1.0",keywords:["bae","bestie","bff","boys","brothers","couple","dating","flirt","friends","hand","hold","men","twins"],category:"person-people",group:"people-body",subgroup:"family",variations:[{emoji:"👬🏻",description:"men holding hands: light skin tone",version:"12.0"},{emoji:"👨🏻‍🤝‍👨🏼",description:"men holding hands: light skin tone, medium-light skin tone",version:"12.1"},{emoji:"👨🏻‍🤝‍👨🏽",description:"men holding hands: light skin tone, medium skin tone",version:"12.1"},{emoji:"👨🏻‍🤝‍👨🏾",description:"men holding hands: light skin tone, medium-dark skin tone",version:"12.1"},{emoji:"👨🏻‍🤝‍👨🏿",description:"men holding hands: light skin tone, dark skin tone",version:"12.1"},{emoji:"👨🏼‍🤝‍👨🏻",description:"men holding hands: medium-light skin tone, light skin tone",version:"12.0"},{emoji:"👬🏼",description:"men holding hands: medium-light skin tone",version:"12.0"},{emoji:"👨🏼‍🤝‍👨🏽",description:"men holding hands: medium-light skin tone, medium skin tone",version:"12.1"},{emoji:"👨🏼‍🤝‍👨🏾",description:"men holding hands: medium-light skin tone, medium-dark skin tone",version:"12.1"},{emoji:"👨🏼‍🤝‍👨🏿",description:"men holding hands: medium-light skin tone, dark skin tone",version:"12.1"},{emoji:"👨🏽‍🤝‍👨🏻",description:"men holding hands: medium skin tone, light skin tone",version:"12.0"},{emoji:"👨🏽‍🤝‍👨🏼",description:"men holding hands: medium skin tone, medium-light skin tone",version:"12.0"},{emoji:"👬🏽",description:"men holding hands: medium skin tone",version:"12.0"},{emoji:"👨🏽‍🤝‍👨🏾",description:"men holding hands: medium skin tone, medium-dark skin tone",version:"12.1"},{emoji:"👨🏽‍🤝‍👨🏿",description:"men holding hands: medium skin tone, dark skin tone",version:"12.1"},{emoji:"👨🏾‍🤝‍👨🏻",description:"men holding hands: medium-dark skin tone, light skin tone",version:"12.0"},{emoji:"👨🏾‍🤝‍👨🏼",description:"men holding hands: medium-dark skin tone, medium-light skin tone",version:"12.0"},{emoji:"👨🏾‍🤝‍👨🏽",description:"men holding hands: medium-dark skin tone, medium skin tone",version:"12.0"},{emoji:"👬🏾",description:"men holding hands: medium-dark skin tone",version:"12.0"},{emoji:"👨🏾‍🤝‍👨🏿",description:"men holding hands: medium-dark skin tone, dark skin tone",version:"12.1"},{emoji:"👨🏿‍🤝‍👨🏻",description:"men holding hands: dark skin tone, light skin tone",version:"12.0"},{emoji:"👨🏿‍🤝‍👨🏼",description:"men holding hands: dark skin tone, medium-light skin tone",version:"12.0"},{emoji:"👨🏿‍🤝‍👨🏽",description:"men holding hands: dark skin tone, medium skin tone",version:"12.0"},{emoji:"👨🏿‍🤝‍👨🏾",description:"men holding hands: dark skin tone, medium-dark skin tone",version:"12.0"},{emoji:"👬🏿",description:"men holding hands: dark skin tone",version:"12.0"}]},{emoji:"💏",description:"kiss",version:"0.6",keywords:["anniversary","babe","bae","couple","date","dating","heart","kiss","love","mwah","person","romance","together","xoxo"],category:"person-people",group:"people-body",subgroup:"family",variations:[{emoji:"💏🏻",description:"kiss: light skin tone",version:"13.1"},{emoji:"💏🏼",description:"kiss: medium-light skin tone",version:"13.1"},{emoji:"💏🏽",description:"kiss: medium skin tone",version:"13.1"},{emoji:"💏🏾",description:"kiss: medium-dark skin tone",version:"13.1"},{emoji:"💏🏿",description:"kiss: dark skin tone",version:"13.1"},{emoji:"🧑🏻‍❤️‍💋‍🧑🏼",description:"kiss: person, person, light skin tone, medium-light skin tone",version:"13.1"},{emoji:"🧑🏻‍❤️‍💋‍🧑🏽",description:"kiss: person, person, light skin tone, medium skin tone",version:"13.1"},{emoji:"🧑🏻‍❤️‍💋‍🧑🏾",description:"kiss: person, person, light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"🧑🏻‍❤️‍💋‍🧑🏿",description:"kiss: person, person, light skin tone, dark skin tone",version:"13.1"},{emoji:"🧑🏼‍❤️‍💋‍🧑🏻",description:"kiss: person, person, medium-light skin tone, light skin tone",version:"13.1"},{emoji:"🧑🏼‍❤️‍💋‍🧑🏽",description:"kiss: person, person, medium-light skin tone, medium skin tone",version:"13.1"},{emoji:"🧑🏼‍❤️‍💋‍🧑🏾",description:"kiss: person, person, medium-light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"🧑🏼‍❤️‍💋‍🧑🏿",description:"kiss: person, person, medium-light skin tone, dark skin tone",version:"13.1"},{emoji:"🧑🏽‍❤️‍💋‍🧑🏻",description:"kiss: person, person, medium skin tone, light skin tone",version:"13.1"},{emoji:"🧑🏽‍❤️‍💋‍🧑🏼",description:"kiss: person, person, medium skin tone, medium-light skin tone",version:"13.1"},{emoji:"🧑🏽‍❤️‍💋‍🧑🏾",description:"kiss: person, person, medium skin tone, medium-dark skin tone",version:"13.1"},{emoji:"🧑🏽‍❤️‍💋‍🧑🏿",description:"kiss: person, person, medium skin tone, dark skin tone",version:"13.1"},{emoji:"🧑🏾‍❤️‍💋‍🧑🏻",description:"kiss: person, person, medium-dark skin tone, light skin tone",version:"13.1"},{emoji:"🧑🏾‍❤️‍💋‍🧑🏼",description:"kiss: person, person, medium-dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"🧑🏾‍❤️‍💋‍🧑🏽",description:"kiss: person, person, medium-dark skin tone, medium skin tone",version:"13.1"},{emoji:"🧑🏾‍❤️‍💋‍🧑🏿",description:"kiss: person, person, medium-dark skin tone, dark skin tone",version:"13.1"},{emoji:"🧑🏿‍❤️‍💋‍🧑🏻",description:"kiss: person, person, dark skin tone, light skin tone",version:"13.1"},{emoji:"🧑🏿‍❤️‍💋‍🧑🏼",description:"kiss: person, person, dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"🧑🏿‍❤️‍💋‍🧑🏽",description:"kiss: person, person, dark skin tone, medium skin tone",version:"13.1"},{emoji:"🧑🏿‍❤️‍💋‍🧑🏾",description:"kiss: person, person, dark skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩‍❤️‍💋‍👨",description:"kiss: woman, man",version:"2.0"},{emoji:"👩🏻‍❤️‍💋‍👨🏻",description:"kiss: woman, man, light skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍💋‍👨🏼",description:"kiss: woman, man, light skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍💋‍👨🏽",description:"kiss: woman, man, light skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍💋‍👨🏾",description:"kiss: woman, man, light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍💋‍👨🏿",description:"kiss: woman, man, light skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👨🏻",description:"kiss: woman, man, medium-light skin tone, light skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👨🏼",description:"kiss: woman, man, medium-light skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👨🏽",description:"kiss: woman, man, medium-light skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👨🏾",description:"kiss: woman, man, medium-light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👨🏿",description:"kiss: woman, man, medium-light skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👨🏻",description:"kiss: woman, man, medium skin tone, light skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👨🏼",description:"kiss: woman, man, medium skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👨🏽",description:"kiss: woman, man, medium skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👨🏾",description:"kiss: woman, man, medium skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👨🏿",description:"kiss: woman, man, medium skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👨🏻",description:"kiss: woman, man, medium-dark skin tone, light skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👨🏼",description:"kiss: woman, man, medium-dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👨🏽",description:"kiss: woman, man, medium-dark skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👨🏾",description:"kiss: woman, man, medium-dark skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👨🏿",description:"kiss: woman, man, medium-dark skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👨🏻",description:"kiss: woman, man, dark skin tone, light skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👨🏼",description:"kiss: woman, man, dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👨🏽",description:"kiss: woman, man, dark skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👨🏾",description:"kiss: woman, man, dark skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👨🏿",description:"kiss: woman, man, dark skin tone",version:"13.1"},{emoji:"👨‍❤️‍💋‍👨",description:"kiss: man, man",version:"2.0"},{emoji:"👨🏻‍❤️‍💋‍👨🏻",description:"kiss: man, man, light skin tone",version:"13.1"},{emoji:"👨🏻‍❤️‍💋‍👨🏼",description:"kiss: man, man, light skin tone, medium-light skin tone",version:"13.1"},{emoji:"👨🏻‍❤️‍💋‍👨🏽",description:"kiss: man, man, light skin tone, medium skin tone",version:"13.1"},{emoji:"👨🏻‍❤️‍💋‍👨🏾",description:"kiss: man, man, light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👨🏻‍❤️‍💋‍👨🏿",description:"kiss: man, man, light skin tone, dark skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍💋‍👨🏻",description:"kiss: man, man, medium-light skin tone, light skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍💋‍👨🏼",description:"kiss: man, man, medium-light skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍💋‍👨🏽",description:"kiss: man, man, medium-light skin tone, medium skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍💋‍👨🏾",description:"kiss: man, man, medium-light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍💋‍👨🏿",description:"kiss: man, man, medium-light skin tone, dark skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍💋‍👨🏻",description:"kiss: man, man, medium skin tone, light skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍💋‍👨🏼",description:"kiss: man, man, medium skin tone, medium-light skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍💋‍👨🏽",description:"kiss: man, man, medium skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍💋‍👨🏾",description:"kiss: man, man, medium skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍💋‍👨🏿",description:"kiss: man, man, medium skin tone, dark skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍💋‍👨🏻",description:"kiss: man, man, medium-dark skin tone, light skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍💋‍👨🏼",description:"kiss: man, man, medium-dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍💋‍👨🏽",description:"kiss: man, man, medium-dark skin tone, medium skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍💋‍👨🏾",description:"kiss: man, man, medium-dark skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍💋‍👨🏿",description:"kiss: man, man, medium-dark skin tone, dark skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍💋‍👨🏻",description:"kiss: man, man, dark skin tone, light skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍💋‍👨🏼",description:"kiss: man, man, dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍💋‍👨🏽",description:"kiss: man, man, dark skin tone, medium skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍💋‍👨🏾",description:"kiss: man, man, dark skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍💋‍👨🏿",description:"kiss: man, man, dark skin tone",version:"13.1"},{emoji:"👩‍❤️‍💋‍👩",description:"kiss: woman, woman",version:"2.0"},{emoji:"👩🏻‍❤️‍💋‍👩🏻",description:"kiss: woman, woman, light skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍💋‍👩🏼",description:"kiss: woman, woman, light skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍💋‍👩🏽",description:"kiss: woman, woman, light skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍💋‍👩🏾",description:"kiss: woman, woman, light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍💋‍👩🏿",description:"kiss: woman, woman, light skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👩🏻",description:"kiss: woman, woman, medium-light skin tone, light skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👩🏼",description:"kiss: woman, woman, medium-light skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👩🏽",description:"kiss: woman, woman, medium-light skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👩🏾",description:"kiss: woman, woman, medium-light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍💋‍👩🏿",description:"kiss: woman, woman, medium-light skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👩🏻",description:"kiss: woman, woman, medium skin tone, light skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👩🏼",description:"kiss: woman, woman, medium skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👩🏽",description:"kiss: woman, woman, medium skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👩🏾",description:"kiss: woman, woman, medium skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍💋‍👩🏿",description:"kiss: woman, woman, medium skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👩🏻",description:"kiss: woman, woman, medium-dark skin tone, light skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👩🏼",description:"kiss: woman, woman, medium-dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👩🏽",description:"kiss: woman, woman, medium-dark skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👩🏾",description:"kiss: woman, woman, medium-dark skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍💋‍👩🏿",description:"kiss: woman, woman, medium-dark skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👩🏻",description:"kiss: woman, woman, dark skin tone, light skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👩🏼",description:"kiss: woman, woman, dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👩🏽",description:"kiss: woman, woman, dark skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👩🏾",description:"kiss: woman, woman, dark skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍💋‍👩🏿",description:"kiss: woman, woman, dark skin tone",version:"13.1"}]},{emoji:"💑",description:"couple with heart",version:"0.6",keywords:["anniversary","babe","bae","couple","dating","heart","kiss","love","person","relationship","romance","together","you"],category:"person-people",group:"people-body",subgroup:"family",variations:[{emoji:"💑🏻",description:"couple with heart: light skin tone",version:"13.1"},{emoji:"💑🏼",description:"couple with heart: medium-light skin tone",version:"13.1"},{emoji:"💑🏽",description:"couple with heart: medium skin tone",version:"13.1"},{emoji:"💑🏾",description:"couple with heart: medium-dark skin tone",version:"13.1"},{emoji:"💑🏿",description:"couple with heart: dark skin tone",version:"13.1"},{emoji:"🧑🏻‍❤️‍🧑🏼",description:"couple with heart: person, person, light skin tone, medium-light skin tone",version:"13.1"},{emoji:"🧑🏻‍❤️‍🧑🏽",description:"couple with heart: person, person, light skin tone, medium skin tone",version:"13.1"},{emoji:"🧑🏻‍❤️‍🧑🏾",description:"couple with heart: person, person, light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"🧑🏻‍❤️‍🧑🏿",description:"couple with heart: person, person, light skin tone, dark skin tone",version:"13.1"},{emoji:"🧑🏼‍❤️‍🧑🏻",description:"couple with heart: person, person, medium-light skin tone, light skin tone",version:"13.1"},{emoji:"🧑🏼‍❤️‍🧑🏽",description:"couple with heart: person, person, medium-light skin tone, medium skin tone",version:"13.1"},{emoji:"🧑🏼‍❤️‍🧑🏾",description:"couple with heart: person, person, medium-light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"🧑🏼‍❤️‍🧑🏿",description:"couple with heart: person, person, medium-light skin tone, dark skin tone",version:"13.1"},{emoji:"🧑🏽‍❤️‍🧑🏻",description:"couple with heart: person, person, medium skin tone, light skin tone",version:"13.1"},{emoji:"🧑🏽‍❤️‍🧑🏼",description:"couple with heart: person, person, medium skin tone, medium-light skin tone",version:"13.1"},{emoji:"🧑🏽‍❤️‍🧑🏾",description:"couple with heart: person, person, medium skin tone, medium-dark skin tone",version:"13.1"},{emoji:"🧑🏽‍❤️‍🧑🏿",description:"couple with heart: person, person, medium skin tone, dark skin tone",version:"13.1"},{emoji:"🧑🏾‍❤️‍🧑🏻",description:"couple with heart: person, person, medium-dark skin tone, light skin tone",version:"13.1"},{emoji:"🧑🏾‍❤️‍🧑🏼",description:"couple with heart: person, person, medium-dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"🧑🏾‍❤️‍🧑🏽",description:"couple with heart: person, person, medium-dark skin tone, medium skin tone",version:"13.1"},{emoji:"🧑🏾‍❤️‍🧑🏿",description:"couple with heart: person, person, medium-dark skin tone, dark skin tone",version:"13.1"},{emoji:"🧑🏿‍❤️‍🧑🏻",description:"couple with heart: person, person, dark skin tone, light skin tone",version:"13.1"},{emoji:"🧑🏿‍❤️‍🧑🏼",description:"couple with heart: person, person, dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"🧑🏿‍❤️‍🧑🏽",description:"couple with heart: person, person, dark skin tone, medium skin tone",version:"13.1"},{emoji:"🧑🏿‍❤️‍🧑🏾",description:"couple with heart: person, person, dark skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩‍❤️‍👨",description:"couple with heart: woman, man",version:"2.0"},{emoji:"👩🏻‍❤️‍👨🏻",description:"couple with heart: woman, man, light skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍👨🏼",description:"couple with heart: woman, man, light skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍👨🏽",description:"couple with heart: woman, man, light skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍👨🏾",description:"couple with heart: woman, man, light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍👨🏿",description:"couple with heart: woman, man, light skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👨🏻",description:"couple with heart: woman, man, medium-light skin tone, light skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👨🏼",description:"couple with heart: woman, man, medium-light skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👨🏽",description:"couple with heart: woman, man, medium-light skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👨🏾",description:"couple with heart: woman, man, medium-light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👨🏿",description:"couple with heart: woman, man, medium-light skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👨🏻",description:"couple with heart: woman, man, medium skin tone, light skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👨🏼",description:"couple with heart: woman, man, medium skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👨🏽",description:"couple with heart: woman, man, medium skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👨🏾",description:"couple with heart: woman, man, medium skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👨🏿",description:"couple with heart: woman, man, medium skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👨🏻",description:"couple with heart: woman, man, medium-dark skin tone, light skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👨🏼",description:"couple with heart: woman, man, medium-dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👨🏽",description:"couple with heart: woman, man, medium-dark skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👨🏾",description:"couple with heart: woman, man, medium-dark skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👨🏿",description:"couple with heart: woman, man, medium-dark skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👨🏻",description:"couple with heart: woman, man, dark skin tone, light skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👨🏼",description:"couple with heart: woman, man, dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👨🏽",description:"couple with heart: woman, man, dark skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👨🏾",description:"couple with heart: woman, man, dark skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👨🏿",description:"couple with heart: woman, man, dark skin tone",version:"13.1"},{emoji:"👨‍❤️‍👨",description:"couple with heart: man, man",version:"2.0"},{emoji:"👨🏻‍❤️‍👨🏻",description:"couple with heart: man, man, light skin tone",version:"13.1"},{emoji:"👨🏻‍❤️‍👨🏼",description:"couple with heart: man, man, light skin tone, medium-light skin tone",version:"13.1"},{emoji:"👨🏻‍❤️‍👨🏽",description:"couple with heart: man, man, light skin tone, medium skin tone",version:"13.1"},{emoji:"👨🏻‍❤️‍👨🏾",description:"couple with heart: man, man, light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👨🏻‍❤️‍👨🏿",description:"couple with heart: man, man, light skin tone, dark skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍👨🏻",description:"couple with heart: man, man, medium-light skin tone, light skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍👨🏼",description:"couple with heart: man, man, medium-light skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍👨🏽",description:"couple with heart: man, man, medium-light skin tone, medium skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍👨🏾",description:"couple with heart: man, man, medium-light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👨🏼‍❤️‍👨🏿",description:"couple with heart: man, man, medium-light skin tone, dark skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍👨🏻",description:"couple with heart: man, man, medium skin tone, light skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍👨🏼",description:"couple with heart: man, man, medium skin tone, medium-light skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍👨🏽",description:"couple with heart: man, man, medium skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍👨🏾",description:"couple with heart: man, man, medium skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👨🏽‍❤️‍👨🏿",description:"couple with heart: man, man, medium skin tone, dark skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍👨🏻",description:"couple with heart: man, man, medium-dark skin tone, light skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍👨🏼",description:"couple with heart: man, man, medium-dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍👨🏽",description:"couple with heart: man, man, medium-dark skin tone, medium skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍👨🏾",description:"couple with heart: man, man, medium-dark skin tone",version:"13.1"},{emoji:"👨🏾‍❤️‍👨🏿",description:"couple with heart: man, man, medium-dark skin tone, dark skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍👨🏻",description:"couple with heart: man, man, dark skin tone, light skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍👨🏼",description:"couple with heart: man, man, dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍👨🏽",description:"couple with heart: man, man, dark skin tone, medium skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍👨🏾",description:"couple with heart: man, man, dark skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👨🏿‍❤️‍👨🏿",description:"couple with heart: man, man, dark skin tone",version:"13.1"},{emoji:"👩‍❤️‍👩",description:"couple with heart: woman, woman",version:"2.0"},{emoji:"👩🏻‍❤️‍👩🏻",description:"couple with heart: woman, woman, light skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍👩🏼",description:"couple with heart: woman, woman, light skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍👩🏽",description:"couple with heart: woman, woman, light skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍👩🏾",description:"couple with heart: woman, woman, light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏻‍❤️‍👩🏿",description:"couple with heart: woman, woman, light skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👩🏻",description:"couple with heart: woman, woman, medium-light skin tone, light skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👩🏼",description:"couple with heart: woman, woman, medium-light skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👩🏽",description:"couple with heart: woman, woman, medium-light skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👩🏾",description:"couple with heart: woman, woman, medium-light skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏼‍❤️‍👩🏿",description:"couple with heart: woman, woman, medium-light skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👩🏻",description:"couple with heart: woman, woman, medium skin tone, light skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👩🏼",description:"couple with heart: woman, woman, medium skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👩🏽",description:"couple with heart: woman, woman, medium skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👩🏾",description:"couple with heart: woman, woman, medium skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏽‍❤️‍👩🏿",description:"couple with heart: woman, woman, medium skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👩🏻",description:"couple with heart: woman, woman, medium-dark skin tone, light skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👩🏼",description:"couple with heart: woman, woman, medium-dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👩🏽",description:"couple with heart: woman, woman, medium-dark skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👩🏾",description:"couple with heart: woman, woman, medium-dark skin tone",version:"13.1"},{emoji:"👩🏾‍❤️‍👩🏿",description:"couple with heart: woman, woman, medium-dark skin tone, dark skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👩🏻",description:"couple with heart: woman, woman, dark skin tone, light skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👩🏼",description:"couple with heart: woman, woman, dark skin tone, medium-light skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👩🏽",description:"couple with heart: woman, woman, dark skin tone, medium skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👩🏾",description:"couple with heart: woman, woman, dark skin tone, medium-dark skin tone",version:"13.1"},{emoji:"👩🏿‍❤️‍👩🏿",description:"couple with heart: woman, woman, dark skin tone",version:"13.1"}]},{emoji:"🗣️",description:"speaking head",version:"0.7",keywords:["face","head","silhouette","speak","speaking"],category:"person-people",group:"people-body",subgroup:"person-symbol"},{emoji:"👤",description:"bust in silhouette",version:"0.6",keywords:["bust","mysterious","shadow","silhouette"],category:"person-people",group:"people-body",subgroup:"person-symbol"},{emoji:"👥",description:"busts in silhouette",version:"1.0",keywords:["bff","bust","busts","everyone","friend","friends","people","silhouette"],category:"person-people",group:"people-body",subgroup:"person-symbol"},{emoji:"🫂",description:"people hugging",version:"13.0",keywords:["comfort","embrace","farewell","friendship","goodbye","hello","hug","hugging","love","people","thanks"],category:"person-people",group:"people-body",subgroup:"person-symbol"},{emoji:"👪",description:"family",version:"0.6",keywords:["child","family"],category:"person-people",group:"people-body",subgroup:"family",variations:[{emoji:"🧑‍🧑‍🧒",description:"family: adult, adult, child",version:"15.1"},{emoji:"🧑‍🧑‍🧒‍🧒",description:"family: adult, adult, child, child",version:"15.1"},{emoji:"🧑‍🧒",description:"family: adult, child",version:"15.1"},{emoji:"🧑‍🧒‍🧒",description:"family: adult, child, child",version:"15.1"},{emoji:"👨‍👩‍👦",description:"family: man, woman, boy",version:"2.0"},{emoji:"👨‍👩‍👧",description:"family: man, woman, girl",version:"2.0"},{emoji:"👨‍👩‍👧‍👦",description:"family: man, woman, girl, boy",version:"2.0"},{emoji:"👨‍👩‍👦‍👦",description:"family: man, woman, boy, boy",version:"2.0"},{emoji:"👨‍👩‍👧‍👧",description:"family: man, woman, girl, girl",version:"2.0"},{emoji:"👨‍👨‍👦",description:"family: man, man, boy",version:"2.0"},{emoji:"👨‍👨‍👧",description:"family: man, man, girl",version:"2.0"},{emoji:"👨‍👨‍👧‍👦",description:"family: man, man, girl, boy",version:"2.0"},{emoji:"👨‍👨‍👦‍👦",description:"family: man, man, boy, boy",version:"2.0"},{emoji:"👨‍👨‍👧‍👧",description:"family: man, man, girl, girl",version:"2.0"},{emoji:"👩‍👩‍👦",description:"family: woman, woman, boy",version:"2.0"},{emoji:"👩‍👩‍👧",description:"family: woman, woman, girl",version:"2.0"},{emoji:"👩‍👩‍👧‍👦",description:"family: woman, woman, girl, boy",version:"2.0"},{emoji:"👩‍👩‍👦‍👦",description:"family: woman, woman, boy, boy",version:"2.0"},{emoji:"👩‍👩‍👧‍👧",description:"family: woman, woman, girl, girl",version:"2.0"},{emoji:"👨‍👦",description:"family: man, boy",version:"4.0"},{emoji:"👨‍👦‍👦",description:"family: man, boy, boy",version:"4.0"},{emoji:"👨‍👧",description:"family: man, girl",version:"4.0"},{emoji:"👨‍👧‍👦",description:"family: man, girl, boy",version:"4.0"},{emoji:"👨‍👧‍👧",description:"family: man, girl, girl",version:"4.0"},{emoji:"👩‍👦",description:"family: woman, boy",version:"4.0"},{emoji:"👩‍👦‍👦",description:"family: woman, boy, boy",version:"4.0"},{emoji:"👩‍👧",description:"family: woman, girl",version:"4.0"},{emoji:"👩‍👧‍👦",description:"family: woman, girl, boy",version:"4.0"},{emoji:"👩‍👧‍👧",description:"family: woman, girl, girl",version:"4.0"}]},{emoji:"👣",description:"footprints",version:"0.6",keywords:["barefoot","clothing","footprint","footprints","omw","print","walk"],category:"person-people",group:"people-body",subgroup:"person-symbol"},{emoji:"🫆",description:"fingerprint",version:"16.0",keywords:["clue","crime","detective","fingerprint","forensics","identity","mystery","print","safety","trace"],category:"person-people",group:"people-body",subgroup:"person-symbol"},{emoji:"🐵",description:"monkey face",version:"0.6",keywords:["animal","banana","face","monkey"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐒",description:"monkey",version:"0.6",keywords:["animal","banana","monkey"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦍",description:"gorilla",version:"3.0",keywords:["animal","gorilla"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦧",description:"orangutan",version:"12.0",keywords:["animal","ape","monkey","orangutan"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐶",description:"dog face",version:"0.6",keywords:["adorbs","animal","dog","face","pet","puppies","puppy"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐕",description:"dog",version:"0.7",keywords:["animal","animals","dog","dogs","pet"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦮",description:"guide dog",version:"12.0",keywords:["accessibility","animal","blind","dog","guide"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐕‍🦺",description:"service dog",version:"12.0",keywords:["accessibility","animal","assistance","dog","service"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐩",description:"poodle",version:"0.6",keywords:["animal","dog","fluffy","poodle"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐺",description:"wolf",version:"0.6",keywords:["animal","face","wolf"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦊",description:"fox",version:"3.0",keywords:["animal","face","fox"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦝",description:"raccoon",version:"11.0",keywords:["animal","curious","raccoon","sly"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐱",description:"cat face",version:"0.6",keywords:["animal","cat","face","kitten","kitty","pet"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐈",description:"cat",version:"0.7",keywords:["animal","animals","cat","cats","kitten","pet"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐈‍⬛",description:"black cat",version:"13.0",keywords:["animal","black","cat","feline","halloween","meow","unlucky"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦁",description:"lion",version:"1.0",keywords:["alpha","animal","face","Leo","lion","mane","order","rawr","roar","safari","strong","zodiac"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐯",description:"tiger face",version:"0.6",keywords:["animal","big","cat","face","predator","tiger"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐅",description:"tiger",version:"1.0",keywords:["animal","big","cat","predator","tiger","zoo"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐆",description:"leopard",version:"1.0",keywords:["animal","big","cat","leopard","predator","zoo"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐴",description:"horse face",version:"0.6",keywords:["animal","dressage","equine","face","farm","horse","horses"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🫎",description:"moose",version:"15.0",keywords:["alces","animal","antlers","elk","mammal","moose"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🫏",description:"donkey",version:"15.0",keywords:["animal","ass","burro","donkey","hinny","mammal","mule","stubborn"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐎",description:"horse",version:"0.6",keywords:["animal","equestrian","farm","horse","racehorse","racing"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦄",description:"unicorn",version:"1.0",keywords:["face","unicorn"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦓",description:"zebra",version:"5.0",keywords:["animal","stripe","zebra"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦌",description:"deer",version:"3.0",keywords:["animal","deer"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦬",description:"bison",version:"13.0",keywords:["animal","bison","buffalo","herd","wisent"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐮",description:"cow face",version:"0.6",keywords:["animal","cow","face","farm","milk","moo"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐂",description:"ox",version:"1.0",keywords:["animal","animals","bull","farm","ox","Taurus","zodiac"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐃",description:"water buffalo",version:"1.0",keywords:["animal","buffalo","water","zoo"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐄",description:"cow",version:"1.0",keywords:["animal","animals","cow","farm","milk","moo"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐷",description:"pig face",version:"0.6",keywords:["animal","bacon","face","farm","pig","pork"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐖",description:"pig",version:"1.0",keywords:["animal","bacon","farm","pig","pork","sow"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐗",description:"boar",version:"0.6",keywords:["animal","boar","pig"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐽",description:"pig nose",version:"0.6",keywords:["animal","face","farm","nose","pig","smell","snout"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐏",description:"ram",version:"1.0",keywords:["animal","Aries","horns","male","ram","sheep","zodiac","zoo"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐑",description:"ewe",version:"0.6",keywords:["animal","baa","ewe","farm","female","fluffy","lamb","sheep","wool"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐐",description:"goat",version:"1.0",keywords:["animal","Capricorn","farm","goat","milk","zodiac"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐪",description:"camel",version:"1.0",keywords:["animal","camel","desert","dromedary","hump","one"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐫",description:"two-hump camel",version:"0.6",keywords:["animal","bactrian","camel","desert","hump","two","two-hump"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦙",description:"llama",version:"11.0",keywords:["alpaca","animal","guanaco","llama","vicuña","wool"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦒",description:"giraffe",version:"5.0",keywords:["animal","giraffe","spots"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐘",description:"elephant",version:"0.6",keywords:["animal","elephant"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦣",description:"mammoth",version:"13.0",keywords:["animal","extinction","large","mammoth","tusk","wooly"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦏",description:"rhinoceros",version:"3.0",keywords:["animal","rhinoceros"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦛",description:"hippopotamus",version:"11.0",keywords:["animal","hippo","hippopotamus"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐭",description:"mouse face",version:"0.6",keywords:["animal","face","mouse"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐁",description:"mouse",version:"1.0",keywords:["animal","animals","mouse"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐀",description:"rat",version:"1.0",keywords:["animal","rat"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐹",description:"hamster",version:"0.6",keywords:["animal","face","hamster","pet"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐰",description:"rabbit face",version:"0.6",keywords:["animal","bunny","face","pet","rabbit"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐇",description:"rabbit",version:"1.0",keywords:["animal","bunny","pet","rabbit"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐿️",description:"chipmunk",version:"0.7",keywords:["animal","chipmunk","squirrel"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦫",description:"beaver",version:"13.0",keywords:["animal","beaver","dam","teeth"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦔",description:"hedgehog",version:"5.0",keywords:["animal","hedgehog","spiny"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦇",description:"bat",version:"3.0",keywords:["animal","bat","vampire"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐻",description:"bear",version:"0.6",keywords:["animal","bear","face","grizzly","growl","honey"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐻‍❄️",description:"polar bear",version:"13.0",keywords:["animal","arctic","bear","polar","white"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐨",description:"koala",version:"0.6",keywords:["animal","australia","bear","down","face","koala","marsupial","under"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐼",description:"panda",version:"0.6",keywords:["animal","bamboo","face","panda"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦥",description:"sloth",version:"12.0",keywords:["lazy","sloth","slow"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦦",description:"otter",version:"12.0",keywords:["animal","fishing","otter","playful"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦨",description:"skunk",version:"12.0",keywords:["animal","skunk","stink"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦘",description:"kangaroo",version:"11.0",keywords:["animal","joey","jump","kangaroo","marsupial"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦡",description:"badger",version:"11.0",keywords:["animal","badger","honey","pester"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🐾",description:"paw prints",version:"0.6",keywords:["feet","paw","paws","print","prints"],category:"animals-nature",group:"animals-nature",subgroup:"animal-mammal"},{emoji:"🦃",description:"turkey",version:"1.0",keywords:["bird","gobble","thanksgiving","turkey"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐔",description:"chicken",version:"0.6",keywords:["animal","bird","chicken","ornithology"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐓",description:"rooster",version:"1.0",keywords:["animal","bird","ornithology","rooster"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐣",description:"hatching chick",version:"0.6",keywords:["animal","baby","bird","chick","egg","hatching"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐤",description:"baby chick",version:"0.6",keywords:["animal","baby","bird","chick","ornithology"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐥",description:"front-facing baby chick",version:"0.6",keywords:["animal","baby","bird","chick","front-facing","newborn","ornithology"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐦",description:"bird",version:"0.6",keywords:["animal","bird","ornithology"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐧",description:"penguin",version:"0.6",keywords:["animal","antarctica","bird","ornithology","penguin"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🕊️",description:"dove",version:"0.7",keywords:["bird","dove","fly","ornithology","peace"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🦅",description:"eagle",version:"3.0",keywords:["animal","bird","eagle","ornithology"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🦆",description:"duck",version:"3.0",keywords:["animal","bird","duck","ornithology"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🦢",description:"swan",version:"11.0",keywords:["animal","bird","cygnet","duckling","ornithology","swan","ugly"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🦉",description:"owl",version:"3.0",keywords:["animal","bird","ornithology","owl","wise"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🦤",description:"dodo",version:"13.0",keywords:["animal","bird","dodo","extinction","large","ornithology"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🪶",description:"feather",version:"13.0",keywords:["bird","feather","flight","light","plumage"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🦩",description:"flamingo",version:"12.0",keywords:["animal","bird","flamboyant","flamingo","ornithology","tropical"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🦚",description:"peacock",version:"11.0",keywords:["animal","bird","colorful","ornithology","ostentatious","peacock","peahen","pretty","proud"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🦜",description:"parrot",version:"11.0",keywords:["animal","bird","ornithology","parrot","pirate","talk"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🪽",description:"wing",version:"15.0",keywords:["angelic","ascend","aviation","bird","fly","flying","heavenly","mythology","soar","wing"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐦‍⬛",description:"black bird",version:"15.0",keywords:["animal","beak","bird","black","caw","corvid","crow","ornithology","raven","rook"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🪿",description:"goose",version:"15.0",keywords:["animal","bird","duck","flock","fowl","gaggle","gander","geese","goose","honk","ornithology","silly"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐦‍🔥",description:"phoenix",version:"15.1",keywords:["ascend","ascension","emerge","fantasy","firebird","glory","immortal","phoenix","rebirth","reincarnation","reinvent","renewal","revival","revive","rise","transform"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bird"},{emoji:"🐸",description:"frog",version:"0.6",keywords:["animal","face","frog"],category:"animals-nature",group:"animals-nature",subgroup:"animal-amphibian"},{emoji:"🐊",description:"crocodile",version:"1.0",keywords:["animal","crocodile","zoo"],category:"animals-nature",group:"animals-nature",subgroup:"animal-reptile"},{emoji:"🐢",description:"turtle",version:"0.6",keywords:["animal","terrapin","tortoise","turtle"],category:"animals-nature",group:"animals-nature",subgroup:"animal-reptile"},{emoji:"🦎",description:"lizard",version:"3.0",keywords:["animal","lizard","reptile"],category:"animals-nature",group:"animals-nature",subgroup:"animal-reptile"},{emoji:"🐍",description:"snake",version:"0.6",keywords:["animal","bearer","Ophiuchus","serpent","snake","zodiac"],category:"animals-nature",group:"animals-nature",subgroup:"animal-reptile"},{emoji:"🐲",description:"dragon face",version:"0.6",keywords:["animal","dragon","face","fairy","fairytale","tale"],category:"animals-nature",group:"animals-nature",subgroup:"animal-reptile"},{emoji:"🐉",description:"dragon",version:"1.0",keywords:["animal","dragon","fairy","fairytale","knights","tale"],category:"animals-nature",group:"animals-nature",subgroup:"animal-reptile"},{emoji:"🦕",description:"sauropod",version:"5.0",keywords:["brachiosaurus","brontosaurus","dinosaur","diplodocus","sauropod"],category:"animals-nature",group:"animals-nature",subgroup:"animal-reptile"},{emoji:"🦖",description:"T-Rex",version:"5.0",keywords:["dinosaur","Rex","T","T-Rex","Tyrannosaurus"],category:"animals-nature",group:"animals-nature",subgroup:"animal-reptile"},{emoji:"🐳",description:"spouting whale",version:"0.6",keywords:["animal","beach","face","ocean","spouting","whale"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🐋",description:"whale",version:"1.0",keywords:["animal","beach","ocean","whale"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🐬",description:"dolphin",version:"0.6",keywords:["animal","beach","dolphin","flipper","ocean"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🦭",description:"seal",version:"13.0",keywords:["animal","lion","ocean","sea","seal"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🐟",description:"fish",version:"0.6",keywords:["animal","dinner","fish","fishes","fishing","Pisces","zodiac"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🐠",description:"tropical fish",version:"0.6",keywords:["animal","fish","fishes","tropical"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🐡",description:"blowfish",version:"0.6",keywords:["animal","blowfish","fish"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🦈",description:"shark",version:"3.0",keywords:["animal","fish","shark"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🐙",description:"octopus",version:"0.6",keywords:["animal","creature","ocean","octopus"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🐚",description:"spiral shell",version:"0.6",keywords:["animal","beach","conch","sea","shell","spiral"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🪸",description:"coral",version:"14.0",keywords:["change","climate","coral","ocean","reef","sea"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🪼",description:"jellyfish",version:"15.0",keywords:["animal","aquarium","burn","invertebrate","jelly","jellyfish","life","marine","ocean","ouch","plankton","sea","sting","stinger","tentacles"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🦀",description:"crab",version:"1.0",keywords:["Cancer","crab","zodiac"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🦞",description:"lobster",version:"11.0",keywords:["animal","bisque","claws","lobster","seafood"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🦐",description:"shrimp",version:"3.0",keywords:["food","shellfish","shrimp","small"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🦑",description:"squid",version:"3.0",keywords:["animal","food","mollusk","squid"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🦪",description:"oyster",version:"12.0",keywords:["diving","oyster","pearl"],category:"animals-nature",group:"animals-nature",subgroup:"animal-marine"},{emoji:"🐌",description:"snail",version:"0.6",keywords:["animal","escargot","garden","nature","slug","snail"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🦋",description:"butterfly",version:"3.0",keywords:["butterfly","insect","pretty"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🐛",description:"bug",version:"0.6",keywords:["animal","bug","garden","insect"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🐜",description:"ant",version:"0.6",keywords:["animal","ant","garden","insect"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🐝",description:"honeybee",version:"0.6",keywords:["animal","bee","bumblebee","honey","honeybee","insect","nature","spring"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🪲",description:"beetle",version:"13.0",keywords:["animal","beetle","bug","insect"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🐞",description:"lady beetle",version:"0.6",keywords:["animal","beetle","garden","insect","lady","ladybird","ladybug","nature"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🦗",description:"cricket",version:"5.0",keywords:["animal","bug","cricket","grasshopper","insect","Orthoptera"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🪳",description:"cockroach",version:"13.0",keywords:["animal","cockroach","insect","pest","roach"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🕷️",description:"spider",version:"0.7",keywords:["animal","insect","spider"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🕸️",description:"spider web",version:"0.7",keywords:["spider","web"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🦂",description:"scorpion",version:"1.0",keywords:["Scorpio","scorpion","Scorpius","zodiac"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🦟",description:"mosquito",version:"11.0",keywords:["bite","disease","fever","insect","malaria","mosquito","pest","virus"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🪰",description:"fly",version:"13.0",keywords:["animal","disease","fly","insect","maggot","pest","rotting"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🪱",description:"worm",version:"13.0",keywords:["animal","annelid","earthworm","parasite","worm"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"🦠",description:"microbe",version:"11.0",keywords:["amoeba","bacteria","microbe","science","virus"],category:"animals-nature",group:"animals-nature",subgroup:"animal-bug"},{emoji:"💐",description:"bouquet",version:"0.6",keywords:["anniversary","birthday","bouquet","date","flower","love","plant","romance"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🌸",description:"cherry blossom",version:"0.6",keywords:["blossom","cherry","flower","plant","spring","springtime"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"💮",description:"white flower",version:"0.6",keywords:["flower","white"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🪷",description:"lotus",version:"14.0",keywords:["beauty","Buddhism","calm","flower","Hinduism","lotus","peace","purity","serenity"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🏵️",description:"rosette",version:"0.7",keywords:["plant","rosette"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🌹",description:"rose",version:"0.6",keywords:["beauty","elegant","flower","love","plant","red","rose","valentine"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🥀",description:"wilted flower",version:"3.0",keywords:["dying","flower","wilted"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🌺",description:"hibiscus",version:"0.6",keywords:["flower","hibiscus","plant"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🌻",description:"sunflower",version:"0.6",keywords:["flower","outdoors","plant","sun","sunflower"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🌼",description:"blossom",version:"0.6",keywords:["blossom","buttercup","dandelion","flower","plant"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🌷",description:"tulip",version:"0.6",keywords:["blossom","flower","growth","plant","tulip"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🪻",description:"hyacinth",version:"15.0",keywords:["bloom","bluebonnet","flower","hyacinth","indigo","lavender","lilac","lupine","plant","purple","shrub","snapdragon","spring","violet"],category:"animals-nature",group:"animals-nature",subgroup:"plant-flower"},{emoji:"🌱",description:"seedling",version:"0.6",keywords:["plant","sapling","seedling","sprout","young"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🪴",description:"potted plant",version:"13.0",keywords:["decor","grow","house","nurturing","plant","pot","potted"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🌲",description:"evergreen tree",version:"1.0",keywords:["christmas","evergreen","forest","pine","tree"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🌳",description:"deciduous tree",version:"1.0",keywords:["deciduous","forest","green","habitat","shedding","tree"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🌴",description:"palm tree",version:"0.6",keywords:["beach","palm","plant","tree","tropical"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🌵",description:"cactus",version:"0.6",keywords:["cactus","desert","drought","nature","plant"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🌾",description:"sheaf of rice",version:"0.6",keywords:["ear","grain","grains","plant","rice","sheaf"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🌿",description:"herb",version:"0.6",keywords:["herb","leaf","plant"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"☘️",description:"shamrock",version:"1.0",keywords:["irish","plant","shamrock"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🍀",description:"four leaf clover",version:"0.6",keywords:["4","clover","four","four-leaf","irish","leaf","lucky","plant"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🍁",description:"maple leaf",version:"0.6",keywords:["falling","leaf","maple"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🍂",description:"fallen leaf",version:"0.6",keywords:["autumn","fall","fallen","falling","leaf"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🍃",description:"leaf fluttering in wind",version:"0.6",keywords:["blow","flutter","fluttering","leaf","wind"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🪹",description:"empty nest",version:"14.0",keywords:["branch","empty","home","nest","nesting"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🪺",description:"nest with eggs",version:"14.0",keywords:["bird","branch","egg","eggs","nest","nesting"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🍄",description:"mushroom",version:"0.6",keywords:["fungus","mushroom","toadstool"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🪾",description:"leafless tree",version:"16.0",keywords:["bare","barren","branches","dead","drought","leafless","tree","trunk","winter","wood"],category:"animals-nature",group:"animals-nature",subgroup:"plant-other"},{emoji:"🍇",description:"grapes",version:"0.6",keywords:["Dionysus","fruit","grape","grapes"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍈",description:"melon",version:"0.6",keywords:["cantaloupe","fruit","melon"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍉",description:"watermelon",version:"0.6",keywords:["fruit","watermelon"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍊",description:"tangerine",version:"0.6",keywords:["c","citrus","fruit","nectarine","orange","tangerine","vitamin"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍋",description:"lemon",version:"1.0",keywords:["citrus","fruit","lemon","sour"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍋‍🟩",description:"lime",version:"15.1",keywords:["acidity","citrus","cocktail","fruit","garnish","key","lime","margarita","mojito","refreshing","salsa","sour","tangy","tequila","tropical","zest"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍌",description:"banana",version:"0.6",keywords:["banana","fruit","potassium"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍍",description:"pineapple",version:"0.6",keywords:["colada","fruit","pina","pineapple","tropical"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🥭",description:"mango",version:"11.0",keywords:["food","fruit","mango","tropical"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍎",description:"red apple",version:"0.6",keywords:["apple","diet","food","fruit","health","red","ripe"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍏",description:"green apple",version:"0.6",keywords:["apple","fruit","green"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍐",description:"pear",version:"1.0",keywords:["fruit","pear"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍑",description:"peach",version:"0.6",keywords:["fruit","peach"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍒",description:"cherries",version:"0.6",keywords:["berries","cherries","cherry","fruit","red"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍓",description:"strawberry",version:"0.6",keywords:["berry","fruit","strawberry"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🫐",description:"blueberries",version:"13.0",keywords:["berries","berry","bilberry","blue","blueberries","blueberry","food","fruit"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🥝",description:"kiwi fruit",version:"3.0",keywords:["food","fruit","kiwi"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🍅",description:"tomato",version:"0.6",keywords:["food","fruit","tomato","vegetable"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🫒",description:"olive",version:"13.0",keywords:["food","olive"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🥥",description:"coconut",version:"5.0",keywords:["coconut","colada","palm","piña"],category:"food-drink",group:"food-drink",subgroup:"food-fruit"},{emoji:"🥑",description:"avocado",version:"3.0",keywords:["avocado","food","fruit"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🍆",description:"eggplant",version:"0.6",keywords:["aubergine","eggplant","vegetable"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🥔",description:"potato",version:"3.0",keywords:["food","potato","vegetable"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🥕",description:"carrot",version:"3.0",keywords:["carrot","food","vegetable"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🌽",description:"ear of corn",version:"0.6",keywords:["corn","crops","ear","farm","maize","maze"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🌶️",description:"hot pepper",version:"0.7",keywords:["hot","pepper"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🫑",description:"bell pepper",version:"13.0",keywords:["bell","capsicum","food","pepper","vegetable"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🥒",description:"cucumber",version:"3.0",keywords:["cucumber","food","pickle","vegetable"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🥬",description:"leafy green",version:"11.0",keywords:["bok","burgers","cabbage","choy","green","kale","leafy","lettuce","salad"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🥦",description:"broccoli",version:"5.0",keywords:["broccoli","cabbage","wild"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🧄",description:"garlic",version:"12.0",keywords:["flavoring","garlic"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🧅",description:"onion",version:"12.0",keywords:["flavoring","onion"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🥜",description:"peanuts",version:"3.0",keywords:["food","nut","peanut","peanuts","vegetable"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🫘",description:"beans",version:"14.0",keywords:["beans","food","kidney","legume","small"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🌰",description:"chestnut",version:"0.6",keywords:["almond","chestnut","plant"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🫚",description:"ginger root",version:"15.0",keywords:["beer","ginger","health","herb","natural","root","spice"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🫛",description:"pea pod",version:"15.0",keywords:["beans","beanstalk","edamame","legume","pea","pod","soybean","vegetable","veggie"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🍄‍🟫",description:"brown mushroom",version:"15.1",keywords:["food","fungi","fungus","mushroom","nature","pizza","portobello","shiitake","shroom","spore","sprout","toppings","truffle","vegetable","vegetarian","veggie"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🫜",description:"root vegetable",version:"16.0",keywords:["beet","food","garden","radish","root","salad","turnip","vegetable","vegetarian"],category:"food-drink",group:"food-drink",subgroup:"food-vegetable"},{emoji:"🍞",description:"bread",version:"0.6",keywords:["bread","carbs","food","grain","loaf","restaurant","toast","wheat"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥐",description:"croissant",version:"3.0",keywords:["bread","breakfast","crescent","croissant","food","french","roll"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥖",description:"baguette bread",version:"3.0",keywords:["baguette","bread","food","french"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🫓",description:"flatbread",version:"13.0",keywords:["arepa","bread","flatbread","food","gordita","lavash","naan","pita"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥨",description:"pretzel",version:"5.0",keywords:["convoluted","pretzel","twisted"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥯",description:"bagel",version:"11.0",keywords:["bagel","bakery","bread","breakfast","schmear"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥞",description:"pancakes",version:"3.0",keywords:["breakfast","crêpe","food","hotcake","pancake","pancakes"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🧇",description:"waffle",version:"12.0",keywords:["breakfast","indecisive","iron","waffle"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🧀",description:"cheese wedge",version:"1.0",keywords:["cheese","wedge"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍖",description:"meat on bone",version:"0.6",keywords:["bone","meat"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍗",description:"poultry leg",version:"0.6",keywords:["bone","chicken","drumstick","hungry","leg","poultry","turkey"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥩",description:"cut of meat",version:"5.0",keywords:["chop","cut","lambchop","meat","porkchop","red","steak"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥓",description:"bacon",version:"3.0",keywords:["bacon","breakfast","food","meat"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍔",description:"hamburger",version:"0.6",keywords:["burger","eat","fast","food","hamburger","hungry"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍟",description:"french fries",version:"0.6",keywords:["fast","food","french","fries"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍕",description:"pizza",version:"0.6",keywords:["cheese","food","hungry","pepperoni","pizza","slice"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🌭",description:"hot dog",version:"1.0",keywords:["dog","frankfurter","hot","hotdog","sausage"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥪",description:"sandwich",version:"5.0",keywords:["bread","sandwich"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🌮",description:"taco",version:"1.0",keywords:["mexican","taco"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🌯",description:"burrito",version:"1.0",keywords:["burrito","mexican","wrap"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🫔",description:"tamale",version:"13.0",keywords:["food","mexican","pamonha","tamale","wrapped"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥙",description:"stuffed flatbread",version:"3.0",keywords:["falafel","flatbread","food","gyro","kebab","stuffed"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🧆",description:"falafel",version:"12.0",keywords:["chickpea","falafel","meatball"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥚",description:"egg",version:"3.0",keywords:["breakfast","egg","food"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍳",description:"cooking",version:"0.6",keywords:["breakfast","cooking","easy","egg","fry","frying","over","pan","restaurant","side","sunny","up"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥘",description:"shallow pan of food",version:"3.0",keywords:["casserole","food","paella","pan","shallow"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍲",description:"pot of food",version:"0.6",keywords:["food","pot","soup","stew"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🫕",description:"fondue",version:"13.0",keywords:["cheese","chocolate","fondue","food","melted","pot","ski"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥣",description:"bowl with spoon",version:"5.0",keywords:["bowl","breakfast","cereal","congee","oatmeal","porridge","spoon"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥗",description:"green salad",version:"3.0",keywords:["food","green","salad"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍿",description:"popcorn",version:"1.0",keywords:["corn","movie","pop","popcorn"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🧈",description:"butter",version:"12.0",keywords:["butter","dairy"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🧂",description:"salt",version:"11.0",keywords:["condiment","flavor","mad","salt","salty","shaker","taste","upset"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🥫",description:"canned food",version:"5.0",keywords:["can","canned","food"],category:"food-drink",group:"food-drink",subgroup:"food-prepared"},{emoji:"🍱",description:"bento box",version:"0.6",keywords:["bento","box","food"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍘",description:"rice cracker",version:"0.6",keywords:["cracker","food","rice"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍙",description:"rice ball",version:"0.6",keywords:["ball","food","Japanese","rice"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍚",description:"cooked rice",version:"0.6",keywords:["cooked","food","rice"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍛",description:"curry rice",version:"0.6",keywords:["curry","food","rice"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍜",description:"steaming bowl",version:"0.6",keywords:["bowl","chopsticks","food","noodle","pho","ramen","soup","steaming"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍝",description:"spaghetti",version:"0.6",keywords:["food","meatballs","pasta","restaurant","spaghetti"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍠",description:"roasted sweet potato",version:"0.6",keywords:["food","potato","roasted","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍢",description:"oden",version:"0.6",keywords:["food","kebab","oden","restaurant","seafood","skewer","stick"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍣",description:"sushi",version:"0.6",keywords:["food","sushi"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍤",description:"fried shrimp",version:"0.6",keywords:["fried","prawn","shrimp","tempura"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍥",description:"fish cake with swirl",version:"0.6",keywords:["cake","fish","food","pastry","restaurant","swirl"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🥮",description:"moon cake",version:"11.0",keywords:["autumn","cake","festival","moon","yuèbǐng"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍡",description:"dango",version:"0.6",keywords:["dango","dessert","Japanese","skewer","stick","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🥟",description:"dumpling",version:"5.0",keywords:["dumpling","empanada","gyōza","jiaozi","pierogi","potsticker"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🥠",description:"fortune cookie",version:"5.0",keywords:["cookie","fortune","prophecy"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🥡",description:"takeout box",version:"5.0",keywords:["box","chopsticks","delivery","food","oyster","pail","takeout"],category:"food-drink",group:"food-drink",subgroup:"food-asian"},{emoji:"🍦",description:"soft ice cream",version:"0.6",keywords:["cream","dessert","food","ice","icecream","restaurant","serve","soft","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍧",description:"shaved ice",version:"0.6",keywords:["dessert","ice","restaurant","shaved","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍨",description:"ice cream",version:"0.6",keywords:["cream","dessert","food","ice","restaurant","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍩",description:"doughnut",version:"0.6",keywords:["breakfast","dessert","donut","doughnut","food","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍪",description:"cookie",version:"0.6",keywords:["chip","chocolate","cookie","dessert","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🎂",description:"birthday cake",version:"0.6",keywords:["bday","birthday","cake","celebration","dessert","happy","pastry","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍰",description:"shortcake",version:"0.6",keywords:["cake","dessert","pastry","shortcake","slice","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🧁",description:"cupcake",version:"11.0",keywords:["bakery","cupcake","dessert","sprinkles","sugar","sweet","treat"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🥧",description:"pie",version:"5.0",keywords:["apple","filling","fruit","meat","pastry","pie","pumpkin","slice"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍫",description:"chocolate bar",version:"0.6",keywords:["bar","candy","chocolate","dessert","halloween","sweet","tooth"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍬",description:"candy",version:"0.6",keywords:["candy","cavities","dessert","halloween","restaurant","sweet","tooth","wrapper"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍭",description:"lollipop",version:"0.6",keywords:["candy","dessert","food","lollipop","restaurant","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍮",description:"custard",version:"0.6",keywords:["custard","dessert","pudding","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍯",description:"honey pot",version:"0.6",keywords:["barrel","bear","food","honey","honeypot","jar","pot","sweet"],category:"food-drink",group:"food-drink",subgroup:"food-sweet"},{emoji:"🍼",description:"baby bottle",version:"1.0",keywords:["babies","baby","birth","born","bottle","drink","infant","milk","newborn"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🥛",description:"glass of milk",version:"3.0",keywords:["drink","glass","milk"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"☕",description:"hot beverage",version:"0.6",keywords:["beverage","cafe","caffeine","chai","coffee","drink","hot","morning","steaming","tea"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🫖",description:"teapot",version:"13.0",keywords:["brew","drink","food","pot","tea","teapot"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🍵",description:"teacup without handle",version:"0.6",keywords:["beverage","cup","drink","handle","oolong","tea","teacup"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🍶",description:"sake",version:"0.6",keywords:["bar","beverage","bottle","cup","drink","restaurant","sake"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🍾",description:"bottle with popping cork",version:"1.0",keywords:["bar","bottle","cork","drink","popping"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🍷",description:"wine glass",version:"0.6",keywords:["alcohol","bar","beverage","booze","club","drink","drinking","drinks","glass","restaurant","wine"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🍸",description:"cocktail glass",version:"0.6",keywords:["alcohol","bar","booze","club","cocktail","drink","drinking","drinks","glass","mad","martini","men"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🍹",description:"tropical drink",version:"0.6",keywords:["alcohol","bar","booze","club","cocktail","drink","drinking","drinks","drunk","mai","party","tai","tropical","tropics"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🍺",description:"beer mug",version:"0.6",keywords:["alcohol","ale","bar","beer","booze","drink","drinking","drinks","mug","octoberfest","oktoberfest","pint","stein","summer"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🍻",description:"clinking beer mugs",version:"0.6",keywords:["alcohol","bar","beer","booze","bottoms","cheers","clink","clinking","drinking","drinks","mugs"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🥂",description:"clinking glasses",version:"3.0",keywords:["celebrate","clink","clinking","drink","glass","glasses"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🥃",description:"tumbler glass",version:"3.0",keywords:["glass","liquor","scotch","shot","tumbler","whiskey","whisky"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🫗",description:"pouring liquid",version:"14.0",keywords:["accident","drink","empty","glass","liquid","oops","pour","pouring","spill","water"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🥤",description:"cup with straw",version:"5.0",keywords:["cup","drink","juice","malt","soda","soft","straw","water"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🧋",description:"bubble tea",version:"13.0",keywords:["boba","bubble","food","milk","pearl","tea"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🧃",description:"beverage box",version:"12.0",keywords:["beverage","box","juice","straw","sweet"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🧉",description:"mate",version:"12.0",keywords:["drink","mate"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🧊",description:"ice",version:"12.0",keywords:["cold","cube","ice","iceberg"],category:"food-drink",group:"food-drink",subgroup:"drink"},{emoji:"🥢",description:"chopsticks",version:"5.0",keywords:["chopsticks","hashi","jeotgarak","kuaizi"],category:"food-drink",group:"food-drink",subgroup:"dishware"},{emoji:"🍽️",description:"fork and knife with plate",version:"0.7",keywords:["cooking","dinner","eat","fork","knife","plate"],category:"food-drink",group:"food-drink",subgroup:"dishware"},{emoji:"🍴",description:"fork and knife",version:"0.6",keywords:["breakfast","breaky","cooking","cutlery","delicious","dinner","eat","feed","food","fork","hungry","knife","lunch","restaurant","yum","yummy"],category:"food-drink",group:"food-drink",subgroup:"dishware"},{emoji:"🥄",description:"spoon",version:"3.0",keywords:["eat","spoon","tableware"],category:"food-drink",group:"food-drink",subgroup:"dishware"},{emoji:"🔪",description:"kitchen knife",version:"0.6",keywords:["chef","cooking","hocho","kitchen","knife","tool","weapon"],category:"food-drink",group:"food-drink",subgroup:"dishware"},{emoji:"🫙",description:"jar",version:"14.0",keywords:["condiment","container","empty","jar","nothing","sauce","store"],category:"food-drink",group:"food-drink",subgroup:"dishware"},{emoji:"🏺",description:"amphora",version:"1.0",keywords:["amphora","Aquarius","cooking","drink","jug","tool","weapon","zodiac"],category:"food-drink",group:"food-drink",subgroup:"dishware"},{emoji:"🌍",description:"globe showing Europe-Africa",version:"0.7",keywords:["Africa","earth","Europe","Europe-Africa","globe","showing","world"],category:"travel-places",group:"travel-places",subgroup:"place-map"},{emoji:"🌎",description:"globe showing Americas",version:"0.7",keywords:["Americas","earth","globe","showing","world"],category:"travel-places",group:"travel-places",subgroup:"place-map"},{emoji:"🌏",description:"globe showing Asia-Australia",version:"0.6",keywords:["Asia","Asia-Australia","Australia","earth","globe","showing","world"],category:"travel-places",group:"travel-places",subgroup:"place-map"},{emoji:"🌐",description:"globe with meridians",version:"1.0",keywords:["earth","globe","internet","meridians","web","world","worldwide"],category:"travel-places",group:"travel-places",subgroup:"place-map"},{emoji:"🗺️",description:"world map",version:"0.7",keywords:["map","world"],category:"travel-places",group:"travel-places",subgroup:"place-map"},{emoji:"🗾",description:"map of Japan",version:"0.6",keywords:["Japan","map"],category:"travel-places",group:"travel-places",subgroup:"place-map"},{emoji:"🧭",description:"compass",version:"11.0",keywords:["compass","direction","magnetic","navigation","orienteering"],category:"travel-places",group:"travel-places",subgroup:"place-map"},{emoji:"🏔️",description:"snow-capped mountain",version:"0.7",keywords:["cold","mountain","snow","snow-capped"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"⛰️",description:"mountain",version:"0.7",keywords:["mountain"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"🌋",description:"volcano",version:"0.6",keywords:["eruption","mountain","nature","volcano"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"🗻",description:"mount fuji",version:"0.6",keywords:["fuji","mount","mountain","nature"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"🏕️",description:"camping",version:"0.7",keywords:["camping"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"🏖️",description:"beach with umbrella",version:"0.7",keywords:["beach","umbrella"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"🏜️",description:"desert",version:"0.7",keywords:["desert"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"🏝️",description:"desert island",version:"0.7",keywords:["desert","island"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"🏞️",description:"national park",version:"0.7",keywords:["national","park"],category:"travel-places",group:"travel-places",subgroup:"place-geographic"},{emoji:"🏟️",description:"stadium",version:"0.7",keywords:["stadium"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏛️",description:"classical building",version:"0.7",keywords:["building","classical"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏗️",description:"building construction",version:"0.7",keywords:["building","construction","crane"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🧱",description:"brick",version:"11.0",keywords:["brick","bricks","clay","mortar","wall"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🪨",description:"rock",version:"13.0",keywords:["boulder","heavy","rock","solid","stone","tough"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🪵",description:"wood",version:"13.0",keywords:["log","lumber","timber","wood"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🛖",description:"hut",version:"13.0",keywords:["home","house","hut","roundhouse","shelter","yurt"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏘️",description:"houses",version:"0.7",keywords:["house","houses"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏚️",description:"derelict house",version:"0.7",keywords:["derelict","home","house"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏠",description:"house",version:"0.6",keywords:["building","country","heart","home","house","ranch","settle","simple","suburban","suburbia","where"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏡",description:"house with garden",version:"0.6",keywords:["building","country","garden","heart","home","house","ranch","settle","simple","suburban","suburbia","where"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏢",description:"office building",version:"0.6",keywords:["building","city","cubical","job","office"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏣",description:"Japanese post office",version:"0.6",keywords:["building","Japanese","office","post"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏤",description:"post office",version:"1.0",keywords:["building","European","office","post"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏥",description:"hospital",version:"0.6",keywords:["building","doctor","hospital","medicine"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏦",description:"bank",version:"0.6",keywords:["bank","building"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏨",description:"hotel",version:"0.6",keywords:["building","hotel"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏩",description:"love hotel",version:"0.6",keywords:["building","hotel","love"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏪",description:"convenience store",version:"0.6",keywords:["24","building","convenience","hours","store"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏫",description:"school",version:"0.6",keywords:["building","school"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏬",description:"department store",version:"0.6",keywords:["building","department","store"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏭",description:"factory",version:"0.6",keywords:["building","factory"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏯",description:"Japanese castle",version:"0.6",keywords:["building","castle","Japanese"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🏰",description:"castle",version:"0.6",keywords:["building","castle","European"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"💒",description:"wedding",version:"0.6",keywords:["chapel","hitched","nuptials","romance","wedding"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🗼",description:"Tokyo tower",version:"0.6",keywords:["Tokyo","tower"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"🗽",description:"Statue of Liberty",version:"0.6",keywords:["liberty","Liberty","new","ny","nyc","statue","Statue","york"],category:"travel-places",group:"travel-places",subgroup:"place-building"},{emoji:"⛪",description:"church",version:"0.6",keywords:["bless","chapel","Christian","church","cross","religion"],category:"travel-places",group:"travel-places",subgroup:"place-religious"},{emoji:"🕌",description:"mosque",version:"1.0",keywords:["islam","masjid","mosque","Muslim","religion"],category:"travel-places",group:"travel-places",subgroup:"place-religious"},{emoji:"🛕",description:"hindu temple",version:"12.0",keywords:["hindu","temple"],category:"travel-places",group:"travel-places",subgroup:"place-religious"},{emoji:"🕍",description:"synagogue",version:"1.0",keywords:["Jew","Jewish","judaism","religion","synagogue","temple"],category:"travel-places",group:"travel-places",subgroup:"place-religious"},{emoji:"⛩️",description:"shinto shrine",version:"0.7",keywords:["religion","shinto","shrine"],category:"travel-places",group:"travel-places",subgroup:"place-religious"},{emoji:"🕋",description:"kaaba",version:"1.0",keywords:["hajj","islam","kaaba","Muslim","religion","umrah"],category:"travel-places",group:"travel-places",subgroup:"place-religious"},{emoji:"⛲",description:"fountain",version:"0.6",keywords:["fountain"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"⛺",description:"tent",version:"0.6",keywords:["camping","tent"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🌁",description:"foggy",version:"0.6",keywords:["fog","foggy"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🌃",description:"night with stars",version:"0.6",keywords:["night","star","stars"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🏙️",description:"cityscape",version:"0.7",keywords:["city","cityscape"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🌄",description:"sunrise over mountains",version:"0.6",keywords:["morning","mountains","over","sun","sunrise"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🌅",description:"sunrise",version:"0.6",keywords:["morning","nature","sun","sunrise"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🌆",description:"cityscape at dusk",version:"0.6",keywords:["at","building","city","cityscape","dusk","evening","landscape","sun","sunset"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🌇",description:"sunset",version:"0.6",keywords:["building","dusk","sun","sunset"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🌉",description:"bridge at night",version:"0.6",keywords:["at","bridge","night"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"♨️",description:"hot springs",version:"0.6",keywords:["hot","hotsprings","springs","steaming"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🎠",description:"carousel horse",version:"0.6",keywords:["carousel","entertainment","horse"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🛝",description:"playground slide",version:"14.0",keywords:["amusement","park","play","playground","playing","slide","sliding","theme"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🎡",description:"ferris wheel",version:"0.6",keywords:["amusement","ferris","park","theme","wheel"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🎢",description:"roller coaster",version:"0.6",keywords:["amusement","coaster","park","roller","theme"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"💈",description:"barber pole",version:"0.6",keywords:["barber","cut","fresh","haircut","pole","shave"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🎪",description:"circus tent",version:"0.6",keywords:["circus","tent"],category:"travel-places",group:"travel-places",subgroup:"place-other"},{emoji:"🚂",description:"locomotive",version:"1.0",keywords:["caboose","engine","locomotive","railway","steam","train","trains","travel"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚃",description:"railway car",version:"0.6",keywords:["car","electric","railway","train","tram","travel","trolleybus"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚄",description:"high-speed train",version:"0.6",keywords:["high-speed","railway","shinkansen","speed","train"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚅",description:"bullet train",version:"0.6",keywords:["bullet","high-speed","nose","railway","shinkansen","speed","train","travel"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚆",description:"train",version:"1.0",keywords:["arrived","choo","railway","train"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚇",description:"metro",version:"0.6",keywords:["metro","subway","travel"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚈",description:"light rail",version:"1.0",keywords:["arrived","light","monorail","rail","railway"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚉",description:"station",version:"0.6",keywords:["railway","station","train"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚊",description:"tram",version:"1.0",keywords:["tram","trolleybus"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚝",description:"monorail",version:"1.0",keywords:["monorail","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚞",description:"mountain railway",version:"1.0",keywords:["car","mountain","railway","trip"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚋",description:"tram car",version:"1.0",keywords:["bus","car","tram","trolley","trolleybus"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚌",description:"bus",version:"0.6",keywords:["bus","school","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚍",description:"oncoming bus",version:"0.7",keywords:["bus","cars","oncoming"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚎",description:"trolleybus",version:"1.0",keywords:["bus","tram","trolley","trolleybus"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚐",description:"minibus",version:"1.0",keywords:["bus","drive","minibus","van","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚑",description:"ambulance",version:"0.6",keywords:["ambulance","emergency","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚒",description:"fire engine",version:"0.6",keywords:["engine","fire","truck"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚓",description:"police car",version:"0.6",keywords:["5–0","car","cops","patrol","police"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚔",description:"oncoming police car",version:"0.7",keywords:["car","oncoming","police"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚕",description:"taxi",version:"0.6",keywords:["cab","cabbie","car","drive","taxi","vehicle","yellow"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚖",description:"oncoming taxi",version:"1.0",keywords:["cab","cabbie","cars","drove","hail","oncoming","taxi","yellow"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚗",description:"automobile",version:"0.6",keywords:["automobile","car","driving","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚘",description:"oncoming automobile",version:"0.7",keywords:["automobile","car","cars","drove","oncoming","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚙",description:"sport utility vehicle",version:"0.6",keywords:["car","drive","recreational","sport","sportutility","utility","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛻",description:"pickup truck",version:"13.0",keywords:["automobile","car","flatbed","pick-up","pickup","transportation","truck"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚚",description:"delivery truck",version:"0.6",keywords:["car","delivery","drive","truck","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚛",description:"articulated lorry",version:"1.0",keywords:["articulated","car","drive","lorry","move","semi","truck","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚜",description:"tractor",version:"1.0",keywords:["tractor","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🏎️",description:"racing car",version:"0.7",keywords:["car","racing","zoom"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🏍️",description:"motorcycle",version:"0.7",keywords:["motorcycle","racing"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛵",description:"motor scooter",version:"3.0",keywords:["motor","scooter"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🦽",description:"manual wheelchair",version:"12.0",keywords:["accessibility","manual","wheelchair"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🦼",description:"motorized wheelchair",version:"12.0",keywords:["accessibility","motorized","wheelchair"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛺",description:"auto rickshaw",version:"12.0",keywords:["auto","rickshaw","tuk"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚲",description:"bicycle",version:"0.6",keywords:["bicycle","bike","class","cycle","cycling","cyclist","gang","ride","spin","spinning"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛴",description:"kick scooter",version:"3.0",keywords:["kick","scooter"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛹",description:"skateboard",version:"11.0",keywords:["board","skate","skateboard","skater","wheels"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛼",description:"roller skate",version:"13.0",keywords:["blades","roller","skate","skates","sport"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚏",description:"bus stop",version:"0.6",keywords:["bus","busstop","stop"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛣️",description:"motorway",version:"0.7",keywords:["highway","motorway","road"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛤️",description:"railway track",version:"0.7",keywords:["railway","track","train"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛢️",description:"oil drum",version:"0.7",keywords:["drum","oil"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"⛽",description:"fuel pump",version:"0.6",keywords:["diesel","fuel","fuelpump","gas","gasoline","pump","station"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛞",description:"wheel",version:"14.0",keywords:["car","circle","tire","turn","vehicle","wheel"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚨",description:"police car light",version:"0.6",keywords:["alarm","alert","beacon","car","emergency","light","police","revolving","siren"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚥",description:"horizontal traffic light",version:"0.6",keywords:["horizontal","intersection","light","signal","stop","stoplight","traffic"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚦",description:"vertical traffic light",version:"1.0",keywords:["drove","intersection","light","signal","stop","stoplight","traffic","vertical"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🛑",description:"stop sign",version:"3.0",keywords:["octagonal","sign","stop"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"🚧",description:"construction",version:"0.6",keywords:["barrier","construction"],category:"travel-places",group:"travel-places",subgroup:"transport-ground"},{emoji:"⚓",description:"anchor",version:"0.6",keywords:["anchor","ship","tool"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"🛟",description:"ring buoy",version:"14.0",keywords:["buoy","float","life","lifesaver","preserver","rescue","ring","safety","save","saver","swim"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"⛵",description:"sailboat",version:"0.6",keywords:["boat","resort","sailboat","sailing","sea","yacht"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"🛶",description:"canoe",version:"3.0",keywords:["boat","canoe"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"🚤",description:"speedboat",version:"0.6",keywords:["billionaire","boat","lake","luxury","millionaire","speedboat","summer","travel"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"🛳️",description:"passenger ship",version:"0.7",keywords:["passenger","ship"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"⛴️",description:"ferry",version:"0.7",keywords:["boat","ferry","passenger"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"🛥️",description:"motor boat",version:"0.7",keywords:["boat","motor","motorboat"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"🚢",description:"ship",version:"0.6",keywords:["boat","passenger","ship","travel"],category:"travel-places",group:"travel-places",subgroup:"transport-water"},{emoji:"✈️",description:"airplane",version:"0.6",keywords:["aeroplane","airplane","fly","flying","jet","plane","travel"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🛩️",description:"small airplane",version:"0.7",keywords:["aeroplane","airplane","plane","small"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🛫",description:"airplane departure",version:"1.0",keywords:["aeroplane","airplane","check-in","departure","departures","plane"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🛬",description:"airplane arrival",version:"1.0",keywords:["aeroplane","airplane","arrival","arrivals","arriving","landing","plane"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🪂",description:"parachute",version:"12.0",keywords:["hang-glide","parachute","parasail","skydive"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"💺",description:"seat",version:"0.6",keywords:["chair","seat"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🚁",description:"helicopter",version:"1.0",keywords:["copter","helicopter","roflcopter","travel","vehicle"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🚟",description:"suspension railway",version:"1.0",keywords:["railway","suspension"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🚠",description:"mountain cableway",version:"1.0",keywords:["cable","cableway","gondola","lift","mountain","ski"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🚡",description:"aerial tramway",version:"1.0",keywords:["aerial","cable","car","gondola","ropeway","tramway"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🛰️",description:"satellite",version:"0.7",keywords:["satellite","space"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🚀",description:"rocket",version:"0.6",keywords:["launch","rocket","rockets","space","travel"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🛸",description:"flying saucer",version:"5.0",keywords:["aliens","extra","flying","saucer","terrestrial","UFO"],category:"travel-places",group:"travel-places",subgroup:"transport-air"},{emoji:"🛎️",description:"bellhop bell",version:"0.7",keywords:["bell","bellhop","hotel"],category:"travel-places",group:"travel-places",subgroup:"hotel"},{emoji:"🧳",description:"luggage",version:"11.0",keywords:["bag","luggage","packing","roller","suitcase","travel"],category:"travel-places",group:"travel-places",subgroup:"hotel"},{emoji:"⌛",description:"hourglass done",version:"0.6",keywords:["done","hourglass","sand","time","timer"],category:"objects",group:"travel-places",subgroup:"time"},{emoji:"⏳",description:"hourglass not done",version:"0.6",keywords:["done","flowing","hourglass","hours","not","sand","timer","waiting","yolo"],category:"objects",group:"travel-places",subgroup:"time"},{emoji:"⌚",description:"watch",version:"0.6",keywords:["clock","time","watch"],category:"objects",group:"travel-places",subgroup:"time"},{emoji:"⏰",description:"alarm clock",version:"0.6",keywords:["alarm","clock","hours","hrs","late","time","waiting"],category:"objects",group:"travel-places",subgroup:"time"},{emoji:"⏱️",description:"stopwatch",version:"1.0",keywords:["clock","stopwatch","time"],category:"objects",group:"travel-places",subgroup:"time"},{emoji:"⏲️",description:"timer clock",version:"1.0",keywords:["clock","timer"],category:"objects",group:"travel-places",subgroup:"time"},{emoji:"🕰️",description:"mantelpiece clock",version:"0.7",keywords:["clock","mantelpiece","time"],category:"objects",group:"travel-places",subgroup:"time"},{emoji:"🕛",description:"twelve o’clock",version:"0.6",keywords:["12","12:00","clock","o’clock","time","twelve"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕧",description:"twelve-thirty",version:"0.7",keywords:["12","12:30","30","clock","thirty","time","twelve","twelve-thirty"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕐",description:"one o’clock",version:"0.6",keywords:["1","1:00","clock","o’clock","one","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕜",description:"one-thirty",version:"0.7",keywords:["1","1:30","30","clock","one","one-thirty","thirty","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕑",description:"two o’clock",version:"0.6",keywords:["2","2:00","clock","o’clock","time","two"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕝",description:"two-thirty",version:"0.7",keywords:["2","2:30","30","clock","thirty","time","two","two-thirty"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕒",description:"three o’clock",version:"0.6",keywords:["3","3:00","clock","o’clock","three","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕞",description:"three-thirty",version:"0.7",keywords:["3","3:30","30","clock","thirty","three","three-thirty","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕓",description:"four o’clock",version:"0.6",keywords:["4","4:00","clock","four","o’clock","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕟",description:"four-thirty",version:"0.7",keywords:["30","4","4:30","clock","four","four-thirty","thirty","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕔",description:"five o’clock",version:"0.6",keywords:["5","5:00","clock","five","o’clock","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕠",description:"five-thirty",version:"0.7",keywords:["30","5","5:30","clock","five","five-thirty","thirty","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕕",description:"six o’clock",version:"0.6",keywords:["6","6:00","clock","o’clock","six","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕡",description:"six-thirty",version:"0.7",keywords:["30","6","6:30","clock","six","six-thirty","thirty"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕖",description:"seven o’clock",version:"0.6",keywords:["0","7","7:00","clock","o’clock","seven"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕢",description:"seven-thirty",version:"0.7",keywords:["30","7","7:30","clock","seven","seven-thirty","thirty"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕗",description:"eight o’clock",version:"0.6",keywords:["8","8:00","clock","eight","o’clock","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕣",description:"eight-thirty",version:"0.7",keywords:["30","8","8:30","clock","eight","eight-thirty","thirty","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕘",description:"nine o’clock",version:"0.6",keywords:["9","9:00","clock","nine","o’clock","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕤",description:"nine-thirty",version:"0.7",keywords:["30","9","9:30","clock","nine","nine-thirty","thirty","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕙",description:"ten o’clock",version:"0.6",keywords:["0","10","10:00","clock","o’clock","ten"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕥",description:"ten-thirty",version:"0.7",keywords:["10","10:30","30","clock","ten","ten-thirty","thirty","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕚",description:"eleven o’clock",version:"0.6",keywords:["11","11:00","clock","eleven","o’clock","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🕦",description:"eleven-thirty",version:"0.7",keywords:["11","11:30","30","clock","eleven","eleven-thirty","thirty","time"],category:"symbols",group:"travel-places",subgroup:"time"},{emoji:"🌑",description:"new moon",version:"0.6",keywords:["dark","moon","new","space"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌒",description:"waxing crescent moon",version:"1.0",keywords:["crescent","dreams","moon","space","waxing"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌓",description:"first quarter moon",version:"0.6",keywords:["first","moon","quarter","space"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌔",description:"waxing gibbous moon",version:"0.6",keywords:["gibbous","moon","space","waxing"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌕",description:"full moon",version:"0.6",keywords:["full","moon","space"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌖",description:"waning gibbous moon",version:"1.0",keywords:["gibbous","moon","space","waning"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌗",description:"last quarter moon",version:"1.0",keywords:["last","moon","quarter","space"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌘",description:"waning crescent moon",version:"1.0",keywords:["crescent","moon","space","waning"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌙",description:"crescent moon",version:"0.6",keywords:["crescent","moon","ramadan","space"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌚",description:"new moon face",version:"1.0",keywords:["face","moon","new","space"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌛",description:"first quarter moon face",version:"0.6",keywords:["face","first","moon","quarter","space"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌜",description:"last quarter moon face",version:"0.7",keywords:["dreams","face","last","moon","quarter"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌡️",description:"thermometer",version:"0.7",keywords:["thermometer","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"☀️",description:"sun",version:"0.6",keywords:["bright","rays","space","sun","sunny","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌝",description:"full moon face",version:"1.0",keywords:["bright","face","full","moon"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌞",description:"sun with face",version:"1.0",keywords:["beach","bright","day","face","heat","shine","sun","sunny","sunshine","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🪐",description:"ringed planet",version:"12.0",keywords:["planet","ringed","saturn","saturnine"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"⭐",description:"star",version:"0.6",keywords:["astronomy","medium","star","stars","white"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌟",description:"glowing star",version:"0.6",keywords:["glittery","glow","glowing","night","shining","sparkle","star","win"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌠",description:"shooting star",version:"0.6",keywords:["falling","night","shooting","space","star"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌌",description:"milky way",version:"0.6",keywords:["milky","space","way"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"☁️",description:"cloud",version:"0.6",keywords:["cloud","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"⛅",description:"sun behind cloud",version:"0.6",keywords:["behind","cloud","cloudy","sun","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"⛈️",description:"cloud with lightning and rain",version:"0.7",keywords:["cloud","lightning","rain","thunder","thunderstorm"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌤️",description:"sun behind small cloud",version:"0.7",keywords:["behind","cloud","sun","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌥️",description:"sun behind large cloud",version:"0.7",keywords:["behind","cloud","sun","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌦️",description:"sun behind rain cloud",version:"0.7",keywords:["behind","cloud","rain","sun","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌧️",description:"cloud with rain",version:"0.7",keywords:["cloud","rain","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌨️",description:"cloud with snow",version:"0.7",keywords:["cloud","cold","snow","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌩️",description:"cloud with lightning",version:"0.7",keywords:["cloud","lightning","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌪️",description:"tornado",version:"0.7",keywords:["cloud","tornado","weather","whirlwind"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌫️",description:"fog",version:"0.7",keywords:["cloud","fog","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌬️",description:"wind face",version:"0.7",keywords:["blow","cloud","face","wind"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌀",description:"cyclone",version:"0.6",keywords:["cyclone","dizzy","hurricane","twister","typhoon","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌈",description:"rainbow",version:"0.6",keywords:["gay","genderqueer","glbt","glbtq","lesbian","lgbt","lgbtq","lgbtqia","nature","pride","queer","rain","rainbow","trans","transgender","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌂",description:"closed umbrella",version:"0.6",keywords:["closed","clothing","rain","umbrella"],category:"objects",group:"travel-places",subgroup:"sky-weather"},{emoji:"☂️",description:"umbrella",version:"0.7",keywords:["clothing","rain","umbrella"],category:"objects",group:"travel-places",subgroup:"sky-weather"},{emoji:"☔",description:"umbrella with rain drops",version:"0.6",keywords:["clothing","drop","drops","rain","umbrella","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"⛱️",description:"umbrella on ground",version:"0.7",keywords:["ground","rain","sun","umbrella"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"⚡",description:"high voltage",version:"0.6",keywords:["danger","electric","electricity","high","lightning","nature","thunder","thunderbolt","voltage","zap"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"❄️",description:"snowflake",version:"0.6",keywords:["cold","snow","snowflake","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"☃️",description:"snowman",version:"0.7",keywords:["cold","man","snow","snowman"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"⛄",description:"snowman without snow",version:"0.6",keywords:["cold","man","snow","snowman"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"☄️",description:"comet",version:"1.0",keywords:["comet","space"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🔥",description:"fire",version:"0.6",keywords:["af","burn","fire","flame","hot","lit","litaf","tool"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"💧",description:"droplet",version:"0.6",keywords:["cold","comic","drop","droplet","nature","sad","sweat","tear","water","weather"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🌊",description:"water wave",version:"0.6",keywords:["nature","ocean","surf","surfer","surfing","water","wave"],category:"animals-nature",group:"travel-places",subgroup:"sky-weather"},{emoji:"🎃",description:"jack-o-lantern",version:"0.6",keywords:["celebration","halloween","jack","jack-o-lantern","lantern","pumpkin"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎄",description:"Christmas tree",version:"0.6",keywords:["celebration","Christmas","tree"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎆",description:"fireworks",version:"0.6",keywords:["boom","celebration","entertainment","fireworks","yolo"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎇",description:"sparkler",version:"0.6",keywords:["boom","celebration","fireworks","sparkle","sparkler"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🧨",description:"firecracker",version:"11.0",keywords:["dynamite","explosive","fire","firecracker","fireworks","light","pop","popping","spark"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"✨",description:"sparkles",version:"0.6",keywords:["*","magic","sparkle","sparkles","star"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎈",description:"balloon",version:"0.6",keywords:["balloon","birthday","celebrate","celebration"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎉",description:"party popper",version:"0.6",keywords:["awesome","birthday","celebrate","celebration","excited","hooray","party","popper","tada","woohoo"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎊",description:"confetti ball",version:"0.6",keywords:["ball","celebrate","celebration","confetti","party","woohoo"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎋",description:"tanabata tree",version:"0.6",keywords:["banner","celebration","Japanese","tanabata","tree"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎍",description:"pine decoration",version:"0.6",keywords:["bamboo","celebration","decoration","Japanese","pine","plant"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎎",description:"Japanese dolls",version:"0.6",keywords:["celebration","doll","dolls","festival","Japanese"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎏",description:"carp streamer",version:"0.6",keywords:["carp","celebration","streamer"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎐",description:"wind chime",version:"0.6",keywords:["bell","celebration","chime","wind"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎑",description:"moon viewing ceremony",version:"0.6",keywords:["celebration","ceremony","moon","viewing"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🧧",description:"red envelope",version:"11.0",keywords:["envelope","gift","good","hóngbāo","lai","luck","money","red","see"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎀",description:"ribbon",version:"0.6",keywords:["celebration","ribbon"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎁",description:"wrapped gift",version:"0.6",keywords:["birthday","bow","box","celebration","christmas","gift","present","surprise","wrapped"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎗️",description:"reminder ribbon",version:"0.7",keywords:["celebration","reminder","ribbon"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎟️",description:"admission tickets",version:"0.7",keywords:["admission","ticket","tickets"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎫",description:"ticket",version:"0.6",keywords:["admission","stub","ticket"],category:"activities-events",group:"activities",subgroup:"event"},{emoji:"🎖️",description:"military medal",version:"0.7",keywords:["award","celebration","medal","military"],category:"activities-events",group:"activities",subgroup:"award-medal"},{emoji:"🏆",description:"trophy",version:"0.6",keywords:["champion","champs","prize","slay","sport","trophy","victory","win","winning"],category:"activities-events",group:"activities",subgroup:"award-medal"},{emoji:"🏅",description:"sports medal",version:"1.0",keywords:["award","gold","medal","sports","winner"],category:"activities-events",group:"activities",subgroup:"award-medal"},{emoji:"🥇",description:"1st place medal",version:"3.0",keywords:["1st","first","gold","medal","place"],category:"activities-events",group:"activities",subgroup:"award-medal"},{emoji:"🥈",description:"2nd place medal",version:"3.0",keywords:["2nd","medal","place","second","silver"],category:"activities-events",group:"activities",subgroup:"award-medal"},{emoji:"🥉",description:"3rd place medal",version:"3.0",keywords:["3rd","bronze","medal","place","third"],category:"activities-events",group:"activities",subgroup:"award-medal"},{emoji:"⚽",description:"soccer ball",version:"0.6",keywords:["ball","football","futbol","soccer","sport"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"⚾",description:"baseball",version:"0.6",keywords:["ball","baseball","sport"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🥎",description:"softball",version:"11.0",keywords:["ball","glove","softball","sports","underarm"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏀",description:"basketball",version:"0.6",keywords:["ball","basketball","hoop","sport"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏐",description:"volleyball",version:"1.0",keywords:["ball","game","volleyball"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏈",description:"american football",version:"0.6",keywords:["american","ball","bowl","football","sport","super"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏉",description:"rugby football",version:"1.0",keywords:["ball","football","rugby","sport"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🎾",description:"tennis",version:"0.6",keywords:["ball","racquet","sport","tennis"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🥏",description:"flying disc",version:"11.0",keywords:["disc","flying","ultimate"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🎳",description:"bowling",version:"0.6",keywords:["ball","bowling","game","sport","strike"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏏",description:"cricket game",version:"1.0",keywords:["ball","bat","cricket","game"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏑",description:"field hockey",version:"1.0",keywords:["ball","field","game","hockey","stick"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏒",description:"ice hockey",version:"1.0",keywords:["game","hockey","ice","puck","stick"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🥍",description:"lacrosse",version:"11.0",keywords:["ball","goal","lacrosse","sports","stick"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏓",description:"ping pong",version:"1.0",keywords:["ball","bat","game","paddle","ping","pingpong","pong","table","tennis"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🏸",description:"badminton",version:"1.0",keywords:["badminton","birdie","game","racquet","shuttlecock"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🥊",description:"boxing glove",version:"3.0",keywords:["boxing","glove"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🥋",description:"martial arts uniform",version:"3.0",keywords:["arts","judo","karate","martial","taekwondo","uniform"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🥅",description:"goal net",version:"3.0",keywords:["goal","net"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"⛳",description:"flag in hole",version:"0.6",keywords:["flag","golf","hole","sport"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"⛸️",description:"ice skate",version:"0.7",keywords:["ice","skate","skating"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🎣",description:"fishing pole",version:"0.6",keywords:["entertainment","fish","fishing","pole","sport"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🤿",description:"diving mask",version:"12.0",keywords:["diving","mask","scuba","snorkeling"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🎽",description:"running shirt",version:"0.6",keywords:["athletics","running","sash","shirt"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🎿",description:"skis",version:"0.6",keywords:["ski","skis","snow","sport"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🛷",description:"sled",version:"5.0",keywords:["luge","sled","sledge","sleigh","snow","toboggan"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🥌",description:"curling stone",version:"5.0",keywords:["curling","game","rock","stone"],category:"activities-events",group:"activities",subgroup:"sport"},{emoji:"🎯",description:"bullseye",version:"0.6",keywords:["bull","bullseye","dart","direct","entertainment","game","hit","target"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🪀",description:"yo-yo",version:"12.0",keywords:["fluctuate","toy","yo-yo"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🪁",description:"kite",version:"12.0",keywords:["fly","kite","soar"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🔫",description:"water pistol",version:"0.6",keywords:["gun","handgun","pistol","revolver","tool","water","weapon"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🎱",description:"pool 8 ball",version:"0.6",keywords:["8","8ball","ball","billiard","eight","game","pool"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🔮",description:"crystal ball",version:"0.6",keywords:["ball","crystal","fairy","fairytale","fantasy","fortune","future","magic","tale","tool"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🪄",description:"magic wand",version:"13.0",keywords:["magic","magician","wand","witch","wizard"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🎮",description:"video game",version:"0.6",keywords:["controller","entertainment","game","video"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🕹️",description:"joystick",version:"0.7",keywords:["game","joystick","video","videogame"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🎰",description:"slot machine",version:"0.6",keywords:["casino","gamble","gambling","game","machine","slot","slots"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🎲",description:"game die",version:"0.6",keywords:["dice","die","entertainment","game"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🧩",description:"puzzle piece",version:"11.0",keywords:["clue","interlocking","jigsaw","piece","puzzle"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🧸",description:"teddy bear",version:"11.0",keywords:["bear","plaything","plush","stuffed","teddy","toy"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🪅",description:"piñata",version:"13.0",keywords:["candy","celebrate","celebration","cinco","de","festive","mayo","party","pinada","pinata","piñata"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🪩",description:"mirror ball",version:"14.0",keywords:["ball","dance","disco","glitter","mirror","party"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🪆",description:"nesting dolls",version:"13.0",keywords:["babooshka","baboushka","babushka","doll","dolls","matryoshka","nesting","russia"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"♠️",description:"spade suit",version:"0.6",keywords:["card","game","spade","suit"],category:"symbols",group:"activities",subgroup:"game"},{emoji:"♥️",description:"heart suit",version:"0.6",keywords:["card","emotion","game","heart","hearts","suit"],category:"symbols",group:"activities",subgroup:"game"},{emoji:"♦️",description:"diamond suit",version:"0.6",keywords:["card","diamond","game","suit"],category:"symbols",group:"activities",subgroup:"game"},{emoji:"♣️",description:"club suit",version:"0.6",keywords:["card","club","clubs","game","suit"],category:"symbols",group:"activities",subgroup:"game"},{emoji:"♟️",description:"chess pawn",version:"11.0",keywords:["chess","dupe","expendable","pawn"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🃏",description:"joker",version:"0.6",keywords:["card","game","joker","wildcard"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🀄",description:"mahjong red dragon",version:"0.6",keywords:["dragon","game","mahjong","red"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🎴",description:"flower playing cards",version:"0.6",keywords:["card","cards","flower","game","Japanese","playing"],category:"activities-events",group:"activities",subgroup:"game"},{emoji:"🎭",description:"performing arts",version:"0.6",keywords:["actor","actress","art","arts","entertainment","mask","performing","theater","theatre","thespian"],category:"activities-events",group:"activities",subgroup:"arts-crafts"},{emoji:"🖼️",description:"framed picture",version:"0.7",keywords:["art","frame","framed","museum","painting","picture"],category:"activities-events",group:"activities",subgroup:"arts-crafts"},{emoji:"🎨",description:"artist palette",version:"0.6",keywords:["art","artist","artsy","arty","colorful","creative","entertainment","museum","painter","painting","palette"],category:"activities-events",group:"activities",subgroup:"arts-crafts"},{emoji:"🧵",description:"thread",version:"11.0",keywords:["needle","sewing","spool","string","thread"],category:"activities-events",group:"activities",subgroup:"arts-crafts"},{emoji:"🪡",description:"sewing needle",version:"13.0",keywords:["embroidery","needle","sew","sewing","stitches","sutures","tailoring","thread"],category:"activities-events",group:"activities",subgroup:"arts-crafts"},{emoji:"🧶",description:"yarn",version:"11.0",keywords:["ball","crochet","knit","yarn"],category:"activities-events",group:"activities",subgroup:"arts-crafts"},{emoji:"🪢",description:"knot",version:"13.0",keywords:["cord","knot","rope","tangled","tie","twine","twist"],category:"activities-events",group:"activities",subgroup:"arts-crafts"},{emoji:"👓",description:"glasses",version:"0.6",keywords:["clothing","eye","eyeglasses","eyewear","glasses"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🕶️",description:"sunglasses",version:"0.7",keywords:["dark","eye","eyewear","glasses","sunglasses"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🥽",description:"goggles",version:"11.0",keywords:["dive","eye","goggles","protection","scuba","swimming","welding"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🥼",description:"lab coat",version:"11.0",keywords:["clothes","coat","doctor","dr","experiment","jacket","lab","scientist","white"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🦺",description:"safety vest",version:"12.0",keywords:["emergency","safety","vest"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👔",description:"necktie",version:"0.6",keywords:["clothing","employed","necktie","serious","shirt","tie"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👕",description:"t-shirt",version:"0.6",keywords:["blue","casual","clothes","clothing","collar","dressed","shirt","shopping","t-shirt","tshirt","weekend"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👖",description:"jeans",version:"0.6",keywords:["blue","casual","clothes","clothing","denim","dressed","jeans","pants","shopping","trousers","weekend"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🧣",description:"scarf",version:"5.0",keywords:["bundle","cold","neck","scarf","up"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🧤",description:"gloves",version:"5.0",keywords:["gloves","hand"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🧥",description:"coat",version:"5.0",keywords:["brr","bundle","coat","cold","jacket","up"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🧦",description:"socks",version:"5.0",keywords:["socks","stocking"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👗",description:"dress",version:"0.6",keywords:["clothes","clothing","dress","dressed","fancy","shopping"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👘",description:"kimono",version:"0.6",keywords:["clothing","comfortable","kimono"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🥻",description:"sari",version:"12.0",keywords:["clothing","dress","sari"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🩱",description:"one-piece swimsuit",version:"12.0",keywords:["bathing","one-piece","suit","swimsuit"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🩲",description:"briefs",version:"12.0",keywords:["bathing","briefs","one-piece","suit","swimsuit","underwear"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🩳",description:"shorts",version:"12.0",keywords:["bathing","pants","shorts","suit","swimsuit","underwear"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👙",description:"bikini",version:"0.6",keywords:["bathing","beach","bikini","clothing","pool","suit","swim"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👚",description:"woman’s clothes",version:"0.6",keywords:["blouse","clothes","clothing","collar","dress","dressed","lady","shirt","shopping","woman","woman’s"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🪭",description:"folding hand fan",version:"15.0",keywords:["clack","clap","cool","cooling","dance","fan","flirt","flutter","folding","hand","hot","shy"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👛",description:"purse",version:"0.6",keywords:["clothes","clothing","coin","dress","fancy","handbag","purse","shopping"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👜",description:"handbag",version:"0.6",keywords:["bag","clothes","clothing","dress","handbag","lady","purse","shopping"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👝",description:"clutch bag",version:"0.6",keywords:["bag","clothes","clothing","clutch","dress","handbag","pouch","purse"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🛍️",description:"shopping bags",version:"0.7",keywords:["bag","bags","hotel","shopping"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🎒",description:"backpack",version:"0.6",keywords:["backpack","backpacking","bag","bookbag","education","rucksack","satchel","school"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🩴",description:"thong sandal",version:"13.0",keywords:["beach","flip","flop","sandal","sandals","shoe","thong","thongs","zōri"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👞",description:"man’s shoe",version:"0.6",keywords:["brown","clothes","clothing","feet","foot","kick","man","man’s","shoe","shoes","shopping"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👟",description:"running shoe",version:"0.6",keywords:["athletic","clothes","clothing","fast","kick","running","shoe","shoes","shopping","sneaker","tennis"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🥾",description:"hiking boot",version:"11.0",keywords:["backpacking","boot","brown","camping","hiking","outdoors","shoe"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🥿",description:"flat shoe",version:"11.0",keywords:["ballet","comfy","flat","flats","shoe","slip-on","slipper"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👠",description:"high-heeled shoe",version:"0.6",keywords:["clothes","clothing","dress","fashion","heel","heels","high-heeled","shoe","shoes","shopping","stiletto","woman"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👡",description:"woman’s sandal",version:"0.6",keywords:["clothing","sandal","shoe","woman","woman’s"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🩰",description:"ballet shoes",version:"12.0",keywords:["ballet","dance","shoes"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👢",description:"woman’s boot",version:"0.6",keywords:["boot","clothes","clothing","dress","shoe","shoes","shopping","woman","woman’s"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🪮",description:"hair pick",version:"15.0",keywords:["Afro","comb","groom","hair","pick"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👑",description:"crown",version:"0.6",keywords:["clothing","crown","family","king","medieval","queen","royal","royalty","win"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"👒",description:"woman’s hat",version:"0.6",keywords:["clothes","clothing","garden","hat","hats","party","woman","woman’s"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🎩",description:"top hat",version:"0.6",keywords:["clothes","clothing","fancy","formal","hat","magic","top","tophat"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🎓",description:"graduation cap",version:"0.6",keywords:["cap","celebration","clothing","education","graduation","hat","scholar"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🧢",description:"billed cap",version:"5.0",keywords:["baseball","bent","billed","cap","dad","hat"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🪖",description:"military helmet",version:"13.0",keywords:["army","helmet","military","soldier","war","warrior"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"⛑️",description:"rescue worker’s helmet",version:"0.7",keywords:["aid","cross","face","hat","helmet","rescue","worker’s"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"📿",description:"prayer beads",version:"1.0",keywords:["beads","clothing","necklace","prayer","religion"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"💄",description:"lipstick",version:"0.6",keywords:["cosmetics","date","lipstick","makeup"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"💍",description:"ring",version:"0.6",keywords:["diamond","engaged","engagement","married","ring","romance","shiny","sparkling","wedding"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"💎",description:"gem stone",version:"0.6",keywords:["diamond","engagement","gem","jewel","money","romance","stone","wedding"],category:"objects",group:"objects",subgroup:"clothing"},{emoji:"🔇",description:"muted speaker",version:"1.0",keywords:["mute","muted","quiet","silent","sound","speaker"],category:"symbols",group:"objects",subgroup:"sound"},{emoji:"🔈",description:"speaker low volume",version:"0.7",keywords:["low","soft","sound","speaker","volume"],category:"symbols",group:"objects",subgroup:"sound"},{emoji:"🔉",description:"speaker medium volume",version:"1.0",keywords:["medium","sound","speaker","volume"],category:"symbols",group:"objects",subgroup:"sound"},{emoji:"🔊",description:"speaker high volume",version:"0.6",keywords:["high","loud","music","sound","speaker","volume"],category:"symbols",group:"objects",subgroup:"sound"},{emoji:"📢",description:"loudspeaker",version:"0.6",keywords:["address","communication","loud","loudspeaker","public","sound"],category:"objects",group:"objects",subgroup:"sound"},{emoji:"📣",description:"megaphone",version:"0.6",keywords:["cheering","megaphone","sound"],category:"objects",group:"objects",subgroup:"sound"},{emoji:"📯",description:"postal horn",version:"1.0",keywords:["horn","post","postal"],category:"objects",group:"objects",subgroup:"sound"},{emoji:"🔔",description:"bell",version:"0.6",keywords:["bell","break","church","sound"],category:"objects",group:"objects",subgroup:"sound"},{emoji:"🔕",description:"bell with slash",version:"1.0",keywords:["bell","forbidden","mute","no","not","prohibited","quiet","silent","slash","sound"],category:"symbols",group:"objects",subgroup:"sound"},{emoji:"🎼",description:"musical score",version:"0.6",keywords:["music","musical","note","score"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"🎵",description:"musical note",version:"0.6",keywords:["music","musical","note","sound"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"🎶",description:"musical notes",version:"0.6",keywords:["music","musical","note","notes","sound"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"🎙️",description:"studio microphone",version:"0.7",keywords:["mic","microphone","music","studio"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"🎚️",description:"level slider",version:"0.7",keywords:["level","music","slider"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"🎛️",description:"control knobs",version:"0.7",keywords:["control","knobs","music"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"🎤",description:"microphone",version:"0.6",keywords:["karaoke","mic","microphone","music","sing","sound"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"🎧",description:"headphone",version:"0.6",keywords:["earbud","headphone","sound"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"📻",description:"radio",version:"0.6",keywords:["entertainment","radio","tbt","video"],category:"activities-events",group:"objects",subgroup:"music"},{emoji:"🎷",description:"saxophone",version:"0.6",keywords:["instrument","music","sax","saxophone"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🪗",description:"accordion",version:"13.0",keywords:["accordion","box","concertina","instrument","music","squeeze","squeezebox"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🎸",description:"guitar",version:"0.6",keywords:["guitar","instrument","music","strat"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🎹",description:"musical keyboard",version:"0.6",keywords:["instrument","keyboard","music","musical","piano"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🎺",description:"trumpet",version:"0.6",keywords:["instrument","music","trumpet"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🎻",description:"violin",version:"0.6",keywords:["instrument","music","violin"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🪕",description:"banjo",version:"12.0",keywords:["banjo","music","stringed"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🥁",description:"drum",version:"3.0",keywords:["drum","drumsticks","music"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🪘",description:"long drum",version:"13.0",keywords:["beat","conga","drum","instrument","long","rhythm"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🪇",description:"maracas",version:"15.0",keywords:["cha","dance","instrument","maracas","music","party","percussion","rattle","shake","shaker"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🪈",description:"flute",version:"15.0",keywords:["band","fife","flautist","flute","instrument","marching","music","orchestra","piccolo","pipe","recorder","woodwind"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"🪉",description:"harp",version:"16.0",keywords:["cupid","harp","instrument","love","music","orchestra"],category:"activities-events",group:"objects",subgroup:"musical-instrument"},{emoji:"📱",description:"mobile phone",version:"0.6",keywords:["cell","communication","mobile","phone","telephone"],category:"objects",group:"objects",subgroup:"phone"},{emoji:"📲",description:"mobile phone with arrow",version:"0.6",keywords:["arrow","build","call","cell","communication","mobile","phone","receive","telephone"],category:"objects",group:"objects",subgroup:"phone"},{emoji:"☎️",description:"telephone",version:"0.6",keywords:["phone","telephone"],category:"objects",group:"objects",subgroup:"phone"},{emoji:"📞",description:"telephone receiver",version:"0.6",keywords:["communication","phone","receiver","telephone","voip"],category:"objects",group:"objects",subgroup:"phone"},{emoji:"📟",description:"pager",version:"0.6",keywords:["communication","pager"],category:"objects",group:"objects",subgroup:"phone"},{emoji:"📠",description:"fax machine",version:"0.6",keywords:["communication","fax","machine"],category:"objects",group:"objects",subgroup:"phone"},{emoji:"🔋",description:"battery",version:"0.6",keywords:["battery"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"🪫",description:"low battery",version:"14.0",keywords:["battery","drained","electronic","energy","low","power"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"🔌",description:"electric plug",version:"0.6",keywords:["electric","electricity","plug"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"💻",description:"laptop",version:"0.6",keywords:["computer","laptop","office","pc","personal"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"🖥️",description:"desktop computer",version:"0.7",keywords:["computer","desktop","monitor"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"🖨️",description:"printer",version:"0.7",keywords:["computer","printer"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"⌨️",description:"keyboard",version:"1.0",keywords:["computer","keyboard"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"🖱️",description:"computer mouse",version:"0.7",keywords:["computer","mouse"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"🖲️",description:"trackball",version:"0.7",keywords:["computer","trackball"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"💽",description:"computer disk",version:"0.6",keywords:["computer","disk","minidisk","optical"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"💾",description:"floppy disk",version:"0.6",keywords:["computer","disk","floppy"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"💿",description:"optical disk",version:"0.6",keywords:["blu-ray","CD","computer","disk","dvd","optical"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"📀",description:"dvd",version:"0.6",keywords:["Blu-ray","cd","computer","disk","DVD","optical"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"🧮",description:"abacus",version:"11.0",keywords:["abacus","calculation","calculator"],category:"objects",group:"objects",subgroup:"computer"},{emoji:"🎥",description:"movie camera",version:"0.6",keywords:["bollywood","camera","cinema","film","hollywood","movie","record"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"🎞️",description:"film frames",version:"0.7",keywords:["cinema","film","frames","movie"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"📽️",description:"film projector",version:"0.7",keywords:["cinema","film","movie","projector","video"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"🎬",description:"clapper board",version:"0.6",keywords:["action","board","clapper","movie"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"📺",description:"television",version:"0.6",keywords:["television","tv","video"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"📷",description:"camera",version:"0.6",keywords:["camera","photo","selfie","snap","tbt","trip","video"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"📸",description:"camera with flash",version:"1.0",keywords:["camera","flash","video"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"📹",description:"video camera",version:"0.6",keywords:["camcorder","camera","tbt","video"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"📼",description:"videocassette",version:"0.6",keywords:["old","school","tape","vcr","vhs","video","videocassette"],category:"activities-events",group:"objects",subgroup:"light-video"},{emoji:"🔍",description:"magnifying glass tilted left",version:"0.6",keywords:["glass","lab","left","left-pointing","magnifying","science","search","tilted","tool"],category:"objects",group:"objects",subgroup:"light-video"},{emoji:"🔎",description:"magnifying glass tilted right",version:"0.6",keywords:["contact","glass","lab","magnifying","right","right-pointing","science","search","tilted","tool"],category:"objects",group:"objects",subgroup:"light-video"},{emoji:"🕯️",description:"candle",version:"0.7",keywords:["candle","light"],category:"objects",group:"objects",subgroup:"light-video"},{emoji:"💡",description:"light bulb",version:"0.6",keywords:["bulb","comic","electric","idea","light"],category:"objects",group:"objects",subgroup:"light-video"},{emoji:"🔦",description:"flashlight",version:"0.6",keywords:["electric","flashlight","light","tool","torch"],category:"objects",group:"objects",subgroup:"light-video"},{emoji:"🏮",description:"red paper lantern",version:"0.6",keywords:["bar","lantern","light","paper","red","restaurant"],category:"objects",group:"objects",subgroup:"light-video"},{emoji:"🪔",description:"diya lamp",version:"12.0",keywords:["diya","lamp","light","oil"],category:"objects",group:"objects",subgroup:"light-video"},{emoji:"📔",description:"notebook with decorative cover",version:"0.6",keywords:["book","cover","decorated","decorative","education","notebook","school","writing"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📕",description:"closed book",version:"0.6",keywords:["book","closed","education"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📖",description:"open book",version:"0.6",keywords:["book","education","fantasy","knowledge","library","novels","open","reading"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📗",description:"green book",version:"0.6",keywords:["book","education","fantasy","green","library","reading"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📘",description:"blue book",version:"0.6",keywords:["blue","book","education","fantasy","library","reading"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📙",description:"orange book",version:"0.6",keywords:["book","education","fantasy","library","orange","reading"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📚",description:"books",version:"0.6",keywords:["book","books","education","fantasy","knowledge","library","novels","reading","school","study"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📓",description:"notebook",version:"0.6",keywords:["notebook"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📒",description:"ledger",version:"0.6",keywords:["ledger","notebook"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📃",description:"page with curl",version:"0.6",keywords:["curl","document","page","paper"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📜",description:"scroll",version:"0.6",keywords:["paper","scroll"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📄",description:"page facing up",version:"0.6",keywords:["document","facing","page","paper","up"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📰",description:"newspaper",version:"0.6",keywords:["communication","news","newspaper","paper"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"🗞️",description:"rolled-up newspaper",version:"0.7",keywords:["news","newspaper","paper","rolled","rolled-up"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"📑",description:"bookmark tabs",version:"0.6",keywords:["bookmark","mark","marker","tabs"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"🔖",description:"bookmark",version:"0.6",keywords:["bookmark","mark"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"🏷️",description:"label",version:"0.7",keywords:["label","tag"],category:"objects",group:"objects",subgroup:"book-paper"},{emoji:"💰",description:"money bag",version:"0.6",keywords:["bag","bank","bet","billion","cash","cost","dollar","gold","million","money","moneybag","paid","paying","pot","rich","win"],category:"objects",group:"objects",subgroup:"money"},{emoji:"🪙",description:"coin",version:"13.0",keywords:["coin","dollar","euro","gold","metal","money","rich","silver","treasure"],category:"objects",group:"objects",subgroup:"money"},{emoji:"💴",description:"yen banknote",version:"0.6",keywords:["bank","banknote","bill","currency","money","note","yen"],category:"objects",group:"objects",subgroup:"money"},{emoji:"💵",description:"dollar banknote",version:"0.6",keywords:["bank","banknote","bill","currency","dollar","money","note"],category:"objects",group:"objects",subgroup:"money"},{emoji:"💶",description:"euro banknote",version:"1.0",keywords:["100","bank","banknote","bill","currency","euro","money","note","rich"],category:"objects",group:"objects",subgroup:"money"},{emoji:"💷",description:"pound banknote",version:"1.0",keywords:["bank","banknote","bill","billion","cash","currency","money","note","pound","pounds"],category:"objects",group:"objects",subgroup:"money"},{emoji:"💸",description:"money with wings",version:"0.6",keywords:["bank","banknote","bill","billion","cash","dollar","fly","million","money","note","pay","wings"],category:"objects",group:"objects",subgroup:"money"},{emoji:"💳",description:"credit card",version:"0.6",keywords:["bank","card","cash","charge","credit","money","pay"],category:"objects",group:"objects",subgroup:"money"},{emoji:"🧾",description:"receipt",version:"11.0",keywords:["accounting","bookkeeping","evidence","invoice","proof","receipt"],category:"objects",group:"objects",subgroup:"money"},{emoji:"💹",description:"chart increasing with yen",version:"0.6",keywords:["bank","chart","currency","graph","growth","increasing","market","money","rise","trend","upward","yen"],category:"symbols",group:"objects",subgroup:"money"},{emoji:"✉️",description:"envelope",version:"0.6",keywords:["e-mail","email","envelope","letter"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📧",description:"e-mail",version:"0.6",keywords:["e-mail","email","letter","mail"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📨",description:"incoming envelope",version:"0.6",keywords:["delivering","e-mail","email","envelope","incoming","letter","mail","receive","sent"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📩",description:"envelope with arrow",version:"0.6",keywords:["arrow","communication","down","e-mail","email","envelope","letter","mail","outgoing","send","sent"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📤",description:"outbox tray",version:"0.6",keywords:["box","email","letter","mail","outbox","sent","tray"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📥",description:"inbox tray",version:"0.6",keywords:["box","email","inbox","letter","mail","receive","tray","zero"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📦",description:"package",version:"0.6",keywords:["box","communication","delivery","package","parcel","shipping"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📫",description:"closed mailbox with raised flag",version:"0.6",keywords:["closed","communication","flag","mail","mailbox","postbox","raised"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📪",description:"closed mailbox with lowered flag",version:"0.6",keywords:["closed","flag","lowered","mail","mailbox","postbox"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📬",description:"open mailbox with raised flag",version:"0.7",keywords:["flag","mail","mailbox","open","postbox","raised"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📭",description:"open mailbox with lowered flag",version:"0.7",keywords:["flag","lowered","mail","mailbox","open","postbox"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"📮",description:"postbox",version:"0.6",keywords:["mail","mailbox","postbox"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"🗳️",description:"ballot box with ballot",version:"0.7",keywords:["ballot","box"],category:"objects",group:"objects",subgroup:"mail"},{emoji:"✏️",description:"pencil",version:"0.6",keywords:["pencil"],category:"objects",group:"objects",subgroup:"writing"},{emoji:"✒️",description:"black nib",version:"0.6",keywords:["black","nib","pen"],category:"objects",group:"objects",subgroup:"writing"},{emoji:"🖋️",description:"fountain pen",version:"0.7",keywords:["fountain","pen"],category:"objects",group:"objects",subgroup:"writing"},{emoji:"🖊️",description:"pen",version:"0.7",keywords:["ballpoint","pen"],category:"objects",group:"objects",subgroup:"writing"},{emoji:"🖌️",description:"paintbrush",version:"0.7",keywords:["paintbrush","painting"],category:"objects",group:"objects",subgroup:"writing"},{emoji:"🖍️",description:"crayon",version:"0.7",keywords:["crayon"],category:"objects",group:"objects",subgroup:"writing"},{emoji:"📝",description:"memo",version:"0.6",keywords:["communication","media","memo","notes","pencil"],category:"objects",group:"objects",subgroup:"writing"},{emoji:"💼",description:"briefcase",version:"0.6",keywords:["briefcase","office"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📁",description:"file folder",version:"0.6",keywords:["file","folder"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📂",description:"open file folder",version:"0.6",keywords:["file","folder","open"],category:"objects",group:"objects",subgroup:"office"},{emoji:"🗂️",description:"card index dividers",version:"0.7",keywords:["card","dividers","index"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📅",description:"calendar",version:"0.6",keywords:["calendar","date"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📆",description:"tear-off calendar",version:"0.6",keywords:["calendar","tear-off"],category:"objects",group:"objects",subgroup:"office"},{emoji:"🗒️",description:"spiral notepad",version:"0.7",keywords:["note","notepad","pad","spiral"],category:"objects",group:"objects",subgroup:"office"},{emoji:"🗓️",description:"spiral calendar",version:"0.7",keywords:["calendar","pad","spiral"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📇",description:"card index",version:"0.6",keywords:["card","index","old","rolodex","school"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📈",description:"chart increasing",version:"0.6",keywords:["chart","data","graph","growth","increasing","right","trend","up","upward"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📉",description:"chart decreasing",version:"0.6",keywords:["chart","data","decreasing","down","downward","graph","negative","trend"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📊",description:"bar chart",version:"0.6",keywords:["bar","chart","data","graph"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📋",description:"clipboard",version:"0.6",keywords:["clipboard","do","list","notes"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📌",description:"pushpin",version:"0.6",keywords:["collage","pin","pushpin"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📍",description:"round pushpin",version:"0.6",keywords:["location","map","pin","pushpin","round"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📎",description:"paperclip",version:"0.6",keywords:["paperclip"],category:"objects",group:"objects",subgroup:"office"},{emoji:"🖇️",description:"linked paperclips",version:"0.7",keywords:["link","linked","paperclip","paperclips"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📏",description:"straight ruler",version:"0.6",keywords:["angle","edge","math","ruler","straight","straightedge"],category:"objects",group:"objects",subgroup:"office"},{emoji:"📐",description:"triangular ruler",version:"0.6",keywords:["angle","math","rule","ruler","set","slide","triangle","triangular"],category:"objects",group:"objects",subgroup:"office"},{emoji:"✂️",description:"scissors",version:"0.6",keywords:["cut","cutting","paper","scissors","tool"],category:"objects",group:"objects",subgroup:"office"},{emoji:"🗃️",description:"card file box",version:"0.7",keywords:["box","card","file"],category:"objects",group:"objects",subgroup:"office"},{emoji:"🗄️",description:"file cabinet",version:"0.7",keywords:["cabinet","file","filing","paper"],category:"objects",group:"objects",subgroup:"office"},{emoji:"🗑️",description:"wastebasket",version:"0.7",keywords:["can","garbage","trash","waste","wastebasket"],category:"objects",group:"objects",subgroup:"office"},{emoji:"🔒",description:"locked",version:"0.6",keywords:["closed","lock","locked","private"],category:"objects",group:"objects",subgroup:"lock"},{emoji:"🔓",description:"unlocked",version:"0.6",keywords:["cracked","lock","open","unlock","unlocked"],category:"objects",group:"objects",subgroup:"lock"},{emoji:"🔏",description:"locked with pen",version:"0.6",keywords:["ink","lock","locked","nib","pen","privacy"],category:"objects",group:"objects",subgroup:"lock"},{emoji:"🔐",description:"locked with key",version:"0.6",keywords:["bike","closed","key","lock","locked","secure"],category:"objects",group:"objects",subgroup:"lock"},{emoji:"🔑",description:"key",version:"0.6",keywords:["key","keys","lock","major","password","unlock"],category:"objects",group:"objects",subgroup:"lock"},{emoji:"🗝️",description:"old key",version:"0.7",keywords:["clue","key","lock","old"],category:"objects",group:"objects",subgroup:"lock"},{emoji:"🔨",description:"hammer",version:"0.6",keywords:["hammer","home","improvement","repairs","tool"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🪓",description:"axe",version:"12.0",keywords:["ax","axe","chop","hatchet","split","wood"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"⛏️",description:"pick",version:"0.7",keywords:["hammer","mining","pick","tool"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"⚒️",description:"hammer and pick",version:"1.0",keywords:["hammer","pick","tool"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🛠️",description:"hammer and wrench",version:"0.7",keywords:["hammer","spanner","tool","wrench"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🗡️",description:"dagger",version:"0.7",keywords:["dagger","knife","weapon"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"⚔️",description:"crossed swords",version:"1.0",keywords:["crossed","swords","weapon"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"💣",description:"bomb",version:"0.6",keywords:["bomb","boom","comic","dangerous","explosion","hot"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🪃",description:"boomerang",version:"13.0",keywords:["boomerang","rebound","repercussion","weapon"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🏹",description:"bow and arrow",version:"1.0",keywords:["archer","archery","arrow","bow","Sagittarius","tool","weapon","zodiac"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🛡️",description:"shield",version:"0.7",keywords:["shield","weapon"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🪚",description:"carpentry saw",version:"13.0",keywords:["carpenter","carpentry","cut","lumber","saw","tool","trim"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🔧",description:"wrench",version:"0.6",keywords:["home","improvement","spanner","tool","wrench"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🪛",description:"screwdriver",version:"13.0",keywords:["flathead","handy","screw","screwdriver","tool"],category:"activities-events",group:"objects",subgroup:"tool"},{emoji:"🔩",description:"nut and bolt",version:"0.6",keywords:["bolt","home","improvement","nut","tool"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"⚙️",description:"gear",version:"1.0",keywords:["cog","cogwheel","gear","tool"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🗜️",description:"clamp",version:"0.7",keywords:["clamp","compress","tool","vice"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"⚖️",description:"balance scale",version:"1.0",keywords:["balance","justice","Libra","scale","scales","tool","weight","zodiac"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🦯",description:"white cane",version:"12.0",keywords:["accessibility","blind","cane","probing","white"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🔗",description:"link",version:"0.6",keywords:["link","links"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"⛓️‍💥",description:"broken chain",version:"15.1",keywords:["break","breaking","broken","chain","cuffs","freedom"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"⛓️",description:"chains",version:"0.7",keywords:["chain","chains"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🪝",description:"hook",version:"13.0",keywords:["catch","crook","curve","ensnare","hook","point","selling"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🧰",description:"toolbox",version:"11.0",keywords:["box","chest","mechanic","red","tool","toolbox"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🧲",description:"magnet",version:"11.0",keywords:["attraction","horseshoe","magnet","magnetic","negative","positive","shape","u"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🪜",description:"ladder",version:"13.0",keywords:["climb","ladder","rung","step"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"🪏",description:"shovel",version:"16.0",keywords:["bury","dig","garden","hole","plant","scoop","shovel","snow","spade"],category:"objects",group:"objects",subgroup:"tool"},{emoji:"⚗️",description:"alembic",version:"1.0",keywords:["alembic","chemistry","tool"],category:"objects",group:"objects",subgroup:"science"},{emoji:"🧪",description:"test tube",version:"11.0",keywords:["chemist","chemistry","experiment","lab","science","test","tube"],category:"objects",group:"objects",subgroup:"science"},{emoji:"🧫",description:"petri dish",version:"11.0",keywords:["bacteria","biologist","biology","culture","dish","lab","petri"],category:"objects",group:"objects",subgroup:"science"},{emoji:"🧬",description:"dna",version:"11.0",keywords:["biologist","dna","evolution","gene","genetics","life"],category:"objects",group:"objects",subgroup:"science"},{emoji:"🔬",description:"microscope",version:"1.0",keywords:["experiment","lab","microscope","science","tool"],category:"objects",group:"objects",subgroup:"science"},{emoji:"🔭",description:"telescope",version:"1.0",keywords:["contact","extraterrestrial","science","telescope","tool"],category:"objects",group:"objects",subgroup:"science"},{emoji:"📡",description:"satellite antenna",version:"0.6",keywords:["aliens","antenna","contact","dish","satellite","science"],category:"objects",group:"objects",subgroup:"science"},{emoji:"💉",description:"syringe",version:"0.6",keywords:["doctor","flu","medicine","needle","shot","sick","syringe","tool","vaccination"],category:"objects",group:"objects",subgroup:"medical"},{emoji:"🩸",description:"drop of blood",version:"12.0",keywords:["bleed","blood","donation","drop","injury","medicine","menstruation"],category:"objects",group:"objects",subgroup:"medical"},{emoji:"💊",description:"pill",version:"0.6",keywords:["doctor","drugs","medicated","medicine","pill","pills","sick","vitamin"],category:"objects",group:"objects",subgroup:"medical"},{emoji:"🩹",description:"adhesive bandage",version:"12.0",keywords:["adhesive","bandage"],category:"objects",group:"objects",subgroup:"medical"},{emoji:"🩼",description:"crutch",version:"14.0",keywords:["aid","cane","crutch","disability","help","hurt","injured","mobility","stick"],category:"objects",group:"objects",subgroup:"medical"},{emoji:"🩺",description:"stethoscope",version:"12.0",keywords:["doctor","heart","medicine","stethoscope"],category:"objects",group:"objects",subgroup:"medical"},{emoji:"🩻",description:"x-ray",version:"14.0",keywords:["bones","doctor","medical","skeleton","skull","x-ray","xray"],category:"objects",group:"objects",subgroup:"medical"},{emoji:"🚪",description:"door",version:"0.6",keywords:["back","closet","door","front"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🛗",description:"elevator",version:"13.0",keywords:["accessibility","elevator","hoist","lift"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🪞",description:"mirror",version:"13.0",keywords:["makeup","mirror","reflection","reflector","speculum"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🪟",description:"window",version:"13.0",keywords:["air","frame","fresh","opening","transparent","view","window"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🛏️",description:"bed",version:"0.7",keywords:["bed","hotel","sleep"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🛋️",description:"couch and lamp",version:"0.7",keywords:["couch","hotel","lamp"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🪑",description:"chair",version:"12.0",keywords:["chair","seat","sit"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🚽",description:"toilet",version:"0.6",keywords:["bathroom","toilet"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🪠",description:"plunger",version:"13.0",keywords:["cup","force","plumber","plunger","poop","suction","toilet"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🚿",description:"shower",version:"1.0",keywords:["shower","water"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🛁",description:"bathtub",version:"1.0",keywords:["bath","bathtub"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🪤",description:"mouse trap",version:"13.0",keywords:["bait","cheese","lure","mouse","mousetrap","snare","trap"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🪒",description:"razor",version:"12.0",keywords:["razor","sharp","shave"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🧴",description:"lotion bottle",version:"11.0",keywords:["bottle","lotion","moisturizer","shampoo","sunscreen"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🧷",description:"safety pin",version:"11.0",keywords:["diaper","pin","punk","rock","safety"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🧹",description:"broom",version:"11.0",keywords:["broom","cleaning","sweeping","witch"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🧺",description:"basket",version:"11.0",keywords:["basket","farming","laundry","picnic"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🧻",description:"roll of paper",version:"11.0",keywords:["paper","roll","toilet","towels"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🪣",description:"bucket",version:"13.0",keywords:["bucket","cask","pail","vat"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🧼",description:"soap",version:"11.0",keywords:["bar","bathing","clean","cleaning","lather","soap","soapdish"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🫧",description:"bubbles",version:"14.0",keywords:["bubble","bubbles","burp","clean","floating","pearl","soap","underwater"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🪥",description:"toothbrush",version:"13.0",keywords:["bathroom","brush","clean","dental","hygiene","teeth","toiletry","toothbrush"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🧽",description:"sponge",version:"11.0",keywords:["absorbing","cleaning","porous","soak","sponge"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🧯",description:"fire extinguisher",version:"11.0",keywords:["extinguish","extinguisher","fire","quench"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🛒",description:"shopping cart",version:"3.0",keywords:["cart","shopping","trolley"],category:"objects",group:"objects",subgroup:"household"},{emoji:"🚬",description:"cigarette",version:"0.6",keywords:["cigarette","smoking"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"⚰️",description:"coffin",version:"1.0",keywords:["coffin","dead","death","vampire"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"🪦",description:"headstone",version:"13.0",keywords:["cemetery","dead","grave","graveyard","headstone","memorial","rip","tomb","tombstone"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"⚱️",description:"funeral urn",version:"1.0",keywords:["ashes","death","funeral","urn"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"🧿",description:"nazar amulet",version:"11.0",keywords:["amulet","bead","blue","charm","evil-eye","nazar","talisman"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"🪬",description:"hamsa",version:"14.0",keywords:["amulet","Fatima","fortune","guide","hamsa","hand","Mary","Miriam","palm","protect","protection"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"🗿",description:"moai",version:"0.6",keywords:["face","moai","moyai","statue","stoneface","travel"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"🪧",description:"placard",version:"13.0",keywords:["card","demonstration","notice","picket","placard","plaque","protest","sign"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"🪪",description:"identification card",version:"14.0",keywords:["card","credentials","document","ID","identification","license","security"],category:"objects",group:"objects",subgroup:"other-object"},{emoji:"🏧",description:"ATM sign",version:"0.6",keywords:["ATM","automated","bank","cash","money","sign","teller"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🚮",description:"litter in bin sign",version:"1.0",keywords:["bin","litter","litterbin","sign"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🚰",description:"potable water",version:"1.0",keywords:["drinking","potable","water"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"♿",description:"wheelchair symbol",version:"0.6",keywords:["access","handicap","symbol","wheelchair"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🚹",description:"men’s room",version:"0.6",keywords:["bathroom","lavatory","man","men’s","restroom","room","toilet","WC"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🚺",description:"women’s room",version:"0.6",keywords:["bathroom","lavatory","restroom","room","toilet","WC","woman","women’s"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🚻",description:"restroom",version:"0.6",keywords:["bathroom","lavatory","restroom","toilet","WC"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🚼",description:"baby symbol",version:"0.6",keywords:["baby","changing","symbol"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🚾",description:"water closet",version:"0.6",keywords:["bathroom","closet","lavatory","restroom","toilet","water","WC"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🛂",description:"passport control",version:"1.0",keywords:["control","passport"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🛃",description:"customs",version:"1.0",keywords:["customs","packing"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🛄",description:"baggage claim",version:"1.0",keywords:["arrived","baggage","bags","case","checked","claim","journey","packing","plane","ready","travel","trip"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"🛅",description:"left luggage",version:"1.0",keywords:["baggage","case","left","locker","luggage"],category:"symbols",group:"symbols",subgroup:"transport-sign"},{emoji:"⚠️",description:"warning",version:"0.6",keywords:["caution","warning"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"🚸",description:"children crossing",version:"1.0",keywords:["child","children","crossing","pedestrian","traffic"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"⛔",description:"no entry",version:"0.6",keywords:["do","entry","fail","forbidden","no","not","pass","prohibited","traffic"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"🚫",description:"prohibited",version:"0.6",keywords:["entry","forbidden","no","not","prohibited","smoke"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"🚳",description:"no bicycles",version:"1.0",keywords:["bicycle","bicycles","bike","forbidden","no","not","prohibited"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"🚭",description:"no smoking",version:"0.6",keywords:["forbidden","no","not","prohibited","smoke","smoking"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"🚯",description:"no littering",version:"1.0",keywords:["forbidden","litter","littering","no","not","prohibited"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"🚱",description:"non-potable water",version:"1.0",keywords:["dry","non-drinking","non-potable","prohibited","water"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"🚷",description:"no pedestrians",version:"1.0",keywords:["forbidden","no","not","pedestrian","pedestrians","prohibited"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"📵",description:"no mobile phones",version:"1.0",keywords:["cell","forbidden","mobile","no","not","phone","phones","prohibited","telephone"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"🔞",description:"no one under eighteen",version:"0.6",keywords:["18","age","eighteen","forbidden","no","not","one","prohibited","restriction","underage"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"☢️",description:"radioactive",version:"1.0",keywords:["radioactive","sign"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"☣️",description:"biohazard",version:"1.0",keywords:["biohazard","sign"],category:"symbols",group:"symbols",subgroup:"warning"},{emoji:"⬆️",description:"up arrow",version:"0.6",keywords:["arrow","cardinal","direction","north","up"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"↗️",description:"up-right arrow",version:"0.6",keywords:["arrow","direction","intercardinal","northeast","up-right"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"➡️",description:"right arrow",version:"0.6",keywords:["arrow","cardinal","direction","east","right"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"↘️",description:"down-right arrow",version:"0.6",keywords:["arrow","direction","down-right","intercardinal","southeast"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"⬇️",description:"down arrow",version:"0.6",keywords:["arrow","cardinal","direction","down","south"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"↙️",description:"down-left arrow",version:"0.6",keywords:["arrow","direction","down-left","intercardinal","southwest"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"⬅️",description:"left arrow",version:"0.6",keywords:["arrow","cardinal","direction","left","west"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"↖️",description:"up-left arrow",version:"0.6",keywords:["arrow","direction","intercardinal","northwest","up-left"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"↕️",description:"up-down arrow",version:"0.6",keywords:["arrow","up-down"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"↔️",description:"left-right arrow",version:"0.6",keywords:["arrow","left-right"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"↩️",description:"right arrow curving left",version:"0.6",keywords:["arrow","curving","left","right"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"↪️",description:"left arrow curving right",version:"0.6",keywords:["arrow","curving","left","right"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"⤴️",description:"right arrow curving up",version:"0.6",keywords:["arrow","curving","right","up"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"⤵️",description:"right arrow curving down",version:"0.6",keywords:["arrow","curving","down","right"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"🔃",description:"clockwise vertical arrows",version:"0.6",keywords:["arrow","arrows","clockwise","refresh","reload","vertical"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"🔄",description:"counterclockwise arrows button",version:"1.0",keywords:["again","anticlockwise","arrow","arrows","button","counterclockwise","deja","refresh","rewindershins","vu"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"🔙",description:"BACK arrow",version:"0.6",keywords:["arrow","BACK"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"🔚",description:"END arrow",version:"0.6",keywords:["arrow","END"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"🔛",description:"ON! arrow",version:"0.6",keywords:["arrow","mark","ON!"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"🔜",description:"SOON arrow",version:"0.6",keywords:["arrow","brb","omw","SOON"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"🔝",description:"TOP arrow",version:"0.6",keywords:["arrow","homie","TOP","up"],category:"symbols",group:"symbols",subgroup:"arrow"},{emoji:"🛐",description:"place of worship",version:"1.0",keywords:["place","pray","religion","worship"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"⚛️",description:"atom symbol",version:"1.0",keywords:["atheist","atom","symbol"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"🕉️",description:"om",version:"0.7",keywords:["Hindu","om","religion"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"✡️",description:"star of David",version:"0.7",keywords:["David","Jew","Jewish","judaism","religion","star"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"☸️",description:"wheel of dharma",version:"0.7",keywords:["Buddhist","dharma","religion","wheel"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"☯️",description:"yin yang",version:"0.7",keywords:["difficult","lives","religion","tao","taoist","total","yang","yin","yinyang"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"✝️",description:"latin cross",version:"0.7",keywords:["christ","Christian","cross","latin","religion"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"☦️",description:"orthodox cross",version:"1.0",keywords:["Christian","cross","orthodox","religion"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"☪️",description:"star and crescent",version:"0.7",keywords:["crescent","islam","Muslim","ramadan","religion","star"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"☮️",description:"peace symbol",version:"1.0",keywords:["healing","peace","peaceful","symbol"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"🕎",description:"menorah",version:"1.0",keywords:["candelabrum","candlestick","hanukkah","jewish","judaism","menorah","religion"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"🔯",description:"dotted six-pointed star",version:"0.6",keywords:["dotted","fortune","jewish","judaism","six-pointed","star"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"🪯",description:"khanda",version:"15.0",keywords:["Deg","Fateh","Khalsa","Khanda","religion","Sikh","Sikhism","Tegh"],category:"symbols",group:"symbols",subgroup:"religion"},{emoji:"♈",description:"Aries",version:"0.6",keywords:["Aries","horoscope","ram","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♉",description:"Taurus",version:"0.6",keywords:["bull","horoscope","ox","Taurus","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♊",description:"Gemini",version:"0.6",keywords:["Gemini","horoscope","twins","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♋",description:"Cancer",version:"0.6",keywords:["Cancer","crab","horoscope","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♌",description:"Leo",version:"0.6",keywords:["horoscope","Leo","lion","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♍",description:"Virgo",version:"0.6",keywords:["horoscope","Virgo","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♎",description:"Libra",version:"0.6",keywords:["balance","horoscope","justice","Libra","scales","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♏",description:"Scorpio",version:"0.6",keywords:["horoscope","Scorpio","scorpion","Scorpius","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♐",description:"Sagittarius",version:"0.6",keywords:["archer","horoscope","Sagittarius","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♑",description:"Capricorn",version:"0.6",keywords:["Capricorn","goat","horoscope","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♒",description:"Aquarius",version:"0.6",keywords:["Aquarius","bearer","horoscope","water","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"♓",description:"Pisces",version:"0.6",keywords:["fish","horoscope","Pisces","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"⛎",description:"Ophiuchus",version:"0.6",keywords:["bearer","Ophiuchus","serpent","snake","zodiac"],category:"symbols",group:"symbols",subgroup:"zodiac"},{emoji:"🔀",description:"shuffle tracks button",version:"1.0",keywords:["arrow","button","crossed","shuffle","tracks"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"🔁",description:"repeat button",version:"1.0",keywords:["arrow","button","clockwise","repeat"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"🔂",description:"repeat single button",version:"1.0",keywords:["arrow","button","clockwise","once","repeat","single"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"▶️",description:"play button",version:"0.6",keywords:["arrow","button","play","right","triangle"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏩",description:"fast-forward button",version:"0.6",keywords:["arrow","button","double","fast","fast-forward","forward"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏭️",description:"next track button",version:"0.7",keywords:["arrow","button","next","scene","track","triangle"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏯️",description:"play or pause button",version:"1.0",keywords:["arrow","button","pause","play","right","triangle"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"◀️",description:"reverse button",version:"0.6",keywords:["arrow","button","left","reverse","triangle"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏪",description:"fast reverse button",version:"0.6",keywords:["arrow","button","double","fast","reverse","rewind"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏮️",description:"last track button",version:"0.7",keywords:["arrow","button","last","previous","scene","track","triangle"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"🔼",description:"upwards button",version:"0.6",keywords:["arrow","button","red","up","upwards"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏫",description:"fast up button",version:"0.6",keywords:["arrow","button","double","fast","up"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"🔽",description:"downwards button",version:"0.6",keywords:["arrow","button","down","downwards","red"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏬",description:"fast down button",version:"0.6",keywords:["arrow","button","double","down","fast"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏸️",description:"pause button",version:"0.7",keywords:["bar","button","double","pause","vertical"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏹️",description:"stop button",version:"0.7",keywords:["button","square","stop"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏺️",description:"record button",version:"0.7",keywords:["button","circle","record"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"⏏️",description:"eject button",version:"1.0",keywords:["button","eject"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"🎦",description:"cinema",version:"0.6",keywords:["camera","cinema","film","movie"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"🔅",description:"dim button",version:"1.0",keywords:["brightness","button","dim","low"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"🔆",description:"bright button",version:"1.0",keywords:["bright","brightness","button","light"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"📶",description:"antenna bars",version:"0.6",keywords:["antenna","bar","bars","cell","communication","mobile","phone","signal","telephone"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"🛜",description:"wireless",version:"15.0",keywords:["broadband","computer","connectivity","hotspot","internet","network","router","smartphone","wi-fi","wifi","wireless","wlan"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"📳",description:"vibration mode",version:"0.6",keywords:["cell","communication","mobile","mode","phone","telephone","vibration"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"📴",description:"mobile phone off",version:"0.6",keywords:["cell","mobile","off","phone","telephone"],category:"symbols",group:"symbols",subgroup:"av-symbol"},{emoji:"♀️",description:"female sign",version:"4.0",keywords:["female","sign","woman"],category:"symbols",group:"symbols",subgroup:"gender"},{emoji:"♂️",description:"male sign",version:"4.0",keywords:["male","man","sign"],category:"symbols",group:"symbols",subgroup:"gender"},{emoji:"⚧️",description:"transgender symbol",version:"13.0",keywords:["symbol","transgender"],category:"symbols",group:"symbols",subgroup:"gender"},{emoji:"✖️",description:"multiply",version:"0.6",keywords:["×","cancel","multiplication","multiply","sign","x"],category:"symbols",group:"symbols",subgroup:"math"},{emoji:"➕",description:"plus",version:"0.6",keywords:["+","plus"],category:"symbols",group:"symbols",subgroup:"math"},{emoji:"➖",description:"minus",version:"0.6",keywords:["-","−","heavy","math","minus","sign"],category:"symbols",group:"symbols",subgroup:"math"},{emoji:"➗",description:"divide",version:"0.6",keywords:["÷","divide","division","heavy","math","sign"],category:"symbols",group:"symbols",subgroup:"math"},{emoji:"🟰",description:"heavy equals sign",version:"14.0",keywords:["answer","equal","equality","equals","heavy","math","sign"],category:"symbols",group:"symbols",subgroup:"math"},{emoji:"♾️",description:"infinity",version:"11.0",keywords:["forever","infinity","unbounded","universal"],category:"symbols",group:"symbols",subgroup:"math"},{emoji:"‼️",description:"double exclamation mark",version:"0.6",keywords:["!","!!","bangbang","double","exclamation","mark","punctuation"],category:"symbols",group:"symbols",subgroup:"punctuation"},{emoji:"⁉️",description:"exclamation question mark",version:"0.6",keywords:["!","!?","?","exclamation","interrobang","mark","punctuation","question"],category:"symbols",group:"symbols",subgroup:"punctuation"},{emoji:"❓",description:"red question mark",version:"0.6",keywords:["?","mark","punctuation","question","red"],category:"symbols",group:"symbols",subgroup:"punctuation"},{emoji:"❔",description:"white question mark",version:"0.6",keywords:["?","mark","outlined","punctuation","question","white"],category:"symbols",group:"symbols",subgroup:"punctuation"},{emoji:"❕",description:"white exclamation mark",version:"0.6",keywords:["!","exclamation","mark","outlined","punctuation","white"],category:"symbols",group:"symbols",subgroup:"punctuation"},{emoji:"❗",description:"red exclamation mark",version:"0.6",keywords:["!","exclamation","mark","punctuation","red"],category:"symbols",group:"symbols",subgroup:"punctuation"},{emoji:"〰️",description:"wavy dash",version:"0.6",keywords:["dash","punctuation","wavy"],category:"symbols",group:"symbols",subgroup:"punctuation"},{emoji:"💱",description:"currency exchange",version:"0.6",keywords:["bank","currency","exchange","money"],category:"symbols",group:"symbols",subgroup:"currency"},{emoji:"💲",description:"heavy dollar sign",version:"0.6",keywords:["billion","cash","charge","currency","dollar","heavy","million","money","pay","sign"],category:"symbols",group:"symbols",subgroup:"currency"},{emoji:"⚕️",description:"medical symbol",version:"4.0",keywords:["aesculapius","medical","medicine","staff","symbol"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"♻️",description:"recycling symbol",version:"0.6",keywords:["recycle","recycling","symbol"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"⚜️",description:"fleur-de-lis",version:"1.0",keywords:["fleur-de-lis","knights"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"🔱",description:"trident emblem",version:"0.6",keywords:["anchor","emblem","poseidon","ship","tool","trident"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"📛",description:"name badge",version:"0.6",keywords:["badge","name"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"🔰",description:"Japanese symbol for beginner",version:"0.6",keywords:["beginner","chevron","green","Japanese","leaf","symbol","tool","yellow"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"⭕",description:"hollow red circle",version:"0.6",keywords:["circle","heavy","hollow","large","o","red"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"✅",description:"check mark button",version:"0.6",keywords:["✓","button","check","checked","checkmark","complete","completed","done","fixed","mark","tick"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"☑️",description:"check box with check",version:"0.6",keywords:["✓","ballot","box","check","checked","done","off","tick"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"✔️",description:"check mark",version:"0.6",keywords:["✓","check","checked","checkmark","done","heavy","mark","tick"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"❌",description:"cross mark",version:"0.6",keywords:["×","cancel","cross","mark","multiplication","multiply","x"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"❎",description:"cross mark button",version:"0.6",keywords:["×","button","cross","mark","multiplication","multiply","square","x"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"➰",description:"curly loop",version:"0.6",keywords:["curl","curly","loop"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"➿",description:"double curly loop",version:"1.0",keywords:["curl","curly","double","loop"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"〽️",description:"part alternation mark",version:"0.6",keywords:["alternation","mark","part"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"✳️",description:"eight-spoked asterisk",version:"0.6",keywords:["*","asterisk","eight-spoked"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"✴️",description:"eight-pointed star",version:"0.6",keywords:["*","eight-pointed","star"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"❇️",description:"sparkle",version:"0.6",keywords:["*","sparkle"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"©️",description:"copyright",version:"0.6",keywords:["C","copyright"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"®️",description:"registered",version:"0.6",keywords:["R","registered"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"™️",description:"trade mark",version:"0.6",keywords:["mark","TM","trade","trademark"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"🫟",description:"splatter",version:"16.0",keywords:["drip","holi","ink","liquid","mess","paint","spill","splatter","stain"],category:"symbols",group:"symbols",subgroup:"other-symbol"},{emoji:"#️⃣",description:"keycap: #",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"*️⃣",description:"keycap: *",version:"2.0",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"0️⃣",description:"keycap: 0",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"1️⃣",description:"keycap: 1",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"2️⃣",description:"keycap: 2",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"3️⃣",description:"keycap: 3",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"4️⃣",description:"keycap: 4",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"5️⃣",description:"keycap: 5",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"6️⃣",description:"keycap: 6",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"7️⃣",description:"keycap: 7",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"8️⃣",description:"keycap: 8",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"9️⃣",description:"keycap: 9",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"🔟",description:"keycap: 10",version:"0.6",keywords:["keycap"],category:"symbols",group:"symbols",subgroup:"keycap"},{emoji:"🔠",description:"input latin uppercase",version:"0.6",keywords:["ABCD","input","latin","letters","uppercase"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🔡",description:"input latin lowercase",version:"0.6",keywords:["abcd","input","latin","letters","lowercase"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🔢",description:"input numbers",version:"0.6",keywords:["1234","input","numbers"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🔣",description:"input symbols",version:"0.6",keywords:["&","%","♪","〒","input","symbols"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🔤",description:"input latin letters",version:"0.6",keywords:["abc","alphabet","input","latin","letters"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🅰️",description:"A button (blood type)",version:"0.6",keywords:["blood","button","type"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆎",description:"AB button (blood type)",version:"0.6",keywords:["AB","blood","button","type"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🅱️",description:"B button (blood type)",version:"0.6",keywords:["B","blood","button","type"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆑",description:"CL button",version:"0.6",keywords:["button","CL"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆒",description:"COOL button",version:"0.6",keywords:["button","COOL"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆓",description:"FREE button",version:"0.6",keywords:["button","FREE"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"ℹ️",description:"information",version:"0.6",keywords:["I","information"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆔",description:"ID button",version:"0.6",keywords:["button","ID","identity"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"Ⓜ️",description:"circled M",version:"0.6",keywords:["circle","circled","M"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆕",description:"NEW button",version:"0.6",keywords:["button","NEW"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆖",description:"NG button",version:"0.6",keywords:["button","NG"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🅾️",description:"O button (blood type)",version:"0.6",keywords:["blood","button","O","type"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆗",description:"OK button",version:"0.6",keywords:["button","OK","okay"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🅿️",description:"P button",version:"0.6",keywords:["button","P","parking"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆘",description:"SOS button",version:"0.6",keywords:["button","help","SOS"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆙",description:"UP! button",version:"0.6",keywords:["button","mark","UP","UP!"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🆚",description:"VS button",version:"0.6",keywords:["button","versus","VS"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈁",description:"Japanese “here” button",version:"0.6",keywords:["button","here","Japanese","katakana"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈂️",description:"Japanese “service charge” button",version:"0.6",keywords:["button","charge","Japanese","katakana","service"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈷️",description:"Japanese “monthly amount” button",version:"0.6",keywords:["amount","button","ideograph","Japanese","monthly"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈶",description:"Japanese “not free of charge” button",version:"0.6",keywords:["button","charge","free","ideograph","Japanese","not"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈯",description:"Japanese “reserved” button",version:"0.6",keywords:["button","ideograph","Japanese","reserved"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🉐",description:"Japanese “bargain” button",version:"0.6",keywords:["bargain","button","ideograph","Japanese"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈹",description:"Japanese “discount” button",version:"0.6",keywords:["button","discount","ideograph","Japanese"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈚",description:"Japanese “free of charge” button",version:"0.6",keywords:["button","charge","free","ideograph","Japanese"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈲",description:"Japanese “prohibited” button",version:"0.6",keywords:["button","ideograph","Japanese","prohibited"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🉑",description:"Japanese “acceptable” button",version:"0.6",keywords:["acceptable","button","ideograph","Japanese"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈸",description:"Japanese “application” button",version:"0.6",keywords:["application","button","ideograph","Japanese"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈴",description:"Japanese “passing grade” button",version:"0.6",keywords:["button","grade","ideograph","Japanese","passing"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈳",description:"Japanese “vacancy” button",version:"0.6",keywords:["button","ideograph","Japanese","vacancy"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"㊗️",description:"Japanese “congratulations” button",version:"0.6",keywords:["button","congratulations","ideograph","Japanese"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"㊙️",description:"Japanese “secret” button",version:"0.6",keywords:["button","ideograph","Japanese","secret"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈺",description:"Japanese “open for business” button",version:"0.6",keywords:["business","button","ideograph","Japanese","open"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🈵",description:"Japanese “no vacancy” button",version:"0.6",keywords:["button","ideograph","Japanese","no","vacancy"],category:"symbols",group:"symbols",subgroup:"alphanum"},{emoji:"🔴",description:"red circle",version:"0.6",keywords:["circle","geometric","red"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟠",description:"orange circle",version:"12.0",keywords:["circle","orange"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟡",description:"yellow circle",version:"12.0",keywords:["circle","yellow"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟢",description:"green circle",version:"12.0",keywords:["circle","green"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔵",description:"blue circle",version:"0.6",keywords:["blue","circle","geometric"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟣",description:"purple circle",version:"12.0",keywords:["circle","purple"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟤",description:"brown circle",version:"12.0",keywords:["brown","circle"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"⚫",description:"black circle",version:"0.6",keywords:["black","circle","geometric"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"⚪",description:"white circle",version:"0.6",keywords:["circle","geometric","white"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟥",description:"red square",version:"12.0",keywords:["card","penalty","red","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟧",description:"orange square",version:"12.0",keywords:["orange","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟨",description:"yellow square",version:"12.0",keywords:["card","penalty","square","yellow"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟩",description:"green square",version:"12.0",keywords:["green","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟦",description:"blue square",version:"12.0",keywords:["blue","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟪",description:"purple square",version:"12.0",keywords:["purple","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🟫",description:"brown square",version:"12.0",keywords:["brown","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"⬛",description:"black large square",version:"0.6",keywords:["black","geometric","large","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"⬜",description:"white large square",version:"0.6",keywords:["geometric","large","square","white"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"◼️",description:"black medium square",version:"0.6",keywords:["black","geometric","medium","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"◻️",description:"white medium square",version:"0.6",keywords:["geometric","medium","square","white"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"◾",description:"black medium-small square",version:"0.6",keywords:["black","geometric","medium-small","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"◽",description:"white medium-small square",version:"0.6",keywords:["geometric","medium-small","square","white"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"▪️",description:"black small square",version:"0.6",keywords:["black","geometric","small","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"▫️",description:"white small square",version:"0.6",keywords:["geometric","small","square","white"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔶",description:"large orange diamond",version:"0.6",keywords:["diamond","geometric","large","orange"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔷",description:"large blue diamond",version:"0.6",keywords:["blue","diamond","geometric","large"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔸",description:"small orange diamond",version:"0.6",keywords:["diamond","geometric","orange","small"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔹",description:"small blue diamond",version:"0.6",keywords:["blue","diamond","geometric","small"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔺",description:"red triangle pointed up",version:"0.6",keywords:["geometric","pointed","red","triangle","up"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔻",description:"red triangle pointed down",version:"0.6",keywords:["down","geometric","pointed","red","triangle"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"💠",description:"diamond with a dot",version:"0.6",keywords:["comic","diamond","dot","geometric"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔘",description:"radio button",version:"0.6",keywords:["button","geometric","radio"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔳",description:"white square button",version:"0.6",keywords:["button","geometric","outlined","square","white"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🔲",description:"black square button",version:"0.6",keywords:["black","button","geometric","square"],category:"symbols",group:"symbols",subgroup:"geometric"},{emoji:"🏁",description:"chequered flag",version:"0.6",keywords:["checkered","chequered","finish","flag","flags","game","race","racing","sport","win"],category:"flags",group:"flags",subgroup:"flag"},{emoji:"🚩",description:"triangular flag",version:"0.6",keywords:["construction","flag","golf","post","triangular"],category:"flags",group:"flags",subgroup:"flag"},{emoji:"🎌",description:"crossed flags",version:"0.6",keywords:["celebration","cross","crossed","flags","Japanese"],category:"flags",group:"flags",subgroup:"flag"},{emoji:"🏴",description:"black flag",version:"1.0",keywords:["black","flag","waving"],category:"flags",group:"flags",subgroup:"flag"},{emoji:"🏳️",description:"white flag",version:"0.7",keywords:["flag","waving","white"],category:"flags",group:"flags",subgroup:"flag"},{emoji:"🏳️‍🌈",description:"rainbow flag",version:"4.0",keywords:["bisexual","flag","gay","genderqueer","glbt","glbtq","lesbian","lgbt","lgbtq","lgbtqia","pride","queer","rainbow","trans","transgender"],category:"flags",group:"flags",subgroup:"flag"},{emoji:"🏳️‍⚧️",description:"transgender flag",version:"13.0",keywords:["blue","flag","light","pink","transgender","white"],category:"flags",group:"flags",subgroup:"flag"},{emoji:"🏴‍☠️",description:"pirate flag",version:"11.0",keywords:["flag","Jolly","pirate","plunder","Roger","treasure"],category:"flags",group:"flags",subgroup:"flag"},{emoji:"🇦🇨",description:"flag: Ascension Island",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇩",description:"flag: Andorra",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇪",description:"flag: United Arab Emirates",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇫",description:"flag: Afghanistan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇬",description:"flag: Antigua & Barbuda",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇮",description:"flag: Anguilla",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇱",description:"flag: Albania",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇲",description:"flag: Armenia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇴",description:"flag: Angola",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇶",description:"flag: Antarctica",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇷",description:"flag: Argentina",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇸",description:"flag: American Samoa",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇹",description:"flag: Austria",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇺",description:"flag: Australia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇼",description:"flag: Aruba",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇽",description:"flag: Åland Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇦🇿",description:"flag: Azerbaijan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇦",description:"flag: Bosnia & Herzegovina",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇧",description:"flag: Barbados",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇩",description:"flag: Bangladesh",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇪",description:"flag: Belgium",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇫",description:"flag: Burkina Faso",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇬",description:"flag: Bulgaria",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇭",description:"flag: Bahrain",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇮",description:"flag: Burundi",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇯",description:"flag: Benin",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇱",description:"flag: St. Barthélemy",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇲",description:"flag: Bermuda",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇳",description:"flag: Brunei",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇴",description:"flag: Bolivia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇶",description:"flag: Caribbean Netherlands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇷",description:"flag: Brazil",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇸",description:"flag: Bahamas",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇹",description:"flag: Bhutan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇻",description:"flag: Bouvet Island",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇼",description:"flag: Botswana",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇾",description:"flag: Belarus",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇧🇿",description:"flag: Belize",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇦",description:"flag: Canada",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇨",description:"flag: Cocos (Keeling) Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇩",description:"flag: Congo - Kinshasa",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇫",description:"flag: Central African Republic",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇬",description:"flag: Congo - Brazzaville",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇭",description:"flag: Switzerland",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇮",description:"flag: Côte d’Ivoire",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇰",description:"flag: Cook Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇱",description:"flag: Chile",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇲",description:"flag: Cameroon",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇳",description:"flag: China",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇴",description:"flag: Colombia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇵",description:"flag: Clipperton Island",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇶",description:"flag: Sark",version:"16.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇷",description:"flag: Costa Rica",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇺",description:"flag: Cuba",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇻",description:"flag: Cape Verde",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇼",description:"flag: Curaçao",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇽",description:"flag: Christmas Island",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇾",description:"flag: Cyprus",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇨🇿",description:"flag: Czechia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇩🇪",description:"flag: Germany",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇩🇬",description:"flag: Diego Garcia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇩🇯",description:"flag: Djibouti",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇩🇰",description:"flag: Denmark",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇩🇲",description:"flag: Dominica",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇩🇴",description:"flag: Dominican Republic",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇩🇿",description:"flag: Algeria",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇦",description:"flag: Ceuta & Melilla",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇨",description:"flag: Ecuador",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇪",description:"flag: Estonia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇬",description:"flag: Egypt",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇭",description:"flag: Western Sahara",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇷",description:"flag: Eritrea",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇸",description:"flag: Spain",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇹",description:"flag: Ethiopia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇪🇺",description:"flag: European Union",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇫🇮",description:"flag: Finland",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇫🇯",description:"flag: Fiji",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇫🇰",description:"flag: Falkland Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇫🇲",description:"flag: Micronesia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇫🇴",description:"flag: Faroe Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇫🇷",description:"flag: France",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇦",description:"flag: Gabon",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇧",description:"flag: United Kingdom",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇩",description:"flag: Grenada",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇪",description:"flag: Georgia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇫",description:"flag: French Guiana",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇬",description:"flag: Guernsey",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇭",description:"flag: Ghana",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇮",description:"flag: Gibraltar",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇱",description:"flag: Greenland",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇲",description:"flag: Gambia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇳",description:"flag: Guinea",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇵",description:"flag: Guadeloupe",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇶",description:"flag: Equatorial Guinea",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇷",description:"flag: Greece",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇸",description:"flag: South Georgia & South Sandwich Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇹",description:"flag: Guatemala",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇺",description:"flag: Guam",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇼",description:"flag: Guinea-Bissau",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇬🇾",description:"flag: Guyana",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇭🇰",description:"flag: Hong Kong SAR China",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇭🇲",description:"flag: Heard & McDonald Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇭🇳",description:"flag: Honduras",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇭🇷",description:"flag: Croatia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇭🇹",description:"flag: Haiti",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇭🇺",description:"flag: Hungary",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇨",description:"flag: Canary Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇩",description:"flag: Indonesia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇪",description:"flag: Ireland",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇱",description:"flag: Israel",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇲",description:"flag: Isle of Man",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇳",description:"flag: India",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇴",description:"flag: British Indian Ocean Territory",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇶",description:"flag: Iraq",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇷",description:"flag: Iran",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇸",description:"flag: Iceland",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇮🇹",description:"flag: Italy",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇯🇪",description:"flag: Jersey",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇯🇲",description:"flag: Jamaica",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇯🇴",description:"flag: Jordan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇯🇵",description:"flag: Japan",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇪",description:"flag: Kenya",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇬",description:"flag: Kyrgyzstan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇭",description:"flag: Cambodia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇮",description:"flag: Kiribati",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇲",description:"flag: Comoros",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇳",description:"flag: St. Kitts & Nevis",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇵",description:"flag: North Korea",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇷",description:"flag: South Korea",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇼",description:"flag: Kuwait",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇾",description:"flag: Cayman Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇰🇿",description:"flag: Kazakhstan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇦",description:"flag: Laos",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇧",description:"flag: Lebanon",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇨",description:"flag: St. Lucia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇮",description:"flag: Liechtenstein",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇰",description:"flag: Sri Lanka",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇷",description:"flag: Liberia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇸",description:"flag: Lesotho",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇹",description:"flag: Lithuania",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇺",description:"flag: Luxembourg",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇻",description:"flag: Latvia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇱🇾",description:"flag: Libya",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇦",description:"flag: Morocco",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇨",description:"flag: Monaco",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇩",description:"flag: Moldova",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇪",description:"flag: Montenegro",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇫",description:"flag: St. Martin",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇬",description:"flag: Madagascar",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇭",description:"flag: Marshall Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇰",description:"flag: North Macedonia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇱",description:"flag: Mali",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇲",description:"flag: Myanmar (Burma)",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇳",description:"flag: Mongolia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇴",description:"flag: Macao SAR China",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇵",description:"flag: Northern Mariana Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇶",description:"flag: Martinique",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇷",description:"flag: Mauritania",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇸",description:"flag: Montserrat",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇹",description:"flag: Malta",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇺",description:"flag: Mauritius",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇻",description:"flag: Maldives",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇼",description:"flag: Malawi",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇽",description:"flag: Mexico",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇾",description:"flag: Malaysia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇲🇿",description:"flag: Mozambique",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇦",description:"flag: Namibia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇨",description:"flag: New Caledonia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇪",description:"flag: Niger",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇫",description:"flag: Norfolk Island",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇬",description:"flag: Nigeria",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇮",description:"flag: Nicaragua",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇱",description:"flag: Netherlands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇴",description:"flag: Norway",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇵",description:"flag: Nepal",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇷",description:"flag: Nauru",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇺",description:"flag: Niue",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇳🇿",description:"flag: New Zealand",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇴🇲",description:"flag: Oman",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇦",description:"flag: Panama",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇪",description:"flag: Peru",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇫",description:"flag: French Polynesia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇬",description:"flag: Papua New Guinea",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇭",description:"flag: Philippines",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇰",description:"flag: Pakistan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇱",description:"flag: Poland",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇲",description:"flag: St. Pierre & Miquelon",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇳",description:"flag: Pitcairn Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇷",description:"flag: Puerto Rico",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇸",description:"flag: Palestinian Territories",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇹",description:"flag: Portugal",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇼",description:"flag: Palau",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇵🇾",description:"flag: Paraguay",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇶🇦",description:"flag: Qatar",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇷🇪",description:"flag: Réunion",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇷🇴",description:"flag: Romania",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇷🇸",description:"flag: Serbia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇷🇺",description:"flag: Russia",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇷🇼",description:"flag: Rwanda",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇦",description:"flag: Saudi Arabia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇧",description:"flag: Solomon Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇨",description:"flag: Seychelles",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇩",description:"flag: Sudan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇪",description:"flag: Sweden",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇬",description:"flag: Singapore",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇭",description:"flag: St. Helena",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇮",description:"flag: Slovenia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇯",description:"flag: Svalbard & Jan Mayen",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇰",description:"flag: Slovakia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇱",description:"flag: Sierra Leone",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇲",description:"flag: San Marino",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇳",description:"flag: Senegal",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇴",description:"flag: Somalia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇷",description:"flag: Suriname",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇸",description:"flag: South Sudan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇹",description:"flag: São Tomé & Príncipe",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇻",description:"flag: El Salvador",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇽",description:"flag: Sint Maarten",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇾",description:"flag: Syria",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇸🇿",description:"flag: Eswatini",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇦",description:"flag: Tristan da Cunha",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇨",description:"flag: Turks & Caicos Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇩",description:"flag: Chad",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇫",description:"flag: French Southern Territories",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇬",description:"flag: Togo",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇭",description:"flag: Thailand",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇯",description:"flag: Tajikistan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇰",description:"flag: Tokelau",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇱",description:"flag: Timor-Leste",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇲",description:"flag: Turkmenistan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇳",description:"flag: Tunisia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇴",description:"flag: Tonga",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇷",description:"flag: Türkiye",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇹",description:"flag: Trinidad & Tobago",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇻",description:"flag: Tuvalu",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇼",description:"flag: Taiwan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇹🇿",description:"flag: Tanzania",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇺🇦",description:"flag: Ukraine",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇺🇬",description:"flag: Uganda",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇺🇲",description:"flag: U.S. Outlying Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇺🇳",description:"flag: United Nations",version:"4.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇺🇸",description:"flag: United States",version:"0.6",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇺🇾",description:"flag: Uruguay",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇺🇿",description:"flag: Uzbekistan",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇻🇦",description:"flag: Vatican City",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇻🇨",description:"flag: St. Vincent & Grenadines",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇻🇪",description:"flag: Venezuela",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇻🇬",description:"flag: British Virgin Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇻🇮",description:"flag: U.S. Virgin Islands",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇻🇳",description:"flag: Vietnam",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇻🇺",description:"flag: Vanuatu",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇼🇫",description:"flag: Wallis & Futuna",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇼🇸",description:"flag: Samoa",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇽🇰",description:"flag: Kosovo",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇾🇪",description:"flag: Yemen",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇾🇹",description:"flag: Mayotte",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇿🇦",description:"flag: South Africa",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇿🇲",description:"flag: Zambia",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🇿🇼",description:"flag: Zimbabwe",version:"2.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"country-flag"},{emoji:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",description:"flag: England",version:"5.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"subdivision-flag"},{emoji:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",description:"flag: Scotland",version:"5.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"subdivision-flag"},{emoji:"🏴󠁧󠁢󠁷󠁬󠁳󠁿",description:"flag: Wales",version:"5.0",keywords:["flag"],category:"flags",group:"flags",subgroup:"subdivision-flag"}]};
+
+  function getEmojis(omitWhere) {
+    return UNICODE_EMOJI.emojis;
+  }
+
+  /**
+   * marked v17.0.4 - a markdown parser
+   * Copyright (c) 2018-2026, MarkedJS. (MIT License)
+   * Copyright (c) 2011-2018, Christopher Jeffrey. (MIT License)
+   * https://github.com/markedjs/marked
+   */
+
+  /**
+   * DO NOT EDIT THIS FILE
+   * The code in this file is generated from files in ./src/
+   */
+
+  function M(){return {async:false,breaks:false,extensions:null,gfm:true,hooks:null,pedantic:false,renderer:null,silent:false,tokenizer:null,walkTokens:null}}var T=M();function G(u){T=u;}var _={exec:()=>null};function k(u,e=""){let t=typeof u=="string"?u:u.source,n={replace:(r,i)=>{let s=typeof i=="string"?i:i.source;return s=s.replace(m.caret,"$1"),t=t.replace(r,s),n},getRegex:()=>new RegExp(t,e)};return n}var Re=(()=>{try{return !!new RegExp("(?<=1)(?<!1)")}catch{return  false}})(),m={codeRemoveIndent:/^(?: {1,4}| {0,3}\t)/gm,outputLinkReplace:/\\([\[\]])/g,indentCodeCompensation:/^(\s+)(?:```)/,beginningSpace:/^\s+/,endingHash:/#$/,startingSpaceChar:/^ /,endingSpaceChar:/ $/,nonSpaceChar:/[^ ]/,newLineCharGlobal:/\n/g,tabCharGlobal:/\t/g,multipleSpaceGlobal:/\s+/g,blankLine:/^[ \t]*$/,doubleBlankLine:/\n[ \t]*\n[ \t]*$/,blockquoteStart:/^ {0,3}>/,blockquoteSetextReplace:/\n {0,3}((?:=+|-+) *)(?=\n|$)/g,blockquoteSetextReplace2:/^ {0,3}>[ \t]?/gm,listReplaceNesting:/^ {1,4}(?=( {4})*[^ ])/g,listIsTask:/^\[[ xX]\] +\S/,listReplaceTask:/^\[[ xX]\] +/,listTaskCheckbox:/\[[ xX]\]/,anyLine:/\n.*\n/,hrefBrackets:/^<(.*)>$/,tableDelimiter:/[:|]/,tableAlignChars:/^\||\| *$/g,tableRowBlankLine:/\n[ \t]*$/,tableAlignRight:/^ *-+: *$/,tableAlignCenter:/^ *:-+: *$/,tableAlignLeft:/^ *:-+ *$/,startATag:/^<a /i,endATag:/^<\/a>/i,startPreScriptTag:/^<(pre|code|kbd|script)(\s|>)/i,endPreScriptTag:/^<\/(pre|code|kbd|script)(\s|>)/i,startAngleBracket:/^</,endAngleBracket:/>$/,pedanticHrefTitle:/^([^'"]*[^\s])\s+(['"])(.*)\2/,unicodeAlphaNumeric:/[\p{L}\p{N}]/u,escapeTest:/[&<>"']/,escapeReplace:/[&<>"']/g,escapeTestNoEncode:/[<>"']|&(?!(#\d{1,7}|#[Xx][a-fA-F0-9]{1,6}|\w+);)/,escapeReplaceNoEncode:/[<>"']|&(?!(#\d{1,7}|#[Xx][a-fA-F0-9]{1,6}|\w+);)/g,caret:/(^|[^\[])\^/g,percentDecode:/%25/g,findPipe:/\|/g,splitPipe:/ \|/,slashPipe:/\\\|/g,carriageReturn:/\r\n|\r/g,spaceLine:/^ +$/gm,notSpaceStart:/^\S*/,endingNewline:/\n$/,listItemRegex:u=>new RegExp(`^( {0,3}${u})((?:[	 ][^\\n]*)?(?:\\n|$))`),nextBulletRegex:u=>new RegExp(`^ {0,${Math.min(3,u-1)}}(?:[*+-]|\\d{1,9}[.)])((?:[ 	][^\\n]*)?(?:\\n|$))`),hrRegex:u=>new RegExp(`^ {0,${Math.min(3,u-1)}}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$)`),fencesBeginRegex:u=>new RegExp(`^ {0,${Math.min(3,u-1)}}(?:\`\`\`|~~~)`),headingBeginRegex:u=>new RegExp(`^ {0,${Math.min(3,u-1)}}#`),htmlBeginRegex:u=>new RegExp(`^ {0,${Math.min(3,u-1)}}<(?:[a-z].*>|!--)`,"i"),blockquoteBeginRegex:u=>new RegExp(`^ {0,${Math.min(3,u-1)}}>`)},Te=/^(?:[ \t]*(?:\n|$))+/,Oe=/^((?: {4}| {0,3}\t)[^\n]+(?:\n(?:[ \t]*(?:\n|$))*)?)+/,we=/^ {0,3}(`{3,}(?=[^`\n]*(?:\n|$))|~{3,})([^\n]*)(?:\n|$)(?:|([\s\S]*?)(?:\n|$))(?: {0,3}\1[~`]* *(?=\n|$)|$)/,A=/^ {0,3}((?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/,ye=/^ {0,3}(#{1,6})(?=\s|$)(.*)(?:\n+|$)/,N=/ {0,3}(?:[*+-]|\d{1,9}[.)])/,re=/^(?!bull |blockCode|fences|blockquote|heading|html|table)((?:.|\n(?!\s*?\n|bull |blockCode|fences|blockquote|heading|html|table))+?)\n {0,3}(=+|-+) *(?:\n+|$)/,se=k(re).replace(/bull/g,N).replace(/blockCode/g,/(?: {4}| {0,3}\t)/).replace(/fences/g,/ {0,3}(?:`{3,}|~{3,})/).replace(/blockquote/g,/ {0,3}>/).replace(/heading/g,/ {0,3}#{1,6}/).replace(/html/g,/ {0,3}<[^\n>]+>\n/).replace(/\|table/g,"").getRegex(),Pe=k(re).replace(/bull/g,N).replace(/blockCode/g,/(?: {4}| {0,3}\t)/).replace(/fences/g,/ {0,3}(?:`{3,}|~{3,})/).replace(/blockquote/g,/ {0,3}>/).replace(/heading/g,/ {0,3}#{1,6}/).replace(/html/g,/ {0,3}<[^\n>]+>\n/).replace(/table/g,/ {0,3}\|?(?:[:\- ]*\|)+[\:\- ]*\n/).getRegex(),Q=/^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table| +\n)[^\n]+)*)/,Se=/^[^\n]+/,j=/(?!\s*\])(?:\\[\s\S]|[^\[\]\\])+/,$e=k(/^ {0,3}\[(label)\]: *(?:\n[ \t]*)?([^<\s][^\s]*|<.*?>)(?:(?: +(?:\n[ \t]*)?| *\n[ \t]*)(title))? *(?:\n+|$)/).replace("label",j).replace("title",/(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/).getRegex(),_e=k(/^(bull)([ \t][^\n]+?)?(?:\n|$)/).replace(/bull/g,N).getRegex(),q="address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|search|section|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul",F=/<!--(?:-?>|[\s\S]*?(?:-->|$))/,Le=k("^ {0,3}(?:<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?(?:\\?>\\n*|$)|<![A-Z][\\s\\S]*?(?:>\\n*|$)|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>\\n*|$)|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$)|<(?!script|pre|style|textarea)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$)|</(?!script|pre|style|textarea)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$))","i").replace("comment",F).replace("tag",q).replace("attribute",/ +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/).getRegex(),ie=k(Q).replace("hr",A).replace("heading"," {0,3}#{1,6}(?:\\s|$)").replace("|lheading","").replace("|table","").replace("blockquote"," {0,3}>").replace("fences"," {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n").replace("list"," {0,3}(?:[*+-]|1[.)])[ \\t]").replace("html","</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag",q).getRegex(),Me=k(/^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/).replace("paragraph",ie).getRegex(),U={blockquote:Me,code:Oe,def:$e,fences:we,heading:ye,hr:A,html:Le,lheading:se,list:_e,newline:Te,paragraph:ie,table:_,text:Se},te=k("^ *([^\\n ].*)\\n {0,3}((?:\\| *)?:?-+:? *(?:\\| *:?-+:? *)*(?:\\| *)?)(?:\\n((?:(?! *\\n|hr|heading|blockquote|code|fences|list|html).*(?:\\n|$))*)\\n*|$)").replace("hr",A).replace("heading"," {0,3}#{1,6}(?:\\s|$)").replace("blockquote"," {0,3}>").replace("code","(?: {4}| {0,3}	)[^\\n]").replace("fences"," {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n").replace("list"," {0,3}(?:[*+-]|1[.)])[ \\t]").replace("html","</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag",q).getRegex(),ze={...U,lheading:Pe,table:te,paragraph:k(Q).replace("hr",A).replace("heading"," {0,3}#{1,6}(?:\\s|$)").replace("|lheading","").replace("table",te).replace("blockquote"," {0,3}>").replace("fences"," {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n").replace("list"," {0,3}(?:[*+-]|1[.)])[ \\t]").replace("html","</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag",q).getRegex()},Ee={...U,html:k(`^ *(?:comment *(?:\\n|\\s*$)|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)|<tag(?:"[^"]*"|'[^']*'|\\s[^'"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))`).replace("comment",F).replace(/tag/g,"(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:|[^\\w\\s@]*@)\\b").getRegex(),def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/,heading:/^(#{1,6})(.*)(?:\n+|$)/,fences:_,lheading:/^(.+?)\n {0,3}(=+|-+) *(?:\n+|$)/,paragraph:k(Q).replace("hr",A).replace("heading",` *#{1,6} *[^
+]`).replace("lheading",se).replace("|table","").replace("blockquote"," {0,3}>").replace("|fences","").replace("|list","").replace("|html","").replace("|tag","").getRegex()},Ie=/^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/,Ae=/^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,oe=/^( {2,}|\\)\n(?!\s*$)/,Ce=/^(`+|[^`])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*_]|\b_|$)|[^ ](?= {2,}\n)))/,v=/[\p{P}\p{S}]/u,K=/[\s\p{P}\p{S}]/u,ae=/[^\s\p{P}\p{S}]/u,Be=k(/^((?![*_])punctSpace)/,"u").replace(/punctSpace/g,K).getRegex(),le=/(?!~)[\p{P}\p{S}]/u,De=/(?!~)[\s\p{P}\p{S}]/u,qe=/(?:[^\s\p{P}\p{S}]|~)/u,ue=/(?![*_])[\p{P}\p{S}]/u,ve=/(?![*_])[\s\p{P}\p{S}]/u,He=/(?:[^\s\p{P}\p{S}]|[*_])/u,Ge=k(/link|precode-code|html/,"g").replace("link",/\[(?:[^\[\]`]|(?<a>`+)[^`]+\k<a>(?!`))*?\]\((?:\\[\s\S]|[^\\\(\)]|\((?:\\[\s\S]|[^\\\(\)])*\))*\)/).replace("precode-",Re?"(?<!`)()":"(^^|[^`])").replace("code",/(?<b>`+)[^`]+\k<b>(?!`)/).replace("html",/<(?! )[^<>]*?>/).getRegex(),pe=/^(?:\*+(?:((?!\*)punct)|[^\s*]))|^_+(?:((?!_)punct)|([^\s_]))/,Ze=k(pe,"u").replace(/punct/g,v).getRegex(),Ne=k(pe,"u").replace(/punct/g,le).getRegex(),ce="^[^_*]*?__[^_*]*?\\*[^_*]*?(?=__)|[^*]+(?=[^*])|(?!\\*)punct(\\*+)(?=[\\s]|$)|notPunctSpace(\\*+)(?!\\*)(?=punctSpace|$)|(?!\\*)punctSpace(\\*+)(?=notPunctSpace)|[\\s](\\*+)(?!\\*)(?=punct)|(?!\\*)punct(\\*+)(?!\\*)(?=punct)|notPunctSpace(\\*+)(?=notPunctSpace)",Qe=k(ce,"gu").replace(/notPunctSpace/g,ae).replace(/punctSpace/g,K).replace(/punct/g,v).getRegex(),je=k(ce,"gu").replace(/notPunctSpace/g,qe).replace(/punctSpace/g,De).replace(/punct/g,le).getRegex(),Fe=k("^[^_*]*?\\*\\*[^_*]*?_[^_*]*?(?=\\*\\*)|[^_]+(?=[^_])|(?!_)punct(_+)(?=[\\s]|$)|notPunctSpace(_+)(?!_)(?=punctSpace|$)|(?!_)punctSpace(_+)(?=notPunctSpace)|[\\s](_+)(?!_)(?=punct)|(?!_)punct(_+)(?!_)(?=punct)","gu").replace(/notPunctSpace/g,ae).replace(/punctSpace/g,K).replace(/punct/g,v).getRegex(),Ue=k(/^~~?(?:((?!~)punct)|[^\s~])/,"u").replace(/punct/g,ue).getRegex(),Ke="^[^~]+(?=[^~])|(?!~)punct(~~?)(?=[\\s]|$)|notPunctSpace(~~?)(?!~)(?=punctSpace|$)|(?!~)punctSpace(~~?)(?=notPunctSpace)|[\\s](~~?)(?!~)(?=punct)|(?!~)punct(~~?)(?!~)(?=punct)|notPunctSpace(~~?)(?=notPunctSpace)",We=k(Ke,"gu").replace(/notPunctSpace/g,He).replace(/punctSpace/g,ve).replace(/punct/g,ue).getRegex(),Xe=k(/\\(punct)/,"gu").replace(/punct/g,v).getRegex(),Je=k(/^<(scheme:[^\s\x00-\x1f<>]*|email)>/).replace("scheme",/[a-zA-Z][a-zA-Z0-9+.-]{1,31}/).replace("email",/[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/).getRegex(),Ve=k(F).replace("(?:-->|$)","-->").getRegex(),Ye=k("^comment|^</[a-zA-Z][\\w:-]*\\s*>|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>").replace("comment",Ve).replace("attribute",/\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/).getRegex(),D=/(?:\[(?:\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+[^`]*?`+(?!`)|[^\[\]\\`])*?/,et=k(/^!?\[(label)\]\(\s*(href)(?:(?:[ \t]+(?:\n[ \t]*)?|\n[ \t]*)(title))?\s*\)/).replace("label",D).replace("href",/<(?:\\.|[^\n<>\\])+>|[^ \t\n\x00-\x1f]*/).replace("title",/"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/).getRegex(),he=k(/^!?\[(label)\]\[(ref)\]/).replace("label",D).replace("ref",j).getRegex(),ke=k(/^!?\[(ref)\](?:\[\])?/).replace("ref",j).getRegex(),tt=k("reflink|nolink(?!\\()","g").replace("reflink",he).replace("nolink",ke).getRegex(),ne=/[hH][tT][tT][pP][sS]?|[fF][tT][pP]/,W={_backpedal:_,anyPunctuation:Xe,autolink:Je,blockSkip:Ge,br:oe,code:Ae,del:_,delLDelim:_,delRDelim:_,emStrongLDelim:Ze,emStrongRDelimAst:Qe,emStrongRDelimUnd:Fe,escape:Ie,link:et,nolink:ke,punctuation:Be,reflink:he,reflinkSearch:tt,tag:Ye,text:Ce,url:_},nt={...W,link:k(/^!?\[(label)\]\((.*?)\)/).replace("label",D).getRegex(),reflink:k(/^!?\[(label)\]\s*\[([^\]]*)\]/).replace("label",D).getRegex()},Z={...W,emStrongRDelimAst:je,emStrongLDelim:Ne,delLDelim:Ue,delRDelim:We,url:k(/^((?:protocol):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/).replace("protocol",ne).replace("email",/[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/).getRegex(),_backpedal:/(?:[^?!.,:;*_'"~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_'"~)]+(?!$))+/,del:/^(~~?)(?=[^\s~])((?:\\[\s\S]|[^\\])*?(?:\\[\s\S]|[^\s~\\]))\1(?=[^~]|$)/,text:k(/^([`~]+|[^`~])(?:(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_]|\b_|protocol:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/).replace("protocol",ne).getRegex()},rt={...Z,br:k(oe).replace("{2,}","*").getRegex(),text:k(Z.text).replace("\\b_","\\b_| {2,}\\n").replace(/\{2,\}/g,"*").getRegex()},C={normal:U,gfm:ze,pedantic:Ee},z={normal:W,gfm:Z,breaks:rt,pedantic:nt};var st={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},de=u=>st[u];function O(u,e){if(e){if(m.escapeTest.test(u))return u.replace(m.escapeReplace,de)}else if(m.escapeTestNoEncode.test(u))return u.replace(m.escapeReplaceNoEncode,de);return u}function X(u){try{u=encodeURI(u).replace(m.percentDecode,"%");}catch{return null}return u}function J(u,e){let t=u.replace(m.findPipe,(i,s,a)=>{let o=false,l=s;for(;--l>=0&&a[l]==="\\";)o=!o;return o?"|":" |"}),n=t.split(m.splitPipe),r=0;if(n[0].trim()||n.shift(),n.length>0&&!n.at(-1)?.trim()&&n.pop(),e)if(n.length>e)n.splice(e);else for(;n.length<e;)n.push("");for(;r<n.length;r++)n[r]=n[r].trim().replace(m.slashPipe,"|");return n}function E(u,e,t){let n=u.length;if(n===0)return "";let r=0;for(;r<n;){let i=u.charAt(n-r-1);if(i===e&&true)r++;else break}return u.slice(0,n-r)}function ge(u,e){if(u.indexOf(e[1])===-1)return  -1;let t=0;for(let n=0;n<u.length;n++)if(u[n]==="\\")n++;else if(u[n]===e[0])t++;else if(u[n]===e[1]&&(t--,t<0))return n;return t>0?-2:-1}function fe(u,e=0){let t=e,n="";for(let r of u)if(r==="	"){let i=4-t%4;n+=" ".repeat(i),t+=i;}else n+=r,t++;return n}function me(u,e,t,n,r){let i=e.href,s=e.title||null,a=u[1].replace(r.other.outputLinkReplace,"$1");n.state.inLink=true;let o={type:u[0].charAt(0)==="!"?"image":"link",raw:t,href:i,title:s,text:a,tokens:n.inlineTokens(a)};return n.state.inLink=false,o}function it(u,e,t){let n=u.match(t.other.indentCodeCompensation);if(n===null)return e;let r=n[1];return e.split(`
+`).map(i=>{let s=i.match(t.other.beginningSpace);if(s===null)return i;let[a]=s;return a.length>=r.length?i.slice(r.length):i}).join(`
+`)}var w=class{options;rules;lexer;constructor(e){this.options=e||T;}space(e){let t=this.rules.block.newline.exec(e);if(t&&t[0].length>0)return {type:"space",raw:t[0]}}code(e){let t=this.rules.block.code.exec(e);if(t){let n=t[0].replace(this.rules.other.codeRemoveIndent,"");return {type:"code",raw:t[0],codeBlockStyle:"indented",text:this.options.pedantic?n:E(n,`
+`)}}}fences(e){let t=this.rules.block.fences.exec(e);if(t){let n=t[0],r=it(n,t[3]||"",this.rules);return {type:"code",raw:n,lang:t[2]?t[2].trim().replace(this.rules.inline.anyPunctuation,"$1"):t[2],text:r}}}heading(e){let t=this.rules.block.heading.exec(e);if(t){let n=t[2].trim();if(this.rules.other.endingHash.test(n)){let r=E(n,"#");(this.options.pedantic||!r||this.rules.other.endingSpaceChar.test(r))&&(n=r.trim());}return {type:"heading",raw:t[0],depth:t[1].length,text:n,tokens:this.lexer.inline(n)}}}hr(e){let t=this.rules.block.hr.exec(e);if(t)return {type:"hr",raw:E(t[0],`
+`)}}blockquote(e){let t=this.rules.block.blockquote.exec(e);if(t){let n=E(t[0],`
+`).split(`
+`),r="",i="",s=[];for(;n.length>0;){let a=false,o=[],l;for(l=0;l<n.length;l++)if(this.rules.other.blockquoteStart.test(n[l]))o.push(n[l]),a=true;else if(!a)o.push(n[l]);else break;n=n.slice(l);let p=o.join(`
+`),c=p.replace(this.rules.other.blockquoteSetextReplace,`
+    $1`).replace(this.rules.other.blockquoteSetextReplace2,"");r=r?`${r}
+${p}`:p,i=i?`${i}
+${c}`:c;let d=this.lexer.state.top;if(this.lexer.state.top=true,this.lexer.blockTokens(c,s,true),this.lexer.state.top=d,n.length===0)break;let h=s.at(-1);if(h?.type==="code")break;if(h?.type==="blockquote"){let R=h,f=R.raw+`
+`+n.join(`
+`),S=this.blockquote(f);s[s.length-1]=S,r=r.substring(0,r.length-R.raw.length)+S.raw,i=i.substring(0,i.length-R.text.length)+S.text;break}else if(h?.type==="list"){let R=h,f=R.raw+`
+`+n.join(`
+`),S=this.list(f);s[s.length-1]=S,r=r.substring(0,r.length-h.raw.length)+S.raw,i=i.substring(0,i.length-R.raw.length)+S.raw,n=f.substring(s.at(-1).raw.length).split(`
+`);continue}}return {type:"blockquote",raw:r,tokens:s,text:i}}}list(e){let t=this.rules.block.list.exec(e);if(t){let n=t[1].trim(),r=n.length>1,i={type:"list",raw:"",ordered:r,start:r?+n.slice(0,-1):"",loose:false,items:[]};n=r?`\\d{1,9}\\${n.slice(-1)}`:`\\${n}`,this.options.pedantic&&(n=r?n:"[*+-]");let s=this.rules.other.listItemRegex(n),a=false;for(;e;){let l=false,p="",c="";if(!(t=s.exec(e))||this.rules.block.hr.test(e))break;p=t[0],e=e.substring(p.length);let d=fe(t[2].split(`
+`,1)[0],t[1].length),h=e.split(`
+`,1)[0],R=!d.trim(),f=0;if(this.options.pedantic?(f=2,c=d.trimStart()):R?f=t[1].length+1:(f=d.search(this.rules.other.nonSpaceChar),f=f>4?1:f,c=d.slice(f),f+=t[1].length),R&&this.rules.other.blankLine.test(h)&&(p+=h+`
+`,e=e.substring(h.length+1),l=true),!l){let S=this.rules.other.nextBulletRegex(f),V=this.rules.other.hrRegex(f),Y=this.rules.other.fencesBeginRegex(f),ee=this.rules.other.headingBeginRegex(f),xe=this.rules.other.htmlBeginRegex(f),be=this.rules.other.blockquoteBeginRegex(f);for(;e;){let H=e.split(`
+`,1)[0],I;if(h=H,this.options.pedantic?(h=h.replace(this.rules.other.listReplaceNesting,"  "),I=h):I=h.replace(this.rules.other.tabCharGlobal,"    "),Y.test(h)||ee.test(h)||xe.test(h)||be.test(h)||S.test(h)||V.test(h))break;if(I.search(this.rules.other.nonSpaceChar)>=f||!h.trim())c+=`
+`+I.slice(f);else {if(R||d.replace(this.rules.other.tabCharGlobal,"    ").search(this.rules.other.nonSpaceChar)>=4||Y.test(d)||ee.test(d)||V.test(d))break;c+=`
+`+h;}R=!h.trim(),p+=H+`
+`,e=e.substring(H.length+1),d=I.slice(f);}}i.loose||(a?i.loose=true:this.rules.other.doubleBlankLine.test(p)&&(a=true)),i.items.push({type:"list_item",raw:p,task:!!this.options.gfm&&this.rules.other.listIsTask.test(c),loose:false,text:c,tokens:[]}),i.raw+=p;}let o=i.items.at(-1);if(o)o.raw=o.raw.trimEnd(),o.text=o.text.trimEnd();else return;i.raw=i.raw.trimEnd();for(let l of i.items){if(this.lexer.state.top=false,l.tokens=this.lexer.blockTokens(l.text,[]),l.task){if(l.text=l.text.replace(this.rules.other.listReplaceTask,""),l.tokens[0]?.type==="text"||l.tokens[0]?.type==="paragraph"){l.tokens[0].raw=l.tokens[0].raw.replace(this.rules.other.listReplaceTask,""),l.tokens[0].text=l.tokens[0].text.replace(this.rules.other.listReplaceTask,"");for(let c=this.lexer.inlineQueue.length-1;c>=0;c--)if(this.rules.other.listIsTask.test(this.lexer.inlineQueue[c].src)){this.lexer.inlineQueue[c].src=this.lexer.inlineQueue[c].src.replace(this.rules.other.listReplaceTask,"");break}}let p=this.rules.other.listTaskCheckbox.exec(l.raw);if(p){let c={type:"checkbox",raw:p[0]+" ",checked:p[0]!=="[ ]"};l.checked=c.checked,i.loose?l.tokens[0]&&["paragraph","text"].includes(l.tokens[0].type)&&"tokens"in l.tokens[0]&&l.tokens[0].tokens?(l.tokens[0].raw=c.raw+l.tokens[0].raw,l.tokens[0].text=c.raw+l.tokens[0].text,l.tokens[0].tokens.unshift(c)):l.tokens.unshift({type:"paragraph",raw:c.raw,text:c.raw,tokens:[c]}):l.tokens.unshift(c);}}if(!i.loose){let p=l.tokens.filter(d=>d.type==="space"),c=p.length>0&&p.some(d=>this.rules.other.anyLine.test(d.raw));i.loose=c;}}if(i.loose)for(let l of i.items){l.loose=true;for(let p of l.tokens)p.type==="text"&&(p.type="paragraph");}return i}}html(e){let t=this.rules.block.html.exec(e);if(t)return {type:"html",block:true,raw:t[0],pre:t[1]==="pre"||t[1]==="script"||t[1]==="style",text:t[0]}}def(e){let t=this.rules.block.def.exec(e);if(t){let n=t[1].toLowerCase().replace(this.rules.other.multipleSpaceGlobal," "),r=t[2]?t[2].replace(this.rules.other.hrefBrackets,"$1").replace(this.rules.inline.anyPunctuation,"$1"):"",i=t[3]?t[3].substring(1,t[3].length-1).replace(this.rules.inline.anyPunctuation,"$1"):t[3];return {type:"def",tag:n,raw:t[0],href:r,title:i}}}table(e){let t=this.rules.block.table.exec(e);if(!t||!this.rules.other.tableDelimiter.test(t[2]))return;let n=J(t[1]),r=t[2].replace(this.rules.other.tableAlignChars,"").split("|"),i=t[3]?.trim()?t[3].replace(this.rules.other.tableRowBlankLine,"").split(`
+`):[],s={type:"table",raw:t[0],header:[],align:[],rows:[]};if(n.length===r.length){for(let a of r)this.rules.other.tableAlignRight.test(a)?s.align.push("right"):this.rules.other.tableAlignCenter.test(a)?s.align.push("center"):this.rules.other.tableAlignLeft.test(a)?s.align.push("left"):s.align.push(null);for(let a=0;a<n.length;a++)s.header.push({text:n[a],tokens:this.lexer.inline(n[a]),header:true,align:s.align[a]});for(let a of i)s.rows.push(J(a,s.header.length).map((o,l)=>({text:o,tokens:this.lexer.inline(o),header:false,align:s.align[l]})));return s}}lheading(e){let t=this.rules.block.lheading.exec(e);if(t)return {type:"heading",raw:t[0],depth:t[2].charAt(0)==="="?1:2,text:t[1],tokens:this.lexer.inline(t[1])}}paragraph(e){let t=this.rules.block.paragraph.exec(e);if(t){let n=t[1].charAt(t[1].length-1)===`
+`?t[1].slice(0,-1):t[1];return {type:"paragraph",raw:t[0],text:n,tokens:this.lexer.inline(n)}}}text(e){let t=this.rules.block.text.exec(e);if(t)return {type:"text",raw:t[0],text:t[0],tokens:this.lexer.inline(t[0])}}escape(e){let t=this.rules.inline.escape.exec(e);if(t)return {type:"escape",raw:t[0],text:t[1]}}tag(e){let t=this.rules.inline.tag.exec(e);if(t)return !this.lexer.state.inLink&&this.rules.other.startATag.test(t[0])?this.lexer.state.inLink=true:this.lexer.state.inLink&&this.rules.other.endATag.test(t[0])&&(this.lexer.state.inLink=false),!this.lexer.state.inRawBlock&&this.rules.other.startPreScriptTag.test(t[0])?this.lexer.state.inRawBlock=true:this.lexer.state.inRawBlock&&this.rules.other.endPreScriptTag.test(t[0])&&(this.lexer.state.inRawBlock=false),{type:"html",raw:t[0],inLink:this.lexer.state.inLink,inRawBlock:this.lexer.state.inRawBlock,block:false,text:t[0]}}link(e){let t=this.rules.inline.link.exec(e);if(t){let n=t[2].trim();if(!this.options.pedantic&&this.rules.other.startAngleBracket.test(n)){if(!this.rules.other.endAngleBracket.test(n))return;let s=E(n.slice(0,-1),"\\");if((n.length-s.length)%2===0)return}else {let s=ge(t[2],"()");if(s===-2)return;if(s>-1){let o=(t[0].indexOf("!")===0?5:4)+t[1].length+s;t[2]=t[2].substring(0,s),t[0]=t[0].substring(0,o).trim(),t[3]="";}}let r=t[2],i="";if(this.options.pedantic){let s=this.rules.other.pedanticHrefTitle.exec(r);s&&(r=s[1],i=s[3]);}else i=t[3]?t[3].slice(1,-1):"";return r=r.trim(),this.rules.other.startAngleBracket.test(r)&&(this.options.pedantic&&!this.rules.other.endAngleBracket.test(n)?r=r.slice(1):r=r.slice(1,-1)),me(t,{href:r&&r.replace(this.rules.inline.anyPunctuation,"$1"),title:i&&i.replace(this.rules.inline.anyPunctuation,"$1")},t[0],this.lexer,this.rules)}}reflink(e,t){let n;if((n=this.rules.inline.reflink.exec(e))||(n=this.rules.inline.nolink.exec(e))){let r=(n[2]||n[1]).replace(this.rules.other.multipleSpaceGlobal," "),i=t[r.toLowerCase()];if(!i){let s=n[0].charAt(0);return {type:"text",raw:s,text:s}}return me(n,i,n[0],this.lexer,this.rules)}}emStrong(e,t,n=""){let r=this.rules.inline.emStrongLDelim.exec(e);if(!r||r[3]&&n.match(this.rules.other.unicodeAlphaNumeric))return;if(!(r[1]||r[2]||"")||!n||this.rules.inline.punctuation.exec(n)){let s=[...r[0]].length-1,a,o,l=s,p=0,c=r[0][0]==="*"?this.rules.inline.emStrongRDelimAst:this.rules.inline.emStrongRDelimUnd;for(c.lastIndex=0,t=t.slice(-1*e.length+s);(r=c.exec(t))!=null;){if(a=r[1]||r[2]||r[3]||r[4]||r[5]||r[6],!a)continue;if(o=[...a].length,r[3]||r[4]){l+=o;continue}else if((r[5]||r[6])&&s%3&&!((s+o)%3)){p+=o;continue}if(l-=o,l>0)continue;o=Math.min(o,o+l+p);let d=[...r[0]][0].length,h=e.slice(0,s+r.index+d+o);if(Math.min(s,o)%2){let f=h.slice(1,-1);return {type:"em",raw:h,text:f,tokens:this.lexer.inlineTokens(f)}}let R=h.slice(2,-2);return {type:"strong",raw:h,text:R,tokens:this.lexer.inlineTokens(R)}}}}codespan(e){let t=this.rules.inline.code.exec(e);if(t){let n=t[2].replace(this.rules.other.newLineCharGlobal," "),r=this.rules.other.nonSpaceChar.test(n),i=this.rules.other.startingSpaceChar.test(n)&&this.rules.other.endingSpaceChar.test(n);return r&&i&&(n=n.substring(1,n.length-1)),{type:"codespan",raw:t[0],text:n}}}br(e){let t=this.rules.inline.br.exec(e);if(t)return {type:"br",raw:t[0]}}del(e,t,n=""){let r=this.rules.inline.delLDelim.exec(e);if(!r)return;if(!(r[1]||"")||!n||this.rules.inline.punctuation.exec(n)){let s=[...r[0]].length-1,a,o,l=s,p=this.rules.inline.delRDelim;for(p.lastIndex=0,t=t.slice(-1*e.length+s);(r=p.exec(t))!=null;){if(a=r[1]||r[2]||r[3]||r[4]||r[5]||r[6],!a||(o=[...a].length,o!==s))continue;if(r[3]||r[4]){l+=o;continue}if(l-=o,l>0)continue;o=Math.min(o,o+l);let c=[...r[0]][0].length,d=e.slice(0,s+r.index+c+o),h=d.slice(s,-s);return {type:"del",raw:d,text:h,tokens:this.lexer.inlineTokens(h)}}}}autolink(e){let t=this.rules.inline.autolink.exec(e);if(t){let n,r;return t[2]==="@"?(n=t[1],r="mailto:"+n):(n=t[1],r=n),{type:"link",raw:t[0],text:n,href:r,tokens:[{type:"text",raw:n,text:n}]}}}url(e){let t;if(t=this.rules.inline.url.exec(e)){let n,r;if(t[2]==="@")n=t[0],r="mailto:"+n;else {let i;do i=t[0],t[0]=this.rules.inline._backpedal.exec(t[0])?.[0]??"";while(i!==t[0]);n=t[0],t[1]==="www."?r="http://"+t[0]:r=t[0];}return {type:"link",raw:t[0],text:n,href:r,tokens:[{type:"text",raw:n,text:n}]}}}inlineText(e){let t=this.rules.inline.text.exec(e);if(t){let n=this.lexer.state.inRawBlock;return {type:"text",raw:t[0],text:t[0],escaped:n}}}};var x=class u{tokens;options;state;inlineQueue;tokenizer;constructor(e){this.tokens=[],this.tokens.links=Object.create(null),this.options=e||T,this.options.tokenizer=this.options.tokenizer||new w,this.tokenizer=this.options.tokenizer,this.tokenizer.options=this.options,this.tokenizer.lexer=this,this.inlineQueue=[],this.state={inLink:false,inRawBlock:false,top:true};let t={other:m,block:C.normal,inline:z.normal};this.options.pedantic?(t.block=C.pedantic,t.inline=z.pedantic):this.options.gfm&&(t.block=C.gfm,this.options.breaks?t.inline=z.breaks:t.inline=z.gfm),this.tokenizer.rules=t;}static get rules(){return {block:C,inline:z}}static lex(e,t){return new u(t).lex(e)}static lexInline(e,t){return new u(t).inlineTokens(e)}lex(e){e=e.replace(m.carriageReturn,`
+`),this.blockTokens(e,this.tokens);for(let t=0;t<this.inlineQueue.length;t++){let n=this.inlineQueue[t];this.inlineTokens(n.src,n.tokens);}return this.inlineQueue=[],this.tokens}blockTokens(e,t=[],n=false){for(this.options.pedantic&&(e=e.replace(m.tabCharGlobal,"    ").replace(m.spaceLine,""));e;){let r;if(this.options.extensions?.block?.some(s=>(r=s.call({lexer:this},e,t))?(e=e.substring(r.raw.length),t.push(r),true):false))continue;if(r=this.tokenizer.space(e)){e=e.substring(r.raw.length);let s=t.at(-1);r.raw.length===1&&s!==void 0?s.raw+=`
+`:t.push(r);continue}if(r=this.tokenizer.code(e)){e=e.substring(r.raw.length);let s=t.at(-1);s?.type==="paragraph"||s?.type==="text"?(s.raw+=(s.raw.endsWith(`
+`)?"":`
+`)+r.raw,s.text+=`
+`+r.text,this.inlineQueue.at(-1).src=s.text):t.push(r);continue}if(r=this.tokenizer.fences(e)){e=e.substring(r.raw.length),t.push(r);continue}if(r=this.tokenizer.heading(e)){e=e.substring(r.raw.length),t.push(r);continue}if(r=this.tokenizer.hr(e)){e=e.substring(r.raw.length),t.push(r);continue}if(r=this.tokenizer.blockquote(e)){e=e.substring(r.raw.length),t.push(r);continue}if(r=this.tokenizer.list(e)){e=e.substring(r.raw.length),t.push(r);continue}if(r=this.tokenizer.html(e)){e=e.substring(r.raw.length),t.push(r);continue}if(r=this.tokenizer.def(e)){e=e.substring(r.raw.length);let s=t.at(-1);s?.type==="paragraph"||s?.type==="text"?(s.raw+=(s.raw.endsWith(`
+`)?"":`
+`)+r.raw,s.text+=`
+`+r.raw,this.inlineQueue.at(-1).src=s.text):this.tokens.links[r.tag]||(this.tokens.links[r.tag]={href:r.href,title:r.title},t.push(r));continue}if(r=this.tokenizer.table(e)){e=e.substring(r.raw.length),t.push(r);continue}if(r=this.tokenizer.lheading(e)){e=e.substring(r.raw.length),t.push(r);continue}let i=e;if(this.options.extensions?.startBlock){let s=1/0,a=e.slice(1),o;this.options.extensions.startBlock.forEach(l=>{o=l.call({lexer:this},a),typeof o=="number"&&o>=0&&(s=Math.min(s,o));}),s<1/0&&s>=0&&(i=e.substring(0,s+1));}if(this.state.top&&(r=this.tokenizer.paragraph(i))){let s=t.at(-1);n&&s?.type==="paragraph"?(s.raw+=(s.raw.endsWith(`
+`)?"":`
+`)+r.raw,s.text+=`
+`+r.text,this.inlineQueue.pop(),this.inlineQueue.at(-1).src=s.text):t.push(r),n=i.length!==e.length,e=e.substring(r.raw.length);continue}if(r=this.tokenizer.text(e)){e=e.substring(r.raw.length);let s=t.at(-1);s?.type==="text"?(s.raw+=(s.raw.endsWith(`
+`)?"":`
+`)+r.raw,s.text+=`
+`+r.text,this.inlineQueue.pop(),this.inlineQueue.at(-1).src=s.text):t.push(r);continue}if(e){let s="Infinite loop on byte: "+e.charCodeAt(0);if(this.options.silent){console.error(s);break}else throw new Error(s)}}return this.state.top=true,t}inline(e,t=[]){return this.inlineQueue.push({src:e,tokens:t}),t}inlineTokens(e,t=[]){let n=e,r=null;if(this.tokens.links){let o=Object.keys(this.tokens.links);if(o.length>0)for(;(r=this.tokenizer.rules.inline.reflinkSearch.exec(n))!=null;)o.includes(r[0].slice(r[0].lastIndexOf("[")+1,-1))&&(n=n.slice(0,r.index)+"["+"a".repeat(r[0].length-2)+"]"+n.slice(this.tokenizer.rules.inline.reflinkSearch.lastIndex));}for(;(r=this.tokenizer.rules.inline.anyPunctuation.exec(n))!=null;)n=n.slice(0,r.index)+"++"+n.slice(this.tokenizer.rules.inline.anyPunctuation.lastIndex);let i;for(;(r=this.tokenizer.rules.inline.blockSkip.exec(n))!=null;)i=r[2]?r[2].length:0,n=n.slice(0,r.index+i)+"["+"a".repeat(r[0].length-i-2)+"]"+n.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);n=this.options.hooks?.emStrongMask?.call({lexer:this},n)??n;let s=false,a="";for(;e;){s||(a=""),s=false;let o;if(this.options.extensions?.inline?.some(p=>(o=p.call({lexer:this},e,t))?(e=e.substring(o.raw.length),t.push(o),true):false))continue;if(o=this.tokenizer.escape(e)){e=e.substring(o.raw.length),t.push(o);continue}if(o=this.tokenizer.tag(e)){e=e.substring(o.raw.length),t.push(o);continue}if(o=this.tokenizer.link(e)){e=e.substring(o.raw.length),t.push(o);continue}if(o=this.tokenizer.reflink(e,this.tokens.links)){e=e.substring(o.raw.length);let p=t.at(-1);o.type==="text"&&p?.type==="text"?(p.raw+=o.raw,p.text+=o.text):t.push(o);continue}if(o=this.tokenizer.emStrong(e,n,a)){e=e.substring(o.raw.length),t.push(o);continue}if(o=this.tokenizer.codespan(e)){e=e.substring(o.raw.length),t.push(o);continue}if(o=this.tokenizer.br(e)){e=e.substring(o.raw.length),t.push(o);continue}if(o=this.tokenizer.del(e,n,a)){e=e.substring(o.raw.length),t.push(o);continue}if(o=this.tokenizer.autolink(e)){e=e.substring(o.raw.length),t.push(o);continue}if(!this.state.inLink&&(o=this.tokenizer.url(e))){e=e.substring(o.raw.length),t.push(o);continue}let l=e;if(this.options.extensions?.startInline){let p=1/0,c=e.slice(1),d;this.options.extensions.startInline.forEach(h=>{d=h.call({lexer:this},c),typeof d=="number"&&d>=0&&(p=Math.min(p,d));}),p<1/0&&p>=0&&(l=e.substring(0,p+1));}if(o=this.tokenizer.inlineText(l)){e=e.substring(o.raw.length),o.raw.slice(-1)!=="_"&&(a=o.raw.slice(-1)),s=true;let p=t.at(-1);p?.type==="text"?(p.raw+=o.raw,p.text+=o.text):t.push(o);continue}if(e){let p="Infinite loop on byte: "+e.charCodeAt(0);if(this.options.silent){console.error(p);break}else throw new Error(p)}}return t}};var y=class{options;parser;constructor(e){this.options=e||T;}space(e){return ""}code({text:e,lang:t,escaped:n}){let r=(t||"").match(m.notSpaceStart)?.[0],i=e.replace(m.endingNewline,"")+`
+`;return r?'<pre><code class="language-'+O(r)+'">'+(n?i:O(i,true))+`</code></pre>
+`:"<pre><code>"+(n?i:O(i,true))+`</code></pre>
+`}blockquote({tokens:e}){return `<blockquote>
+${this.parser.parse(e)}</blockquote>
+`}html({text:e}){return e}def(e){return ""}heading({tokens:e,depth:t}){return `<h${t}>${this.parser.parseInline(e)}</h${t}>
+`}hr(e){return `<hr>
+`}list(e){let t=e.ordered,n=e.start,r="";for(let a=0;a<e.items.length;a++){let o=e.items[a];r+=this.listitem(o);}let i=t?"ol":"ul",s=t&&n!==1?' start="'+n+'"':"";return "<"+i+s+`>
+`+r+"</"+i+`>
+`}listitem(e){return `<li>${this.parser.parse(e.tokens)}</li>
+`}checkbox({checked:e}){return "<input "+(e?'checked="" ':"")+'disabled="" type="checkbox"> '}paragraph({tokens:e}){return `<p>${this.parser.parseInline(e)}</p>
+`}table(e){let t="",n="";for(let i=0;i<e.header.length;i++)n+=this.tablecell(e.header[i]);t+=this.tablerow({text:n});let r="";for(let i=0;i<e.rows.length;i++){let s=e.rows[i];n="";for(let a=0;a<s.length;a++)n+=this.tablecell(s[a]);r+=this.tablerow({text:n});}return r&&(r=`<tbody>${r}</tbody>`),`<table>
+<thead>
+`+t+`</thead>
+`+r+`</table>
+`}tablerow({text:e}){return `<tr>
+${e}</tr>
+`}tablecell(e){let t=this.parser.parseInline(e.tokens),n=e.header?"th":"td";return (e.align?`<${n} align="${e.align}">`:`<${n}>`)+t+`</${n}>
+`}strong({tokens:e}){return `<strong>${this.parser.parseInline(e)}</strong>`}em({tokens:e}){return `<em>${this.parser.parseInline(e)}</em>`}codespan({text:e}){return `<code>${O(e,true)}</code>`}br(e){return "<br>"}del({tokens:e}){return `<del>${this.parser.parseInline(e)}</del>`}link({href:e,title:t,tokens:n}){let r=this.parser.parseInline(n),i=X(e);if(i===null)return r;e=i;let s='<a href="'+e+'"';return t&&(s+=' title="'+O(t)+'"'),s+=">"+r+"</a>",s}image({href:e,title:t,text:n,tokens:r}){r&&(n=this.parser.parseInline(r,this.parser.textRenderer));let i=X(e);if(i===null)return O(n);e=i;let s=`<img src="${e}" alt="${O(n)}"`;return t&&(s+=` title="${O(t)}"`),s+=">",s}text(e){return "tokens"in e&&e.tokens?this.parser.parseInline(e.tokens):"escaped"in e&&e.escaped?e.text:O(e.text)}};var $=class{strong({text:e}){return e}em({text:e}){return e}codespan({text:e}){return e}del({text:e}){return e}html({text:e}){return e}text({text:e}){return e}link({text:e}){return ""+e}image({text:e}){return ""+e}br(){return ""}checkbox({raw:e}){return e}};var b=class u{options;renderer;textRenderer;constructor(e){this.options=e||T,this.options.renderer=this.options.renderer||new y,this.renderer=this.options.renderer,this.renderer.options=this.options,this.renderer.parser=this,this.textRenderer=new $;}static parse(e,t){return new u(t).parse(e)}static parseInline(e,t){return new u(t).parseInline(e)}parse(e){let t="";for(let n=0;n<e.length;n++){let r=e[n];if(this.options.extensions?.renderers?.[r.type]){let s=r,a=this.options.extensions.renderers[s.type].call({parser:this},s);if(a!==false||!["space","hr","heading","code","table","blockquote","list","html","def","paragraph","text"].includes(s.type)){t+=a||"";continue}}let i=r;switch(i.type){case "space":{t+=this.renderer.space(i);break}case "hr":{t+=this.renderer.hr(i);break}case "heading":{t+=this.renderer.heading(i);break}case "code":{t+=this.renderer.code(i);break}case "table":{t+=this.renderer.table(i);break}case "blockquote":{t+=this.renderer.blockquote(i);break}case "list":{t+=this.renderer.list(i);break}case "checkbox":{t+=this.renderer.checkbox(i);break}case "html":{t+=this.renderer.html(i);break}case "def":{t+=this.renderer.def(i);break}case "paragraph":{t+=this.renderer.paragraph(i);break}case "text":{t+=this.renderer.text(i);break}default:{let s='Token with "'+i.type+'" type was not found.';if(this.options.silent)return console.error(s),"";throw new Error(s)}}}return t}parseInline(e,t=this.renderer){let n="";for(let r=0;r<e.length;r++){let i=e[r];if(this.options.extensions?.renderers?.[i.type]){let a=this.options.extensions.renderers[i.type].call({parser:this},i);if(a!==false||!["escape","html","link","image","strong","em","codespan","br","del","text"].includes(i.type)){n+=a||"";continue}}let s=i;switch(s.type){case "escape":{n+=t.text(s);break}case "html":{n+=t.html(s);break}case "link":{n+=t.link(s);break}case "image":{n+=t.image(s);break}case "checkbox":{n+=t.checkbox(s);break}case "strong":{n+=t.strong(s);break}case "em":{n+=t.em(s);break}case "codespan":{n+=t.codespan(s);break}case "br":{n+=t.br(s);break}case "del":{n+=t.del(s);break}case "text":{n+=t.text(s);break}default:{let a='Token with "'+s.type+'" type was not found.';if(this.options.silent)return console.error(a),"";throw new Error(a)}}}return n}};var P=class{options;block;constructor(e){this.options=e||T;}static passThroughHooks=new Set(["preprocess","postprocess","processAllTokens","emStrongMask"]);static passThroughHooksRespectAsync=new Set(["preprocess","postprocess","processAllTokens"]);preprocess(e){return e}postprocess(e){return e}processAllTokens(e){return e}emStrongMask(e){return e}provideLexer(){return this.block?x.lex:x.lexInline}provideParser(){return this.block?b.parse:b.parseInline}};var B=class{defaults=M();options=this.setOptions;parse=this.parseMarkdown(true);parseInline=this.parseMarkdown(false);Parser=b;Renderer=y;TextRenderer=$;Lexer=x;Tokenizer=w;Hooks=P;constructor(...e){this.use(...e);}walkTokens(e,t){let n=[];for(let r of e)switch(n=n.concat(t.call(this,r)),r.type){case "table":{let i=r;for(let s of i.header)n=n.concat(this.walkTokens(s.tokens,t));for(let s of i.rows)for(let a of s)n=n.concat(this.walkTokens(a.tokens,t));break}case "list":{let i=r;n=n.concat(this.walkTokens(i.items,t));break}default:{let i=r;this.defaults.extensions?.childTokens?.[i.type]?this.defaults.extensions.childTokens[i.type].forEach(s=>{let a=i[s].flat(1/0);n=n.concat(this.walkTokens(a,t));}):i.tokens&&(n=n.concat(this.walkTokens(i.tokens,t)));}}return n}use(...e){let t=this.defaults.extensions||{renderers:{},childTokens:{}};return e.forEach(n=>{let r={...n};if(r.async=this.defaults.async||r.async||false,n.extensions&&(n.extensions.forEach(i=>{if(!i.name)throw new Error("extension name required");if("renderer"in i){let s=t.renderers[i.name];s?t.renderers[i.name]=function(...a){let o=i.renderer.apply(this,a);return o===false&&(o=s.apply(this,a)),o}:t.renderers[i.name]=i.renderer;}if("tokenizer"in i){if(!i.level||i.level!=="block"&&i.level!=="inline")throw new Error("extension level must be 'block' or 'inline'");let s=t[i.level];s?s.unshift(i.tokenizer):t[i.level]=[i.tokenizer],i.start&&(i.level==="block"?t.startBlock?t.startBlock.push(i.start):t.startBlock=[i.start]:i.level==="inline"&&(t.startInline?t.startInline.push(i.start):t.startInline=[i.start]));}"childTokens"in i&&i.childTokens&&(t.childTokens[i.name]=i.childTokens);}),r.extensions=t),n.renderer){let i=this.defaults.renderer||new y(this.defaults);for(let s in n.renderer){if(!(s in i))throw new Error(`renderer '${s}' does not exist`);if(["options","parser"].includes(s))continue;let a=s,o=n.renderer[a],l=i[a];i[a]=(...p)=>{let c=o.apply(i,p);return c===false&&(c=l.apply(i,p)),c||""};}r.renderer=i;}if(n.tokenizer){let i=this.defaults.tokenizer||new w(this.defaults);for(let s in n.tokenizer){if(!(s in i))throw new Error(`tokenizer '${s}' does not exist`);if(["options","rules","lexer"].includes(s))continue;let a=s,o=n.tokenizer[a],l=i[a];i[a]=(...p)=>{let c=o.apply(i,p);return c===false&&(c=l.apply(i,p)),c};}r.tokenizer=i;}if(n.hooks){let i=this.defaults.hooks||new P;for(let s in n.hooks){if(!(s in i))throw new Error(`hook '${s}' does not exist`);if(["options","block"].includes(s))continue;let a=s,o=n.hooks[a],l=i[a];P.passThroughHooks.has(s)?i[a]=p=>{if(this.defaults.async&&P.passThroughHooksRespectAsync.has(s))return (async()=>{let d=await o.call(i,p);return l.call(i,d)})();let c=o.call(i,p);return l.call(i,c)}:i[a]=(...p)=>{if(this.defaults.async)return (async()=>{let d=await o.apply(i,p);return d===false&&(d=await l.apply(i,p)),d})();let c=o.apply(i,p);return c===false&&(c=l.apply(i,p)),c};}r.hooks=i;}if(n.walkTokens){let i=this.defaults.walkTokens,s=n.walkTokens;r.walkTokens=function(a){let o=[];return o.push(s.call(this,a)),i&&(o=o.concat(i.call(this,a))),o};}this.defaults={...this.defaults,...r};}),this}setOptions(e){return this.defaults={...this.defaults,...e},this}lexer(e,t){return x.lex(e,t??this.defaults)}parser(e,t){return b.parse(e,t??this.defaults)}parseMarkdown(e){return (n,r)=>{let i={...r},s={...this.defaults,...i},a=this.onError(!!s.silent,!!s.async);if(this.defaults.async===true&&i.async===false)return a(new Error("marked(): The async option was set to true by an extension. Remove async: false from the parse options object to return a Promise."));if(typeof n>"u"||n===null)return a(new Error("marked(): input parameter is undefined or null"));if(typeof n!="string")return a(new Error("marked(): input parameter is of type "+Object.prototype.toString.call(n)+", string expected"));if(s.hooks&&(s.hooks.options=s,s.hooks.block=e),s.async)return (async()=>{let o=s.hooks?await s.hooks.preprocess(n):n,p=await(s.hooks?await s.hooks.provideLexer():e?x.lex:x.lexInline)(o,s),c=s.hooks?await s.hooks.processAllTokens(p):p;s.walkTokens&&await Promise.all(this.walkTokens(c,s.walkTokens));let h=await(s.hooks?await s.hooks.provideParser():e?b.parse:b.parseInline)(c,s);return s.hooks?await s.hooks.postprocess(h):h})().catch(a);try{s.hooks&&(n=s.hooks.preprocess(n));let l=(s.hooks?s.hooks.provideLexer():e?x.lex:x.lexInline)(n,s);s.hooks&&(l=s.hooks.processAllTokens(l)),s.walkTokens&&this.walkTokens(l,s.walkTokens);let c=(s.hooks?s.hooks.provideParser():e?b.parse:b.parseInline)(l,s);return s.hooks&&(c=s.hooks.postprocess(c)),c}catch(o){return a(o)}}}onError(e,t){return n=>{if(n.message+=`
+Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error occurred:</p><pre>"+O(n.message+"",true)+"</pre>";return t?Promise.resolve(r):r}if(t)return Promise.reject(n);throw n}}};var L=new B;function g(u,e){return L.parse(u,e)}g.options=g.setOptions=function(u){return L.setOptions(u),g.defaults=L.defaults,G(g.defaults),g};g.getDefaults=M;g.defaults=T;g.use=function(...u){return L.use(...u),g.defaults=L.defaults,G(g.defaults),g};g.walkTokens=function(u,e){return L.walkTokens(u,e)};g.parseInline=L.parseInline;g.Parser=b;g.parser=b.parse;g.Renderer=y;g.TextRenderer=$;g.Lexer=x;g.lexer=x.lex;g.Tokenizer=w;g.Hooks=P;g.parse=g;g.options;g.setOptions;g.use;g.walkTokens;g.parseInline;b.parse;x.lex;
+
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+  function getDefaultExportFromCjs (x) {
+  	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+  }
+
+  var prism = {exports: {}};
+
+  var hasRequiredPrism;
+
+  function requirePrism () {
+  	if (hasRequiredPrism) return prism.exports;
+  	hasRequiredPrism = 1;
+  	(function (module) {
+  		/* **********************************************
+  		     Begin prism-core.js
+  		********************************************** */
+
+  		/// <reference lib="WebWorker"/>
+
+  		var _self = (typeof window !== 'undefined')
+  			? window   // if in browser
+  			: (
+  				(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+  					? self // if in worker
+  					: {}   // if in node js
+  			);
+
+  		/**
+  		 * Prism: Lightweight, robust, elegant syntax highlighting
+  		 *
+  		 * @license MIT <https://opensource.org/licenses/MIT>
+  		 * @author Lea Verou <https://lea.verou.me>
+  		 * @namespace
+  		 * @public
+  		 */
+  		var Prism = (function (_self) {
+
+  			// Private helper vars
+  			var lang = /(?:^|\s)lang(?:uage)?-([\w-]+)(?=\s|$)/i;
+  			var uniqueId = 0;
+
+  			// The grammar object for plaintext
+  			var plainTextGrammar = {};
+
+
+  			var _ = {
+  				/**
+  				 * By default, Prism will attempt to highlight all code elements (by calling {@link Prism.highlightAll}) on the
+  				 * current page after the page finished loading. This might be a problem if e.g. you wanted to asynchronously load
+  				 * additional languages or plugins yourself.
+  				 *
+  				 * By setting this value to `true`, Prism will not automatically highlight all code elements on the page.
+  				 *
+  				 * You obviously have to change this value before the automatic highlighting started. To do this, you can add an
+  				 * empty Prism object into the global scope before loading the Prism script like this:
+  				 *
+  				 * ```js
+  				 * window.Prism = window.Prism || {};
+  				 * Prism.manual = true;
+  				 * // add a new <script> to load Prism's script
+  				 * ```
+  				 *
+  				 * @default false
+  				 * @type {boolean}
+  				 * @memberof Prism
+  				 * @public
+  				 */
+  				manual: _self.Prism && _self.Prism.manual,
+  				/**
+  				 * By default, if Prism is in a web worker, it assumes that it is in a worker it created itself, so it uses
+  				 * `addEventListener` to communicate with its parent instance. However, if you're using Prism manually in your
+  				 * own worker, you don't want it to do this.
+  				 *
+  				 * By setting this value to `true`, Prism will not add its own listeners to the worker.
+  				 *
+  				 * You obviously have to change this value before Prism executes. To do this, you can add an
+  				 * empty Prism object into the global scope before loading the Prism script like this:
+  				 *
+  				 * ```js
+  				 * window.Prism = window.Prism || {};
+  				 * Prism.disableWorkerMessageHandler = true;
+  				 * // Load Prism's script
+  				 * ```
+  				 *
+  				 * @default false
+  				 * @type {boolean}
+  				 * @memberof Prism
+  				 * @public
+  				 */
+  				disableWorkerMessageHandler: _self.Prism && _self.Prism.disableWorkerMessageHandler,
+
+  				/**
+  				 * A namespace for utility methods.
+  				 *
+  				 * All function in this namespace that are not explicitly marked as _public_ are for __internal use only__ and may
+  				 * change or disappear at any time.
+  				 *
+  				 * @namespace
+  				 * @memberof Prism
+  				 */
+  				util: {
+  					encode: function encode(tokens) {
+  						if (tokens instanceof Token) {
+  							return new Token(tokens.type, encode(tokens.content), tokens.alias);
+  						} else if (Array.isArray(tokens)) {
+  							return tokens.map(encode);
+  						} else {
+  							return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+  						}
+  					},
+
+  					/**
+  					 * Returns the name of the type of the given value.
+  					 *
+  					 * @param {any} o
+  					 * @returns {string}
+  					 * @example
+  					 * type(null)      === 'Null'
+  					 * type(undefined) === 'Undefined'
+  					 * type(123)       === 'Number'
+  					 * type('foo')     === 'String'
+  					 * type(true)      === 'Boolean'
+  					 * type([1, 2])    === 'Array'
+  					 * type({})        === 'Object'
+  					 * type(String)    === 'Function'
+  					 * type(/abc+/)    === 'RegExp'
+  					 */
+  					type: function (o) {
+  						return Object.prototype.toString.call(o).slice(8, -1);
+  					},
+
+  					/**
+  					 * Returns a unique number for the given object. Later calls will still return the same number.
+  					 *
+  					 * @param {Object} obj
+  					 * @returns {number}
+  					 */
+  					objId: function (obj) {
+  						if (!obj['__id']) {
+  							Object.defineProperty(obj, '__id', { value: ++uniqueId });
+  						}
+  						return obj['__id'];
+  					},
+
+  					/**
+  					 * Creates a deep clone of the given object.
+  					 *
+  					 * The main intended use of this function is to clone language definitions.
+  					 *
+  					 * @param {T} o
+  					 * @param {Record<number, any>} [visited]
+  					 * @returns {T}
+  					 * @template T
+  					 */
+  					clone: function deepClone(o, visited) {
+  						visited = visited || {};
+
+  						var clone; var id;
+  						switch (_.util.type(o)) {
+  							case 'Object':
+  								id = _.util.objId(o);
+  								if (visited[id]) {
+  									return visited[id];
+  								}
+  								clone = /** @type {Record<string, any>} */ ({});
+  								visited[id] = clone;
+
+  								for (var key in o) {
+  									if (o.hasOwnProperty(key)) {
+  										clone[key] = deepClone(o[key], visited);
+  									}
+  								}
+
+  								return /** @type {any} */ (clone);
+
+  							case 'Array':
+  								id = _.util.objId(o);
+  								if (visited[id]) {
+  									return visited[id];
+  								}
+  								clone = [];
+  								visited[id] = clone;
+
+  								(/** @type {Array} */(/** @type {any} */(o))).forEach(function (v, i) {
+  									clone[i] = deepClone(v, visited);
+  								});
+
+  								return /** @type {any} */ (clone);
+
+  							default:
+  								return o;
+  						}
+  					},
+
+  					/**
+  					 * Returns the Prism language of the given element set by a `language-xxxx` or `lang-xxxx` class.
+  					 *
+  					 * If no language is set for the element or the element is `null` or `undefined`, `none` will be returned.
+  					 *
+  					 * @param {Element} element
+  					 * @returns {string}
+  					 */
+  					getLanguage: function (element) {
+  						while (element) {
+  							var m = lang.exec(element.className);
+  							if (m) {
+  								return m[1].toLowerCase();
+  							}
+  							element = element.parentElement;
+  						}
+  						return 'none';
+  					},
+
+  					/**
+  					 * Sets the Prism `language-xxxx` class of the given element.
+  					 *
+  					 * @param {Element} element
+  					 * @param {string} language
+  					 * @returns {void}
+  					 */
+  					setLanguage: function (element, language) {
+  						// remove all `language-xxxx` classes
+  						// (this might leave behind a leading space)
+  						element.className = element.className.replace(RegExp(lang, 'gi'), '');
+
+  						// add the new `language-xxxx` class
+  						// (using `classList` will automatically clean up spaces for us)
+  						element.classList.add('language-' + language);
+  					},
+
+  					/**
+  					 * Returns the script element that is currently executing.
+  					 *
+  					 * This does __not__ work for line script element.
+  					 *
+  					 * @returns {HTMLScriptElement | null}
+  					 */
+  					currentScript: function () {
+  						if (typeof document === 'undefined') {
+  							return null;
+  						}
+  						if (document.currentScript && document.currentScript.tagName === 'SCRIPT' && 1 < 2 /* hack to trip TS' flow analysis */) {
+  							return /** @type {any} */ (document.currentScript);
+  						}
+
+  						// IE11 workaround
+  						// we'll get the src of the current script by parsing IE11's error stack trace
+  						// this will not work for inline scripts
+
+  						try {
+  							throw new Error();
+  						} catch (err) {
+  							// Get file src url from stack. Specifically works with the format of stack traces in IE.
+  							// A stack will look like this:
+  							//
+  							// Error
+  							//    at _.util.currentScript (http://localhost/components/prism-core.js:119:5)
+  							//    at Global code (http://localhost/components/prism-core.js:606:1)
+
+  							var src = (/at [^(\r\n]*\((.*):[^:]+:[^:]+\)$/i.exec(err.stack) || [])[1];
+  							if (src) {
+  								var scripts = document.getElementsByTagName('script');
+  								for (var i in scripts) {
+  									if (scripts[i].src == src) {
+  										return scripts[i];
+  									}
+  								}
+  							}
+  							return null;
+  						}
+  					},
+
+  					/**
+  					 * Returns whether a given class is active for `element`.
+  					 *
+  					 * The class can be activated if `element` or one of its ancestors has the given class and it can be deactivated
+  					 * if `element` or one of its ancestors has the negated version of the given class. The _negated version_ of the
+  					 * given class is just the given class with a `no-` prefix.
+  					 *
+  					 * Whether the class is active is determined by the closest ancestor of `element` (where `element` itself is
+  					 * closest ancestor) that has the given class or the negated version of it. If neither `element` nor any of its
+  					 * ancestors have the given class or the negated version of it, then the default activation will be returned.
+  					 *
+  					 * In the paradoxical situation where the closest ancestor contains __both__ the given class and the negated
+  					 * version of it, the class is considered active.
+  					 *
+  					 * @param {Element} element
+  					 * @param {string} className
+  					 * @param {boolean} [defaultActivation=false]
+  					 * @returns {boolean}
+  					 */
+  					isActive: function (element, className, defaultActivation) {
+  						var no = 'no-' + className;
+
+  						while (element) {
+  							var classList = element.classList;
+  							if (classList.contains(className)) {
+  								return true;
+  							}
+  							if (classList.contains(no)) {
+  								return false;
+  							}
+  							element = element.parentElement;
+  						}
+  						return !!defaultActivation;
+  					}
+  				},
+
+  				/**
+  				 * This namespace contains all currently loaded languages and the some helper functions to create and modify languages.
+  				 *
+  				 * @namespace
+  				 * @memberof Prism
+  				 * @public
+  				 */
+  				languages: {
+  					/**
+  					 * The grammar for plain, unformatted text.
+  					 */
+  					plain: plainTextGrammar,
+  					plaintext: plainTextGrammar,
+  					text: plainTextGrammar,
+  					txt: plainTextGrammar,
+
+  					/**
+  					 * Creates a deep copy of the language with the given id and appends the given tokens.
+  					 *
+  					 * If a token in `redef` also appears in the copied language, then the existing token in the copied language
+  					 * will be overwritten at its original position.
+  					 *
+  					 * ## Best practices
+  					 *
+  					 * Since the position of overwriting tokens (token in `redef` that overwrite tokens in the copied language)
+  					 * doesn't matter, they can technically be in any order. However, this can be confusing to others that trying to
+  					 * understand the language definition because, normally, the order of tokens matters in Prism grammars.
+  					 *
+  					 * Therefore, it is encouraged to order overwriting tokens according to the positions of the overwritten tokens.
+  					 * Furthermore, all non-overwriting tokens should be placed after the overwriting ones.
+  					 *
+  					 * @param {string} id The id of the language to extend. This has to be a key in `Prism.languages`.
+  					 * @param {Grammar} redef The new tokens to append.
+  					 * @returns {Grammar} The new language created.
+  					 * @public
+  					 * @example
+  					 * Prism.languages['css-with-colors'] = Prism.languages.extend('css', {
+  					 *     // Prism.languages.css already has a 'comment' token, so this token will overwrite CSS' 'comment' token
+  					 *     // at its original position
+  					 *     'comment': { ... },
+  					 *     // CSS doesn't have a 'color' token, so this token will be appended
+  					 *     'color': /\b(?:red|green|blue)\b/
+  					 * });
+  					 */
+  					extend: function (id, redef) {
+  						var lang = _.util.clone(_.languages[id]);
+
+  						for (var key in redef) {
+  							lang[key] = redef[key];
+  						}
+
+  						return lang;
+  					},
+
+  					/**
+  					 * Inserts tokens _before_ another token in a language definition or any other grammar.
+  					 *
+  					 * ## Usage
+  					 *
+  					 * This helper method makes it easy to modify existing languages. For example, the CSS language definition
+  					 * not only defines CSS highlighting for CSS documents, but also needs to define highlighting for CSS embedded
+  					 * in HTML through `<style>` elements. To do this, it needs to modify `Prism.languages.markup` and add the
+  					 * appropriate tokens. However, `Prism.languages.markup` is a regular JavaScript object literal, so if you do
+  					 * this:
+  					 *
+  					 * ```js
+  					 * Prism.languages.markup.style = {
+  					 *     // token
+  					 * };
+  					 * ```
+  					 *
+  					 * then the `style` token will be added (and processed) at the end. `insertBefore` allows you to insert tokens
+  					 * before existing tokens. For the CSS example above, you would use it like this:
+  					 *
+  					 * ```js
+  					 * Prism.languages.insertBefore('markup', 'cdata', {
+  					 *     'style': {
+  					 *         // token
+  					 *     }
+  					 * });
+  					 * ```
+  					 *
+  					 * ## Special cases
+  					 *
+  					 * If the grammars of `inside` and `insert` have tokens with the same name, the tokens in `inside`'s grammar
+  					 * will be ignored.
+  					 *
+  					 * This behavior can be used to insert tokens after `before`:
+  					 *
+  					 * ```js
+  					 * Prism.languages.insertBefore('markup', 'comment', {
+  					 *     'comment': Prism.languages.markup.comment,
+  					 *     // tokens after 'comment'
+  					 * });
+  					 * ```
+  					 *
+  					 * ## Limitations
+  					 *
+  					 * The main problem `insertBefore` has to solve is iteration order. Since ES2015, the iteration order for object
+  					 * properties is guaranteed to be the insertion order (except for integer keys) but some browsers behave
+  					 * differently when keys are deleted and re-inserted. So `insertBefore` can't be implemented by temporarily
+  					 * deleting properties which is necessary to insert at arbitrary positions.
+  					 *
+  					 * To solve this problem, `insertBefore` doesn't actually insert the given tokens into the target object.
+  					 * Instead, it will create a new object and replace all references to the target object with the new one. This
+  					 * can be done without temporarily deleting properties, so the iteration order is well-defined.
+  					 *
+  					 * However, only references that can be reached from `Prism.languages` or `insert` will be replaced. I.e. if
+  					 * you hold the target object in a variable, then the value of the variable will not change.
+  					 *
+  					 * ```js
+  					 * var oldMarkup = Prism.languages.markup;
+  					 * var newMarkup = Prism.languages.insertBefore('markup', 'comment', { ... });
+  					 *
+  					 * assert(oldMarkup !== Prism.languages.markup);
+  					 * assert(newMarkup === Prism.languages.markup);
+  					 * ```
+  					 *
+  					 * @param {string} inside The property of `root` (e.g. a language id in `Prism.languages`) that contains the
+  					 * object to be modified.
+  					 * @param {string} before The key to insert before.
+  					 * @param {Grammar} insert An object containing the key-value pairs to be inserted.
+  					 * @param {Object<string, any>} [root] The object containing `inside`, i.e. the object that contains the
+  					 * object to be modified.
+  					 *
+  					 * Defaults to `Prism.languages`.
+  					 * @returns {Grammar} The new grammar object.
+  					 * @public
+  					 */
+  					insertBefore: function (inside, before, insert, root) {
+  						root = root || /** @type {any} */ (_.languages);
+  						var grammar = root[inside];
+  						/** @type {Grammar} */
+  						var ret = {};
+
+  						for (var token in grammar) {
+  							if (grammar.hasOwnProperty(token)) {
+
+  								if (token == before) {
+  									for (var newToken in insert) {
+  										if (insert.hasOwnProperty(newToken)) {
+  											ret[newToken] = insert[newToken];
+  										}
+  									}
+  								}
+
+  								// Do not insert token which also occur in insert. See #1525
+  								if (!insert.hasOwnProperty(token)) {
+  									ret[token] = grammar[token];
+  								}
+  							}
+  						}
+
+  						var old = root[inside];
+  						root[inside] = ret;
+
+  						// Update references in other language definitions
+  						_.languages.DFS(_.languages, function (key, value) {
+  							if (value === old && key != inside) {
+  								this[key] = ret;
+  							}
+  						});
+
+  						return ret;
+  					},
+
+  					// Traverse a language definition with Depth First Search
+  					DFS: function DFS(o, callback, type, visited) {
+  						visited = visited || {};
+
+  						var objId = _.util.objId;
+
+  						for (var i in o) {
+  							if (o.hasOwnProperty(i)) {
+  								callback.call(o, i, o[i], type || i);
+
+  								var property = o[i];
+  								var propertyType = _.util.type(property);
+
+  								if (propertyType === 'Object' && !visited[objId(property)]) {
+  									visited[objId(property)] = true;
+  									DFS(property, callback, null, visited);
+  								} else if (propertyType === 'Array' && !visited[objId(property)]) {
+  									visited[objId(property)] = true;
+  									DFS(property, callback, i, visited);
+  								}
+  							}
+  						}
+  					}
+  				},
+
+  				plugins: {},
+
+  				/**
+  				 * This is the most high-level function in Prism’s API.
+  				 * It fetches all the elements that have a `.language-xxxx` class and then calls {@link Prism.highlightElement} on
+  				 * each one of them.
+  				 *
+  				 * This is equivalent to `Prism.highlightAllUnder(document, async, callback)`.
+  				 *
+  				 * @param {boolean} [async=false] Same as in {@link Prism.highlightAllUnder}.
+  				 * @param {HighlightCallback} [callback] Same as in {@link Prism.highlightAllUnder}.
+  				 * @memberof Prism
+  				 * @public
+  				 */
+  				highlightAll: function (async, callback) {
+  					_.highlightAllUnder(document, async, callback);
+  				},
+
+  				/**
+  				 * Fetches all the descendants of `container` that have a `.language-xxxx` class and then calls
+  				 * {@link Prism.highlightElement} on each one of them.
+  				 *
+  				 * The following hooks will be run:
+  				 * 1. `before-highlightall`
+  				 * 2. `before-all-elements-highlight`
+  				 * 3. All hooks of {@link Prism.highlightElement} for each element.
+  				 *
+  				 * @param {ParentNode} container The root element, whose descendants that have a `.language-xxxx` class will be highlighted.
+  				 * @param {boolean} [async=false] Whether each element is to be highlighted asynchronously using Web Workers.
+  				 * @param {HighlightCallback} [callback] An optional callback to be invoked on each element after its highlighting is done.
+  				 * @memberof Prism
+  				 * @public
+  				 */
+  				highlightAllUnder: function (container, async, callback) {
+  					var env = {
+  						callback: callback,
+  						container: container,
+  						selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
+  					};
+
+  					_.hooks.run('before-highlightall', env);
+
+  					env.elements = Array.prototype.slice.apply(env.container.querySelectorAll(env.selector));
+
+  					_.hooks.run('before-all-elements-highlight', env);
+
+  					for (var i = 0, element; (element = env.elements[i++]);) {
+  						_.highlightElement(element, async === true, env.callback);
+  					}
+  				},
+
+  				/**
+  				 * Highlights the code inside a single element.
+  				 *
+  				 * The following hooks will be run:
+  				 * 1. `before-sanity-check`
+  				 * 2. `before-highlight`
+  				 * 3. All hooks of {@link Prism.highlight}. These hooks will be run by an asynchronous worker if `async` is `true`.
+  				 * 4. `before-insert`
+  				 * 5. `after-highlight`
+  				 * 6. `complete`
+  				 *
+  				 * Some the above hooks will be skipped if the element doesn't contain any text or there is no grammar loaded for
+  				 * the element's language.
+  				 *
+  				 * @param {Element} element The element containing the code.
+  				 * It must have a class of `language-xxxx` to be processed, where `xxxx` is a valid language identifier.
+  				 * @param {boolean} [async=false] Whether the element is to be highlighted asynchronously using Web Workers
+  				 * to improve performance and avoid blocking the UI when highlighting very large chunks of code. This option is
+  				 * [disabled by default](https://prismjs.com/faq.html#why-is-asynchronous-highlighting-disabled-by-default).
+  				 *
+  				 * Note: All language definitions required to highlight the code must be included in the main `prism.js` file for
+  				 * asynchronous highlighting to work. You can build your own bundle on the
+  				 * [Download page](https://prismjs.com/download.html).
+  				 * @param {HighlightCallback} [callback] An optional callback to be invoked after the highlighting is done.
+  				 * Mostly useful when `async` is `true`, since in that case, the highlighting is done asynchronously.
+  				 * @memberof Prism
+  				 * @public
+  				 */
+  				highlightElement: function (element, async, callback) {
+  					// Find language
+  					var language = _.util.getLanguage(element);
+  					var grammar = _.languages[language];
+
+  					// Set language on the element, if not present
+  					_.util.setLanguage(element, language);
+
+  					// Set language on the parent, for styling
+  					var parent = element.parentElement;
+  					if (parent && parent.nodeName.toLowerCase() === 'pre') {
+  						_.util.setLanguage(parent, language);
+  					}
+
+  					var code = element.textContent;
+
+  					var env = {
+  						element: element,
+  						language: language,
+  						grammar: grammar,
+  						code: code
+  					};
+
+  					function insertHighlightedCode(highlightedCode) {
+  						env.highlightedCode = highlightedCode;
+
+  						_.hooks.run('before-insert', env);
+
+  						env.element.innerHTML = env.highlightedCode;
+
+  						_.hooks.run('after-highlight', env);
+  						_.hooks.run('complete', env);
+  						callback && callback.call(env.element);
+  					}
+
+  					_.hooks.run('before-sanity-check', env);
+
+  					// plugins may change/add the parent/element
+  					parent = env.element.parentElement;
+  					if (parent && parent.nodeName.toLowerCase() === 'pre' && !parent.hasAttribute('tabindex')) {
+  						parent.setAttribute('tabindex', '0');
+  					}
+
+  					if (!env.code) {
+  						_.hooks.run('complete', env);
+  						callback && callback.call(env.element);
+  						return;
+  					}
+
+  					_.hooks.run('before-highlight', env);
+
+  					if (!env.grammar) {
+  						insertHighlightedCode(_.util.encode(env.code));
+  						return;
+  					}
+
+  					if (async && _self.Worker) {
+  						var worker = new Worker(_.filename);
+
+  						worker.onmessage = function (evt) {
+  							insertHighlightedCode(evt.data);
+  						};
+
+  						worker.postMessage(JSON.stringify({
+  							language: env.language,
+  							code: env.code,
+  							immediateClose: true
+  						}));
+  					} else {
+  						insertHighlightedCode(_.highlight(env.code, env.grammar, env.language));
+  					}
+  				},
+
+  				/**
+  				 * Low-level function, only use if you know what you’re doing. It accepts a string of text as input
+  				 * and the language definitions to use, and returns a string with the HTML produced.
+  				 *
+  				 * The following hooks will be run:
+  				 * 1. `before-tokenize`
+  				 * 2. `after-tokenize`
+  				 * 3. `wrap`: On each {@link Token}.
+  				 *
+  				 * @param {string} text A string with the code to be highlighted.
+  				 * @param {Grammar} grammar An object containing the tokens to use.
+  				 *
+  				 * Usually a language definition like `Prism.languages.markup`.
+  				 * @param {string} language The name of the language definition passed to `grammar`.
+  				 * @returns {string} The highlighted HTML.
+  				 * @memberof Prism
+  				 * @public
+  				 * @example
+  				 * Prism.highlight('var foo = true;', Prism.languages.javascript, 'javascript');
+  				 */
+  				highlight: function (text, grammar, language) {
+  					var env = {
+  						code: text,
+  						grammar: grammar,
+  						language: language
+  					};
+  					_.hooks.run('before-tokenize', env);
+  					if (!env.grammar) {
+  						throw new Error('The language "' + env.language + '" has no grammar.');
+  					}
+  					env.tokens = _.tokenize(env.code, env.grammar);
+  					_.hooks.run('after-tokenize', env);
+  					return Token.stringify(_.util.encode(env.tokens), env.language);
+  				},
+
+  				/**
+  				 * This is the heart of Prism, and the most low-level function you can use. It accepts a string of text as input
+  				 * and the language definitions to use, and returns an array with the tokenized code.
+  				 *
+  				 * When the language definition includes nested tokens, the function is called recursively on each of these tokens.
+  				 *
+  				 * This method could be useful in other contexts as well, as a very crude parser.
+  				 *
+  				 * @param {string} text A string with the code to be highlighted.
+  				 * @param {Grammar} grammar An object containing the tokens to use.
+  				 *
+  				 * Usually a language definition like `Prism.languages.markup`.
+  				 * @returns {TokenStream} An array of strings and tokens, a token stream.
+  				 * @memberof Prism
+  				 * @public
+  				 * @example
+  				 * let code = `var foo = 0;`;
+  				 * let tokens = Prism.tokenize(code, Prism.languages.javascript);
+  				 * tokens.forEach(token => {
+  				 *     if (token instanceof Prism.Token && token.type === 'number') {
+  				 *         console.log(`Found numeric literal: ${token.content}`);
+  				 *     }
+  				 * });
+  				 */
+  				tokenize: function (text, grammar) {
+  					var rest = grammar.rest;
+  					if (rest) {
+  						for (var token in rest) {
+  							grammar[token] = rest[token];
+  						}
+
+  						delete grammar.rest;
+  					}
+
+  					var tokenList = new LinkedList();
+  					addAfter(tokenList, tokenList.head, text);
+
+  					matchGrammar(text, tokenList, grammar, tokenList.head, 0);
+
+  					return toArray(tokenList);
+  				},
+
+  				/**
+  				 * @namespace
+  				 * @memberof Prism
+  				 * @public
+  				 */
+  				hooks: {
+  					all: {},
+
+  					/**
+  					 * Adds the given callback to the list of callbacks for the given hook.
+  					 *
+  					 * The callback will be invoked when the hook it is registered for is run.
+  					 * Hooks are usually directly run by a highlight function but you can also run hooks yourself.
+  					 *
+  					 * One callback function can be registered to multiple hooks and the same hook multiple times.
+  					 *
+  					 * @param {string} name The name of the hook.
+  					 * @param {HookCallback} callback The callback function which is given environment variables.
+  					 * @public
+  					 */
+  					add: function (name, callback) {
+  						var hooks = _.hooks.all;
+
+  						hooks[name] = hooks[name] || [];
+
+  						hooks[name].push(callback);
+  					},
+
+  					/**
+  					 * Runs a hook invoking all registered callbacks with the given environment variables.
+  					 *
+  					 * Callbacks will be invoked synchronously and in the order in which they were registered.
+  					 *
+  					 * @param {string} name The name of the hook.
+  					 * @param {Object<string, any>} env The environment variables of the hook passed to all callbacks registered.
+  					 * @public
+  					 */
+  					run: function (name, env) {
+  						var callbacks = _.hooks.all[name];
+
+  						if (!callbacks || !callbacks.length) {
+  							return;
+  						}
+
+  						for (var i = 0, callback; (callback = callbacks[i++]);) {
+  							callback(env);
+  						}
+  					}
+  				},
+
+  				Token: Token
+  			};
+  			_self.Prism = _;
+
+
+  			// Typescript note:
+  			// The following can be used to import the Token type in JSDoc:
+  			//
+  			//   @typedef {InstanceType<import("./prism-core")["Token"]>} Token
+
+  			/**
+  			 * Creates a new token.
+  			 *
+  			 * @param {string} type See {@link Token#type type}
+  			 * @param {string | TokenStream} content See {@link Token#content content}
+  			 * @param {string|string[]} [alias] The alias(es) of the token.
+  			 * @param {string} [matchedStr=""] A copy of the full string this token was created from.
+  			 * @class
+  			 * @global
+  			 * @public
+  			 */
+  			function Token(type, content, alias, matchedStr) {
+  				/**
+  				 * The type of the token.
+  				 *
+  				 * This is usually the key of a pattern in a {@link Grammar}.
+  				 *
+  				 * @type {string}
+  				 * @see GrammarToken
+  				 * @public
+  				 */
+  				this.type = type;
+  				/**
+  				 * The strings or tokens contained by this token.
+  				 *
+  				 * This will be a token stream if the pattern matched also defined an `inside` grammar.
+  				 *
+  				 * @type {string | TokenStream}
+  				 * @public
+  				 */
+  				this.content = content;
+  				/**
+  				 * The alias(es) of the token.
+  				 *
+  				 * @type {string|string[]}
+  				 * @see GrammarToken
+  				 * @public
+  				 */
+  				this.alias = alias;
+  				// Copy of the full string this token was created from
+  				this.length = (matchedStr || '').length | 0;
+  			}
+
+  			/**
+  			 * A token stream is an array of strings and {@link Token Token} objects.
+  			 *
+  			 * Token streams have to fulfill a few properties that are assumed by most functions (mostly internal ones) that process
+  			 * them.
+  			 *
+  			 * 1. No adjacent strings.
+  			 * 2. No empty strings.
+  			 *
+  			 *    The only exception here is the token stream that only contains the empty string and nothing else.
+  			 *
+  			 * @typedef {Array<string | Token>} TokenStream
+  			 * @global
+  			 * @public
+  			 */
+
+  			/**
+  			 * Converts the given token or token stream to an HTML representation.
+  			 *
+  			 * The following hooks will be run:
+  			 * 1. `wrap`: On each {@link Token}.
+  			 *
+  			 * @param {string | Token | TokenStream} o The token or token stream to be converted.
+  			 * @param {string} language The name of current language.
+  			 * @returns {string} The HTML representation of the token or token stream.
+  			 * @memberof Token
+  			 * @static
+  			 */
+  			Token.stringify = function stringify(o, language) {
+  				if (typeof o == 'string') {
+  					return o;
+  				}
+  				if (Array.isArray(o)) {
+  					var s = '';
+  					o.forEach(function (e) {
+  						s += stringify(e, language);
+  					});
+  					return s;
+  				}
+
+  				var env = {
+  					type: o.type,
+  					content: stringify(o.content, language),
+  					tag: 'span',
+  					classes: ['token', o.type],
+  					attributes: {},
+  					language: language
+  				};
+
+  				var aliases = o.alias;
+  				if (aliases) {
+  					if (Array.isArray(aliases)) {
+  						Array.prototype.push.apply(env.classes, aliases);
+  					} else {
+  						env.classes.push(aliases);
+  					}
+  				}
+
+  				_.hooks.run('wrap', env);
+
+  				var attributes = '';
+  				for (var name in env.attributes) {
+  					attributes += ' ' + name + '="' + (env.attributes[name] || '').replace(/"/g, '&quot;') + '"';
+  				}
+
+  				return '<' + env.tag + ' class="' + env.classes.join(' ') + '"' + attributes + '>' + env.content + '</' + env.tag + '>';
+  			};
+
+  			/**
+  			 * @param {RegExp} pattern
+  			 * @param {number} pos
+  			 * @param {string} text
+  			 * @param {boolean} lookbehind
+  			 * @returns {RegExpExecArray | null}
+  			 */
+  			function matchPattern(pattern, pos, text, lookbehind) {
+  				pattern.lastIndex = pos;
+  				var match = pattern.exec(text);
+  				if (match && lookbehind && match[1]) {
+  					// change the match to remove the text matched by the Prism lookbehind group
+  					var lookbehindLength = match[1].length;
+  					match.index += lookbehindLength;
+  					match[0] = match[0].slice(lookbehindLength);
+  				}
+  				return match;
+  			}
+
+  			/**
+  			 * @param {string} text
+  			 * @param {LinkedList<string | Token>} tokenList
+  			 * @param {any} grammar
+  			 * @param {LinkedListNode<string | Token>} startNode
+  			 * @param {number} startPos
+  			 * @param {RematchOptions} [rematch]
+  			 * @returns {void}
+  			 * @private
+  			 *
+  			 * @typedef RematchOptions
+  			 * @property {string} cause
+  			 * @property {number} reach
+  			 */
+  			function matchGrammar(text, tokenList, grammar, startNode, startPos, rematch) {
+  				for (var token in grammar) {
+  					if (!grammar.hasOwnProperty(token) || !grammar[token]) {
+  						continue;
+  					}
+
+  					var patterns = grammar[token];
+  					patterns = Array.isArray(patterns) ? patterns : [patterns];
+
+  					for (var j = 0; j < patterns.length; ++j) {
+  						if (rematch && rematch.cause == token + ',' + j) {
+  							return;
+  						}
+
+  						var patternObj = patterns[j];
+  						var inside = patternObj.inside;
+  						var lookbehind = !!patternObj.lookbehind;
+  						var greedy = !!patternObj.greedy;
+  						var alias = patternObj.alias;
+
+  						if (greedy && !patternObj.pattern.global) {
+  							// Without the global flag, lastIndex won't work
+  							var flags = patternObj.pattern.toString().match(/[imsuy]*$/)[0];
+  							patternObj.pattern = RegExp(patternObj.pattern.source, flags + 'g');
+  						}
+
+  						/** @type {RegExp} */
+  						var pattern = patternObj.pattern || patternObj;
+
+  						for ( // iterate the token list and keep track of the current token/string position
+  							var currentNode = startNode.next, pos = startPos;
+  							currentNode !== tokenList.tail;
+  							pos += currentNode.value.length, currentNode = currentNode.next
+  						) {
+
+  							if (rematch && pos >= rematch.reach) {
+  								break;
+  							}
+
+  							var str = currentNode.value;
+
+  							if (tokenList.length > text.length) {
+  								// Something went terribly wrong, ABORT, ABORT!
+  								return;
+  							}
+
+  							if (str instanceof Token) {
+  								continue;
+  							}
+
+  							var removeCount = 1; // this is the to parameter of removeBetween
+  							var match;
+
+  							if (greedy) {
+  								match = matchPattern(pattern, pos, text, lookbehind);
+  								if (!match || match.index >= text.length) {
+  									break;
+  								}
+
+  								var from = match.index;
+  								var to = match.index + match[0].length;
+  								var p = pos;
+
+  								// find the node that contains the match
+  								p += currentNode.value.length;
+  								while (from >= p) {
+  									currentNode = currentNode.next;
+  									p += currentNode.value.length;
+  								}
+  								// adjust pos (and p)
+  								p -= currentNode.value.length;
+  								pos = p;
+
+  								// the current node is a Token, then the match starts inside another Token, which is invalid
+  								if (currentNode.value instanceof Token) {
+  									continue;
+  								}
+
+  								// find the last node which is affected by this match
+  								for (
+  									var k = currentNode;
+  									k !== tokenList.tail && (p < to || typeof k.value === 'string');
+  									k = k.next
+  								) {
+  									removeCount++;
+  									p += k.value.length;
+  								}
+  								removeCount--;
+
+  								// replace with the new match
+  								str = text.slice(pos, p);
+  								match.index -= pos;
+  							} else {
+  								match = matchPattern(pattern, 0, str, lookbehind);
+  								if (!match) {
+  									continue;
+  								}
+  							}
+
+  							// eslint-disable-next-line no-redeclare
+  							var from = match.index;
+  							var matchStr = match[0];
+  							var before = str.slice(0, from);
+  							var after = str.slice(from + matchStr.length);
+
+  							var reach = pos + str.length;
+  							if (rematch && reach > rematch.reach) {
+  								rematch.reach = reach;
+  							}
+
+  							var removeFrom = currentNode.prev;
+
+  							if (before) {
+  								removeFrom = addAfter(tokenList, removeFrom, before);
+  								pos += before.length;
+  							}
+
+  							removeRange(tokenList, removeFrom, removeCount);
+
+  							var wrapped = new Token(token, inside ? _.tokenize(matchStr, inside) : matchStr, alias, matchStr);
+  							currentNode = addAfter(tokenList, removeFrom, wrapped);
+
+  							if (after) {
+  								addAfter(tokenList, currentNode, after);
+  							}
+
+  							if (removeCount > 1) {
+  								// at least one Token object was removed, so we have to do some rematching
+  								// this can only happen if the current pattern is greedy
+
+  								/** @type {RematchOptions} */
+  								var nestedRematch = {
+  									cause: token + ',' + j,
+  									reach: reach
+  								};
+  								matchGrammar(text, tokenList, grammar, currentNode.prev, pos, nestedRematch);
+
+  								// the reach might have been extended because of the rematching
+  								if (rematch && nestedRematch.reach > rematch.reach) {
+  									rematch.reach = nestedRematch.reach;
+  								}
+  							}
+  						}
+  					}
+  				}
+  			}
+
+  			/**
+  			 * @typedef LinkedListNode
+  			 * @property {T} value
+  			 * @property {LinkedListNode<T> | null} prev The previous node.
+  			 * @property {LinkedListNode<T> | null} next The next node.
+  			 * @template T
+  			 * @private
+  			 */
+
+  			/**
+  			 * @template T
+  			 * @private
+  			 */
+  			function LinkedList() {
+  				/** @type {LinkedListNode<T>} */
+  				var head = { value: null, prev: null, next: null };
+  				/** @type {LinkedListNode<T>} */
+  				var tail = { value: null, prev: head, next: null };
+  				head.next = tail;
+
+  				/** @type {LinkedListNode<T>} */
+  				this.head = head;
+  				/** @type {LinkedListNode<T>} */
+  				this.tail = tail;
+  				this.length = 0;
+  			}
+
+  			/**
+  			 * Adds a new node with the given value to the list.
+  			 *
+  			 * @param {LinkedList<T>} list
+  			 * @param {LinkedListNode<T>} node
+  			 * @param {T} value
+  			 * @returns {LinkedListNode<T>} The added node.
+  			 * @template T
+  			 */
+  			function addAfter(list, node, value) {
+  				// assumes that node != list.tail && values.length >= 0
+  				var next = node.next;
+
+  				var newNode = { value: value, prev: node, next: next };
+  				node.next = newNode;
+  				next.prev = newNode;
+  				list.length++;
+
+  				return newNode;
+  			}
+  			/**
+  			 * Removes `count` nodes after the given node. The given node will not be removed.
+  			 *
+  			 * @param {LinkedList<T>} list
+  			 * @param {LinkedListNode<T>} node
+  			 * @param {number} count
+  			 * @template T
+  			 */
+  			function removeRange(list, node, count) {
+  				var next = node.next;
+  				for (var i = 0; i < count && next !== list.tail; i++) {
+  					next = next.next;
+  				}
+  				node.next = next;
+  				next.prev = node;
+  				list.length -= i;
+  			}
+  			/**
+  			 * @param {LinkedList<T>} list
+  			 * @returns {T[]}
+  			 * @template T
+  			 */
+  			function toArray(list) {
+  				var array = [];
+  				var node = list.head.next;
+  				while (node !== list.tail) {
+  					array.push(node.value);
+  					node = node.next;
+  				}
+  				return array;
+  			}
+
+
+  			if (!_self.document) {
+  				if (!_self.addEventListener) {
+  					// in Node.js
+  					return _;
+  				}
+
+  				if (!_.disableWorkerMessageHandler) {
+  					// In worker
+  					_self.addEventListener('message', function (evt) {
+  						var message = JSON.parse(evt.data);
+  						var lang = message.language;
+  						var code = message.code;
+  						var immediateClose = message.immediateClose;
+
+  						_self.postMessage(_.highlight(code, _.languages[lang], lang));
+  						if (immediateClose) {
+  							_self.close();
+  						}
+  					}, false);
+  				}
+
+  				return _;
+  			}
+
+  			// Get current script and highlight
+  			var script = _.util.currentScript();
+
+  			if (script) {
+  				_.filename = script.src;
+
+  				if (script.hasAttribute('data-manual')) {
+  					_.manual = true;
+  				}
+  			}
+
+  			function highlightAutomaticallyCallback() {
+  				if (!_.manual) {
+  					_.highlightAll();
+  				}
+  			}
+
+  			if (!_.manual) {
+  				// If the document state is "loading", then we'll use DOMContentLoaded.
+  				// If the document state is "interactive" and the prism.js script is deferred, then we'll also use the
+  				// DOMContentLoaded event because there might be some plugins or languages which have also been deferred and they
+  				// might take longer one animation frame to execute which can create a race condition where only some plugins have
+  				// been loaded when Prism.highlightAll() is executed, depending on how fast resources are loaded.
+  				// See https://github.com/PrismJS/prism/issues/2102
+  				var readyState = document.readyState;
+  				if (readyState === 'loading' || readyState === 'interactive' && script && script.defer) {
+  					document.addEventListener('DOMContentLoaded', highlightAutomaticallyCallback);
+  				} else {
+  					if (window.requestAnimationFrame) {
+  						window.requestAnimationFrame(highlightAutomaticallyCallback);
+  					} else {
+  						window.setTimeout(highlightAutomaticallyCallback, 16);
+  					}
+  				}
+  			}
+
+  			return _;
+
+  		}(_self));
+
+  		if (module.exports) {
+  			module.exports = Prism;
+  		}
+
+  		// hack for components to work correctly in node.js
+  		if (typeof commonjsGlobal !== 'undefined') {
+  			commonjsGlobal.Prism = Prism;
+  		}
+
+  		// some additional documentation/types
+
+  		/**
+  		 * The expansion of a simple `RegExp` literal to support additional properties.
+  		 *
+  		 * @typedef GrammarToken
+  		 * @property {RegExp} pattern The regular expression of the token.
+  		 * @property {boolean} [lookbehind=false] If `true`, then the first capturing group of `pattern` will (effectively)
+  		 * behave as a lookbehind group meaning that the captured text will not be part of the matched text of the new token.
+  		 * @property {boolean} [greedy=false] Whether the token is greedy.
+  		 * @property {string|string[]} [alias] An optional alias or list of aliases.
+  		 * @property {Grammar} [inside] The nested grammar of this token.
+  		 *
+  		 * The `inside` grammar will be used to tokenize the text value of each token of this kind.
+  		 *
+  		 * This can be used to make nested and even recursive language definitions.
+  		 *
+  		 * Note: This can cause infinite recursion. Be careful when you embed different languages or even the same language into
+  		 * each another.
+  		 * @global
+  		 * @public
+  		 */
+
+  		/**
+  		 * @typedef Grammar
+  		 * @type {Object<string, RegExp | GrammarToken | Array<RegExp | GrammarToken>>}
+  		 * @property {Grammar} [rest] An optional grammar object that will be appended to this grammar.
+  		 * @global
+  		 * @public
+  		 */
+
+  		/**
+  		 * A function which will invoked after an element was successfully highlighted.
+  		 *
+  		 * @callback HighlightCallback
+  		 * @param {Element} element The element successfully highlighted.
+  		 * @returns {void}
+  		 * @global
+  		 * @public
+  		 */
+
+  		/**
+  		 * @callback HookCallback
+  		 * @param {Object<string, any>} env The environment variables of the hook.
+  		 * @returns {void}
+  		 * @global
+  		 * @public
+  		 */
+
+
+  		/* **********************************************
+  		     Begin prism-markup.js
+  		********************************************** */
+
+  		Prism.languages.markup = {
+  			'comment': {
+  				pattern: /<!--(?:(?!<!--)[\s\S])*?-->/,
+  				greedy: true
+  			},
+  			'prolog': {
+  				pattern: /<\?[\s\S]+?\?>/,
+  				greedy: true
+  			},
+  			'doctype': {
+  				// https://www.w3.org/TR/xml/#NT-doctypedecl
+  				pattern: /<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,
+  				greedy: true,
+  				inside: {
+  					'internal-subset': {
+  						pattern: /(^[^\[]*\[)[\s\S]+(?=\]>$)/,
+  						lookbehind: true,
+  						greedy: true,
+  						inside: null // see below
+  					},
+  					'string': {
+  						pattern: /"[^"]*"|'[^']*'/,
+  						greedy: true
+  					},
+  					'punctuation': /^<!|>$|[[\]]/,
+  					'doctype-tag': /^DOCTYPE/i,
+  					'name': /[^\s<>'"]+/
+  				}
+  			},
+  			'cdata': {
+  				pattern: /<!\[CDATA\[[\s\S]*?\]\]>/i,
+  				greedy: true
+  			},
+  			'tag': {
+  				pattern: /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,
+  				greedy: true,
+  				inside: {
+  					'tag': {
+  						pattern: /^<\/?[^\s>\/]+/,
+  						inside: {
+  							'punctuation': /^<\/?/,
+  							'namespace': /^[^\s>\/:]+:/
+  						}
+  					},
+  					'special-attr': [],
+  					'attr-value': {
+  						pattern: /=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+)/,
+  						inside: {
+  							'punctuation': [
+  								{
+  									pattern: /^=/,
+  									alias: 'attr-equals'
+  								},
+  								{
+  									pattern: /^(\s*)["']|["']$/,
+  									lookbehind: true
+  								}
+  							]
+  						}
+  					},
+  					'punctuation': /\/?>/,
+  					'attr-name': {
+  						pattern: /[^\s>\/]+/,
+  						inside: {
+  							'namespace': /^[^\s>\/:]+:/
+  						}
+  					}
+
+  				}
+  			},
+  			'entity': [
+  				{
+  					pattern: /&[\da-z]{1,8};/i,
+  					alias: 'named-entity'
+  				},
+  				/&#x?[\da-f]{1,8};/i
+  			]
+  		};
+
+  		Prism.languages.markup['tag'].inside['attr-value'].inside['entity'] =
+  			Prism.languages.markup['entity'];
+  		Prism.languages.markup['doctype'].inside['internal-subset'].inside = Prism.languages.markup;
+
+  		// Plugin to make entity title show the real entity, idea by Roman Komarov
+  		Prism.hooks.add('wrap', function (env) {
+
+  			if (env.type === 'entity') {
+  				env.attributes['title'] = env.content.replace(/&amp;/, '&');
+  			}
+  		});
+
+  		Object.defineProperty(Prism.languages.markup.tag, 'addInlined', {
+  			/**
+  			 * Adds an inlined language to markup.
+  			 *
+  			 * An example of an inlined language is CSS with `<style>` tags.
+  			 *
+  			 * @param {string} tagName The name of the tag that contains the inlined language. This name will be treated as
+  			 * case insensitive.
+  			 * @param {string} lang The language key.
+  			 * @example
+  			 * addInlined('style', 'css');
+  			 */
+  			value: function addInlined(tagName, lang) {
+  				var includedCdataInside = {};
+  				includedCdataInside['language-' + lang] = {
+  					pattern: /(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,
+  					lookbehind: true,
+  					inside: Prism.languages[lang]
+  				};
+  				includedCdataInside['cdata'] = /^<!\[CDATA\[|\]\]>$/i;
+
+  				var inside = {
+  					'included-cdata': {
+  						pattern: /<!\[CDATA\[[\s\S]*?\]\]>/i,
+  						inside: includedCdataInside
+  					}
+  				};
+  				inside['language-' + lang] = {
+  					pattern: /[\s\S]+/,
+  					inside: Prism.languages[lang]
+  				};
+
+  				var def = {};
+  				def[tagName] = {
+  					pattern: RegExp(/(<__[^>]*>)(?:<!\[CDATA\[(?:[^\]]|\](?!\]>))*\]\]>|(?!<!\[CDATA\[)[\s\S])*?(?=<\/__>)/.source.replace(/__/g, function () { return tagName; }), 'i'),
+  					lookbehind: true,
+  					greedy: true,
+  					inside: inside
+  				};
+
+  				Prism.languages.insertBefore('markup', 'cdata', def);
+  			}
+  		});
+  		Object.defineProperty(Prism.languages.markup.tag, 'addAttribute', {
+  			/**
+  			 * Adds an pattern to highlight languages embedded in HTML attributes.
+  			 *
+  			 * An example of an inlined language is CSS with `style` attributes.
+  			 *
+  			 * @param {string} attrName The name of the tag that contains the inlined language. This name will be treated as
+  			 * case insensitive.
+  			 * @param {string} lang The language key.
+  			 * @example
+  			 * addAttribute('style', 'css');
+  			 */
+  			value: function (attrName, lang) {
+  				Prism.languages.markup.tag.inside['special-attr'].push({
+  					pattern: RegExp(
+  						/(^|["'\s])/.source + '(?:' + attrName + ')' + /\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source,
+  						'i'
+  					),
+  					lookbehind: true,
+  					inside: {
+  						'attr-name': /^[^\s=]+/,
+  						'attr-value': {
+  							pattern: /=[\s\S]+/,
+  							inside: {
+  								'value': {
+  									pattern: /(^=\s*(["']|(?!["'])))\S[\s\S]*(?=\2$)/,
+  									lookbehind: true,
+  									alias: [lang, 'language-' + lang],
+  									inside: Prism.languages[lang]
+  								},
+  								'punctuation': [
+  									{
+  										pattern: /^=/,
+  										alias: 'attr-equals'
+  									},
+  									/"|'/
+  								]
+  							}
+  						}
+  					}
+  				});
+  			}
+  		});
+
+  		Prism.languages.html = Prism.languages.markup;
+  		Prism.languages.mathml = Prism.languages.markup;
+  		Prism.languages.svg = Prism.languages.markup;
+
+  		Prism.languages.xml = Prism.languages.extend('markup', {});
+  		Prism.languages.ssml = Prism.languages.xml;
+  		Prism.languages.atom = Prism.languages.xml;
+  		Prism.languages.rss = Prism.languages.xml;
+
+
+  		/* **********************************************
+  		     Begin prism-css.js
+  		********************************************** */
+
+  		(function (Prism) {
+
+  			var string = /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
+
+  			Prism.languages.css = {
+  				'comment': /\/\*[\s\S]*?\*\//,
+  				'atrule': {
+  					pattern: RegExp('@[\\w-](?:' + /[^;{\s"']|\s+(?!\s)/.source + '|' + string.source + ')*?' + /(?:;|(?=\s*\{))/.source),
+  					inside: {
+  						'rule': /^@[\w-]+/,
+  						'selector-function-argument': {
+  							pattern: /(\bselector\s*\(\s*(?![\s)]))(?:[^()\s]|\s+(?![\s)])|\((?:[^()]|\([^()]*\))*\))+(?=\s*\))/,
+  							lookbehind: true,
+  							alias: 'selector'
+  						},
+  						'keyword': {
+  							pattern: /(^|[^\w-])(?:and|not|only|or)(?![\w-])/,
+  							lookbehind: true
+  						}
+  						// See rest below
+  					}
+  				},
+  				'url': {
+  					// https://drafts.csswg.org/css-values-3/#urls
+  					pattern: RegExp('\\burl\\((?:' + string.source + '|' + /(?:[^\\\r\n()"']|\\[\s\S])*/.source + ')\\)', 'i'),
+  					greedy: true,
+  					inside: {
+  						'function': /^url/i,
+  						'punctuation': /^\(|\)$/,
+  						'string': {
+  							pattern: RegExp('^' + string.source + '$'),
+  							alias: 'url'
+  						}
+  					}
+  				},
+  				'selector': {
+  					pattern: RegExp('(^|[{}\\s])[^{}\\s](?:[^{};"\'\\s]|\\s+(?![\\s{])|' + string.source + ')*(?=\\s*\\{)'),
+  					lookbehind: true
+  				},
+  				'string': {
+  					pattern: string,
+  					greedy: true
+  				},
+  				'property': {
+  					pattern: /(^|[^-\w\xA0-\uFFFF])(?!\s)[-_a-z\xA0-\uFFFF](?:(?!\s)[-\w\xA0-\uFFFF])*(?=\s*:)/i,
+  					lookbehind: true
+  				},
+  				'important': /!important\b/i,
+  				'function': {
+  					pattern: /(^|[^-a-z0-9])[-a-z0-9]+(?=\()/i,
+  					lookbehind: true
+  				},
+  				'punctuation': /[(){};:,]/
+  			};
+
+  			Prism.languages.css['atrule'].inside.rest = Prism.languages.css;
+
+  			var markup = Prism.languages.markup;
+  			if (markup) {
+  				markup.tag.addInlined('style', 'css');
+  				markup.tag.addAttribute('style', 'css');
+  			}
+
+  		}(Prism));
+
+
+  		/* **********************************************
+  		     Begin prism-clike.js
+  		********************************************** */
+
+  		Prism.languages.clike = {
+  			'comment': [
+  				{
+  					pattern: /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,
+  					lookbehind: true,
+  					greedy: true
+  				},
+  				{
+  					pattern: /(^|[^\\:])\/\/.*/,
+  					lookbehind: true,
+  					greedy: true
+  				}
+  			],
+  			'string': {
+  				pattern: /(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+  				greedy: true
+  			},
+  			'class-name': {
+  				pattern: /(\b(?:class|extends|implements|instanceof|interface|new|trait)\s+|\bcatch\s+\()[\w.\\]+/i,
+  				lookbehind: true,
+  				inside: {
+  					'punctuation': /[.\\]/
+  				}
+  			},
+  			'keyword': /\b(?:break|catch|continue|do|else|finally|for|function|if|in|instanceof|new|null|return|throw|try|while)\b/,
+  			'boolean': /\b(?:false|true)\b/,
+  			'function': /\b\w+(?=\()/,
+  			'number': /\b0x[\da-f]+\b|(?:\b\d+(?:\.\d*)?|\B\.\d+)(?:e[+-]?\d+)?/i,
+  			'operator': /[<>]=?|[!=]=?=?|--?|\+\+?|&&?|\|\|?|[?*/~^%]/,
+  			'punctuation': /[{}[\];(),.:]/
+  		};
+
+
+  		/* **********************************************
+  		     Begin prism-javascript.js
+  		********************************************** */
+
+  		Prism.languages.javascript = Prism.languages.extend('clike', {
+  			'class-name': [
+  				Prism.languages.clike['class-name'],
+  				{
+  					pattern: /(^|[^$\w\xA0-\uFFFF])(?!\s)[_$A-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\.(?:constructor|prototype))/,
+  					lookbehind: true
+  				}
+  			],
+  			'keyword': [
+  				{
+  					pattern: /((?:^|\})\s*)catch\b/,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /(^|[^.]|\.\.\.\s*)\b(?:as|assert(?=\s*\{)|async(?=\s*(?:function\b|\(|[$\w\xA0-\uFFFF]|$))|await|break|case|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally(?=\s*(?:\{|$))|for|from(?=\s*(?:['"]|$))|function|(?:get|set)(?=\s*(?:[#\[$\w\xA0-\uFFFF]|$))|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)\b/,
+  					lookbehind: true
+  				},
+  			],
+  			// Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
+  			'function': /#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*(?:\.\s*(?:apply|bind|call)\s*)?\()/,
+  			'number': {
+  				pattern: RegExp(
+  					/(^|[^\w$])/.source +
+  					'(?:' +
+  					(
+  						// constant
+  						/NaN|Infinity/.source +
+  						'|' +
+  						// binary integer
+  						/0[bB][01]+(?:_[01]+)*n?/.source +
+  						'|' +
+  						// octal integer
+  						/0[oO][0-7]+(?:_[0-7]+)*n?/.source +
+  						'|' +
+  						// hexadecimal integer
+  						/0[xX][\dA-Fa-f]+(?:_[\dA-Fa-f]+)*n?/.source +
+  						'|' +
+  						// decimal bigint
+  						/\d+(?:_\d+)*n/.source +
+  						'|' +
+  						// decimal number (integer or float) but no bigint
+  						/(?:\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\.\d+(?:_\d+)*)(?:[Ee][+-]?\d+(?:_\d+)*)?/.source
+  					) +
+  					')' +
+  					/(?![\w$])/.source
+  				),
+  				lookbehind: true
+  			},
+  			'operator': /--|\+\+|\*\*=?|=>|&&=?|\|\|=?|[!=]==|<<=?|>>>?=?|[-+*/%&|^!=<>]=?|\.{3}|\?\?=?|\?\.?|[~:]/
+  		});
+
+  		Prism.languages.javascript['class-name'][0].pattern = /(\b(?:class|extends|implements|instanceof|interface|new)\s+)[\w.\\]+/;
+
+  		Prism.languages.insertBefore('javascript', 'keyword', {
+  			'regex': {
+  				pattern: RegExp(
+  					// lookbehind
+  					// eslint-disable-next-line regexp/no-dupe-characters-character-class
+  					/((?:^|[^$\w\xA0-\uFFFF."'\])\s]|\b(?:return|yield))\s*)/.source +
+  					// Regex pattern:
+  					// There are 2 regex patterns here. The RegExp set notation proposal added support for nested character
+  					// classes if the `v` flag is present. Unfortunately, nested CCs are both context-free and incompatible
+  					// with the only syntax, so we have to define 2 different regex patterns.
+  					/\//.source +
+  					'(?:' +
+  					/(?:\[(?:[^\]\\\r\n]|\\.)*\]|\\.|[^/\\\[\r\n])+\/[dgimyus]{0,7}/.source +
+  					'|' +
+  					// `v` flag syntax. This supports 3 levels of nested character classes.
+  					/(?:\[(?:[^[\]\\\r\n]|\\.|\[(?:[^[\]\\\r\n]|\\.|\[(?:[^[\]\\\r\n]|\\.)*\])*\])*\]|\\.|[^/\\\[\r\n])+\/[dgimyus]{0,7}v[dgimyus]{0,7}/.source +
+  					')' +
+  					// lookahead
+  					/(?=(?:\s|\/\*(?:[^*]|\*(?!\/))*\*\/)*(?:$|[\r\n,.;:})\]]|\/\/))/.source
+  				),
+  				lookbehind: true,
+  				greedy: true,
+  				inside: {
+  					'regex-source': {
+  						pattern: /^(\/)[\s\S]+(?=\/[a-z]*$)/,
+  						lookbehind: true,
+  						alias: 'language-regex',
+  						inside: Prism.languages.regex
+  					},
+  					'regex-delimiter': /^\/|\/$/,
+  					'regex-flags': /^[a-z]+$/,
+  				}
+  			},
+  			// This must be declared before keyword because we use "function" inside the look-forward
+  			'function-variable': {
+  				pattern: /#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*[=:]\s*(?:async\s*)?(?:\bfunction\b|(?:\((?:[^()]|\([^()]*\))*\)|(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)\s*=>))/,
+  				alias: 'function'
+  			},
+  			'parameter': [
+  				{
+  					pattern: /(function(?:\s+(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)?\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\))/,
+  					lookbehind: true,
+  					inside: Prism.languages.javascript
+  				},
+  				{
+  					pattern: /(^|[^$\w\xA0-\uFFFF])(?!\s)[_$a-z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*=>)/i,
+  					lookbehind: true,
+  					inside: Prism.languages.javascript
+  				},
+  				{
+  					pattern: /(\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*=>)/,
+  					lookbehind: true,
+  					inside: Prism.languages.javascript
+  				},
+  				{
+  					pattern: /((?:\b|\s|^)(?!(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)(?![$\w\xA0-\uFFFF]))(?:(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*\s*)\(\s*|\]\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*\{)/,
+  					lookbehind: true,
+  					inside: Prism.languages.javascript
+  				}
+  			],
+  			'constant': /\b[A-Z](?:[A-Z_]|\dx?)*\b/
+  		});
+
+  		Prism.languages.insertBefore('javascript', 'string', {
+  			'hashbang': {
+  				pattern: /^#!.*/,
+  				greedy: true,
+  				alias: 'comment'
+  			},
+  			'template-string': {
+  				pattern: /`(?:\\[\s\S]|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})+\}|(?!\$\{)[^\\`])*`/,
+  				greedy: true,
+  				inside: {
+  					'template-punctuation': {
+  						pattern: /^`|`$/,
+  						alias: 'string'
+  					},
+  					'interpolation': {
+  						pattern: /((?:^|[^\\])(?:\\{2})*)\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})+\}/,
+  						lookbehind: true,
+  						inside: {
+  							'interpolation-punctuation': {
+  								pattern: /^\$\{|\}$/,
+  								alias: 'punctuation'
+  							},
+  							rest: Prism.languages.javascript
+  						}
+  					},
+  					'string': /[\s\S]+/
+  				}
+  			},
+  			'string-property': {
+  				pattern: /((?:^|[,{])[ \t]*)(["'])(?:\\(?:\r\n|[\s\S])|(?!\2)[^\\\r\n])*\2(?=\s*:)/m,
+  				lookbehind: true,
+  				greedy: true,
+  				alias: 'property'
+  			}
+  		});
+
+  		Prism.languages.insertBefore('javascript', 'operator', {
+  			'literal-property': {
+  				pattern: /((?:^|[,{])[ \t]*)(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*:)/m,
+  				lookbehind: true,
+  				alias: 'property'
+  			},
+  		});
+
+  		if (Prism.languages.markup) {
+  			Prism.languages.markup.tag.addInlined('script', 'javascript');
+
+  			// add attribute support for all DOM events.
+  			// https://developer.mozilla.org/en-US/docs/Web/Events#Standard_events
+  			Prism.languages.markup.tag.addAttribute(
+  				/on(?:abort|blur|change|click|composition(?:end|start|update)|dblclick|error|focus(?:in|out)?|key(?:down|up)|load|mouse(?:down|enter|leave|move|out|over|up)|reset|resize|scroll|select|slotchange|submit|unload|wheel)/.source,
+  				'javascript'
+  			);
+  		}
+
+  		Prism.languages.js = Prism.languages.javascript;
+
+
+  		/* **********************************************
+  		     Begin prism-file-highlight.js
+  		********************************************** */
+
+  		(function () {
+
+  			if (typeof Prism === 'undefined' || typeof document === 'undefined') {
+  				return;
+  			}
+
+  			// https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
+  			if (!Element.prototype.matches) {
+  				Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+  			}
+
+  			var LOADING_MESSAGE = 'Loading…';
+  			var FAILURE_MESSAGE = function (status, message) {
+  				return '✖ Error ' + status + ' while fetching file: ' + message;
+  			};
+  			var FAILURE_EMPTY_MESSAGE = '✖ Error: File does not exist or is empty';
+
+  			var EXTENSIONS = {
+  				'js': 'javascript',
+  				'py': 'python',
+  				'rb': 'ruby',
+  				'ps1': 'powershell',
+  				'psm1': 'powershell',
+  				'sh': 'bash',
+  				'bat': 'batch',
+  				'h': 'c',
+  				'tex': 'latex'
+  			};
+
+  			var STATUS_ATTR = 'data-src-status';
+  			var STATUS_LOADING = 'loading';
+  			var STATUS_LOADED = 'loaded';
+  			var STATUS_FAILED = 'failed';
+
+  			var SELECTOR = 'pre[data-src]:not([' + STATUS_ATTR + '="' + STATUS_LOADED + '"])'
+  				+ ':not([' + STATUS_ATTR + '="' + STATUS_LOADING + '"])';
+
+  			/**
+  			 * Loads the given file.
+  			 *
+  			 * @param {string} src The URL or path of the source file to load.
+  			 * @param {(result: string) => void} success
+  			 * @param {(reason: string) => void} error
+  			 */
+  			function loadFile(src, success, error) {
+  				var xhr = new XMLHttpRequest();
+  				xhr.open('GET', src, true);
+  				xhr.onreadystatechange = function () {
+  					if (xhr.readyState == 4) {
+  						if (xhr.status < 400 && xhr.responseText) {
+  							success(xhr.responseText);
+  						} else {
+  							if (xhr.status >= 400) {
+  								error(FAILURE_MESSAGE(xhr.status, xhr.statusText));
+  							} else {
+  								error(FAILURE_EMPTY_MESSAGE);
+  							}
+  						}
+  					}
+  				};
+  				xhr.send(null);
+  			}
+
+  			/**
+  			 * Parses the given range.
+  			 *
+  			 * This returns a range with inclusive ends.
+  			 *
+  			 * @param {string | null | undefined} range
+  			 * @returns {[number, number | undefined] | undefined}
+  			 */
+  			function parseRange(range) {
+  				var m = /^\s*(\d+)\s*(?:(,)\s*(?:(\d+)\s*)?)?$/.exec(range || '');
+  				if (m) {
+  					var start = Number(m[1]);
+  					var comma = m[2];
+  					var end = m[3];
+
+  					if (!comma) {
+  						return [start, start];
+  					}
+  					if (!end) {
+  						return [start, undefined];
+  					}
+  					return [start, Number(end)];
+  				}
+  				return undefined;
+  			}
+
+  			Prism.hooks.add('before-highlightall', function (env) {
+  				env.selector += ', ' + SELECTOR;
+  			});
+
+  			Prism.hooks.add('before-sanity-check', function (env) {
+  				var pre = /** @type {HTMLPreElement} */ (env.element);
+  				if (pre.matches(SELECTOR)) {
+  					env.code = ''; // fast-path the whole thing and go to complete
+
+  					pre.setAttribute(STATUS_ATTR, STATUS_LOADING); // mark as loading
+
+  					// add code element with loading message
+  					var code = pre.appendChild(document.createElement('CODE'));
+  					code.textContent = LOADING_MESSAGE;
+
+  					var src = pre.getAttribute('data-src');
+
+  					var language = env.language;
+  					if (language === 'none') {
+  						// the language might be 'none' because there is no language set;
+  						// in this case, we want to use the extension as the language
+  						var extension = (/\.(\w+)$/.exec(src) || [, 'none'])[1];
+  						language = EXTENSIONS[extension] || extension;
+  					}
+
+  					// set language classes
+  					Prism.util.setLanguage(code, language);
+  					Prism.util.setLanguage(pre, language);
+
+  					// preload the language
+  					var autoloader = Prism.plugins.autoloader;
+  					if (autoloader) {
+  						autoloader.loadLanguages(language);
+  					}
+
+  					// load file
+  					loadFile(
+  						src,
+  						function (text) {
+  							// mark as loaded
+  							pre.setAttribute(STATUS_ATTR, STATUS_LOADED);
+
+  							// handle data-range
+  							var range = parseRange(pre.getAttribute('data-range'));
+  							if (range) {
+  								var lines = text.split(/\r\n?|\n/g);
+
+  								// the range is one-based and inclusive on both ends
+  								var start = range[0];
+  								var end = range[1] == null ? lines.length : range[1];
+
+  								if (start < 0) { start += lines.length; }
+  								start = Math.max(0, Math.min(start - 1, lines.length));
+  								if (end < 0) { end += lines.length; }
+  								end = Math.max(0, Math.min(end, lines.length));
+
+  								text = lines.slice(start, end).join('\n');
+
+  								// add data-start for line numbers
+  								if (!pre.hasAttribute('data-start')) {
+  									pre.setAttribute('data-start', String(start + 1));
+  								}
+  							}
+
+  							// highlight code
+  							code.textContent = text;
+  							Prism.highlightElement(code);
+  						},
+  						function (error) {
+  							// mark as failed
+  							pre.setAttribute(STATUS_ATTR, STATUS_FAILED);
+
+  							code.textContent = error;
+  						}
+  					);
+  				}
+  			});
+
+  			Prism.plugins.fileHighlight = {
+  				/**
+  				 * Executes the File Highlight plugin for all matching `pre` elements under the given container.
+  				 *
+  				 * Note: Elements which are already loaded or currently loading will not be touched by this method.
+  				 *
+  				 * @param {ParentNode} [container=document]
+  				 */
+  				highlight: function highlight(container) {
+  					var elements = (container || document).querySelectorAll(SELECTOR);
+
+  					for (var i = 0, element; (element = elements[i++]);) {
+  						Prism.highlightElement(element);
+  					}
+  				}
+  			};
+
+  			var logged = false;
+  			/** @deprecated Use `Prism.plugins.fileHighlight.highlight` instead. */
+  			Prism.fileHighlight = function () {
+  				if (!logged) {
+  					console.warn('Prism.fileHighlight is deprecated. Use `Prism.plugins.fileHighlight.highlight` instead.');
+  					logged = true;
+  				}
+  				Prism.plugins.fileHighlight.highlight.apply(this, arguments);
+  			};
+
+  		}()); 
+  	} (prism));
+  	return prism.exports;
+  }
+
+  var prismExports = requirePrism();
+  var Prism$1 = /*@__PURE__*/getDefaultExportFromCjs(prismExports);
+
+  Prism.languages.markup = {
+  	'comment': {
+  		pattern: /<!--(?:(?!<!--)[\s\S])*?-->/,
+  		greedy: true
+  	},
+  	'prolog': {
+  		pattern: /<\?[\s\S]+?\?>/,
+  		greedy: true
+  	},
+  	'doctype': {
+  		// https://www.w3.org/TR/xml/#NT-doctypedecl
+  		pattern: /<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,
+  		greedy: true,
+  		inside: {
+  			'internal-subset': {
+  				pattern: /(^[^\[]*\[)[\s\S]+(?=\]>$)/,
+  				lookbehind: true,
+  				greedy: true,
+  				inside: null // see below
+  			},
+  			'string': {
+  				pattern: /"[^"]*"|'[^']*'/,
+  				greedy: true
+  			},
+  			'punctuation': /^<!|>$|[[\]]/,
+  			'doctype-tag': /^DOCTYPE/i,
+  			'name': /[^\s<>'"]+/
+  		}
+  	},
+  	'cdata': {
+  		pattern: /<!\[CDATA\[[\s\S]*?\]\]>/i,
+  		greedy: true
+  	},
+  	'tag': {
+  		pattern: /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,
+  		greedy: true,
+  		inside: {
+  			'tag': {
+  				pattern: /^<\/?[^\s>\/]+/,
+  				inside: {
+  					'punctuation': /^<\/?/,
+  					'namespace': /^[^\s>\/:]+:/
+  				}
+  			},
+  			'special-attr': [],
+  			'attr-value': {
+  				pattern: /=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+)/,
+  				inside: {
+  					'punctuation': [
+  						{
+  							pattern: /^=/,
+  							alias: 'attr-equals'
+  						},
+  						{
+  							pattern: /^(\s*)["']|["']$/,
+  							lookbehind: true
+  						}
+  					]
+  				}
+  			},
+  			'punctuation': /\/?>/,
+  			'attr-name': {
+  				pattern: /[^\s>\/]+/,
+  				inside: {
+  					'namespace': /^[^\s>\/:]+:/
+  				}
+  			}
+
+  		}
+  	},
+  	'entity': [
+  		{
+  			pattern: /&[\da-z]{1,8};/i,
+  			alias: 'named-entity'
+  		},
+  		/&#x?[\da-f]{1,8};/i
+  	]
+  };
+
+  Prism.languages.markup['tag'].inside['attr-value'].inside['entity'] =
+  	Prism.languages.markup['entity'];
+  Prism.languages.markup['doctype'].inside['internal-subset'].inside = Prism.languages.markup;
+
+  // Plugin to make entity title show the real entity, idea by Roman Komarov
+  Prism.hooks.add('wrap', function (env) {
+
+  	if (env.type === 'entity') {
+  		env.attributes['title'] = env.content.replace(/&amp;/, '&');
+  	}
+  });
+
+  Object.defineProperty(Prism.languages.markup.tag, 'addInlined', {
+  	/**
+  	 * Adds an inlined language to markup.
+  	 *
+  	 * An example of an inlined language is CSS with `<style>` tags.
+  	 *
+  	 * @param {string} tagName The name of the tag that contains the inlined language. This name will be treated as
+  	 * case insensitive.
+  	 * @param {string} lang The language key.
+  	 * @example
+  	 * addInlined('style', 'css');
+  	 */
+  	value: function addInlined(tagName, lang) {
+  		var includedCdataInside = {};
+  		includedCdataInside['language-' + lang] = {
+  			pattern: /(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,
+  			lookbehind: true,
+  			inside: Prism.languages[lang]
+  		};
+  		includedCdataInside['cdata'] = /^<!\[CDATA\[|\]\]>$/i;
+
+  		var inside = {
+  			'included-cdata': {
+  				pattern: /<!\[CDATA\[[\s\S]*?\]\]>/i,
+  				inside: includedCdataInside
+  			}
+  		};
+  		inside['language-' + lang] = {
+  			pattern: /[\s\S]+/,
+  			inside: Prism.languages[lang]
+  		};
+
+  		var def = {};
+  		def[tagName] = {
+  			pattern: RegExp(/(<__[^>]*>)(?:<!\[CDATA\[(?:[^\]]|\](?!\]>))*\]\]>|(?!<!\[CDATA\[)[\s\S])*?(?=<\/__>)/.source.replace(/__/g, function () { return tagName; }), 'i'),
+  			lookbehind: true,
+  			greedy: true,
+  			inside: inside
+  		};
+
+  		Prism.languages.insertBefore('markup', 'cdata', def);
+  	}
+  });
+  Object.defineProperty(Prism.languages.markup.tag, 'addAttribute', {
+  	/**
+  	 * Adds an pattern to highlight languages embedded in HTML attributes.
+  	 *
+  	 * An example of an inlined language is CSS with `style` attributes.
+  	 *
+  	 * @param {string} attrName The name of the tag that contains the inlined language. This name will be treated as
+  	 * case insensitive.
+  	 * @param {string} lang The language key.
+  	 * @example
+  	 * addAttribute('style', 'css');
+  	 */
+  	value: function (attrName, lang) {
+  		Prism.languages.markup.tag.inside['special-attr'].push({
+  			pattern: RegExp(
+  				/(^|["'\s])/.source + '(?:' + attrName + ')' + /\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source,
+  				'i'
+  			),
+  			lookbehind: true,
+  			inside: {
+  				'attr-name': /^[^\s=]+/,
+  				'attr-value': {
+  					pattern: /=[\s\S]+/,
+  					inside: {
+  						'value': {
+  							pattern: /(^=\s*(["']|(?!["'])))\S[\s\S]*(?=\2$)/,
+  							lookbehind: true,
+  							alias: [lang, 'language-' + lang],
+  							inside: Prism.languages[lang]
+  						},
+  						'punctuation': [
+  							{
+  								pattern: /^=/,
+  								alias: 'attr-equals'
+  							},
+  							/"|'/
+  						]
+  					}
+  				}
+  			}
+  		});
+  	}
+  });
+
+  Prism.languages.html = Prism.languages.markup;
+  Prism.languages.mathml = Prism.languages.markup;
+  Prism.languages.svg = Prism.languages.markup;
+
+  Prism.languages.xml = Prism.languages.extend('markup', {});
+  Prism.languages.ssml = Prism.languages.xml;
+  Prism.languages.atom = Prism.languages.xml;
+  Prism.languages.rss = Prism.languages.xml;
+
+  (function (Prism) {
+
+  	/**
+  	 * Returns the placeholder for the given language id and index.
+  	 *
+  	 * @param {string} language
+  	 * @param {string|number} index
+  	 * @returns {string}
+  	 */
+  	function getPlaceholder(language, index) {
+  		return '___' + language.toUpperCase() + index + '___';
+  	}
+
+  	Object.defineProperties(Prism.languages['markup-templating'] = {}, {
+  		buildPlaceholders: {
+  			/**
+  			 * Tokenize all inline templating expressions matching `placeholderPattern`.
+  			 *
+  			 * If `replaceFilter` is provided, only matches of `placeholderPattern` for which `replaceFilter` returns
+  			 * `true` will be replaced.
+  			 *
+  			 * @param {object} env The environment of the `before-tokenize` hook.
+  			 * @param {string} language The language id.
+  			 * @param {RegExp} placeholderPattern The matches of this pattern will be replaced by placeholders.
+  			 * @param {(match: string) => boolean} [replaceFilter]
+  			 */
+  			value: function (env, language, placeholderPattern, replaceFilter) {
+  				if (env.language !== language) {
+  					return;
+  				}
+
+  				var tokenStack = env.tokenStack = [];
+
+  				env.code = env.code.replace(placeholderPattern, function (match) {
+  					if (typeof replaceFilter === 'function' && !replaceFilter(match)) {
+  						return match;
+  					}
+  					var i = tokenStack.length;
+  					var placeholder;
+
+  					// Check for existing strings
+  					while (env.code.indexOf(placeholder = getPlaceholder(language, i)) !== -1) {
+  						++i;
+  					}
+
+  					// Create a sparse array
+  					tokenStack[i] = match;
+
+  					return placeholder;
+  				});
+
+  				// Switch the grammar to markup
+  				env.grammar = Prism.languages.markup;
+  			}
+  		},
+  		tokenizePlaceholders: {
+  			/**
+  			 * Replace placeholders with proper tokens after tokenizing.
+  			 *
+  			 * @param {object} env The environment of the `after-tokenize` hook.
+  			 * @param {string} language The language id.
+  			 */
+  			value: function (env, language) {
+  				if (env.language !== language || !env.tokenStack) {
+  					return;
+  				}
+
+  				// Switch the grammar back
+  				env.grammar = Prism.languages[language];
+
+  				var j = 0;
+  				var keys = Object.keys(env.tokenStack);
+
+  				function walkTokens(tokens) {
+  					for (var i = 0; i < tokens.length; i++) {
+  						// all placeholders are replaced already
+  						if (j >= keys.length) {
+  							break;
+  						}
+
+  						var token = tokens[i];
+  						if (typeof token === 'string' || (token.content && typeof token.content === 'string')) {
+  							var k = keys[j];
+  							var t = env.tokenStack[k];
+  							var s = typeof token === 'string' ? token : token.content;
+  							var placeholder = getPlaceholder(language, k);
+
+  							var index = s.indexOf(placeholder);
+  							if (index > -1) {
+  								++j;
+
+  								var before = s.substring(0, index);
+  								var middle = new Prism.Token(language, Prism.tokenize(t, env.grammar), 'language-' + language, t);
+  								var after = s.substring(index + placeholder.length);
+
+  								var replacement = [];
+  								if (before) {
+  									replacement.push.apply(replacement, walkTokens([before]));
+  								}
+  								replacement.push(middle);
+  								if (after) {
+  									replacement.push.apply(replacement, walkTokens([after]));
+  								}
+
+  								if (typeof token === 'string') {
+  									tokens.splice.apply(tokens, [i, 1].concat(replacement));
+  								} else {
+  									token.content = replacement;
+  								}
+  							}
+  						} else if (token.content /* && typeof token.content !== 'string' */) {
+  							walkTokens(token.content);
+  						}
+  					}
+
+  					return tokens;
+  				}
+
+  				walkTokens(env.tokens);
+  			}
+  		}
+  	});
+
+  }(Prism));
+
+  (function (Prism) {
+
+  	var string = /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
+
+  	Prism.languages.css = {
+  		'comment': /\/\*[\s\S]*?\*\//,
+  		'atrule': {
+  			pattern: RegExp('@[\\w-](?:' + /[^;{\s"']|\s+(?!\s)/.source + '|' + string.source + ')*?' + /(?:;|(?=\s*\{))/.source),
+  			inside: {
+  				'rule': /^@[\w-]+/,
+  				'selector-function-argument': {
+  					pattern: /(\bselector\s*\(\s*(?![\s)]))(?:[^()\s]|\s+(?![\s)])|\((?:[^()]|\([^()]*\))*\))+(?=\s*\))/,
+  					lookbehind: true,
+  					alias: 'selector'
+  				},
+  				'keyword': {
+  					pattern: /(^|[^\w-])(?:and|not|only|or)(?![\w-])/,
+  					lookbehind: true
+  				}
+  				// See rest below
+  			}
+  		},
+  		'url': {
+  			// https://drafts.csswg.org/css-values-3/#urls
+  			pattern: RegExp('\\burl\\((?:' + string.source + '|' + /(?:[^\\\r\n()"']|\\[\s\S])*/.source + ')\\)', 'i'),
+  			greedy: true,
+  			inside: {
+  				'function': /^url/i,
+  				'punctuation': /^\(|\)$/,
+  				'string': {
+  					pattern: RegExp('^' + string.source + '$'),
+  					alias: 'url'
+  				}
+  			}
+  		},
+  		'selector': {
+  			pattern: RegExp('(^|[{}\\s])[^{}\\s](?:[^{};"\'\\s]|\\s+(?![\\s{])|' + string.source + ')*(?=\\s*\\{)'),
+  			lookbehind: true
+  		},
+  		'string': {
+  			pattern: string,
+  			greedy: true
+  		},
+  		'property': {
+  			pattern: /(^|[^-\w\xA0-\uFFFF])(?!\s)[-_a-z\xA0-\uFFFF](?:(?!\s)[-\w\xA0-\uFFFF])*(?=\s*:)/i,
+  			lookbehind: true
+  		},
+  		'important': /!important\b/i,
+  		'function': {
+  			pattern: /(^|[^-a-z0-9])[-a-z0-9]+(?=\()/i,
+  			lookbehind: true
+  		},
+  		'punctuation': /[(){};:,]/
+  	};
+
+  	Prism.languages.css['atrule'].inside.rest = Prism.languages.css;
+
+  	var markup = Prism.languages.markup;
+  	if (markup) {
+  		markup.tag.addInlined('style', 'css');
+  		markup.tag.addAttribute('style', 'css');
+  	}
+
+  }(Prism));
+
+  Prism.languages.javascript = Prism.languages.extend('clike', {
+  	'class-name': [
+  		Prism.languages.clike['class-name'],
+  		{
+  			pattern: /(^|[^$\w\xA0-\uFFFF])(?!\s)[_$A-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\.(?:constructor|prototype))/,
+  			lookbehind: true
+  		}
+  	],
+  	'keyword': [
+  		{
+  			pattern: /((?:^|\})\s*)catch\b/,
+  			lookbehind: true
+  		},
+  		{
+  			pattern: /(^|[^.]|\.\.\.\s*)\b(?:as|assert(?=\s*\{)|async(?=\s*(?:function\b|\(|[$\w\xA0-\uFFFF]|$))|await|break|case|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally(?=\s*(?:\{|$))|for|from(?=\s*(?:['"]|$))|function|(?:get|set)(?=\s*(?:[#\[$\w\xA0-\uFFFF]|$))|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)\b/,
+  			lookbehind: true
+  		},
+  	],
+  	// Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
+  	'function': /#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*(?:\.\s*(?:apply|bind|call)\s*)?\()/,
+  	'number': {
+  		pattern: RegExp(
+  			/(^|[^\w$])/.source +
+  			'(?:' +
+  			(
+  				// constant
+  				/NaN|Infinity/.source +
+  				'|' +
+  				// binary integer
+  				/0[bB][01]+(?:_[01]+)*n?/.source +
+  				'|' +
+  				// octal integer
+  				/0[oO][0-7]+(?:_[0-7]+)*n?/.source +
+  				'|' +
+  				// hexadecimal integer
+  				/0[xX][\dA-Fa-f]+(?:_[\dA-Fa-f]+)*n?/.source +
+  				'|' +
+  				// decimal bigint
+  				/\d+(?:_\d+)*n/.source +
+  				'|' +
+  				// decimal number (integer or float) but no bigint
+  				/(?:\d+(?:_\d+)*(?:\.(?:\d+(?:_\d+)*)?)?|\.\d+(?:_\d+)*)(?:[Ee][+-]?\d+(?:_\d+)*)?/.source
+  			) +
+  			')' +
+  			/(?![\w$])/.source
+  		),
+  		lookbehind: true
+  	},
+  	'operator': /--|\+\+|\*\*=?|=>|&&=?|\|\|=?|[!=]==|<<=?|>>>?=?|[-+*/%&|^!=<>]=?|\.{3}|\?\?=?|\?\.?|[~:]/
+  });
+
+  Prism.languages.javascript['class-name'][0].pattern = /(\b(?:class|extends|implements|instanceof|interface|new)\s+)[\w.\\]+/;
+
+  Prism.languages.insertBefore('javascript', 'keyword', {
+  	'regex': {
+  		pattern: RegExp(
+  			// lookbehind
+  			// eslint-disable-next-line regexp/no-dupe-characters-character-class
+  			/((?:^|[^$\w\xA0-\uFFFF."'\])\s]|\b(?:return|yield))\s*)/.source +
+  			// Regex pattern:
+  			// There are 2 regex patterns here. The RegExp set notation proposal added support for nested character
+  			// classes if the `v` flag is present. Unfortunately, nested CCs are both context-free and incompatible
+  			// with the only syntax, so we have to define 2 different regex patterns.
+  			/\//.source +
+  			'(?:' +
+  			/(?:\[(?:[^\]\\\r\n]|\\.)*\]|\\.|[^/\\\[\r\n])+\/[dgimyus]{0,7}/.source +
+  			'|' +
+  			// `v` flag syntax. This supports 3 levels of nested character classes.
+  			/(?:\[(?:[^[\]\\\r\n]|\\.|\[(?:[^[\]\\\r\n]|\\.|\[(?:[^[\]\\\r\n]|\\.)*\])*\])*\]|\\.|[^/\\\[\r\n])+\/[dgimyus]{0,7}v[dgimyus]{0,7}/.source +
+  			')' +
+  			// lookahead
+  			/(?=(?:\s|\/\*(?:[^*]|\*(?!\/))*\*\/)*(?:$|[\r\n,.;:})\]]|\/\/))/.source
+  		),
+  		lookbehind: true,
+  		greedy: true,
+  		inside: {
+  			'regex-source': {
+  				pattern: /^(\/)[\s\S]+(?=\/[a-z]*$)/,
+  				lookbehind: true,
+  				alias: 'language-regex',
+  				inside: Prism.languages.regex
+  			},
+  			'regex-delimiter': /^\/|\/$/,
+  			'regex-flags': /^[a-z]+$/,
+  		}
+  	},
+  	// This must be declared before keyword because we use "function" inside the look-forward
+  	'function-variable': {
+  		pattern: /#?(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*[=:]\s*(?:async\s*)?(?:\bfunction\b|(?:\((?:[^()]|\([^()]*\))*\)|(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)\s*=>))/,
+  		alias: 'function'
+  	},
+  	'parameter': [
+  		{
+  			pattern: /(function(?:\s+(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)?\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\))/,
+  			lookbehind: true,
+  			inside: Prism.languages.javascript
+  		},
+  		{
+  			pattern: /(^|[^$\w\xA0-\uFFFF])(?!\s)[_$a-z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*=>)/i,
+  			lookbehind: true,
+  			inside: Prism.languages.javascript
+  		},
+  		{
+  			pattern: /(\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*=>)/,
+  			lookbehind: true,
+  			inside: Prism.languages.javascript
+  		},
+  		{
+  			pattern: /((?:\b|\s|^)(?!(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)(?![$\w\xA0-\uFFFF]))(?:(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*\s*)\(\s*|\]\s*\(\s*)(?!\s)(?:[^()\s]|\s+(?![\s)])|\([^()]*\))+(?=\s*\)\s*\{)/,
+  			lookbehind: true,
+  			inside: Prism.languages.javascript
+  		}
+  	],
+  	'constant': /\b[A-Z](?:[A-Z_]|\dx?)*\b/
+  });
+
+  Prism.languages.insertBefore('javascript', 'string', {
+  	'hashbang': {
+  		pattern: /^#!.*/,
+  		greedy: true,
+  		alias: 'comment'
+  	},
+  	'template-string': {
+  		pattern: /`(?:\\[\s\S]|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})+\}|(?!\$\{)[^\\`])*`/,
+  		greedy: true,
+  		inside: {
+  			'template-punctuation': {
+  				pattern: /^`|`$/,
+  				alias: 'string'
+  			},
+  			'interpolation': {
+  				pattern: /((?:^|[^\\])(?:\\{2})*)\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})+\}/,
+  				lookbehind: true,
+  				inside: {
+  					'interpolation-punctuation': {
+  						pattern: /^\$\{|\}$/,
+  						alias: 'punctuation'
+  					},
+  					rest: Prism.languages.javascript
+  				}
+  			},
+  			'string': /[\s\S]+/
+  		}
+  	},
+  	'string-property': {
+  		pattern: /((?:^|[,{])[ \t]*)(["'])(?:\\(?:\r\n|[\s\S])|(?!\2)[^\\\r\n])*\2(?=\s*:)/m,
+  		lookbehind: true,
+  		greedy: true,
+  		alias: 'property'
+  	}
+  });
+
+  Prism.languages.insertBefore('javascript', 'operator', {
+  	'literal-property': {
+  		pattern: /((?:^|[,{])[ \t]*)(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*:)/m,
+  		lookbehind: true,
+  		alias: 'property'
+  	},
+  });
+
+  if (Prism.languages.markup) {
+  	Prism.languages.markup.tag.addInlined('script', 'javascript');
+
+  	// add attribute support for all DOM events.
+  	// https://developer.mozilla.org/en-US/docs/Web/Events#Standard_events
+  	Prism.languages.markup.tag.addAttribute(
+  		/on(?:abort|blur|change|click|composition(?:end|start|update)|dblclick|error|focus(?:in|out)?|key(?:down|up)|load|mouse(?:down|enter|leave|move|out|over|up)|reset|resize|scroll|select|slotchange|submit|unload|wheel)/.source,
+  		'javascript'
+  	);
+  }
+
+  Prism.languages.js = Prism.languages.javascript;
+
+  var prismPhp = {};
+
+  /**
+   * Original by Aaron Harun: http://aahacreative.com/2012/07/31/php-syntax-highlighting-prism/
+   * Modified by Miles Johnson: http://milesj.me
+   * Rewritten by Tom Pavelec
+   *
+   * Supports PHP 5.3 - 8.0
+   */
+
+  var hasRequiredPrismPhp;
+
+  function requirePrismPhp () {
+  	if (hasRequiredPrismPhp) return prismPhp;
+  	hasRequiredPrismPhp = 1;
+  	(function (Prism) {
+  		var comment = /\/\*[\s\S]*?\*\/|\/\/.*|#(?!\[).*/;
+  		var constant = [
+  			{
+  				pattern: /\b(?:false|true)\b/i,
+  				alias: 'boolean'
+  			},
+  			{
+  				pattern: /(::\s*)\b[a-z_]\w*\b(?!\s*\()/i,
+  				greedy: true,
+  				lookbehind: true,
+  			},
+  			{
+  				pattern: /(\b(?:case|const)\s+)\b[a-z_]\w*(?=\s*[;=])/i,
+  				greedy: true,
+  				lookbehind: true,
+  			},
+  			/\b(?:null)\b/i,
+  			/\b[A-Z_][A-Z0-9_]*\b(?!\s*\()/,
+  		];
+  		var number = /\b0b[01]+(?:_[01]+)*\b|\b0o[0-7]+(?:_[0-7]+)*\b|\b0x[\da-f]+(?:_[\da-f]+)*\b|(?:\b\d+(?:_\d+)*\.?(?:\d+(?:_\d+)*)?|\B\.\d+)(?:e[+-]?\d+)?/i;
+  		var operator = /<?=>|\?\?=?|\.{3}|\??->|[!=]=?=?|::|\*\*=?|--|\+\+|&&|\|\||<<|>>|[?~]|[/^|%*&<>.+-]=?/;
+  		var punctuation = /[{}\[\](),:;]/;
+
+  		Prism.languages.php = {
+  			'delimiter': {
+  				pattern: /\?>$|^<\?(?:php(?=\s)|=)?/i,
+  				alias: 'important'
+  			},
+  			'comment': comment,
+  			'variable': /\$+(?:\w+\b|(?=\{))/,
+  			'package': {
+  				pattern: /(namespace\s+|use\s+(?:function\s+)?)(?:\\?\b[a-z_]\w*)+\b(?!\\)/i,
+  				lookbehind: true,
+  				inside: {
+  					'punctuation': /\\/
+  				}
+  			},
+  			'class-name-definition': {
+  				pattern: /(\b(?:class|enum|interface|trait)\s+)\b[a-z_]\w*(?!\\)\b/i,
+  				lookbehind: true,
+  				alias: 'class-name'
+  			},
+  			'function-definition': {
+  				pattern: /(\bfunction\s+)[a-z_]\w*(?=\s*\()/i,
+  				lookbehind: true,
+  				alias: 'function'
+  			},
+  			'keyword': [
+  				{
+  					pattern: /(\(\s*)\b(?:array|bool|boolean|float|int|integer|object|string)\b(?=\s*\))/i,
+  					alias: 'type-casting',
+  					greedy: true,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /([(,?]\s*)\b(?:array(?!\s*\()|bool|callable|(?:false|null)(?=\s*\|)|float|int|iterable|mixed|object|self|static|string)\b(?=\s*\$)/i,
+  					alias: 'type-hint',
+  					greedy: true,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /(\)\s*:\s*(?:\?\s*)?)\b(?:array(?!\s*\()|bool|callable|(?:false|null)(?=\s*\|)|float|int|iterable|mixed|never|object|self|static|string|void)\b/i,
+  					alias: 'return-type',
+  					greedy: true,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /\b(?:array(?!\s*\()|bool|float|int|iterable|mixed|object|string|void)\b/i,
+  					alias: 'type-declaration',
+  					greedy: true
+  				},
+  				{
+  					pattern: /(\|\s*)(?:false|null)\b|\b(?:false|null)(?=\s*\|)/i,
+  					alias: 'type-declaration',
+  					greedy: true,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /\b(?:parent|self|static)(?=\s*::)/i,
+  					alias: 'static-context',
+  					greedy: true
+  				},
+  				{
+  					// yield from
+  					pattern: /(\byield\s+)from\b/i,
+  					lookbehind: true
+  				},
+  				// `class` is always a keyword unlike other keywords
+  				/\bclass\b/i,
+  				{
+  					// https://www.php.net/manual/en/reserved.keywords.php
+  					//
+  					// keywords cannot be preceded by "->"
+  					// the complex lookbehind means `(?<!(?:->|::)\s*)`
+  					pattern: /((?:^|[^\s>:]|(?:^|[^-])>|(?:^|[^:]):)\s*)\b(?:abstract|and|array|as|break|callable|case|catch|clone|const|continue|declare|default|die|do|echo|else|elseif|empty|enddeclare|endfor|endforeach|endif|endswitch|endwhile|enum|eval|exit|extends|final|finally|fn|for|foreach|function|global|goto|if|implements|include|include_once|instanceof|insteadof|interface|isset|list|match|namespace|never|new|or|parent|print|private|protected|public|readonly|require|require_once|return|self|static|switch|throw|trait|try|unset|use|var|while|xor|yield|__halt_compiler)\b/i,
+  					lookbehind: true
+  				}
+  			],
+  			'argument-name': {
+  				pattern: /([(,]\s*)\b[a-z_]\w*(?=\s*:(?!:))/i,
+  				lookbehind: true
+  			},
+  			'class-name': [
+  				{
+  					pattern: /(\b(?:extends|implements|instanceof|new(?!\s+self|\s+static))\s+|\bcatch\s*\()\b[a-z_]\w*(?!\\)\b/i,
+  					greedy: true,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /(\|\s*)\b[a-z_]\w*(?!\\)\b/i,
+  					greedy: true,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /\b[a-z_]\w*(?!\\)\b(?=\s*\|)/i,
+  					greedy: true
+  				},
+  				{
+  					pattern: /(\|\s*)(?:\\?\b[a-z_]\w*)+\b/i,
+  					alias: 'class-name-fully-qualified',
+  					greedy: true,
+  					lookbehind: true,
+  					inside: {
+  						'punctuation': /\\/
+  					}
+  				},
+  				{
+  					pattern: /(?:\\?\b[a-z_]\w*)+\b(?=\s*\|)/i,
+  					alias: 'class-name-fully-qualified',
+  					greedy: true,
+  					inside: {
+  						'punctuation': /\\/
+  					}
+  				},
+  				{
+  					pattern: /(\b(?:extends|implements|instanceof|new(?!\s+self\b|\s+static\b))\s+|\bcatch\s*\()(?:\\?\b[a-z_]\w*)+\b(?!\\)/i,
+  					alias: 'class-name-fully-qualified',
+  					greedy: true,
+  					lookbehind: true,
+  					inside: {
+  						'punctuation': /\\/
+  					}
+  				},
+  				{
+  					pattern: /\b[a-z_]\w*(?=\s*\$)/i,
+  					alias: 'type-declaration',
+  					greedy: true
+  				},
+  				{
+  					pattern: /(?:\\?\b[a-z_]\w*)+(?=\s*\$)/i,
+  					alias: ['class-name-fully-qualified', 'type-declaration'],
+  					greedy: true,
+  					inside: {
+  						'punctuation': /\\/
+  					}
+  				},
+  				{
+  					pattern: /\b[a-z_]\w*(?=\s*::)/i,
+  					alias: 'static-context',
+  					greedy: true
+  				},
+  				{
+  					pattern: /(?:\\?\b[a-z_]\w*)+(?=\s*::)/i,
+  					alias: ['class-name-fully-qualified', 'static-context'],
+  					greedy: true,
+  					inside: {
+  						'punctuation': /\\/
+  					}
+  				},
+  				{
+  					pattern: /([(,?]\s*)[a-z_]\w*(?=\s*\$)/i,
+  					alias: 'type-hint',
+  					greedy: true,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /([(,?]\s*)(?:\\?\b[a-z_]\w*)+(?=\s*\$)/i,
+  					alias: ['class-name-fully-qualified', 'type-hint'],
+  					greedy: true,
+  					lookbehind: true,
+  					inside: {
+  						'punctuation': /\\/
+  					}
+  				},
+  				{
+  					pattern: /(\)\s*:\s*(?:\?\s*)?)\b[a-z_]\w*(?!\\)\b/i,
+  					alias: 'return-type',
+  					greedy: true,
+  					lookbehind: true
+  				},
+  				{
+  					pattern: /(\)\s*:\s*(?:\?\s*)?)(?:\\?\b[a-z_]\w*)+\b(?!\\)/i,
+  					alias: ['class-name-fully-qualified', 'return-type'],
+  					greedy: true,
+  					lookbehind: true,
+  					inside: {
+  						'punctuation': /\\/
+  					}
+  				}
+  			],
+  			'constant': constant,
+  			'function': {
+  				pattern: /(^|[^\\\w])\\?[a-z_](?:[\w\\]*\w)?(?=\s*\()/i,
+  				lookbehind: true,
+  				inside: {
+  					'punctuation': /\\/
+  				}
+  			},
+  			'property': {
+  				pattern: /(->\s*)\w+/,
+  				lookbehind: true
+  			},
+  			'number': number,
+  			'operator': operator,
+  			'punctuation': punctuation
+  		};
+
+  		var string_interpolation = {
+  			pattern: /\{\$(?:\{(?:\{[^{}]+\}|[^{}]+)\}|[^{}])+\}|(^|[^\\{])\$+(?:\w+(?:\[[^\r\n\[\]]+\]|->\w+)?)/,
+  			lookbehind: true,
+  			inside: Prism.languages.php
+  		};
+
+  		var string = [
+  			{
+  				pattern: /<<<'([^']+)'[\r\n](?:.*[\r\n])*?\1;/,
+  				alias: 'nowdoc-string',
+  				greedy: true,
+  				inside: {
+  					'delimiter': {
+  						pattern: /^<<<'[^']+'|[a-z_]\w*;$/i,
+  						alias: 'symbol',
+  						inside: {
+  							'punctuation': /^<<<'?|[';]$/
+  						}
+  					}
+  				}
+  			},
+  			{
+  				pattern: /<<<(?:"([^"]+)"[\r\n](?:.*[\r\n])*?\1;|([a-z_]\w*)[\r\n](?:.*[\r\n])*?\2;)/i,
+  				alias: 'heredoc-string',
+  				greedy: true,
+  				inside: {
+  					'delimiter': {
+  						pattern: /^<<<(?:"[^"]+"|[a-z_]\w*)|[a-z_]\w*;$/i,
+  						alias: 'symbol',
+  						inside: {
+  							'punctuation': /^<<<"?|[";]$/
+  						}
+  					},
+  					'interpolation': string_interpolation
+  				}
+  			},
+  			{
+  				pattern: /`(?:\\[\s\S]|[^\\`])*`/,
+  				alias: 'backtick-quoted-string',
+  				greedy: true
+  			},
+  			{
+  				pattern: /'(?:\\[\s\S]|[^\\'])*'/,
+  				alias: 'single-quoted-string',
+  				greedy: true
+  			},
+  			{
+  				pattern: /"(?:\\[\s\S]|[^\\"])*"/,
+  				alias: 'double-quoted-string',
+  				greedy: true,
+  				inside: {
+  					'interpolation': string_interpolation
+  				}
+  			}
+  		];
+
+  		Prism.languages.insertBefore('php', 'variable', {
+  			'string': string,
+  			'attribute': {
+  				pattern: /#\[(?:[^"'\/#]|\/(?![*/])|\/\/.*$|#(?!\[).*$|\/\*(?:[^*]|\*(?!\/))*\*\/|"(?:\\[\s\S]|[^\\"])*"|'(?:\\[\s\S]|[^\\'])*')+\](?=\s*[a-z$#])/im,
+  				greedy: true,
+  				inside: {
+  					'attribute-content': {
+  						pattern: /^(#\[)[\s\S]+(?=\]$)/,
+  						lookbehind: true,
+  						// inside can appear subset of php
+  						inside: {
+  							'comment': comment,
+  							'string': string,
+  							'attribute-class-name': [
+  								{
+  									pattern: /([^:]|^)\b[a-z_]\w*(?!\\)\b/i,
+  									alias: 'class-name',
+  									greedy: true,
+  									lookbehind: true
+  								},
+  								{
+  									pattern: /([^:]|^)(?:\\?\b[a-z_]\w*)+/i,
+  									alias: [
+  										'class-name',
+  										'class-name-fully-qualified'
+  									],
+  									greedy: true,
+  									lookbehind: true,
+  									inside: {
+  										'punctuation': /\\/
+  									}
+  								}
+  							],
+  							'constant': constant,
+  							'number': number,
+  							'operator': operator,
+  							'punctuation': punctuation
+  						}
+  					},
+  					'delimiter': {
+  						pattern: /^#\[|\]$/,
+  						alias: 'punctuation'
+  					}
+  				}
+  			},
+  		});
+
+  		Prism.hooks.add('before-tokenize', function (env) {
+  			if (!/<\?/.test(env.code)) {
+  				return;
+  			}
+
+  			var phpPattern = /<\?(?:[^"'/#]|\/(?![*/])|("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|(?:\/\/|#(?!\[))(?:[^?\n\r]|\?(?!>))*(?=$|\?>|[\r\n])|#\[|\/\*(?:[^*]|\*(?!\/))*(?:\*\/|$))*?(?:\?>|$)/g;
+  			Prism.languages['markup-templating'].buildPlaceholders(env, 'php', phpPattern);
+  		});
+
+  		Prism.hooks.add('after-tokenize', function (env) {
+  			Prism.languages['markup-templating'].tokenizePlaceholders(env, 'php');
+  		});
+
+  	}(Prism));
+  	return prismPhp;
+  }
+
+  requirePrismPhp();
+
+  // src/features/prism.js
+
+  function extractCodeText(codeEl) {
+    const html = codeEl.innerHTML ?? "";
+
+    // Reconstruit le texte si le forum injecte <br>, &nbsp;, spans...
+    if (/<br\s*\/?>/i.test(html) || /&nbsp;|<span\b|<div\b/i.test(html)) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html.replace(/<br\s*\/?>/gi, "\n");
+      return (tmp.textContent ?? "").replace(/\u00A0/g, " ").trimEnd();
+    }
+
+    return (codeEl.textContent ?? "").replace(/\u00A0/g, " ").trimEnd();
+  }
+
+  /**
+   * Détection "au contenu" -> renvoie un id Prism :
+   * - markup (HTML)
+   * - php
+   * - css
+   * - javascript
+   * - text (fallback)
+   */
+  function detectPrismLang(code) {
+    const s = (code || "").trim();
+    if (!s) return "text";
+
+    // PHP fort (balises)
+    if (/<\?(php|=)?/i.test(s) && !/<\?xml/i.test(s)) return "php";
+
+    // CSS très reconnaissable : "prop: value;" + blocs { }
+    const cssPropHits = (s.match(/\b[a-z-]+\s*:\s*[^;{}\n]+;/gi) || []).length;
+    const cssScore =
+      (cssPropHits >= 2 ? 5 : cssPropHits === 1 ? 2 : 0) +
+      (/@(media|supports|keyframes|import)\b/i.test(s) ? 2 : 0) +
+      (/[.#][\w-]+\s*(,|\{|:)/.test(s) ? 1 : 0) +
+      (/{[\s\S]*}/.test(s) ? 1 : 0);
+
+    // HTML/markup (tags, doctype, attributs)
+    const tagHits = (s.match(/<\/?[a-z][\w:-]*(\s+[^>]+)?>/gi) || []).length;
+    const htmlScore =
+      (/<\!doctype\s+html/i.test(s) ? 6 : 0) +
+      (tagHits >= 2 ? 4 : tagHits === 1 ? 2 : 0) +
+      (/\b(class|id|href|src|data-)\s*=/.test(s) ? 2 : 0);
+
+    // JS (mots-clés + patterns)
+    const jsScore =
+      (/\b(const|let|var|function|return|class|new|throw|try|catch|await|async)\b/.test(
+        s,
+      )
+        ? 3
+        : 0) +
+      (/\b(import|export|from)\b/.test(s) ? 3 : 0) +
+      (/=>/.test(s) ? 2 : 0) +
+      (/\b(document|window|console|fetch|JSON)\b/.test(s) ? 2 : 0);
+
+    // PHP sans balises (moins fort, mais utile)
+    const phpScore =
+      (/\$\w+/.test(s) ? 2 : 0) +
+      (/\b(namespace|use|function|public|private|protected|echo|foreach|elseif)\b/i.test(
+        s,
+      )
+        ? 2
+        : 0) +
+      (/->|::/.test(s) ? 2 : 0);
+
+    // Choix par score
+    const candidates = [
+      ["php", phpScore],
+      ["markup", htmlScore],
+      ["css", cssScore],
+      ["javascript", jsScore],
+    ].sort((a, b) => b[1] - a[1]);
+
+    const [best, score] = candidates[0];
+    return score >= 3 ? best : "text";
+  }
+
+  function guessLangFromEl(codeEl, codeText) {
+    // 1) data-lang explicite
+    const dl = codeEl.getAttribute("data-lang");
+    if (dl) return normalizeLang(dl);
+
+    // 2) class language-xxx / lang-xxx
+    const cls = codeEl.className || "";
+    const m =
+      cls.match(/\blanguage-([a-z0-9#+.-]+)\b/i) ||
+      cls.match(/\blang-([a-z0-9#+.-]+)\b/i);
+    if (m?.[1]) return normalizeLang(m[1]);
+
+    // 3) contenu
+    return detectPrismLang(codeText);
+  }
+
+  function normalizeLang(v) {
+    const x = String(v || "")
+      .trim()
+      .toLowerCase();
+    if (x === "html") return "markup";
+    if (x === "js") return "javascript";
+    return x || "text";
+  }
+
+  function ensurePreWrapper(codeEl, lang) {
+    // Prism aime bien <pre><code class="language-...">
+    let pre = codeEl.closest("pre");
+    if (!pre) {
+      pre = document.createElement("pre");
+      // conserve ton hook .codebox .code : on garde la classe .code sur codeEl
+      codeEl.replaceWith(pre);
+      pre.appendChild(codeEl);
+    }
+    pre.classList.add(`language-${lang}`);
+    return pre;
+  }
+
+  function copyText(text) {
+    const t = String(text ?? "");
+
+    // Voie moderne (HTTPS + permissions)
+    if (navigator.clipboard?.writeText) {
+      return navigator.clipboard.writeText(t);
+    }
+
+    // Fallback (anciennes contraintes)
+    return new Promise((resolve, reject) => {
+      const ta = document.createElement("textarea");
+      ta.value = t;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "-9999px";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        ok ? resolve() : reject(new Error("copy failed"));
+      } catch (e) {
+        document.body.removeChild(ta);
+        reject(e);
+      }
+    });
+  }
+
+  function prependCopyButton(root = document) {
+    const codes = Array.from(
+      root.querySelectorAll('.codebox code.code:not([data-copybtn="1"])'),
+    );
+    const copyHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+    const copyCheckHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 lucide lucide-copy-check-icon lucide-copy-check"><path d="m12 15 2 2 4-4"/><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+
+    for (const code of codes) {
+      code.setAttribute("data-copybtn", "1");
+
+      const host = code.closest("pre") || code.parentElement || code;
+
+      // évite doublon si déjà présent
+      if (host.querySelector(':scope > button[data-role="copy-code"]')) continue;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-role", "copy-code");
+      btn.className =
+        "text-zinc-800 dark:text-zinc-200 p-1 rounded-md text-inherit bg-white dark:bg-zinc-700 text-xs shadow-sm right-4 top-4 absolute";
+      btn.innerHTML = copyHTML;
+
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const text = code.innerHTML || "";
+        try {
+          await copyText(text);
+          btn.innerHTML = copyCheckHTML;
+          setTimeout(() => (btn.innerHTML = copyHTML), 900);
+        } catch {
+          btn.innerHTML = "Erreur";
+          setTimeout(() => (btn.innerHTML = copyHTML), 1200);
+        }
+      });
+
+      host.prepend(btn);
+    }
+  }
+
+  function initPrism(root = document) {
+    const blocks = Array.from(
+      root.querySelectorAll('.codebox code:not([data-prism="1"])'),
+    );
+    if (!blocks.length) return;
+
+    for (const codeEl of blocks) {
+      const code = extractCodeText(codeEl);
+      const lang = guessLangFromEl(codeEl, code);
+
+      // Normalise le contenu en texte pur (évite que Prism parse du HTML)
+      codeEl.textContent = code;
+
+      // classes Prism
+      codeEl.classList.add("code", `language-${lang}`);
+      ensurePreWrapper(codeEl, lang);
+
+      codeEl.setAttribute("data-prism", "1");
+      codeEl.parentElement.classList.add(
+        "relative",
+        "border",
+        "border-zinc-300",
+        "dark:border-zinc-700",
+      );
+      Prism$1.highlightElement(codeEl);
+      prependCopyButton(codeEl.parentElement);
+    }
+  }
+
+  /**
+   * Variante dédiée aux blocs générés par marked (via renderMarkdown).
+   * marked produit déjà un <pre class="codebox"><code class="language-xxx">
+   * propre — pas besoin de reconstruction HTML ni de détection lourde.
+   */
+  function initPrismMarkdown(root = document) {
+    const blocks = Array.from(
+      root.querySelectorAll('pre > code:not([data-prism="1"])'),
+    );
+    if (!blocks.length) return;
+
+    for (const codeEl of blocks) {
+      // marked génère du texte propre, pas de <br>/&nbsp; à reconstruire
+      const code = (codeEl.textContent ?? "").replace(/\u00A0/g, " ").trimEnd();
+      const lang = guessLangFromEl(codeEl, code);
+
+      // Remet le contenu en texte pur avant highlight
+      codeEl.textContent = code;
+      codeEl.classList.add("code", `language-${lang}`);
+
+      const pre = codeEl.closest("pre");
+      pre.classList.add(
+        `language-${lang}`,
+        "relative",
+        "border",
+        "border-zinc-300",
+        "dark:border-zinc-700",
+      );
+
+      // Marque avant highlight pour éviter tout double-traitement
+      codeEl.setAttribute("data-prism", "1");
+      Prism$1.highlightElement(codeEl);
+      prependCopyButton(pre);
+    }
+  }
+
   const initChat = (supabase) => {
     const {
       createApp,
@@ -3239,10 +6448,148 @@
       watch,
     } = Vue;
 
-    const PRESENCE_PAGE_KEY = "forumactif-chat"; // ou un truc par forum/section
-    const ACTIVE_MINUTES = 8; // 5 à 10 -> je mets 10
-    const PRESENCE_PING_MS = 45_000; // heartbeat
+    // ----------------------------
+    // CONFIG
+    // ----------------------------
+    const PAGE_SIZE = 50;
+    const SCROLL_TOP_THRESHOLD_PX = 60;
+
+    const PRESENCE_PAGE_KEY = "forumactif-chat";
+    const ACTIVE_MINUTES = 8;
+    const PRESENCE_PING_MS = 45_000;
     const MAX_STACK = 4;
+
+    // ----------------------------
+    // HELPERS
+    // ----------------------------
+    const normalize = (s) =>
+      String(s || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .trim();
+
+    const safeUrl = (u) => {
+      if (!u) return "";
+      try {
+        const url = new URL(u, window.location.href);
+        return url.protocol === "http:" || url.protocol === "https:"
+          ? url.href
+          : "";
+      } catch {
+        return "";
+      }
+    };
+
+    // ----------------------------
+    // MARKDOWN RENDERER
+    // ----------------------------
+    // Attend que marked soit disponible (chargé via <script> dans le HTML)
+    const renderMarkdown = (() => {
+      // Balises HTML autorisées dans les messages
+      const ALLOWED_TAGS = new Set([
+        "b",
+        "strong",
+        "i",
+        "em",
+        "u",
+        "s",
+        "del",
+        "code",
+        "pre",
+        "a",
+        "br",
+        "ul",
+        "ol",
+        "li",
+        "blockquote",
+        "p",
+        "span",
+        "h1",
+        "h2",
+        "h3",
+      ]);
+
+      // Attributs autorisés par balise
+      // — pre/code : on conserve "class" pour que Prism puisse lire language-xxx
+      const ALLOWED_ATTRS = {
+        a: ["href", "title", "target", "rel"],
+        pre: ["class"],
+        code: ["class", "data-lang"],
+      };
+
+      // Sanitisation : retire balises et attributs non autorisés
+      const sanitize = (html) => {
+        const div = document.createElement("div");
+        div.innerHTML = html;
+
+        const walk = (node) => {
+          if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+          const tag = node.tagName.toLowerCase();
+
+          // ✅ si tag non autorisé : unwrap (conserve les enfants) au lieu de remplacer par du texte
+          if (!ALLOWED_TAGS.has(tag)) {
+            const parent = node.parentNode;
+            if (!parent) return;
+
+            // insère tous les enfants avant le node
+            while (node.firstChild) parent.insertBefore(node.firstChild, node);
+
+            // supprime le wrapper interdit
+            parent.removeChild(node);
+            return;
+          }
+
+          // ✅ tag autorisé : filtre les attributs
+          const allowed = ALLOWED_ATTRS[tag] || [];
+          for (const attr of [...node.attributes]) {
+            if (!allowed.includes(attr.name)) node.removeAttribute(attr.name);
+          }
+
+          if (tag === "a") {
+            node.setAttribute("target", "_blank");
+            node.setAttribute("rel", "noopener noreferrer");
+            const href = node.getAttribute("href") || "";
+            if (!safeUrl(href)) node.removeAttribute("href");
+          }
+
+          // ✅ ajoute codebox sur pre
+          if (tag === "pre") node.classList.add("codebox");
+
+          // continue à descendre
+          for (const child of [...node.childNodes]) walk(child);
+        };
+
+        for (const child of [...div.childNodes]) walk(child);
+        return div.innerHTML;
+      };
+
+      return (text) => {
+        if (!text) return "";
+        const s = String(text);
+
+        if (typeof g === "undefined") {
+          const div = document.createElement("div");
+          div.textContent = s;
+          return div.innerHTML;
+        }
+
+        try {
+          const html = g.parse(s, {
+            breaks: true,
+            gfm: true,
+            mangle: false,
+            headerIds: false,
+          });
+          return sanitize(html);
+        } catch {
+          const div = document.createElement("div");
+          div.textContent = s;
+          return div.innerHTML;
+        }
+      };
+    })();
 
     const readUserdata = () => {
       const ud = window._userdata || {};
@@ -3284,18 +6631,6 @@
       return { externalId, username, avatarUrl, canWrite, isAdmin };
     };
 
-    const safeUrl = (u) => {
-      if (!u) return "";
-      try {
-        const url = new URL(u, window.location.href);
-        return url.protocol === "http:" || url.protocol === "https:"
-          ? url.href
-          : "";
-      } catch {
-        return "";
-      }
-    };
-
     const timeAgo = (() => {
       const rtf = new Intl.RelativeTimeFormat("fr-CA", { numeric: "auto" });
       const units = [
@@ -3310,7 +6645,7 @@
         const d = new Date(iso);
         const t = d.getTime();
         if (Number.isNaN(t)) return "";
-        const diff = Math.round((t - Date.now()) / 1000); // seconds (+ future / - past)
+        const diff = Math.round((t - Date.now()) / 1000);
         const abs = Math.abs(diff);
         for (const [unit, sec] of units) {
           if (abs >= sec || unit === "second") {
@@ -3330,53 +6665,64 @@
 
     let roomsChannel = null;
     let messagesChannel = null;
+    let presenceChannel = null;
+
+    let presenceTimer = null;
+    let presenceCleanupTimer = null;
 
     const app = createApp({
       setup() {
         const me = reactive(readUserdata());
         me.avatarUrl = safeUrl(me.avatarUrl);
 
+        // ----------------------------
+        // UI STATE
+        // ----------------------------
+        const ui = reactive({
+          booting: true,
+          open: true,
+          showCreate: false,
+          loadingRooms: true,
+          loadingMessages: true,
+          loadingOlder: false,
+          creatingRoom: false,
+          sending: false,
+        });
+
+        // ----------------------------
+        // DATA
+        // ----------------------------
         const rooms = ref([]);
         const adminRooms = ref([]);
         const autoRoom = ref(null);
+
         const roomId = ref(null);
         const messages = ref([]);
 
         const draft = ref("");
         const draftEl = ref(null);
-        const newRoomName = ref("");
-        const error = ref("");
-
-        const presence = ref([]);
-
-        const enableUnread = computed(() => me.canWrite);
-
-        const ui = reactive({
-          open: true,
-          showCreate: false,
-          loadingRooms: false,
-          loadingMessages: false,
-          creatingRoom: false,
-          sending: false,
-        });
 
         const messagesEl = ref(null);
 
-        // Map unread: { [roomId]: number }
-        const unread = reactive({});
-        const unreadCount = (rid) => {
-          if (!enableUnread.value) return 0;
-          const k = String(rid ?? "");
-          const v = unread[k];
-          return Number.isFinite(v) ? v : 0;
+        const newRoomName = ref("");
+        const error = ref("");
+
+        // cache des messages par room (référence vers le tableau affiché si room active)
+        const messagesCache = new Map(); // rid -> Array
+
+        // paging state par room
+        const paging = new Map(); // rid -> { oldestId: number|null, hasMore: boolean }
+        const getPaging = (rid) => {
+          const k = String(rid);
+          let s = paging.get(k);
+          if (!s) {
+            s = { oldestId: null, hasMore: true };
+            paging.set(k, s);
+          }
+          return s;
         };
 
-        const resetUnread = (rid) => {
-          if (!enableUnread.value) return;
-          const k = String(rid ?? "");
-          unread[k] = 0;
-        };
-        // Déduplication des messages (protège contre double subscription / reconnect)
+        // Déduplication (double subscription / reconnect)
         const seenIdsByRoom = new Map(); // rid -> Set<number>
         const getSeenSet = (rid) => {
           const key = String(rid);
@@ -3388,19 +6734,206 @@
           return s;
         };
 
-        // Message local optimiste en attente par room
+        // message local optimiste (remplacé par Realtime)
         const pendingLocalByRoom = new Map(); // rid -> { tempId, content, at }
 
+        // ----------------------------
+        // EDIT MESSAGE (Discord-like)
+        // ----------------------------
+        // 1 édition à la fois (dans la room active)
+        const edit = reactive({ id: null, room_id: null, text: "" });
+        const editEl = ref(null);
+
+        const isEditing = (m) =>
+          edit.id != null && String(m?.id) === String(edit.id);
+
+        const resizeEdit = () => {
+          const el = editEl.value;
+          if (!el) return;
+
+          el.style.height = "auto";
+          const cs = window.getComputedStyle(el);
+          const lineHeight = parseFloat(cs.lineHeight) || 20;
+          const paddingTop = parseFloat(cs.paddingTop) || 0;
+          const paddingBottom = parseFloat(cs.paddingBottom) || 0;
+          const maxHeight = lineHeight * 3 + paddingTop + paddingBottom;
+
+          const next = Math.min(el.scrollHeight, maxHeight);
+          el.style.height = `${next}px`;
+          el.style.overflowY = el.scrollHeight > maxHeight ? "auto" : "hidden";
+        };
+
+        const focusDraft = () => {
+          draftEl.value?.focus({ preventScroll: true });
+        };
+
+        const cancelEdit = async () => {
+          edit.id = null;
+          edit.room_id = null;
+          edit.text = "";
+          await nextTick();
+          focusDraft();
+        };
+
+        // Démarre l'édition d'un message précis (réutilisable depuis le bouton ou le raccourci clavier)
+        const startEditMessage = async (m) => {
+          if (!me.canWrite) return;
+          if (!roomId.value) return;
+          if (!m) return;
+
+          // Refuse les messages locaux/optimistes (id non numérique)
+          const n = Number(m.id);
+          if (!Number.isFinite(n)) return;
+
+          // Seul l'auteur peut éditer son message
+          if (m.external_user_id !== me.externalId) return;
+
+          edit.id = m.id;
+          edit.room_id = roomId.value;
+          edit.text = String(m.content || "");
+
+          await nextTick();
+          await nextTick();
+
+          const textarea = editEl.value;
+          if (!textarea || textarea.tagName?.toUpperCase() !== "TEXTAREA") return;
+
+          try {
+            textarea.focus({ preventScroll: true });
+            const len = textarea.value.length;
+            textarea.setSelectionRange(len, len);
+          } catch (err) {
+            console.error("Erreur focus/selection :", err);
+          }
+
+          resizeEdit();
+        };
+
+        const startEditLastMine = async () => {
+          if (edit.id != null) return;
+          if (draft.value.trim().length !== 0) return;
+
+          // Recherche du dernier message de l'utilisateur courant
+          let target = null;
+          for (let i = messages.value.length - 1; i >= 0; i--) {
+            const m = messages.value[i];
+            if (!m) continue;
+            if (m.external_user_id !== me.externalId) continue;
+            const n = Number(m.id);
+            if (!Number.isFinite(n)) continue;
+            target = m;
+            break;
+          }
+          if (!target) return;
+
+          await startEditMessage(target);
+        };
+
+        const saveEdit = async () => {
+          if (edit.id == null) return;
+          if (!me.canWrite) return;
+
+          // si on a changé de room pendant l'édition
+          if (String(edit.room_id) !== String(roomId.value)) return cancelEdit();
+
+          const newText = String(edit.text || "").trimEnd();
+          if (newText.length === 0) return; // refuse vide
+
+          const idx = messages.value.findIndex(
+            (m) => String(m?.id) === String(edit.id),
+          );
+          const cur = idx >= 0 ? messages.value[idx] : null;
+
+          if (cur && String(cur.content || "") === newText) {
+            return cancelEdit(); // rien n'a changé
+          }
+
+          // Optimiste UI (la realtime UPDATE recadrera si besoin)
+          if (idx >= 0) {
+            messages.value[idx] = {
+              ...messages.value[idx],
+              content: newText,
+              _edited: true,
+            };
+          }
+
+          const { error: e } = await supabase
+            .from("chat_messages")
+            .update({ content: newText })
+            .eq("id", edit.id);
+
+          if (e) {
+            error.value = `Modifier: ${e.message}`;
+            return;
+          }
+
+          await cancelEdit();
+        };
+
+        const onDraftArrowUp = async (e) => {
+          // Discord-like: flèche haut quand le draft est vide -> édite le dernier message
+          if (!e) return;
+          if (e.shiftKey || e.altKey || e.ctrlKey || e.metaKey) return;
+          if (draft.value.trim().length !== 0) return;
+
+          // seulement si le caret est au début (évite de “voler” la navigation)
+          try {
+            if (draftEl.value && draftEl.value.selectionStart > 0) return;
+          } catch {}
+
+          e.preventDefault();
+          await startEditLastMine();
+        };
+
+        // si on change de room, on annule l'édition
+        watch(roomId, () => {
+          if (edit.id != null) cancelEdit();
+        });
+
+        // ----------------------------
+        // unread (désactivé pour invités)
+        // ----------------------------
+        const enableUnread = computed(() => me.canWrite);
+        const unread = reactive({});
+        const unreadCount = (rid) => {
+          if (!enableUnread.value) return 0;
+          const k = String(rid ?? "");
+          const v = unread[k];
+          return Number.isFinite(v) ? v : 0;
+        };
+        const resetUnread = (rid) => {
+          if (!enableUnread.value) return;
+          unread[String(rid)] = 0;
+        };
+
+        // presence
+        const presence = ref([]);
+
+        // ----------------------------
+        // COMPUTED
+        // ----------------------------
         const roomsSafe = computed(() =>
           (Array.isArray(rooms.value) ? rooms.value : []).filter(
             (r) => r && r.id != null && typeof r.name === "string",
           ),
         );
 
+        const activeRoom = computed(
+          () => roomsSafe.value.find((r) => r.id === roomId.value) || null,
+        );
+
+        const canSend = computed(
+          () =>
+            !!activeRoom.value &&
+            me.canWrite &&
+            draft.value.trim().length > 0 &&
+            !ui.sending,
+        );
+
         const activeUsers = computed(() => {
           const cutoff = Date.now() - ACTIVE_MINUTES * 60_000;
-
           const byId = new Map();
+
           for (const u of presence.value) {
             if (!u?.external_user_id) continue;
             const t = new Date(u.last_seen).getTime();
@@ -3416,6 +6949,7 @@
               new Date(b.last_seen).getTime() - new Date(a.last_seen).getTime(),
           );
         });
+
         const activeUsersStack = computed(() =>
           activeUsers.value.slice(0, MAX_STACK),
         );
@@ -3423,22 +6957,449 @@
           Math.max(0, activeUsers.value.length - MAX_STACK),
         );
 
-        const activeRoom = computed(
-          () => roomsSafe.value.find((r) => r.id === roomId.value) || null,
+        // ----------------------------
+        // EMOJI PICKER (catégories + recherche keywords)
+        // ----------------------------
+        const emojiBtnEl = ref(null);
+        const emojiPopEl = ref(null);
+        const emojiSearchEl = ref(null);
+
+        // catégories
+        const ALL_EMOJIS = getEmojis();
+        const EMOJI_SET = new Set(ALL_EMOJIS.map((x) => x.emoji));
+        const GRAPHEME_SEGMENTER =
+          "Segmenter" in Intl
+            ? new Intl.Segmenter(undefined, { granularity: "grapheme" })
+            : null;
+
+        const emojiCategories = [
+          { key: "face-emotion", label: "🙂" },
+          { key: "person-people", label: "🧑" },
+          { key: "animals-nature", label: "🐻" },
+          { key: "food-drink", label: "🍕" },
+          { key: "travel-places", label: "✈️" },
+          { key: "activities-events", label: "⚽" },
+          { key: "objects", label: "💡" },
+          { key: "symbols", label: "❤️" },
+          { key: "flags", label: "🏳️" },
+        ];
+
+        const emoji = reactive({
+          open: false,
+          query: "",
+          category: "face-emotion",
+        });
+
+        // IMPORTANT : index de recherche pré-normalisé (perfs)
+        const EMOJI_INDEX = ALL_EMOJIS.map((x) => ({
+          emoji: x.emoji,
+          description: x.description,
+          category: x.category,
+          keywords: x.keywords || [],
+          _s: normalize([x.description, ...(x.keywords || [])].join(" ")),
+        }));
+
+        const isEmojiOnlyText = (text) => {
+          const s = String(text || "").trim();
+          if (!s) return false;
+
+          let count = 0;
+
+          if (GRAPHEME_SEGMENTER) {
+            for (const { segment } of GRAPHEME_SEGMENTER.segment(s)) {
+              // ignore tout whitespace
+              if (/^\s+$/u.test(segment)) continue;
+
+              if (!EMOJI_SET.has(segment)) return false;
+              count++;
+            }
+            return count > 0;
+          }
+
+          // Fallback (moins précis): découpe par codepoints
+          // (ça peut rater certaines séquences ZWJ, donc mieux avec Intl.Segmenter)
+          const parts = Array.from(s);
+          for (const p of parts) {
+            if (/^\s+$/u.test(p)) continue;
+            if (!EMOJI_SET.has(p)) return false;
+            count++;
+          }
+          return count > 0;
+        };
+
+        const emojiFiltered = computed(() => {
+          const q = normalize(emoji.query);
+          const cat = emoji.category;
+
+          let list = EMOJI_INDEX.filter((x) => x.category === cat);
+
+          if (!q) return list;
+
+          // recherche sur CLDR keywords + description (déjà normalisés)
+          return list.filter(
+            (x) => x._s.includes(q) || x.emoji.includes(emoji.query),
+          );
+        });
+
+        const toggleEmoji = async () => {
+          emoji.open = !emoji.open;
+          if (emoji.open) {
+            await nextTick();
+            emojiSearchEl.value?.focus({ preventScroll: true });
+          }
+        };
+
+        const insertAtCursor = async (text) => {
+          const el = draftEl.value;
+          const current = draft.value ?? "";
+
+          if (!el) {
+            draft.value = current + text;
+            return;
+          }
+
+          const start =
+            typeof el.selectionStart === "number"
+              ? el.selectionStart
+              : current.length;
+          const end =
+            typeof el.selectionEnd === "number"
+              ? el.selectionEnd
+              : current.length;
+
+          draft.value = current.slice(0, start) + text + current.slice(end);
+
+          await nextTick();
+
+          // remets focus + curseur après insertion
+          el.focus({ preventScroll: true });
+          const pos = start + text.length;
+          try {
+            el.setSelectionRange(pos, pos);
+          } catch {}
+
+          resizeDraft?.();
+        };
+
+        const pickEmoji = async (ch) => {
+          await insertAtCursor(ch);
+          emoji.open = false;
+          draftEl.value?.focus({ preventScroll: true });
+        };
+
+        // close on click outside
+        const onDocMouseDown = (ev) => {
+          const t = ev.target;
+
+          // emoji
+          if (emoji.open) {
+            if (emojiPopEl.value && emojiPopEl.value.contains(t)) return;
+            if (emojiBtnEl.value && emojiBtnEl.value.contains(t)) return;
+          }
+
+          // gif
+          if (gif.open) {
+            if (gifPopEl.value && gifPopEl.value.contains(t)) return;
+            if (gifBtnEl.value && gifBtnEl.value.contains(t)) return;
+          }
+
+          emoji.open = false;
+          gif.open = false;
+        };
+
+        onMounted(() => document.addEventListener("mousedown", onDocMouseDown));
+        onBeforeUnmount(() =>
+          document.removeEventListener("mousedown", onDocMouseDown),
         );
 
+        // ----------------------------
+        // REPLY (discord-like)
+        // ----------------------------
+        const reply = reactive({
+          id: null, // bigint
+          username: "",
+          excerpt: "",
+        });
+
+        const hasReply = computed(() => reply.id != null);
+
+        const makeExcerpt = (text, max = 120) => {
+          const s = String(text || "")
+            .replace(/\s+/g, " ")
+            .trim();
+          if (s.length <= max) return s;
+          return s.slice(0, max).trimEnd() + "…";
+        };
+
+        const makeReplyExcerptFromMessage = (m, max = 140) => {
+          const raw = String(m?.content || "");
+
+          // Cas 1: le message est un GIF "pur" ([gif]url[/gif]) -> on affiche un label propre
+          if (extractGifUrl(raw)) return "🎞️ GIF";
+
+          // Cas 2: le message contient un token gif au milieu -> on remplace le token par un label
+          const cleaned = raw.replace(
+            /\[gif\]\s*https?:\/\/\S+\s*\[\/gif\]/gi,
+            "🎞️ GIF",
+          );
+
+          // Emoji-only (si tu veux conserver l’emphase)
+          if (isEmojiOnlyText(cleaned)) {
+            const t = cleaned.trim();
+            return t.length > 24 ? t.slice(0, 24).trimEnd() + "…" : t;
+          }
+
+          // Texte normal
+          return makeExcerpt(cleaned, max);
+        };
+
+        const replyExcerptLabel = (m) => {
+          const ex = String(m?.reply_to_excerpt || "");
+          if (extractGifUrl(ex)) return "🎞️ GIF"; // si l'extrait stocké est un token gif complet
+          return ex;
+        };
+
+        const cancelReply = () => {
+          reply.id = null;
+          reply.username = "";
+          reply.excerpt = "";
+        };
+
+        const setReply = async (m) => {
+          if (!me.canWrite) return;
+          if (!m) return;
+
+          const idNum = Number(m.id);
+          if (!Number.isFinite(idNum)) return; // ignore messages locaux "local-..."
+
+          reply.id = idNum;
+          reply.username = String(m.username || "");
+          reply.excerpt = makeReplyExcerptFromMessage(m, 140);
+
+          await nextTick();
+          focusDraft(); // tu l'as déjà :contentReference[oaicite:2]{index=2}
+        };
+
+        // optionnel: jump si le message est présent dans le DOM
+        const scrollToMessage = async (id) => {
+          const el = messagesEl.value;
+          if (!el) return;
+          await nextTick();
+          const target = el.querySelector(
+            `[data-mid="${CSS.escape(String(id))}"]`,
+          );
+          if (target)
+            target.scrollIntoView({ block: "center", behavior: "smooth" });
+        };
+
+        // ----------------------------
+        // GIF PICKER (GIPHY) — token [gif]URL[/gif]
+        // ----------------------------
+        const GIPHY_API_KEY = "J5hSdMgUZ6yuPnR9dtGnJa3ydn05xbmC"; // ⚠️ visible côté client
+        const GIPHY_LIMIT = 27;
+        const GIPHY_RATING = "g"; // safe-ish
+
+        const gif = reactive({
+          open: false,
+          query: "",
+          items: [], // { id, title, previewUrl, url }
+          loading: false,
+          error: "",
+          offset: 0,
+          hasMore: true,
+          loadedQuery: "",
+        });
+
+        const gifBtnEl = ref(null);
+        const gifPopEl = ref(null);
+        const gifSearchEl = ref(null);
+        const gifResultsEl = ref(null);
+
+        let gifReqToken = 0;
+
+        const resetGifResults = async () => {
+          // invalide toutes les requêtes en vol
+          gifReqToken++;
+
+          gif.items = [];
+          gif.offset = 0;
+          gif.hasMore = true;
+          gif.error = "";
+          gif.loadedQuery = "";
+
+          await nextTick();
+          if (gifResultsEl.value) gifResultsEl.value.scrollTop = 0;
+        };
+
+        const makeGifToken = (url) => `[gif]${url}[/gif]`;
+
+        const extractGifUrl = (content) => {
+          const s = String(content || "").trim();
+          const m = s.match(/^\[gif\](https?:\/\/\S+)\[\/gif\]$/i);
+          if (!m) return "";
+          return safeUrl(m[1]); // réutilise ton safeUrl
+        };
+
+        const isGifMessage = (m) => !!extractGifUrl(m?.content);
+
+        const fetchGiphy = async (path, params) => {
+          const u = new URL(`https://api.giphy.com/v1/gifs/${path}`);
+          u.searchParams.set("api_key", GIPHY_API_KEY);
+          for (const [k, v] of Object.entries(params || {})) {
+            if (v == null) continue;
+            u.searchParams.set(k, String(v));
+          }
+
+          const res = await fetch(u.toString());
+          if (!res.ok) throw new Error(`GIPHY ${res.status}`);
+          return res.json();
+        };
+
+        const mapGiphyItems = (json) => {
+          const arr = Array.isArray(json?.data) ? json.data : [];
+          return arr
+            .map((g) => {
+              const previewUrl =
+                safeUrl(g?.images?.fixed_width_small?.url) ||
+                safeUrl(g?.images?.fixed_height_small?.url) ||
+                safeUrl(g?.images?.downsized_small?.mp4); // fallback
+              const url =
+                safeUrl(g?.images?.original?.url) ||
+                safeUrl(g?.images?.fixed_width?.url);
+
+              if (!url) return null;
+              return {
+                id: g.id,
+                title: g.title || "GIF",
+                previewUrl: previewUrl || url,
+                url,
+              };
+            })
+            .filter(Boolean);
+        };
+
+        const loadGifs = async ({ append = false } = {}) => {
+
+          // si on est en mode recherche (query non vide) et qu'on n'append pas, on repart de 0
+          const qNorm = normalize(gif.query);
+          const isSearch = qNorm.length > 0;
+          const q = normalize(gif.query);
+
+          // si on essaie d'append alors que la query a changé => on repart en "replace"
+          if (append && gif.loadedQuery && q !== gif.loadedQuery) {
+            return loadGifs({ append: false });
+          }
+
+          // token anti-race: seule la dernière requête peut modifier l'UI
+          const token = ++gifReqToken;
+
+          gif.loading = true;
+          gif.error = "";
+
+          try {
+            const offset = append ? gif.offset : 0;
+
+            const json = isSearch
+              ? await fetchGiphy("search", {
+                  q: gif.query,
+                  limit: GIPHY_LIMIT,
+                  offset,
+                  rating: GIPHY_RATING,
+                  lang: "fr",
+                })
+              : await fetchGiphy("trending", {
+                  limit: GIPHY_LIMIT,
+                  offset,
+                  rating: GIPHY_RATING,
+                });
+
+            // si une requête plus récente est partie, on ignore ces résultats
+            if (token !== gifReqToken) return;
+
+            const items = mapGiphyItems(json);
+
+            if (append) {
+              // append uniquement pour le scroll infini
+              gif.items.push(...items);
+            } else {
+              // ✅ recherche / trending initial = remplace la liste
+              gif.loadedQuery = normalize(gif.query);
+              gif.items = items;
+              gif.offset = items.length;
+              await nextTick();
+              if (gifResultsEl.value) gifResultsEl.value.scrollTop = 0;
+            }
+
+            gif.offset = offset + items.length;
+            gif.hasMore = items.length === GIPHY_LIMIT;
+          } catch (e) {
+            if (token !== gifReqToken) return;
+            gif.error = `GIF: ${e.message || String(e)}`;
+          } finally {
+            if (token === gifReqToken) gif.loading = false;
+          }
+        };
+
+        let gifTimer = null;
+        watch(
+          () => gif.query,
+          () => {
+            clearTimeout(gifTimer);
+            gifTimer = setTimeout(async () => {
+              await resetGifResults();
+              await loadGifs({ append: false });
+            }, 250);
+          },
+        );
+
+        const toggleGif = async () => {
+          gif.open = !gif.open;
+          if (gif.open) {
+            await nextTick();
+            gifSearchEl.value?.focus({ preventScroll: true });
+            if (gif.items.length === 0) loadGifs({ append: false }); // trending initial
+          }
+        };
+
+        const pickGif = async (item, ev) => {
+          // Alt+clic = insérer dans le draft au lieu d'envoyer
+          if (ev?.altKey) {
+            await insertAtCursor(makeGifToken(item.url));
+            gif.open = false;
+            focusDraft?.();
+            return;
+          }
+
+          await sendGifNow(item.url);
+        };
+
+        // infinite scroll dans le popover (optionnel)
+        const onGifScroll = async (ev) => {
+          const el = ev?.target;
+          if (!el || gif.loading || !gif.hasMore) return;
+
+          // ✅ n'append jamais si on n'a pas encore une page chargée
+          if (gif.items.length === 0) return;
+
+          // ✅ n'append jamais si la query actuelle ne correspond pas à la liste affichée
+          if (gif.loadedQuery && normalize(gif.query) !== gif.loadedQuery) return;
+
+          if (el.scrollTop + el.clientHeight < el.scrollHeight - 120) return;
+          await loadGifs({ append: true });
+        };
+
+        // ----------------------------
+        // TEXTAREA (autosize)
+        // ----------------------------
         const resizeDraft = () => {
           const el = draftEl.value;
           if (!el) return;
 
-          // reset pour recalculer
           el.style.height = "auto";
-
           const cs = window.getComputedStyle(el);
           const lineHeight = parseFloat(cs.lineHeight) || 20;
           const paddingTop = parseFloat(cs.paddingTop) || 0;
           const paddingBottom = parseFloat(cs.paddingBottom) || 0;
-
           const maxHeight = lineHeight * 3 + paddingTop + paddingBottom;
 
           const next = Math.min(el.scrollHeight, maxHeight);
@@ -3446,64 +7407,284 @@
           el.style.overflowY = el.scrollHeight > maxHeight ? "auto" : "hidden";
         };
 
-        const sendFromDraft = async () => {
-          if (!canSend.value) return;
-          await send(); // ton send() existant (insert supabase + draft="")
-          await nextTick(); // attendre que draft soit vidé
-          resizeDraft(); // revient à 1 ligne
-          draftEl.value?.focus({ preventScroll: true });
-        };
-
-        // optionnel mais utile au premier render / si draft est modifié par code
-        onMounted(() => nextTick(resizeDraft));
         watch(draft, () => nextTick(resizeDraft));
 
-        /* auto rooms */
-        const getAutoSpecFromPath = (pathname) => {
-          // Forumactif: /t123-... (on ignore /f...)
-          const mt = pathname.match(/^\/t(\d+)/i);
-          if (!mt) return null;
-
-          const id = mt[1];
-          const pathKey = `/t${id}`;
-          return {
-            kind: "t",
-            id,
-            pathKey,
-            roomKey: `path:${pathKey}`,
-            name: makeAutoRoomName("t", id),
-          };
-        };
-
+        // ----------------------------
+        // ROOM LABELS (topic rooms)
+        // ----------------------------
         const truncate = (s, n) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
 
-        const makeAutoRoomName = (kind, id) => {
-          const og = document.querySelector("title")?.content?.trim();
+        const makeAutoRoomName = (topicId) => {
+          const og = document
+            .querySelector('meta[property="og:title"]')
+            ?.content?.trim();
           const base = (og || document.title || "").trim();
-          const label = kind === "t" ? `Sujet #${id}` : `Forum #${id}`;
+          const label = `Sujet #${topicId}`;
           if (!base) return label;
           return truncate(`${label} — ${base}`, 80);
         };
 
-        const ensureAutoRoom = async (spec) => {
-          // 1) try select
-          const { data: existing, error: selErr } = await supabase
+        const getTopicIdFromHref = (href = window.location.href) => {
+          let u;
+          try {
+            u = new URL(href, window.location.href);
+          } catch {
+            u = new URL(window.location.href);
+          }
+
+          const pathname = u.pathname || window.location.pathname;
+
+          const mt = pathname.match(/^\/t(\d+)/i);
+          if (mt) return mt[1];
+
+          const t = u.searchParams?.get("t");
+          if (t && /^\d+$/.test(t)) return t;
+
+          return null;
+        };
+
+        const isTopicRoom = (r) => {
+          if (!r) return false;
+          if (r.is_auto === true && r.kind === "t") return true;
+          const rk = String(r.room_key || "");
+          const pk = String(r.path_key || "");
+          return rk.startsWith("path:/t") || pk.startsWith("/t");
+        };
+
+        const roomLabel = (r) => {
+          const name = String(r?.name || "");
+          if (!isTopicRoom(r)) return name;
+          const stripped = name.replace(/^Sujet\s*#?\d+\s*[—-]\s*/i, "").trim();
+          return stripped || name;
+        };
+
+        // ----------------------------
+        // SCROLL (bottom + load older)
+        // ----------------------------
+        const scrollBottom = async () => {
+          await nextTick();
+          await nextTick();
+          // Attendre que le navigateur ait calculé le layout (paint cycle).
+          // nextTick garantit la mise à jour Vue, mais pas le reflow/paint du DOM.
+          await new Promise((r) => requestAnimationFrame(r));
+          const el = messagesEl.value;
+          if (!el) return;
+
+          initPrismMarkdown(el);
+
+          const prevScrollBehavior = el.style.scrollBehavior;
+          el.style.scrollBehavior = "auto";
+
+          const doScroll = () => {
+            el.scrollTo({ top: el.scrollHeight, behavior: "auto" });
+          };
+
+          doScroll();
+
+          // ─── Attente des images (avatars + GIFs) ───
+          const images = el.querySelectorAll("img");
+          if (images.length === 0) {
+            el.style.scrollBehavior = prevScrollBehavior || "";
+            return;
+          }
+
+          let loaded = 0;
+          const total = images.length;
+
+          // Timeout de sécurité : si une image ne déclenche jamais load/error
+          // (ex. bloquée par un ad-blocker ou timeout réseau), on scroll quand même.
+          const fallbackTimer = setTimeout(() => {
+            doScroll();
+            el.style.scrollBehavior = prevScrollBehavior || "";
+          }, 2000);
+
+          const onLoadOrError = () => {
+            loaded++;
+            if (loaded === total) {
+              clearTimeout(fallbackTimer);
+              doScroll(); // dernier scroll une fois tout chargé
+              el.style.scrollBehavior = prevScrollBehavior || "";
+            }
+          };
+
+          images.forEach((img) => {
+            if (img.complete) {
+              loaded++; // déjà chargé (cache)
+            } else {
+              img.addEventListener("load", onLoadOrError, { once: true });
+              img.addEventListener("error", onLoadOrError, { once: true });
+            }
+          });
+
+          // Si toutes les images étaient déjà en cache, on scroll tout de suite
+          if (loaded === total) {
+            clearTimeout(fallbackTimer);
+            doScroll();
+            el.style.scrollBehavior = prevScrollBehavior || "";
+          }
+        };
+
+        const onMessagesScroll = async () => {
+          const el = messagesEl.value;
+          if (!el) return;
+          if (ui.loadingOlder || ui.loadingMessages) return;
+          if (el.scrollTop > SCROLL_TOP_THRESHOLD_PX) return;
+
+          const rid = roomId.value;
+          if (!rid) return;
+
+          const st = getPaging(rid);
+          if (!st.hasMore || !st.oldestId) return;
+
+          ui.loadingOlder = true;
+          try {
+            await loadOlderMessages(rid);
+          } finally {
+            ui.loadingOlder = false;
+          }
+        };
+
+        // ----------------------------
+        // DATA LOADERS (messages paging)
+        // ----------------------------
+        const normalizeMessages = (list) =>
+          (list || []).map((m) => ({ ...m, avatar_url: safeUrl(m.avatar_url) }));
+
+        const loadLatestMessages = async (rid) => {
+          ui.loadingMessages = true;
+          error.value = "";
+
+          const { data, error: e } = await supabase
+            .from("chat_messages")
+            .select(
+              "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt",
+            )
+            .eq("room_id", rid)
+            .order("id", { ascending: false })
+            .limit(PAGE_SIZE);
+
+          ui.loadingMessages = false;
+
+          if (e) {
+            error.value = `Messages: ${e.message}`;
+            messages.value = [];
+            messagesCache.set(rid, messages.value);
+            const st = getPaging(rid);
+            st.oldestId = null;
+            st.hasMore = false;
+            return;
+          }
+
+          const desc = normalizeMessages(data);
+          const asc = desc.slice().reverse();
+
+          messages.value = asc;
+          messagesCache.set(rid, messages.value);
+
+          const st = getPaging(rid);
+          st.oldestId = asc.length ? Number(asc[0].id) : null;
+          st.hasMore = desc.length === PAGE_SIZE;
+
+          const seen = getSeenSet(rid);
+          seen.clear();
+          for (const mm of asc) {
+            const id = Number(mm?.id);
+            if (Number.isFinite(id)) seen.add(id);
+          }
+        };
+
+        const loadOlderMessages = async (rid) => {
+          const st = getPaging(rid);
+          if (!st.oldestId) return;
+
+          const el = messagesEl.value;
+          const prevHeight = el ? el.scrollHeight : 0;
+          const prevTop = el ? el.scrollTop : 0;
+
+          const { data, error: e } = await supabase
+            .from("chat_messages")
+            .select(
+              "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt",
+            )
+            .eq("room_id", rid)
+            .lt("id", st.oldestId)
+            .order("id", { ascending: false })
+            .limit(PAGE_SIZE);
+
+          if (e) {
+            error.value = `Older: ${e.message}`;
+            return;
+          }
+
+          const desc = normalizeMessages(data);
+          if (!desc.length) {
+            st.hasMore = false;
+            return;
+          }
+
+          const olderAsc = desc.slice().reverse();
+
+          const current = messagesCache.get(rid) || messages.value || [];
+          const merged = [...olderAsc, ...current];
+
+          messages.value = merged;
+          messagesCache.set(rid, messages.value);
+
+          st.oldestId = Number(olderAsc[0].id);
+          st.hasMore = desc.length === PAGE_SIZE;
+
+          const seen = getSeenSet(rid);
+          for (const mm of olderAsc) {
+            const id = Number(mm?.id);
+            if (Number.isFinite(id)) seen.add(id);
+          }
+
+          await nextTick();
+          initPrismMarkdown(messagesEl.value);
+
+          if (el) {
+            const newHeight = el.scrollHeight;
+            const delta = newHeight - prevHeight;
+            el.scrollTop = prevTop + delta;
+          }
+        };
+
+        // ----------------------------
+        // ROOMS (admin + auto topic room)
+        // ----------------------------
+        const loadAdminRooms = async () => {
+          const { data, error: e } = await supabase
             .from("chatrooms")
             .select("id,name,created_at,is_auto,room_key,path_key,kind")
-            .eq("room_key", spec.roomKey)
+            .or("is_auto.is.null,is_auto.eq.false")
+            .order("created_at", { ascending: true });
+
+          if (e) {
+            adminRooms.value = [];
+            throw e;
+          }
+          adminRooms.value = (data || []).filter((r) => r && r.id != null);
+        };
+
+        const ensureAutoTopicRoom = async (topicId) => {
+          const pathKey = `/t${topicId}`;
+          const roomKey = `path:${pathKey}`;
+
+          const { data: existing } = await supabase
+            .from("chatrooms")
+            .select("id,name,created_at,is_auto,room_key,path_key,kind")
+            .eq("room_key", roomKey)
             .limit(1)
             .maybeSingle();
 
           if (existing) return existing;
 
-          // 2) insert (may race -> unique constraint)
           const row = {
-            name: spec.name,
+            name: makeAutoRoomName(topicId),
             is_auto: true,
-            room_key: spec.roomKey,
-            path_key: spec.pathKey,
-            kind: spec.kind,
-            // champs existants
+            room_key: roomKey,
+            path_key: pathKey,
+            kind: "t",
             created_by_external_id: me.externalId || null,
             created_by_username: me.username || null,
             created_by_avatar_url: me.avatarUrl || null,
@@ -3516,109 +7697,76 @@
             .single();
 
           if (!insErr) return inserted;
-        };
 
-        const isTopicRoom = (r) => {
-          if (!r) return false;
-          // selon ton schéma: is_auto + kind === "t"
-          if (r.is_auto === true && r.kind === "t") return true;
-
-          // fallback si tu n’as pas kind partout
-          const rk = String(r.room_key || "");
-          const pk = String(r.path_key || "");
-          return rk.startsWith("path:/t") || pk.startsWith("/t");
-        };
-
-        const roomLabel = (r) => {
-          const name = String(r?.name || "");
-          if (!isTopicRoom(r)) return name;
-
-          // retire: "Sujet #123 — " (tolère espaces/—/-)
-          const stripped = name.replace(/^Sujet\s*#?\d+\s*[—-]\s*/i, "").trim();
-          return stripped || name;
-        };
-
-        const loadAdminRooms = async () => {
-          ui.loadingRooms = true;
-          error.value = "";
-
-          const { data, error: e } = await supabase
+          const { data: again } = await supabase
             .from("chatrooms")
             .select("id,name,created_at,is_auto,room_key,path_key,kind")
-            // admin rooms = is_auto false (ou null si anciennes rows)
-            .or("is_auto.is.null,is_auto.eq.false")
-            .order("created_at", { ascending: true });
+            .eq("room_key", roomKey)
+            .limit(1)
+            .maybeSingle();
 
-          ui.loadingRooms = false;
-          if (e) {
-            error.value = `Rooms: ${e.message}`;
-            adminRooms.value = [];
-            return;
-          }
-
-          adminRooms.value = (data || []).filter((r) => r && r.id != null);
+          return again || null;
         };
 
-        const syncRoomsForCurrentPath = async () => {
-          await loadAdminRooms();
+        const buildRoomsForHref = async (href = window.location.href) => {
+          ui.loadingRooms = true;
+          error.value = "";
+          try {
+            await loadAdminRooms();
 
-          const spec = getAutoSpecFromPath(window.location.pathname);
-          if (spec) {
-            try {
-              autoRoom.value = await ensureAutoRoom(spec);
-            } catch (e) {
-              error.value = `Auto-room: ${e.message || String(e)}`;
+            const topicId = getTopicIdFromHref(href);
+            if (topicId) {
+              autoRoom.value = await ensureAutoTopicRoom(topicId);
+            } else {
               autoRoom.value = null;
             }
-          } else {
-            autoRoom.value = null;
-          }
 
-          // ✅ rooms list = admin rooms + (auto room seulement si on est sur ce path)
-          rooms.value = autoRoom.value
-            ? [autoRoom.value, ...adminRooms.value]
-            : [...adminRooms.value];
+            rooms.value = autoRoom.value
+              ? [autoRoom.value, ...adminRooms.value]
+              : [...adminRooms.value];
 
-          // auto-select: si on est sur /t ou /f, on bascule sur la room auto
-          if (autoRoom.value?.id && roomId.value !== autoRoom.value.id) {
-            await selectRoom(autoRoom.value.id);
-          } else if (!autoRoom.value && rooms.value.length && !roomId.value) {
-            await selectRoom(rooms.value[0].id);
+            if (enableUnread.value) {
+              for (const r of rooms.value) unread[String(r.id)] ??= 0;
+            }
+
+            const target = autoRoom.value?.id ?? rooms.value[0]?.id ?? null;
+            return target;
+          } catch (e) {
+            error.value = `Rooms: ${e.message || String(e)}`;
+            rooms.value = [];
+            return null;
+          } finally {
+            ui.loadingRooms = false;
           }
         };
 
-        const canSend = computed(
-          () =>
-            !!activeRoom.value &&
-            me.canWrite &&
-            draft.value.trim().length > 0 &&
-            !ui.sending,
-        );
-
+        // ----------------------------
+        // UNREAD PERSISTENT (skip invités)
+        // ----------------------------
         const loadPersistentUnread = async () => {
           if (!enableUnread.value) return;
           const { data, error: e } = await supabase.rpc("list_unread_counts", {
             p_external_user_id: me.externalId,
           });
-          if (e) {
-            // optionnel: error.value = `Unread: ${e.message}`;
-            return;
-          }
+          if (e) return;
 
-          // reset puis remplissage
           for (const k of Object.keys(unread)) delete unread[k];
-          for (const row of data || []) {
+          for (const row of data || [])
             unread[String(row.room_id)] = Number(row.unread_count) || 0;
-          }
         };
 
         const markActiveRoomRead = async () => {
           if (!enableUnread.value) return;
           if (!roomId.value) return;
 
-          const lastId = messages.value.length
-            ? Number(messages.value[messages.value.length - 1].id)
-            : 0;
+          let lastId = 0;
+          for (let i = messages.value.length - 1; i >= 0; i--) {
+            const n = Number(messages.value[i]?.id);
+            if (Number.isFinite(n)) {
+              lastId = n;
+              break;
+            }
+          }
 
           await supabase.rpc("mark_room_read", {
             p_room_id: roomId.value,
@@ -3629,33 +7777,229 @@
           unread[String(roomId.value)] = 0;
         };
 
-        const scrollBottom = async () => {
-          await nextTick();
-          const el = messagesEl.value;
-          if (!el) return;
+        // ----------------------------
+        // SELECT ROOM
+        // ----------------------------
+        const selectRoom = async (rid, opts = {}) => {
+          if (rid == null) return;
+          const preferCache = opts.preferCache !== false;
 
-          // 1) saute direct en bas
-          el.scrollTop = el.scrollHeight;
+          if (!opts.force && rid === roomId.value) return;
 
-          // 2) puis re-saute après layout (images/fonts/padding/sticky)
-          requestAnimationFrame(() => {
-            const el2 = messagesEl.value;
-            if (!el2) return;
-            el2.scrollTop = el2.scrollHeight;
+          roomId.value = rid;
+          resetUnread(rid);
 
-            requestAnimationFrame(() => {
-              const el3 = messagesEl.value;
-              if (!el3) return;
-              el3.scrollTop = el3.scrollHeight;
-            });
-          });
+          const cached = messagesCache.get(rid);
+
+          if (preferCache && cached) {
+            messages.value = cached;
+            ui.loadingMessages = false;
+          } else {
+            messages.value = [];
+            await loadLatestMessages(rid);
+          }
+
+          // Toujours scroller en bas après un changement de room,
+          // que les messages viennent du cache ou d'un fetch réseau.
+          await scrollBottom();
+
+          await markActiveRoomRead();
         };
 
+        // ----------------------------
+        // SEND (optimistic + focus)
+        // ----------------------------
+        const send = async () => {
+          if (!canSend.value) return;
+          if (ui.sending) return;
+
+          // Si on est en train d’éditer, Enter dans le composer ne doit pas envoyer
+          if (edit.id != null) return;
+
+          const rid = roomId.value;
+          const content = draft.value.trim();
+          if (!content) return;
+
+          ui.sending = true;
+          error.value = "";
+
+          // ✅ snapshot de la reply AVANT de la vider
+          const replySnap = {
+            id: reply.id,
+            username: reply.username || null,
+            excerpt: reply.excerpt || null,
+          };
+
+          const tempId = `local-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+          const localMsg = {
+            id: tempId,
+            room_id: rid,
+            external_user_id: me.externalId,
+            username: me.username,
+            avatar_url: me.avatarUrl || null,
+            content,
+            created_at: new Date().toISOString(),
+            _local: true,
+
+            // reply (UI + optimistic)
+            reply_to_message_id: replySnap.id,
+            reply_to_username: replySnap.username,
+            reply_to_excerpt: replySnap.excerpt,
+          };
+
+          messages.value.push(localMsg);
+          messagesCache.set(rid, messages.value);
+
+          // ✅ garde aussi le snapshot dans le pending (fallback au replace)
+          pendingLocalByRoom.set(String(rid), {
+            tempId,
+            content,
+            at: Date.now(),
+            reply: replySnap,
+          });
+
+          draft.value = "";
+          cancelReply(); // ✅ maintenant OK (on a déjà snapshot)
+          await nextTick();
+          resizeDraft();
+          focusDraft();
+          void scrollBottom();
+
+          // ✅ payload basé sur replySnap (pas reply.*)
+          const payload = {
+            room_id: rid,
+            external_user_id: me.externalId,
+            username: me.username,
+            avatar_url: me.avatarUrl || null,
+            content,
+
+            reply_to_message_id: replySnap.id,
+            reply_to_username: replySnap.username,
+            reply_to_excerpt: replySnap.excerpt,
+          };
+
+          const { error: e } = await supabase
+            .from("chat_messages")
+            .insert(payload);
+
+          ui.sending = false;
+
+          if (e) {
+            const pend = pendingLocalByRoom.get(String(rid));
+            if (pend) {
+              const idx = messages.value.findIndex(
+                (x) => String(x?.id) === String(pend.tempId),
+              );
+              if (idx >= 0) messages.value.splice(idx, 1);
+              pendingLocalByRoom.delete(String(rid));
+            }
+            error.value = `Envoyer: ${e.message}`;
+          }
+        };
+
+        const sendGifNow = async (url) => {
+          if (!activeRoom.value) return;
+          if (!me.canWrite) return;
+          if (ui.sending) return;
+          if (edit?.id != null) return; // ne pas envoyer pendant une édition
+
+          const rid = roomId.value;
+          const content = makeGifToken(url);
+
+          ui.sending = true;
+          error.value = "";
+
+          // snapshot reply (si tu veux autoriser répondre + gif)
+          const replySnap = {
+            id: reply?.id ?? null,
+            username: reply?.username || null,
+            excerpt: reply?.excerpt || null,
+          };
+
+          // optimistic local message
+          const tempId = `local-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+          const localMsg = {
+            id: tempId,
+            room_id: rid,
+            external_user_id: me.externalId,
+            username: me.username,
+            avatar_url: me.avatarUrl || null,
+            content,
+            created_at: new Date().toISOString(),
+            _local: true,
+
+            reply_to_message_id: replySnap.id,
+            reply_to_username: replySnap.username,
+            reply_to_excerpt: replySnap.excerpt,
+          };
+
+          messages.value.push(localMsg);
+          messagesCache.set(rid, messages.value);
+
+          // si tu utilises pendingLocalByRoom pour remplacer via realtime
+          pendingLocalByRoom.set(String(rid), {
+            tempId,
+            content,
+            at: Date.now(),
+            reply: replySnap,
+          });
+
+          // ferme le popover + reset reply
+          gif.open = false;
+          if (replySnap.id != null) cancelReply?.();
+
+          await nextTick();
+          focusDraft?.();
+          void scrollBottom?.();
+
+          const payload = {
+            room_id: rid,
+            external_user_id: me.externalId,
+            username: me.username,
+            avatar_url: me.avatarUrl || null,
+            content,
+
+            reply_to_message_id: replySnap.id,
+            reply_to_username: replySnap.username,
+            reply_to_excerpt: replySnap.excerpt,
+          };
+
+          const { error: e } = await supabase
+            .from("chat_messages")
+            .insert(payload);
+
+          ui.sending = false;
+
+          if (e) {
+            // rollback local
+            const idx = messages.value.findIndex(
+              (x) => String(x?.id) === String(tempId),
+            );
+            if (idx >= 0) messages.value.splice(idx, 1);
+            pendingLocalByRoom.delete(String(rid));
+            error.value = `Envoyer GIF: ${e.message}`;
+          }
+        };
+
+        const sendFromDraft = async (ev) => {
+          // Shift+Enter = nouvelle ligne
+          if (ev?.shiftKey) return;
+
+          if (!canSend.value) return;
+          await send();
+          await nextTick();
+          resizeDraft();
+          focusDraft();
+        };
+
+        // ----------------------------
+        // PRESENCE
+        // ----------------------------
         const loadPresence = async () => {
           const cutoffIso = new Date(
             Date.now() - ACTIVE_MINUTES * 60_000,
           ).toISOString();
-          const { data, error: e } = await supabase
+          const { data } = await supabase
             .from("chat_presence")
             .select("page_key,external_user_id,username,avatar_url,last_seen")
             .eq("page_key", PRESENCE_PAGE_KEY)
@@ -3663,18 +8007,14 @@
             .order("last_seen", { ascending: false })
             .limit(50);
 
-          if (!e) {
-            presence.value = (data || []).map((u) => ({
-              ...u,
-              avatar_url: u.avatar_url ? safeUrl(u.avatar_url) : "",
-            }));
-          }
+          presence.value = (data || []).map((u) => ({
+            ...u,
+            avatar_url: u.avatar_url ? safeUrl(u.avatar_url) : "",
+          }));
         };
 
         const upsertPresence = async () => {
-          // si invité sans id, on peut ignorer la présence
           if (!me.externalId) return;
-
           const row = {
             page_key: PRESENCE_PAGE_KEY,
             external_user_id: me.externalId,
@@ -3682,14 +8022,10 @@
             avatar_url: me.avatarUrl || null,
             last_seen: new Date().toISOString(),
           };
-
           await supabase
             .from("chat_presence")
             .upsert(row, { onConflict: "page_key,external_user_id" });
         };
-
-        let presenceTimer = null;
-        let presenceChannel = null;
 
         const subscribePresence = () => {
           presenceChannel = supabase
@@ -3710,8 +8046,6 @@
                   ...u,
                   avatar_url: u.avatar_url ? safeUrl(u.avatar_url) : "",
                 };
-
-                // upsert local (par id)
                 const idx = presence.value.findIndex(
                   (x) => x?.external_user_id === fixed.external_user_id,
                 );
@@ -3722,73 +8056,133 @@
             .subscribe();
         };
 
-        const loadRooms = async () => {
-          ui.loadingRooms = true;
-          error.value = "";
-          const { data, error: e } = await supabase
-            .from("chatrooms")
-            .select("id,name,created_at")
-            .order("created_at", { ascending: true });
+        // ----------------------------
+        // REALTIME
+        // ----------------------------
+        const subscribeRealtime = () => {
+          roomsChannel = supabase
+            .channel("rt-chatrooms")
+            .on(
+              "postgres_changes",
+              { event: "INSERT", schema: "public", table: "chatrooms" },
+              (payload) => {
+                const r = payload?.new;
+                if (!r || r.id == null || typeof r.name !== "string") return;
+                if (r.is_auto === true) return;
 
-          ui.loadingRooms = false;
-
-          if (e) {
-            error.value = `Rooms: ${e.message}`;
-            rooms.value = [];
-            return;
-          }
-
-          rooms.value = (data || []).filter((r) => r && r.id != null);
-          // init unread keys
-          for (const r of rooms.value) unread[String(r.id)] ??= 0;
-        };
-
-        const loadMessages = async (rid) => {
-          ui.loadingMessages = true;
-          error.value = "";
-          const { data, error: e } = await supabase
-            .from("chat_messages")
-            .select(
-              "id,room_id,external_user_id,username,avatar_url,content,created_at",
+                if (!adminRooms.value.some((x) => x && x.id === r.id))
+                  adminRooms.value.push(r);
+                rooms.value = autoRoom.value
+                  ? [autoRoom.value, ...adminRooms.value]
+                  : [...adminRooms.value];
+              },
             )
-            .eq("room_id", rid)
-            .order("created_at", { ascending: true })
-            .limit(200);
+            .subscribe();
 
-          ui.loadingMessages = false;
+          messagesChannel = supabase
+            .channel("rt-chat-messages")
+            .on(
+              "postgres_changes",
+              { event: "INSERT", schema: "public", table: "chat_messages" },
+              (payload) => {
+                const m = payload?.new;
+                if (!m || m.id == null || m.room_id == null) return;
 
-          if (e) {
-            error.value = `Messages: ${e.message}`;
-            messages.value = [];
+                const rid = m.room_id;
+
+                const mid = Number(m.id);
+                if (Number.isFinite(mid)) {
+                  const seen = getSeenSet(rid);
+                  if (seen.has(mid)) return;
+                  seen.add(mid);
+                }
+
+                m.avatar_url = safeUrl(m.avatar_url);
+
+                if (rid === roomId.value) {
+                  const pend = pendingLocalByRoom.get(String(rid));
+                  if (
+                    pend &&
+                    m.external_user_id === me.externalId &&
+                    m.content === pend.content &&
+                    Date.now() - pend.at < 20_000
+                  ) {
+                    const idx = messages.value.findIndex(
+                      (x) => String(x?.id) === String(pend.tempId),
+                    );
+                    if (idx >= 0) {
+                      // ✅ merge : garde les champs du local si Realtime ne les renvoie pas
+                      const prev = messages.value[idx];
+
+                      // fallback reply depuis pending si besoin
+                      if (!m.reply_to_message_id && pend?.reply?.id) {
+                        m.reply_to_message_id = pend.reply.id;
+                        m.reply_to_username = pend.reply.username;
+                        m.reply_to_excerpt = pend.reply.excerpt;
+                      }
+
+                      messages.value[idx] = { ...prev, ...m };
+                    } else {
+                      messages.value.push(m);
+                    }
+                    pendingLocalByRoom.delete(String(rid));
+                  } else {
+                    messages.value.push(m);
+                  }
+
+                  messagesCache.set(rid, messages.value);
+                  scrollBottom();
+                  markActiveRoomRead();
+                } else {
+                  const cached = messagesCache.get(rid);
+                  if (cached) cached.push(m);
+
+                  if (enableUnread.value) {
+                    unread[String(rid)] = (unread[String(rid)] || 0) + 1;
+                  }
+                }
+              },
+            )
+            .on(
+              "postgres_changes",
+              { event: "UPDATE", schema: "public", table: "chat_messages" },
+              (payload) => {
+                const m = payload?.new;
+                if (!m || m.id == null || m.room_id == null) return;
+
+                const rid = m.room_id;
+                m.avatar_url = safeUrl(m.avatar_url);
+
+                if (rid === roomId.value) {
+                  const idx = messages.value.findIndex(
+                    (x) => String(x?.id) === String(m.id),
+                  );
+                  if (idx >= 0) {
+                    messages.value[idx] = { ...messages.value[idx], ...m };
+                  }
+                }
+
+                const cached = messagesCache.get(rid);
+                if (cached) {
+                  const j = cached.findIndex(
+                    (x) => String(x?.id) === String(m.id),
+                  );
+                  if (j >= 0) cached[j] = { ...cached[j], ...m };
+                }
+              },
+            )
+            .subscribe();
+        };
+
+        // ----------------------------
+        // CREATE ROOM (admin only)
+        // ----------------------------
+        const createRoom = async () => {
+          if (!me.isAdmin) {
+            error.value = "Création de room réservée aux administrateurs.";
             return;
           }
 
-          messages.value = (data || []).map((m) => ({
-            ...m,
-            avatar_url: safeUrl(m.avatar_url),
-          }));
-
-          // reset seen set for this room
-          const seen = getSeenSet(rid);
-          seen.clear();
-          for (const mm of messages.value) {
-            const id = Number(mm?.id);
-            if (Number.isFinite(id)) seen.add(id);
-          }
-
-          await scrollBottom();
-        };
-
-        const selectRoom = async (rid) => {
-          if (rid == null) return;
-          roomId.value = rid;
-          resetUnread(rid);
-          messages.value = [];
-          await loadMessages(rid);
-          await markActiveRoomRead();
-        };
-
-        const createRoom = async () => {
           const name = newRoomName.value.trim();
           if (!name) return;
 
@@ -3803,7 +8197,7 @@
               created_by_username: me.username || null,
               created_by_avatar_url: me.avatarUrl || null,
             })
-            .select("id,name,created_at")
+            .select("id,name,created_at,is_auto,room_key,path_key,kind")
             .single();
 
           ui.creatingRoom = false;
@@ -3815,234 +8209,151 @@
 
           if (!data || data.id == null) return;
 
-          // add if missing
-          if (!rooms.value.some((r) => r && r.id === data.id)) {
-            rooms.value.push(data);
-          }
-          unread[String(data.id)] ??= 0;
+          adminRooms.value.push(data);
+          rooms.value = autoRoom.value
+            ? [autoRoom.value, ...adminRooms.value]
+            : [...adminRooms.value];
 
           newRoomName.value = "";
           ui.showCreate = false;
 
-          await selectRoom(data.id);
+          await selectRoom(data.id, { force: true, preferCache: false });
         };
 
-        const send = async () => {
-          if (!canSend.value) return;
-          if (ui.sending) return;
+        // ----------------------------
+        // BARBA SYNC (optional)
+        // ----------------------------
+        let pathSyncToken = 0;
+        const syncPath = async (href = window.location.href) => {
+          const token = ++pathSyncToken;
+          await new Promise((r) => requestAnimationFrame(r));
 
-          const rid = roomId.value;
-          const content = draft.value.trim();
-          if (!content) return;
-
-          ui.sending = true;
-          error.value = "";
-
-          // UI optimiste: afficher tout de suite, sans attendre Realtime
-          const tempId = `local-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-          const localMsg = {
-            id: tempId,
-            room_id: rid,
-            external_user_id: me.externalId,
-            username: me.username,
-            avatar_url: me.avatarUrl || null,
-            content,
-            created_at: new Date().toISOString(),
-            _local: true,
-          };
-
-          messages.value.push(localMsg);
-          pendingLocalByRoom.set(String(rid), {
-            tempId,
-            content,
-            at: Date.now(),
-          });
-          draft.value = "";
-          void scrollBottom();
-
-          // insert DB
-          const payload = {
-            room_id: rid,
-            external_user_id: me.externalId,
-            username: me.username,
-            avatar_url: me.avatarUrl || null,
-            content,
-          };
-
-          const { error: e } = await supabase
-            .from("chat_messages")
-            .insert(payload);
-
-          ui.sending = false;
-
-          if (e) {
-            // rollback optimiste
-            const pend = pendingLocalByRoom.get(String(rid));
-            if (pend) {
-              const idx = messages.value.findIndex(
-                (x) => String(x?.id) === String(pend.tempId),
-              );
-              if (idx >= 0) messages.value.splice(idx, 1);
-              pendingLocalByRoom.delete(String(rid));
-            }
-            error.value = `Envoyer: ${e.message}`;
-            return;
-          }
-
-          // le message réel arrive via realtime (on remplacera le local)
+          const target = await buildRoomsForHref(href);
+          if (token !== pathSyncToken) return;
+          if (target)
+            await selectRoom(target, { force: true, preferCache: true });
         };
+        window.__faChatSyncPath = (href) => syncPath(href);
 
-        const subscribeRealtime = () => {
-          // rooms inserts
-          roomsChannel = supabase
-            .channel("rt-chatrooms")
-            .on(
-              "postgres_changes",
-              { event: "INSERT", schema: "public", table: "chatrooms" },
-              (payload) => {
-                const r = payload?.new;
-                if (!r || r.id == null || typeof r.name !== "string") return;
-
-                unread[String(r.id)] ??= 0;
-                if (!rooms.value.some((x) => x && x.id === r.id))
-                  rooms.value.push(r);
-              },
-            )
-            .subscribe();
-
-          // messages inserts (global) -> unread si pas la room active
-          messagesChannel = supabase
-            .channel("rt-chat-messages")
-            .on(
-              "postgres_changes",
-              { event: "INSERT", schema: "public", table: "chat_messages" },
-              (payload) => {
-                const m = payload?.new;
-                if (!m || m.id == null || m.room_id == null) return;
-
-                const rid = m.room_id;
-
-                // init unread key
-                if (enableUnread.value) unread[String(rid)] ??= 0;
-
-                // déduplication par id (protège contre double subscription / reconnect)
-                const mid = Number(m.id);
-                if (Number.isFinite(mid)) {
-                  const seen = getSeenSet(rid);
-                  if (seen.has(mid)) return;
-                  seen.add(mid);
-                }
-
-                m.avatar_url = safeUrl(m.avatar_url);
-
-                // message pour la room active ?
-                if (rid === roomId.value) {
-                  // remplace le message local optimiste correspondant (si présent)
-                  const pend = pendingLocalByRoom.get(String(rid));
-                  if (
-                    pend &&
-                    m.external_user_id === me.externalId &&
-                    m.content === pend.content &&
-                    Date.now() - pend.at < 15_000
-                  ) {
-                    const idx = messages.value.findIndex(
-                      (x) => String(x?.id) === String(pend.tempId),
-                    );
-                    if (idx >= 0) {
-                      messages.value[idx] = m;
-                    } else {
-                      messages.value.push(m);
-                    }
-                    pendingLocalByRoom.delete(String(rid));
-                  } else {
-                    messages.value.push(m);
-                  }
-
-                  scrollBottom();
-                  if (enableUnread.value) markActiveRoomRead();
-                } else {
-                  if (enableUnread.value) {
-                    unread[String(rid)] = (unread[String(rid)] || 0) + 1;
-                  }
-                }
-              },
-            )
-            .subscribe();
-        };
-
+        // ----------------------------
+        // INIT
+        // ----------------------------
         onMounted(async () => {
-          await loadRooms();
-          await syncRoomsForCurrentPath();
+          ui.booting = true;
+          ui.loadingRooms = true;
+          ui.loadingMessages = true;
+
+          const target = await buildRoomsForHref(window.location.href);
           if (enableUnread.value) await loadPersistentUnread();
           subscribeRealtime();
 
-          // auto-select first room
-          if (roomsSafe.value.length > 0) {
-            await selectRoom(roomsSafe.value[0].id);
-          }
-        });
-
-        onBeforeUnmount(() => {
-          if (roomsChannel) supabase.removeChannel(roomsChannel);
-          if (messagesChannel) supabase.removeChannel(messagesChannel);
-        });
-
-        onMounted(async () => {
           await loadPresence();
           subscribePresence();
-
-          // ping immédiatement puis interval
           await upsertPresence();
           presenceTimer = window.setInterval(upsertPresence, PRESENCE_PING_MS);
-
-          // (optionnel) nettoyage local toutes les minutes
-          window.setInterval(() => {
+          presenceCleanupTimer = window.setInterval(() => {
             const cutoff = Date.now() - ACTIVE_MINUTES * 60_000;
             presence.value = presence.value.filter(
               (u) => new Date(u.last_seen).getTime() >= cutoff,
             );
           }, 60_000);
+
+          if (target)
+            await selectRoom(target, { force: true, preferCache: false });
+
+          ui.booting = false;
+
+          await nextTick();
+          resizeDraft();
+          await nextTick();
+          await scrollBottom();
         });
 
         onBeforeUnmount(() => {
-          if (presenceTimer) window.clearInterval(presenceTimer);
+          if (roomsChannel) supabase.removeChannel(roomsChannel);
+          if (messagesChannel) supabase.removeChannel(messagesChannel);
           if (presenceChannel) supabase.removeChannel(presenceChannel);
-        });
 
-        window.__faChatSyncPath = () => syncRoomsForCurrentPath();
+          if (presenceTimer) window.clearInterval(presenceTimer);
+          if (presenceCleanupTimer) window.clearInterval(presenceCleanupTimer);
+        });
 
         return {
           me,
           ui,
+
           roomsSafe,
           roomId,
           activeRoom,
+          isTopicRoom,
+          roomLabel,
+
           messages,
+          messagesEl,
+          onMessagesScroll,
+          timeAgo,
+
           draft,
           draftEl,
           resizeDraft,
           sendFromDraft,
-          newRoomName,
-          error,
-          isTopicRoom,
-          roomLabel,
+          onDraftArrowUp,
 
-          messagesEl,
-          timeAgo,
+          // edit
+          edit,
+          editEl,
+          isEditing,
+          startEditMessage,
+          resizeEdit,
+          saveEdit,
+          cancelEdit,
+
+          newRoomName,
+          createRoom,
 
           unreadCount,
           selectRoom,
-          createRoom,
-          send,
-          canSend,
 
           activeUsersStack,
           activeUsersOverflow,
+
+          error,
+          canSend,
+
+          emoji,
+          emojiBtnEl,
+          emojiPopEl,
+          emojiSearchEl,
+          emojiCategories,
+          emojiFiltered,
+          toggleEmoji,
+          pickEmoji,
+          isEmojiOnlyText,
+
+          gif,
+          gifBtnEl,
+          gifPopEl,
+          gifSearchEl,
+          gifResultsEl,
+          toggleGif,
+          pickGif,
+          onGifScroll,
+          isGifMessage,
+          extractGifUrl,
+
+          reply,
+          hasReply,
+          setReply,
+          cancelReply,
+          scrollToMessage,
+          replyExcerptLabel,
+
+          // markdown
+          renderMarkdown,
         };
       },
     });
 
-    // IMPORTANT: le #chat doit exister dans le DOM au moment du mount (Barba)
     const el = document.getElementById("chat");
     if (!el) return;
 
@@ -4082,7 +8393,8 @@
         href.startsWith("#") ||
         href.startsWith("mailto:") ||
         href.startsWith("tel:") ||
-        href.startsWith("javascript:")
+        href.startsWith("javascript:") ||
+        href.startsWith("/tags/")
       )
         return;
 
@@ -4099,7 +8411,7 @@
       // optionnel: garder l’ancien texte
       if (!a.dataset.originalText) a.dataset.originalText = a.textContent ?? "";
 
-      a.classList.add(className, "bg-zinc-100");
+      a.classList.add(className, "bg-zinc-100", "dark:bg-zinc-900");
 
       // pathname uniquement (decode safe)
       let path = url.pathname || "/";
@@ -4111,6 +8423,506 @@
       a.textContent = path;
     });
   }
+
+  const addColorToPost = (root = document) => {
+    const post = root.querySelector(".postbody");
+    if (!post) return;
+    // based on category
+    const category = root.querySelector("#topic-category .nav");
+    const m = category?.href?.match(/\/f(\d+)-/);
+    let color = "gray";
+    if (m) {
+      const id = m[1];
+      color = forumTheme["f" + id]?.color || color;
+    }
+
+    root.body.style.setProperty("--author-color", `var(--color-${color}-500)`);
+  };
+
+  const RESOLU_TEST_RE$1 =
+    /(^|[\s\-–—:;,.|])[\[\(]?\s*r[eéèêë]solu\s*[\]\)]?(?=$|[\s\-–—:;,.|])/i;
+
+  const RESOLU_STRIP_RE$1 =
+    /(^|[\s\-–—:;,.|])[\[\(]?\s*r[eéèêë]solu\s*[\]\)]?(?=$|[\s\-–—:;,.|])/gi;
+
+  const stripResolvedToken$1 = (raw) => {
+    const hadResolved = RESOLU_TEST_RE$1.test(raw || "");
+    if (!hadResolved) return { cleaned: raw || "", hadResolved: false };
+
+    let cleaned = (raw || "").replace(RESOLU_STRIP_RE$1, "$1");
+
+    cleaned = cleaned
+      .replace(/\s{2,}/g, " ")
+      .replace(/^[\s\-–—:;,.|]+/g, "")
+      .replace(/[\s\-–—:;,.|]+$/g, "")
+      .trim();
+
+    return { cleaned, hadResolved: true };
+  };
+
+  const ensureResolvedBadge = (titleEl) => {
+    // déjà présent ?
+    let badge = titleEl.querySelector('label[data-resolved-badge="1"]');
+    if (badge) return badge;
+
+    badge = document.createElement("label");
+    badge.setAttribute("data-resolved-badge", "1");
+    badge.setAttribute("aria-label", "Sujet résolu");
+    badge.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 lucide lucide-circle-check-big-icon lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Résolu</span>`;
+
+    // style “badge” (Tailwind)
+    badge.className =
+      "flex gap-2 px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-200";
+
+    return badge;
+  };
+
+  const removeResolvedBadge = (titleEl) => {
+    const badge = titleEl.querySelector('label[data-resolved-badge="1"]');
+    if (badge) badge.remove();
+  };
+
+  const extractTagfromTitle = (root = document) => {
+    const titleEl = root.querySelector("#topic-title");
+    const container = root.querySelector("#tags-container");
+    if (!titleEl | !container) return;
+
+    // souvent le texte est dans un <a>, sinon directement dans #topic-title
+    const host = titleEl.querySelector("a") || titleEl;
+
+    const before = (host.textContent || "").trim();
+    if (!before) return;
+
+    const { cleaned, hadResolved } = stripResolvedToken$1(before);
+
+    if (!hadResolved) {
+      // optionnel: si pas résolu, on enlève un badge existant
+      removeResolvedBadge(titleEl);
+      return;
+    }
+
+    // 1) retirer le token du titre
+    if (cleaned !== before) host.textContent = cleaned;
+
+    // 2) insérer le badge juste avant le host (donc “à la place” du token en début)
+    const badge = ensureResolvedBadge(titleEl);
+
+    // si badge déjà dans le bon parent, rien à faire
+    if (!badge.isConnected) {
+      // insère badge + espace avant le texte
+      container.appendChild(badge);
+    }
+  };
+
+  const initViewtopic = (root = document) => {
+    addIconToCategory();
+    addColorToPost();
+    markInternalLinks();
+    extractTagfromTitle();
+    initPrism(root);
+  };
+
+  // bbcode-editor.mjs
+
+  /**
+   * Module BBCode qui expose un objet editor avec ses méthodes
+   * + gestion attach/detach pour Barba.js
+   */
+  const BBcodeEditor = (function () {
+    // Variables privées (closure)
+    let textarea = null;
+    let toolbar;
+    let cleanupFns = [];
+    let isActive = false;
+
+    // ────────────────────────────────────────────────
+    // Méthodes d’insertion (stockées dans l’objet editor)
+    // ────────────────────────────────────────────────
+    const editor = {
+      insertText(startText, endText = "") {
+        if (!textarea) return;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const selected = textarea.value.slice(start, end);
+
+        textarea.value =
+          textarea.value.slice(0, start) +
+          startText +
+          selected +
+          endText +
+          textarea.value.slice(end);
+
+        const newPos = start + startText.length + selected.length;
+        textarea.setSelectionRange(newPos, newPos);
+        textarea.focus();
+      },
+
+      wrap(tag) {
+        this.insertText(`[${tag}]`, `[/${tag}]`);
+      },
+
+      bold() {
+        this.wrap("b");
+      },
+      italic() {
+        this.wrap("i");
+      },
+      underline() {
+        this.wrap("u");
+      },
+      strike() {
+        this.wrap("s");
+      },
+
+      left() {
+        this.wrap("left");
+      },
+      center() {
+        this.wrap("center");
+      },
+      right() {
+        this.wrap("right");
+      },
+      justify() {
+        this.wrap("justify");
+      },
+
+      quote() {
+        this.wrap("quote");
+      },
+      code() {
+        this.wrap("code");
+      },
+
+      list() {
+        if (!textarea) return;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        let selected = textarea.value.slice(start, end);
+
+        if (!selected.trim()) {
+          this.insertText("[list]\n[*] ", "\n[/list]");
+          return;
+        }
+
+        const lines = selected.split("\n");
+        const bulleted = lines
+          .map((line) => (line.trim() ? "[*] " + line.trim() : line))
+          .join("\n");
+
+        textarea.value =
+          textarea.value.slice(0, start) +
+          "[list]\n" +
+          bulleted +
+          "\n[/list]" +
+          textarea.value.slice(end);
+
+        textarea.setSelectionRange(start + 7, start + 7 + bulleted.length);
+        textarea.focus();
+      },
+
+      image() {
+        if (!textarea) return;
+        const url = prompt("URL complète de l'image :", "https://")?.trim();
+        if (!url || url === "https://") return;
+        this.insertText(`[img]${url}[/img]`);
+      },
+
+      link() {
+        if (!textarea) return;
+        const url = prompt("URL du lien :", "https://")?.trim();
+        if (!url || url === "https://") return;
+
+        const selected = textarea.value.slice(
+          textarea.selectionStart,
+          textarea.selectionEnd,
+        );
+
+        if (selected.trim()) {
+          this.insertText(`[url=${url}]`, "[/url]");
+        } else {
+          this.insertText(`[url=${url}]`, "[/url]");
+        }
+      },
+    };
+
+    // ────────────────────────────────────────────────
+    // Mapping title → méthode de l’objet editor
+    // ────────────────────────────────────────────────
+    const titleToMethodName = {
+      Gras: "bold",
+      Italique: "italic",
+      Souligné: "underline",
+      Barré: "strike",
+
+      "Aligné à gauche": "left",
+      Centré: "center",
+      "Aligné à droite": "right",
+      Justifié: "justify",
+
+      "Liste à puces": "list",
+      Citation: "quote",
+      Code: "code",
+
+      "Insérer une image": "image",
+      "Insérer un lien": "link",
+    };
+
+    // ────────────────────────────────────────────────
+    // Attachement / Détachement
+    // ────────────────────────────────────────────────
+    function attach(container = document) {
+      if (isActive) return;
+
+      textarea = container.querySelector(".bbcode-textarea");
+      toolbar = container.querySelector(".bbcode-toolbar");
+      if (!textarea || !toolbar) return;
+
+      // 1. Attacher les boutons via title
+      toolbar.querySelectorAll("button[title]").forEach((btn) => {
+        const title = btn.getAttribute("title");
+        const methodName = titleToMethodName[title];
+        if (methodName && typeof editor[methodName] === "function") {
+          const handler = (e) => {
+            e.preventDefault();
+            editor[methodName]();
+          };
+          btn.addEventListener("click", handler);
+          cleanupFns.push(() => btn.removeEventListener("click", handler));
+        }
+      });
+
+      // 2. Raccourcis clavier
+      const keydownHandler = (e) => {
+        if (!e.ctrlKey && !e.metaKey) return;
+        const key = e.key.toLowerCase();
+
+        if (key === "b") {
+          e.preventDefault();
+          editor.bold();
+        }
+        if (key === "i") {
+          e.preventDefault();
+          editor.italic();
+        }
+        if (key === "u") {
+          e.preventDefault();
+          editor.underline();
+        }
+        if (key === "k") {
+          e.preventDefault();
+          editor.link();
+        }
+        // ← ajoute ici d’autres raccourcis si désiré
+      };
+
+      textarea.addEventListener("keydown", keydownHandler);
+      cleanupFns.push(() =>
+        textarea.removeEventListener("keydown", keydownHandler),
+      );
+
+      isActive = true;
+      console.debug("[BBCode] attaché");
+    }
+
+    function detach() {
+      if (!isActive) return;
+
+      cleanupFns.reverse().forEach((fn) => fn());
+      cleanupFns = [];
+
+      textarea = null;
+      toolbar = null;
+      isActive = false;
+
+      console.debug("[BBCode] détaché");
+    }
+
+    // ────────────────────────────────────────────────
+    // API publique exposée
+    // ────────────────────────────────────────────────
+    return {
+      // L’objet contenant toutes les méthodes d’édition
+      editor,
+
+      // Gestion du cycle de vie (Barba.js friendly)
+      attach,
+      detach,
+
+      // État
+      isActive: () => isActive,
+    };
+  })();
+
+  // features/postingbody.js
+  //
+
+  const RESOLU_TEST_RE =
+    /(^|[\s\-–—:;,.|])[\[\(]?\s*r[eéèêë]solu\s*[\]\)]?(?=$|[\s\-–—:;,.|])/i;
+
+  const RESOLU_STRIP_RE =
+    /(^|[\s\-–—:;,.|])[\[\(]?\s*r[eéèêë]solu\s*[\]\)]?(?=$|[\s\-–—:;,.|])/gi;
+
+  const RESOLU_CANON = "(Résolu)";
+
+  /** Nettoie espaces multiples + ponctuation résiduelle */
+  function normalizeSubject(text = "") {
+    return text
+      .replace(/\s{2,}/g, " ")
+      .replace(/^[\s\-–—:;,.|]+/g, "")
+      .replace(/[\s\-–—:;,.|]+$/g, "")
+      .trim();
+  }
+
+  /** Retire le token "(Résolu)" et indique s’il était présent */
+  function stripResolvedToken(raw) {
+    const hadResolved = RESOLU_TEST_RE.test(raw || "");
+    if (!hadResolved) {
+      return { cleaned: raw || "", hadResolved: false };
+    }
+
+    const cleaned = normalizeSubject((raw || "").replace(RESOLU_STRIP_RE, "$1"));
+    return { cleaned, hadResolved: true };
+  }
+
+  /** Prépare le sujet pour le submit */
+  function subjectForSubmit(raw, isResolvedChecked) {
+    const { cleaned } = stripResolvedToken(raw);
+    return isResolvedChecked
+      ? cleaned
+        ? `${RESOLU_CANON} ${cleaned}`
+        : RESOLU_CANON
+      : cleaned;
+  }
+
+  function normalizeText(s = "") {
+    return s
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .toLowerCase();
+  }
+
+  function findTitleInput(root = document) {
+    return root.querySelector('input[name="subject"]');
+  }
+
+  /** Cherche la checkbox "Résolu" (stratégies par ordre de priorité) */
+  function findResolvedCheckbox(root = document) {
+    // 1. Attribut explicite (le plus fiable)
+    const explicit = root.querySelector(
+      'input[type="checkbox"][data-subject-value]',
+    );
+    if (explicit) return explicit;
+
+    // 2. id ou name contient "resol"
+    const byAttr = Array.from(
+      root.querySelectorAll('input[type="checkbox"]'),
+    ).find((el) => (el.id + el.name).toLowerCase().includes("resol"));
+    if (byAttr) return byAttr;
+
+    // 3. Label contenant "résolu"
+    const label = Array.from(root.querySelectorAll("label")).find((l) =>
+      normalizeText(l.textContent).includes("resolu"),
+    );
+
+    if (!label) return null;
+
+    const forId = label.getAttribute("for");
+    if (forId) {
+      const byFor =
+        root.querySelector(`#${CSS.escape(forId)}`) ||
+        document.querySelector(`#${CSS.escape(forId)}`);
+      if (byFor?.type === "checkbox") return byFor;
+    }
+
+    return label.querySelector('input[type="checkbox"]') || null;
+  }
+
+  /* ====================== LOGIQUE ACTUELLE EXTRAITE ====================== */
+
+  /**
+   * Gère toute la synchronisation du token "(Résolu)".
+   * Extraite dans une variable pour que initPostingBody reste extensible.
+   */
+  const initResolvedSync = (container = document) => {
+    const root =
+      container && typeof container.querySelector === "function"
+        ? container
+        : document;
+
+    const titleInput = findTitleInput(root);
+    if (!titleInput) return;
+
+    const checkbox = findResolvedCheckbox(root);
+
+    // Fallback serveur (stable même après restauration navigateur)
+    const fallback = stripResolvedToken(checkbox?.dataset?.subjectValue || "");
+    const fallbackCleaned = fallback.cleaned;
+    const fallbackHadResolved = fallback.hadResolved;
+
+    let userHasTouchedCheckbox = false;
+
+    // Bind checkbox (une seule fois)
+    if (checkbox && !checkbox.dataset.resoluBound) {
+      checkbox.dataset.resoluBound = "1";
+      checkbox.addEventListener("change", () => {
+        userHasTouchedCheckbox = true;
+      });
+    }
+
+    /** Synchronise titre → checkbox + nettoyage automatique */
+    const syncCheckboxFromTitle = () => {
+      const raw = titleInput.value || "";
+      const { cleaned } = stripResolvedToken(raw);
+
+      if (cleaned !== raw) titleInput.value = cleaned;
+
+      if (!checkbox || userHasTouchedCheckbox) return;
+
+      const shouldCheck =
+        RESOLU_TEST_RE.test(raw) ||
+        (fallbackHadResolved && cleaned === fallbackCleaned);
+
+      checkbox.checked = shouldCheck;
+    };
+
+    // Protection contre les remounts / double binding
+    if (titleInput.dataset.resoluSyncBound) {
+      syncCheckboxFromTitle();
+      return;
+    }
+    titleInput.dataset.resoluSyncBound = "1";
+
+    // Init + listeners
+    syncCheckboxFromTitle();
+
+    titleInput.addEventListener("paste", () =>
+      setTimeout(syncCheckboxFromTitle, 0),
+    );
+    titleInput.addEventListener("input", syncCheckboxFromTitle); // plus réactif que "change"
+    titleInput.addEventListener("blur", syncCheckboxFromTitle);
+
+    // Sécurité avant submit
+    if (titleInput.form && !titleInput.form.dataset.resoluSubmitBound) {
+      titleInput.form.dataset.resoluSubmitBound = "1";
+      titleInput.form.addEventListener(
+        "submit",
+        () => {
+          const checked = !!checkbox?.checked;
+          titleInput.value = subjectForSubmit(titleInput.value, checked);
+        },
+        true,
+      );
+    }
+  };
+
+  /* ====================== POINT D'ENTRÉE PRINCIPAL ====================== */
+
+  const initPostingBody = (container = document) => {
+    // === Fonctionnalité actuelle ===
+    initPrism(container);
+    initResolvedSync(container);
+  };
 
   /******************************************************************************
   Copyright (c) Microsoft Corporation.
@@ -17308,6 +22120,13 @@
   }
   if (shouldShowDeprecationWarning()) console.warn("⚠️  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217");
 
+  registerModule({
+    mount(container) {
+      BBcodeEditor.attach(container);
+      return () => BBcodeEditor.detach();
+    },
+  });
+
   function initUI() {
     const supabase = createClient(
       "https://meberpgnborqmkmynhdo.supabase.co",
@@ -17327,15 +22146,20 @@
     onNamespace("index", { afterEnter: async () => console.log("index") });
 
     onNamespace("viewtopic", {
-      enter: async () => {
-        addIconToCategory();
-        markInternalLinks();
+      once() {
+        initViewtopic();
+      },
+      enter: async (next) => {
+        initViewtopic(next.container);
       },
     });
 
     onNamespace("postingbody", {
-      once: () => {
-        console.log("test");
+      once() {
+        initPostingBody();
+      },
+      enter() {
+        initPostingBody();
       },
     });
 
@@ -17346,8 +22170,6 @@
     initResize();
     initChat(supabase);
     updateTyme();
-    addIconToCategory();
-    markInternalLinks();
 
     return { Context };
   }

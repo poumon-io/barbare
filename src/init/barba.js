@@ -104,6 +104,10 @@ export function getRegisteredNamespaces() {
   return Array.from(_nsHooks.keys());
 }
 
+export function registerModule(m) {
+  modules.push(m);
+}
+
 export function initBarba() {
   if (_initialized) return { destroy };
   _initialized = true;

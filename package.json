@@ -17,15 +17,27 @@
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
+    "@tailwindcss/postcss": "^4.2.1",
+    "autoprefixer": "^10.4.27",
     "concurrently": "^9.2.1",
     "http-server": "^14.1.1",
+    "postcss": "^8.5.6",
     "rimraf": "^6.0.1",
     "rollup": "^4.50.0",
-    "rollup-plugin-css-only": "^4.5.4"
+    "rollup-plugin-css-only": "^4.5.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "shiki": "^4.0.1",
+    "tailwindcss": "^4.2.1"
   },
   "dependencies": {
     "@barba/core": "^2.10.3",
     "@poumon/potion": "^1.6.1",
-    "@supabase/supabase-js": "^2.98.0"
+    "@poumon/taggi": "^1.0.0",
+    "@supabase/supabase-js": "^2.98.0",
+    "@tailwindcss/cli": "^4.2.1",
+    "automad-prism-themes": "^0.3.7",
+    "marked": "^17.0.4",
+    "prismjs": "^1.30.0",
+    "unicode-emoji": "^2.6.0"
   }
 }

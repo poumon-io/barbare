@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --- CONNEXION ET INSCRIPTION ----------------- */
+
+/* --- PAGE : INSCRIPTION --- */
+form[name="post"][action=""]#ucp dd:has(.password-container) {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+form#form_confirm {
+    @apply flex flex-1;
+}
+
+.panel:has(input[value="Enregistrer"]) {
+    @apply max-w-3xl mx-auto w-full p-6;
+    h1 {
+        @apply text-2xl font-bold;
+    }
+    .inner > p {
+        @apply mb-6 text-sm text-zinc-600 dark:text-zinc-400 mt-1;
+    }
+    fieldset:not(.submit-buttons) {
+        @apply rounded-xl border border-zinc-200 bg-zinc-50/60 p-4 sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/30 space-y-5;
+    }
+    fieldset.submit-buttons {
+        @apply flex flex-row-reverse flex-wrap items-center justify-start gap-3 mt-6;
+    }
+    fieldset dl {
+        &:first-child {
+            @apply hidden;
+        }
+        @apply grid grid-cols-1 gap-2 sm:grid-cols-12 sm:items-center;
+        dt {
+            @apply sm:col-span-4 text-sm font-medium text-zinc-800 dark:text-zinc-200;
+        }
+        dd {
+            @apply sm:col-span-8;
+            &:has(.password-container) {
+            }
+        }
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        @apply w-full px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-transparent rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/30;
+    }
+    input[type="submit"] {
+        @apply px-4 py-2 bg-indigo-500 text-white rounded-lg text-sm font-medium hover:bg-indigo-600 transition-colors;
+    }
+    input[type="reset"] {
+        @apply px-4 py-2  rounded-lg text-sm font-medium transition-colors;
+    }
+}
+.panel:has(input[value="Enregistrer"]) dl:has(#wantsnews),
+.corners-top {
+    display: none;
+}
+
+#form_confirm dl:has(input[value="Enregistrer"]) {
+    display: flex;
+    justify-content: center;
+}
+
+/* --- PAGE : CONNEXION --- */
+form[name="form_login"] .content {
+    display: grid;
+
+    .h3 {
+        text-align: center;
+        margin: 10px 0;
+    }
+}
+
+.fld_connexion dl {
+    display: grid;
+    grid-auto-flow: row;
+    grid-row-gap: 5px;
+    grid-template-columns: none;
+    justify-content: center;
+}
+
+/* Bloc connexion rapide */
+.user_login_form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: max-content max-content 1fr max-content;
+    gap: 5px;
+}
+
+.user_login_form .form-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 5px;
+}
+
+/* --- MOT DE PASSE --- */
+/* Indicateur complexité du mot de passe */
+.password-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+img.show_hide_pwd {
+    position: absolute;
+    right: 10px;
+}
+
+[data-color-scheme="dark"] img.show_hide_pwd {
+    filter: invert(1);
+}
+
+#cont_pwd {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: 5px;
+}
+
+.pwd_img {
+    padding: 2px 6px;
+    display: none;
+    border-radius: 3px;
+}
+
+#pwd_good {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+#pwd_middle {
+    background-color: #ffcc00;
+    color: #000;
+}
+
+#pwd_bad {
+    background-color: #f04040;
+    color: #fff;
+}
