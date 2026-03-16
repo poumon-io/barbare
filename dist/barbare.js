@@ -6460,6 +6460,14 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
     const MAX_STACK = 4;
 
     // ----------------------------
+    // XP & NIVEAUX — CONFIG
+    // ----------------------------
+    const XP_PER_MESSAGE = 10; // +XP par message envoyé
+    const XP_PER_REACTION = 5; // +XP par réaction donnée
+    const XP_PER_MINUTE = 1; // +XP par minute dans le chat
+    const XP_LEVEL_BASE = 100; // xp_to_next = XP_LEVEL_BASE × level²
+
+    // ----------------------------
     // HELPERS
     // ----------------------------
     const normalize = (s) =>
@@ -6684,6 +6692,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
     let roomsChannel = null;
     let messagesChannel = null;
     let presenceChannel = null;
+    let typingChannel = null;
 
     let presenceTimer = null;
     let presenceCleanupTimer = null;
@@ -6692,6 +6701,22 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
       setup() {
         const me = reactive(readUserdata());
         me.avatarUrl = safeUrl(me.avatarUrl);
+
+        // ----------------------------
+        // XP STATE
+        // ----------------------------
+        const xpStats = reactive({
+          xp: 0,
+          level: 1,
+          xp_to_next: XP_LEVEL_BASE,
+          messages_sent: 0,
+          reactions_given: 0,
+          time_in_chat: 0, // en secondes
+          leveledUp: false, // flag temporaire pour l'animation level-up
+        });
+
+        // Niveaux des autres utilisateurs : external_user_id → level (number)
+        const userLevels = reactive({});
 
         // ----------------------------
         // UI STATE
@@ -6888,6 +6913,61 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           await cancelEdit();
         };
 
+        // ----------------------------
+        // DELETE MESSAGE (soft delete)
+        // ----------------------------
+        const deleteMessage = async (m) => {
+          if (!me.canWrite) return;
+          if (!m) return;
+
+          // L'auteur peut supprimer son message, l'admin peut tout supprimer
+          if (m.external_user_id !== me.externalId && !me.isAdmin) return;
+
+          // Refuse les messages locaux/optimistes
+          const n = Number(m.id);
+          if (!Number.isFinite(n)) return;
+
+          const rid = m.room_id ?? roomId.value;
+
+          const deletedBy =
+            me.isAdmin && m.external_user_id !== me.externalId
+              ? "admin"
+              : "author";
+          const deletedAt = new Date().toISOString();
+
+          // Optimiste UI — marque le message comme supprimé sans le retirer
+          const markDeleted = (arr) => {
+            const idx = arr.findIndex((x) => String(x?.id) === String(m.id));
+            if (idx >= 0)
+              arr[idx] = {
+                ...arr[idx],
+                deleted_at: deletedAt,
+                deleted_by: deletedBy,
+              };
+          };
+          markDeleted(messages.value);
+          const cached = messagesCache.get(rid);
+          if (cached) markDeleted(cached);
+
+          // Persist Supabase
+          const { error: e } = await supabase
+            .from("chat_messages")
+            .update({
+              deleted_at: new Date().toISOString(),
+              deleted_by:
+                me.isAdmin && m.external_user_id !== me.externalId
+                  ? "admin"
+                  : "author",
+            })
+            .eq("id", m.id);
+
+          if (e) {
+            error.value = `Supprimer: ${e.message}`;
+            // Rollback : recharge les messages de la room
+            await loadLatestMessages(rid);
+          }
+        };
+
         const onDraftArrowUp = async (e) => {
           // Discord-like: flèche haut quand le draft est vide -> édite le dernier message
           if (!e) return;
@@ -6904,8 +6984,10 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         };
 
         // si on change de room, on annule l'édition
-        watch(roomId, () => {
+        watch(roomId, (newRid) => {
           if (edit.id != null) cancelEdit();
+          mention.open = false;
+          subscribeTyping(newRid);
         });
 
         // ----------------------------
@@ -6926,6 +7008,260 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
         // presence
         const presence = ref([]);
+
+        // ----------------------------
+        // STATUT DE FRAPPE
+        // ----------------------------
+        // Map : external_user_id → { username, avatar_url, at (timestamp) }
+        const typingUsers = reactive({});
+
+        // ----------------------------
+        // MESSAGES ÉPINGLÉS
+        // ----------------------------
+        const pinnedMessages = ref([]); // messages épinglés de la room active
+        const showPinned = ref(false); // popover ouvert/fermé
+        const pinnedBtnEl = ref(null);
+        const pinnedPopEl = ref(null);
+
+        // ----------------------------
+        // MENTIONS @
+        // ----------------------------
+        const mention = reactive({
+          open: false,
+          query: "",
+          index: 0,
+          triggerPos: -1, // position du @ dans draft
+        });
+
+        // Auteurs uniques ayant écrit dans la room courante
+        const roomAuthors = ref([]); // [{ external_user_id, username, avatar_url }]
+
+        const collectAuthors = (msgs) => {
+          const seen = new Map();
+          for (const m of msgs || []) {
+            if (!m?.external_user_id || seen.has(m.external_user_id)) continue;
+            seen.set(m.external_user_id, {
+              external_user_id: m.external_user_id,
+              username: m.username || "",
+              avatar_url: safeUrl(m.avatar_url || ""),
+            });
+          }
+          roomAuthors.value = [...seen.values()];
+        };
+
+        const mentionFiltered = computed(() => {
+          if (!mention.open) return [];
+          const q = normalize(mention.query);
+          return roomAuthors.value
+            .filter((u) => u.external_user_id !== me.externalId)
+            .filter((u) => !q || normalize(u.username).includes(q))
+            .slice(0, 6);
+        });
+
+        const isMentioned = (m) => {
+          if (!me.canWrite || !me.username || m.deleted_at) return false;
+          return String(m.content || "")
+            .toLowerCase()
+            .includes("@" + me.username.toLowerCase());
+        };
+
+        // Entoure les @mentions dans le HTML rendu
+        const highlightMentions = (html) => {
+          if (!html) return html;
+          return html.replace(/@([a-zA-Z0-9_\-.]+)/g, (match, uname) => {
+            const isSelf = normalize(uname) === normalize(me.username || "");
+            const cls = isSelf
+              ? "chat-mention chat-mention-self"
+              : "chat-mention";
+            return `<span class="${cls}">${match}</span>`;
+          });
+        };
+        const renderWithMentions = (content) =>
+          highlightMentions(renderMarkdown(content));
+
+        // Ouvre l'autocomplete si on trouve @query avant le curseur
+        const onDraftInput = () => {
+          resizeDraft();
+          const el = draftEl.value;
+          if (!el) return;
+          const pos = el.selectionStart ?? draft.value.length;
+          const before = draft.value.slice(0, pos);
+          const m = before.match(/@([^\s@]*)$/);
+          if (m) {
+            mention.open = true;
+            mention.query = m[1];
+            mention.triggerPos = pos - m[0].length;
+            mention.index = 0;
+          } else {
+            mention.open = false;
+          }
+          if (draft.value.trim().length > 0) broadcastTyping();
+        };
+
+        // Insère @username au bon endroit dans le draft
+        const insertMention = async (username) => {
+          const el = draftEl.value;
+          const pos = el?.selectionStart ?? draft.value.length;
+          const before = draft.value.slice(0, mention.triggerPos);
+          const after = draft.value.slice(pos);
+          draft.value = `${before}@${username} ${after}`;
+          mention.open = false;
+          await nextTick();
+          const newPos = mention.triggerPos + username.length + 2;
+          try {
+            el?.setSelectionRange(newPos, newPos);
+          } catch {}
+          el?.focus({ preventScroll: true });
+          resizeDraft();
+        };
+
+        // Gestion clavier dans le textarea quand l'autocomplete est ouvert
+        const onMentionKeydown = (e) => {
+          if (!mention.open) return;
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            e.stopPropagation();
+            mention.index = Math.min(
+              mention.index + 1,
+              mentionFiltered.value.length - 1,
+            );
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            e.stopPropagation();
+            mention.index = Math.max(mention.index - 1, 0);
+          } else if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            e.stopPropagation();
+            const u = mentionFiltered.value[mention.index];
+            if (u) insertMention(u.username);
+          } else if (e.key === "Escape") {
+            e.stopPropagation();
+            mention.open = false;
+          }
+        };
+
+        const pinnedCount = computed(() => pinnedMessages.value.length);
+
+        const loadPinnedMessages = async (rid) => {
+          if (!rid) {
+            pinnedMessages.value = [];
+            return;
+          }
+          const { data } = await supabase
+            .from("chat_messages")
+            .select(
+              "id,room_id,external_user_id,username,avatar_url,content,created_at,pinned_at,pinned_by,deleted_at",
+            )
+            .eq("room_id", rid)
+            .not("pinned_at", "is", null)
+            .is("deleted_at", null)
+            .order("pinned_at", { ascending: false });
+          pinnedMessages.value = (data || []).map((m) => ({
+            ...m,
+            avatar_url: safeUrl(m.avatar_url),
+          }));
+        };
+
+        const togglePin = async (m) => {
+          if (!me.isAdmin) return;
+          const n = Number(m.id);
+          if (!Number.isFinite(n)) return;
+
+          const isNowPinned = !m.pinned_at;
+          const patch = isNowPinned
+            ? { pinned_at: new Date().toISOString(), pinned_by: me.externalId }
+            : { pinned_at: null, pinned_by: null };
+
+          // Optimiste : met à jour dans messages.value
+          const idx = messages.value.findIndex(
+            (x) => String(x?.id) === String(m.id),
+          );
+          if (idx >= 0)
+            messages.value[idx] = { ...messages.value[idx], ...patch };
+
+          // Optimiste : met à jour pinnedMessages
+          if (isNowPinned) {
+            pinnedMessages.value = [{ ...m, ...patch }, ...pinnedMessages.value];
+          } else {
+            pinnedMessages.value = pinnedMessages.value.filter(
+              (x) => String(x.id) !== String(m.id),
+            );
+          }
+
+          const { error: e } = await supabase
+            .from("chat_messages")
+            .update(patch)
+            .eq("id", m.id);
+
+          if (e) {
+            error.value = `Épingler: ${e.message}`;
+            await loadPinnedMessages(roomId.value);
+          }
+        };
+
+        // Ferme le popover au clic extérieur
+        const onDocMouseDownPinned = (ev) => {
+          if (!showPinned.value) return;
+          if (pinnedPopEl.value?.contains(ev.target)) return;
+          if (pinnedBtnEl.value?.contains(ev.target)) return;
+          showPinned.value = false;
+        };
+        const TYPING_TTL_MS = 4000; // délai avant de considérer que l'utilisateur a arrêté
+        const TYPING_THROTTLE_MS = 2000; // fréquence max d'envoi du broadcast
+
+        // Computed : liste des utilisateurs en train d'écrire (sauf soi-même, triés par activité)
+        const typingList = computed(() => {
+          const cutoff = Date.now() - TYPING_TTL_MS;
+          return Object.values(typingUsers)
+            .filter((u) => u.at >= cutoff && u.external_user_id !== me.externalId)
+            .sort((a, b) => b.at - a.at);
+        });
+
+        // Nettoie périodiquement les entrées expirées
+        let typingCleanupTimer = null;
+
+        const subscribeTyping = (rid) => {
+          // Désinscription de l'ancien channel si besoin
+          if (typingChannel) {
+            supabase.removeChannel(typingChannel);
+            typingChannel = null;
+          }
+          // Vide les indicateurs de l'ancienne room
+          for (const key of Object.keys(typingUsers)) delete typingUsers[key];
+          if (!rid) return;
+
+          typingChannel = supabase
+            .channel(`typing-room-${rid}`)
+            .on("broadcast", { event: "typing" }, ({ payload }) => {
+              if (!payload?.external_user_id) return;
+              if (payload.external_user_id === me.externalId) return;
+              typingUsers[payload.external_user_id] = {
+                external_user_id: payload.external_user_id,
+                username: payload.username || "…",
+                avatar_url: safeUrl(payload.avatar_url || ""),
+                at: Date.now(),
+              };
+            })
+            .subscribe();
+        };
+
+        // Envoi throttlé du broadcast "typing"
+        let _lastTypingBroadcast = 0;
+        const broadcastTyping = () => {
+          if (!me.canWrite || !roomId.value || !typingChannel) return;
+          const now = Date.now();
+          if (now - _lastTypingBroadcast < TYPING_THROTTLE_MS) return;
+          _lastTypingBroadcast = now;
+          typingChannel.send({
+            type: "broadcast",
+            event: "typing",
+            payload: {
+              external_user_id: me.externalId,
+              username: me.username,
+              avatar_url: me.avatarUrl || "",
+            },
+          });
+        };
 
         // ----------------------------
         // COMPUTED
@@ -7125,10 +7461,14 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           gif.open = false;
         };
 
-        onMounted(() => document.addEventListener("mousedown", onDocMouseDown));
-        onBeforeUnmount(() =>
-          document.removeEventListener("mousedown", onDocMouseDown),
-        );
+        onMounted(() => {
+          document.addEventListener("mousedown", onDocMouseDown);
+          document.addEventListener("mousedown", onDocMouseDownPinned);
+        });
+        onBeforeUnmount(() => {
+          document.removeEventListener("mousedown", onDocMouseDown);
+          document.removeEventListener("mousedown", onDocMouseDownPinned);
+        });
 
         // ----------------------------
         // REPLY (discord-like)
@@ -7195,15 +7535,33 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         };
 
         // optionnel: jump si le message est présent dans le DOM
-        const scrollToMessage = async (id) => {
-          const el = messagesEl.value;
-          if (!el) return;
+        const scrollToMessage = async (id, { smooth = true } = {}) => {
+          const container = messagesEl.value;
+          if (!container) return;
+
+          // Attend 2 cycles Vue + 1 frame pour que le DOM soit rendu
           await nextTick();
-          const target = el.querySelector(
+          await nextTick();
+          await new Promise((r) => requestAnimationFrame(r));
+
+          const target = container.querySelector(
             `[data-mid="${CSS.escape(String(id))}"]`,
           );
-          if (target)
-            target.scrollIntoView({ block: "center", behavior: "smooth" });
+          if (!target) return;
+
+          // Calcule l'offset relatif au conteneur scrollable (pas au viewport)
+          const containerRect = container.getBoundingClientRect();
+          const targetRect = target.getBoundingClientRect();
+          const offset = targetRect.top - containerRect.top + container.scrollTop;
+
+          // Centre le message dans le conteneur
+          const centeredTop =
+            offset - container.clientHeight / 2 + target.offsetHeight / 2;
+
+          container.scrollTo({
+            top: Math.max(0, centeredTop),
+            behavior: smooth ? "smooth" : "auto",
+          });
         };
 
         // ----------------------------
@@ -7403,6 +7761,149 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         };
 
         // ----------------------------
+        // XP & NIVEAUX
+        // ----------------------------
+        const computeXpToNext = (lvl) => XP_LEVEL_BASE * lvl * lvl;
+
+        const loadUserStats = async () => {
+          if (!me.canWrite) return;
+
+          const { data } = await supabase
+            .from("user_stats")
+            .select(
+              "xp,level,xp_to_next,messages_sent,reactions_given,time_in_chat",
+            )
+            .eq("external_user_id", me.externalId)
+            .maybeSingle();
+
+          if (data) {
+            xpStats.xp = data.xp ?? 0;
+            xpStats.level = data.level ?? 1;
+            xpStats.xp_to_next = data.xp_to_next ?? computeXpToNext(1);
+            xpStats.messages_sent = data.messages_sent ?? 0;
+            xpStats.reactions_given = data.reactions_given ?? 0;
+            xpStats.time_in_chat = data.time_in_chat ?? 0;
+          } else {
+            // Premier passage : initialise la ligne
+            await supabase.from("user_stats").upsert(
+              {
+                external_user_id: me.externalId,
+                username: me.username,
+                xp: 0,
+                level: 1,
+                xp_to_next: computeXpToNext(1),
+              },
+              { onConflict: "external_user_id" },
+            );
+          }
+        };
+
+        const grantXp = async (amount, source = "misc") => {
+          if (!me.canWrite || amount <= 0) return;
+
+          let newXp = xpStats.xp + amount;
+          let newLevel = xpStats.level;
+          let xpToNext = xpStats.xp_to_next;
+
+          // ── Boucle de level-up ──
+          while (newXp >= xpToNext) {
+            newXp -= xpToNext;
+            newLevel++;
+            xpToNext = computeXpToNext(newLevel);
+          }
+
+          const didLevelUp = newLevel > xpStats.level;
+
+          // Compteurs spécifiques à la source
+          const extra = {};
+          if (source === "message")
+            extra.messages_sent = xpStats.messages_sent + 1;
+          if (source === "reaction")
+            extra.reactions_given = xpStats.reactions_given + 1;
+          if (source === "time")
+            extra.time_in_chat =
+              xpStats.time_in_chat + Math.round(amount / XP_PER_MINUTE) * 60;
+
+          // Mise à jour locale (immédiate, réactive)
+          xpStats.xp = newXp;
+          xpStats.level = newLevel;
+          xpStats.xp_to_next = xpToNext;
+          if (extra.messages_sent != null)
+            xpStats.messages_sent = extra.messages_sent;
+          if (extra.reactions_given != null)
+            xpStats.reactions_given = extra.reactions_given;
+          if (extra.time_in_chat != null)
+            xpStats.time_in_chat = extra.time_in_chat;
+
+          if (didLevelUp) {
+            xpStats.leveledUp = true;
+            setTimeout(() => {
+              xpStats.leveledUp = false;
+            }, 4000);
+          }
+
+          // Persistance Supabase (fire & forget)
+          supabase
+            .from("user_stats")
+            .upsert(
+              {
+                external_user_id: me.externalId,
+                username: me.username,
+                xp: newXp,
+                level: newLevel,
+                xp_to_next: xpToNext,
+                ...extra,
+              },
+              { onConflict: "external_user_id" },
+            )
+            .then(({ error: e }) => {
+              if (e) console.warn("[XP] persist error:", e.message);
+            });
+        };
+
+        // Charge les niveaux d'une liste d'external_user_id (autres utilisateurs)
+        const loadUserLevels = async (externalIds) => {
+          if (!externalIds || externalIds.length === 0) return;
+
+          // Filtre ceux qu'on n'a pas encore chargés
+          const toFetch = externalIds.filter(
+            (id) => id && id !== me.externalId && userLevels[id] == null,
+          );
+          if (toFetch.length === 0) return;
+
+          const { data } = await supabase
+            .from("user_stats")
+            .select("external_user_id,level")
+            .in("external_user_id", toFetch);
+
+          for (const row of data || []) {
+            if (row.external_user_id)
+              userLevels[row.external_user_id] = row.level ?? 1;
+          }
+        };
+
+        // Appelée depuis l'extérieur (bouton réaction / système de likes)
+        const giveReactionXp = () => grantXp(XP_PER_REACTION, "reaction");
+
+        // ⚙️ Test — déclenche l'animation level-up manuellement
+        const testLevelUp = () => {
+          xpStats.leveledUp = true;
+          setTimeout(() => {
+            xpStats.leveledUp = false;
+          }, 4000);
+        };
+
+        // Suivi du temps en chat (déclenché à chaque ping de présence)
+        let _lastXpPing = Date.now();
+        const trackTimeXp = () => {
+          if (!me.canWrite) return;
+          const now = Date.now();
+          const minutes = Math.floor((now - _lastXpPing) / 60_000);
+          _lastXpPing = now;
+          if (minutes > 0) void grantXp(minutes * XP_PER_MINUTE, "time");
+        };
+
+        // ----------------------------
         // IMAGE PASTE + STORAGE (avec slug du nom de la room)
         // ----------------------------
         const uploadAndSendImage = async (file) => {
@@ -7497,7 +7998,9 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           el.style.overflowY = el.scrollHeight > maxHeight ? "auto" : "hidden";
         };
 
-        watch(draft, () => nextTick(resizeDraft));
+        watch(draft, () => {
+          nextTick(resizeDraft);
+        });
 
         // ----------------------------
         // ROOM LABELS (topic rooms)
@@ -7647,7 +8150,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const { data, error: e } = await supabase
             .from("chat_messages")
             .select(
-              "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt",
+              "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
             )
             .eq("room_id", rid)
             .order("id", { ascending: false })
@@ -7681,6 +8184,15 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             const id = Number(mm?.id);
             if (Number.isFinite(id)) seen.add(id);
           }
+
+          // Charge les niveaux des auteurs des messages
+          const ids = [
+            ...new Set(asc.map((mm) => mm?.external_user_id).filter(Boolean)),
+          ];
+          void loadUserLevels(ids);
+
+          // Collecte les auteurs pour l'autocomplete @mention
+          collectAuthors(asc);
         };
 
         const loadOlderMessages = async (rid) => {
@@ -7694,7 +8206,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const { data, error: e } = await supabase
             .from("chat_messages")
             .select(
-              "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt",
+              "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
             )
             .eq("room_id", rid)
             .lt("id", st.oldestId)
@@ -7878,6 +8390,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           roomId.value = rid;
           resetUnread(rid);
+          showPinned.value = false;
 
           const cached = messagesCache.get(rid);
 
@@ -7889,11 +8402,16 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             await loadLatestMessages(rid);
           }
 
-          // Toujours scroller en bas après un changement de room,
-          // que les messages viennent du cache ou d'un fetch réseau.
-          await scrollBottom();
+          // Scroll vers la première mention si elle existe, sinon vers le bas
+          const firstMention = messages.value.find((m) => isMentioned(m));
+          if (firstMention) {
+            await scrollToMessage(firstMention.id, { smooth: false });
+          } else {
+            await scrollBottom();
+          }
 
           await markActiveRoomRead();
+          void loadPinnedMessages(rid);
         };
 
         // ----------------------------
@@ -7971,6 +8489,8 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const { error: e } = await supabase
             .from("chat_messages")
             .insert(payload);
+
+          if (!e) void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP message envoyé
 
           ui.sending = false;
 
@@ -8058,6 +8578,8 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             .from("chat_messages")
             .insert(payload);
 
+          if (!e) void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP gif envoyé
+
           ui.sending = false;
 
           if (e) {
@@ -8105,6 +8627,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
         const upsertPresence = async () => {
           if (!me.externalId) return;
+          trackTimeXp(); // ✅ comptabilise le temps passé dans le chat
           const row = {
             page_key: PRESENCE_PAGE_KEY,
             external_user_id: me.externalId,
@@ -8189,6 +8712,33 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
                 m.avatar_url = safeUrl(m.avatar_url);
 
+                // Charge le niveau si c'est un nouvel auteur qu'on ne connaît pas encore
+                if (m.external_user_id && m.external_user_id !== me.externalId) {
+                  void loadUserLevels([m.external_user_id]);
+                }
+
+                // Ajoute à roomAuthors si nouvel auteur
+                if (
+                  m.external_user_id &&
+                  !roomAuthors.value.some(
+                    (u) => u.external_user_id === m.external_user_id,
+                  )
+                ) {
+                  roomAuthors.value = [
+                    ...roomAuthors.value,
+                    {
+                      external_user_id: m.external_user_id,
+                      username: m.username || "",
+                      avatar_url: safeUrl(m.avatar_url || ""),
+                    },
+                  ];
+                }
+
+                // Efface l'indicateur de frappe dès que le message arrive
+                if (m.external_user_id && typingUsers[m.external_user_id]) {
+                  delete typingUsers[m.external_user_id];
+                }
+
                 if (rid === roomId.value) {
                   const pend = pendingLocalByRoom.get(String(rid));
                   if (
@@ -8242,6 +8792,47 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
                 const rid = m.room_id;
                 m.avatar_url = safeUrl(m.avatar_url);
+
+                // Soft delete reçu en Realtime → met à jour le message (garde la ligne visible)
+                if (m.deleted_at) {
+                  const updateIn = (arr) => {
+                    const idx = arr.findIndex(
+                      (x) => String(x?.id) === String(m.id),
+                    );
+                    if (idx >= 0)
+                      arr[idx] = {
+                        ...arr[idx],
+                        deleted_at: m.deleted_at,
+                        deleted_by: m.deleted_by ?? "author",
+                      };
+                  };
+                  if (rid === roomId.value) updateIn(messages.value);
+                  const cached = messagesCache.get(rid);
+                  if (cached) updateIn(cached);
+                  // Retire aussi des épinglés si supprimé
+                  pinnedMessages.value = pinnedMessages.value.filter(
+                    (x) => String(x.id) !== String(m.id),
+                  );
+                  return;
+                }
+
+                // Pin / unpin reçu en Realtime
+                if (rid === roomId.value) {
+                  if (m.pinned_at) {
+                    // Ajoute ou met à jour dans pinnedMessages
+                    const pi = pinnedMessages.value.findIndex(
+                      (x) => String(x.id) === String(m.id),
+                    );
+                    const entry = { ...m, avatar_url: safeUrl(m.avatar_url) };
+                    if (pi >= 0) pinnedMessages.value[pi] = entry;
+                    else pinnedMessages.value = [entry, ...pinnedMessages.value];
+                  } else {
+                    // Désépinglé
+                    pinnedMessages.value = pinnedMessages.value.filter(
+                      (x) => String(x.id) !== String(m.id),
+                    );
+                  }
+                }
 
                 if (rid === roomId.value) {
                   const idx = messages.value.findIndex(
@@ -8340,6 +8931,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           await loadPresence();
           subscribePresence();
           await upsertPresence();
+          await loadUserStats(); // ✅ charge les stats XP de l'utilisateur
           presenceTimer = window.setInterval(upsertPresence, PRESENCE_PING_MS);
           presenceCleanupTimer = window.setInterval(() => {
             const cutoff = Date.now() - ACTIVE_MINUTES * 60_000;
@@ -8347,6 +8939,12 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
               (u) => new Date(u.last_seen).getTime() >= cutoff,
             );
           }, 60_000);
+          typingCleanupTimer = window.setInterval(() => {
+            const cutoff = Date.now() - TYPING_TTL_MS;
+            for (const [key, u] of Object.entries(typingUsers)) {
+              if (u.at < cutoff) delete typingUsers[key];
+            }
+          }, 1000);
 
           if (target)
             await selectRoom(target, { force: true, preferCache: false });
@@ -8363,9 +8961,11 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           if (roomsChannel) supabase.removeChannel(roomsChannel);
           if (messagesChannel) supabase.removeChannel(messagesChannel);
           if (presenceChannel) supabase.removeChannel(presenceChannel);
+          if (typingChannel) supabase.removeChannel(typingChannel);
 
           if (presenceTimer) window.clearInterval(presenceTimer);
           if (presenceCleanupTimer) window.clearInterval(presenceCleanupTimer);
+          if (typingCleanupTimer) window.clearInterval(typingCleanupTimer);
         });
 
         return {
@@ -8398,6 +8998,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           resizeEdit,
           saveEdit,
           cancelEdit,
+          deleteMessage,
 
           newRoomName,
           createRoom,
@@ -8407,6 +9008,17 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           activeUsersStack,
           activeUsersOverflow,
+
+          typingList,
+
+          // messages épinglés
+          pinnedMessages,
+          pinnedCount,
+          showPinned,
+          pinnedBtnEl,
+          pinnedPopEl,
+          togglePin,
+          scrollToMessage,
 
           error,
           canSend,
@@ -8439,8 +9051,21 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           scrollToMessage,
           replyExcerptLabel,
 
-          // markdown
+          // markdown + mentions
           renderMarkdown,
+          renderWithMentions,
+          isMentioned,
+          mention,
+          mentionFiltered,
+          insertMention,
+          onDraftInput,
+          onMentionKeydown,
+
+          // XP & niveaux
+          xpStats,
+          userLevels,
+          giveReactionXp,
+          testLevelUp,
         };
       },
     });

@@ -390,3 +390,10 @@ div[data-thanked*="style"]::after {
         @apply rounded-xl;
     }
 }
+
+.chat-mention {
+    @apply rounded-sm font-semibold px-0.5;
+}
+.chat-mention-self {
+    @apply bg-indigo-50 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300;
+}
