@@ -12,8 +12,10 @@ import { updateTyme } from "../lib/tyme.js";
 import { initViewtopic } from "../features/viewtopic.js";
 import { BBcodeEditor } from "../features/editor.js";
 import { initPostingBody } from "../features/postingbody.js";
+import { initIndex } from "../features/index.js";
 
 import { createClient } from "@supabase/supabase-js";
+import { initViewforum } from "../features/viewforum.js";
 
 registerModule({
   mount(container) {
@@ -44,7 +46,7 @@ export function initUI() {
     once() {
       initViewtopic();
     },
-    enter: async (next) => {
+    enter: async ({ next }) => {
       initViewtopic(next.container);
     },
   });
@@ -55,6 +57,24 @@ export function initUI() {
     },
     enter() {
       initPostingBody();
+    },
+  });
+
+  onNamespace("viewforum", {
+    once({ next }) {
+      initViewforum(next.container, supabase);
+    },
+    enter({ next }) {
+      initViewforum(next.container, supabase);
+    },
+  });
+
+  onNamespace("index", {
+    once({ next }) {
+      initIndex(next.container, supabase);
+    },
+    enter({ next }) {
+      initIndex(next.container, supabase);
     },
   });
 

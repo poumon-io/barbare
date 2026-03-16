@@ -386,4 +386,7 @@ div[data-thanked*="style"]::after {
     ul {
         @apply list-disc list-inside;
     }
+    .chat-image {
+        @apply rounded-xl;
+    }
 }

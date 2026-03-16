@@ -35,6 +35,14 @@ export const initChat = (supabase) => {
       .replace(/\p{Diacritic}/gu, "")
       .trim();
 
+  const slugify = (s) => {
+    return (
+      normalize(s || "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") || "uncategorized-room"
+    );
+  };
+
   const safeUrl = (u) => {
     if (!u) return "";
     try {
@@ -74,6 +82,7 @@ export const initChat = (supabase) => {
       "h1",
       "h2",
       "h3",
+      "img",
     ]);
 
     // Attributs autorisés par balise
@@ -82,6 +91,7 @@ export const initChat = (supabase) => {
       a: ["href", "title", "target", "rel"],
       pre: ["class"],
       code: ["class", "data-lang"],
+      img: ["src", "alt", "title", "loading", "width", "height"],
     };
 
     // Sanitisation : retire balises et attributs non autorisés
@@ -120,7 +130,15 @@ export const initChat = (supabase) => {
           if (!safeUrl(href)) node.removeAttribute("href");
         }
 
-        // ✅ ajoute codebox sur pre
+        if (tag === "img") {
+          const src = node.getAttribute("src") || "";
+          if (!safeUrl(src)) {
+            node.removeAttribute("src");
+          } else {
+            node.classList.add("chat-image");
+          }
+        }
+
         if (tag === "pre") node.classList.add("codebox");
 
         // continue à descendre
@@ -700,22 +718,18 @@ export const initChat = (supabase) => {
       const makeReplyExcerptFromMessage = (m, max = 140) => {
         const raw = String(m?.content || "");
 
-        // Cas 1: le message est un GIF "pur" ([gif]url[/gif]) -> on affiche un label propre
         if (extractGifUrl(raw)) return "🎞️ GIF";
+        if (raw.includes("![") || raw.includes("<img")) return "📸 Image";
 
-        // Cas 2: le message contient un token gif au milieu -> on remplace le token par un label
         const cleaned = raw.replace(
           /\[gif\]\s*https?:\/\/\S+\s*\[\/gif\]/gi,
           "🎞️ GIF",
         );
 
-        // Emoji-only (si tu veux conserver l’emphase)
         if (isEmojiOnlyText(cleaned)) {
           const t = cleaned.trim();
           return t.length > 24 ? t.slice(0, 24).trimEnd() + "…" : t;
         }
-
-        // Texte normal
         return makeExcerpt(cleaned, max);
       };
 
@@ -956,6 +970,82 @@ export const initChat = (supabase) => {
 
         if (el.scrollTop + el.clientHeight < el.scrollHeight - 120) return;
         await loadGifs({ append: true });
+      };
+
+      // ----------------------------
+      // IMAGE PASTE + STORAGE (avec slug du nom de la room)
+      // ----------------------------
+      const uploadAndSendImage = async (file) => {
+        if (!me.canWrite || !activeRoom.value || ui.sending) return;
+        if (!file.type.startsWith("image/")) return;
+
+        const MAX_SIZE = 8 * 1024 * 1024;
+        if (file.size > MAX_SIZE) {
+          error.value = "Image trop volumineuse (max 8 Mo)";
+          return;
+        }
+
+        const rid = roomId.value;
+        const roomSlug = slugify(activeRoom.value?.name || `room-${rid}`);
+        const ext = (file.name.split(".").pop() || "png").toLowerCase();
+        const fileName = `rooms/${roomSlug}/${Date.now()}-${Math.random().toString(36).slice(2, 11)}.${ext}`;
+
+        ui.sending = true;
+        error.value = "";
+
+        try {
+          const { error: uploadErr } = await supabase.storage
+            .from("chat-attachments")
+            .upload(fileName, file, {
+              contentType: file.type,
+              cacheControl: "3600",
+              metadata: {
+                room_id: String(rid),
+                room_slug: roomSlug,
+                uploaded_by: me.externalId || "unknown",
+                uploaded_at: new Date().toISOString(),
+              },
+            });
+
+          if (uploadErr) throw uploadErr;
+
+          const {
+            data: { publicUrl },
+          } = supabase.storage.from("chat-attachments").getPublicUrl(fileName);
+
+          const { error: insertErr } = await supabase
+            .from("chat_messages")
+            .insert({
+              room_id: rid,
+              external_user_id: me.externalId,
+              username: me.username,
+              avatar_url: me.avatarUrl || null,
+              content: `![Image collée](${publicUrl})`,
+              reply_to_message_id: reply.id || null,
+              reply_to_username: reply.username || null,
+              reply_to_excerpt: reply.excerpt || null,
+            });
+
+          if (insertErr) throw insertErr;
+          cancelReply();
+        } catch (e) {
+          error.value = `Upload image : ${e.message}`;
+          console.error(e);
+        } finally {
+          ui.sending = false;
+        }
+      };
+
+      const handlePaste = (e) => {
+        if (document.activeElement !== draftEl.value) return;
+        for (const item of e.clipboardData?.items || []) {
+          if (item.kind === "file" && item.type.indexOf("image") !== -1) {
+            e.preventDefault();
+            const file = item.getAsFile();
+            if (file) uploadAndSendImage(file);
+            return;
+          }
+        }
       };
 
       // ----------------------------
@@ -1868,6 +1958,7 @@ export const initChat = (supabase) => {
         resizeDraft,
         sendFromDraft,
         onDraftArrowUp,
+        handlePaste,
 
         // edit
         edit,

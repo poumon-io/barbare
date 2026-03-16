@@ -19,24 +19,14 @@
 /* Bouton de notification */
 #notiffi_button {
     cursor: pointer;
+    position: relative;
     display: flex;
     align-items: center;
 }
 
 /* Conteneur du nombre de notification non lues REMPLI */
 .unread_count {
-    position: relative;
-    background: var(--neutralDarker);
-    border-radius: 5px;
-    width: 25px;
-    display: grid;
-    place-items: center;
-    font-weight: 600;
-    font-size: 12px;
-    scale: 1;
-    opacity: 1;
-    aspect-ratio: 1;
-    transition: scale ease-out 0.2s;
+    @apply absolute -top-2 -right-2 text-[9px] text-white bg-emerald-500 rounded-full w-4 h-4 flex items-center justify-center;
 }
 
 /* Conteneur du nombre de notification non lues VIDE */
