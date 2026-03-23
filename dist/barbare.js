@@ -486,6 +486,8 @@
     STAGE_Z: 280,
     OVERLAY_Z: 290,
 
+    PREVENT_SELECTORS: ['a[href^="/u"]'],
+
     // Motion
     ENTER_MS: 420,
     BACK_CLOSE_MS: 420,
@@ -565,7 +567,9 @@
     updateTyme(document);
 
     Z$1.init({
-      prevent: ({ el }) => el?.hasAttribute?.("data-barba-prevent"),
+      prevent: ({ el }) =>
+        el?.hasAttribute?.("data-barba-prevent") ||
+        CFG.PREVENT_SELECTORS.some((sel) => el?.matches?.(sel)),
 
       transitions: [
         {
@@ -6356,7 +6360,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         e.preventDefault();
         e.stopPropagation();
 
-        const text = code.innerHTML || "";
+        const text = code.textContent || "";
         try {
           await copyText(text);
           btn.innerHTML = copyCheckHTML;
@@ -6654,11 +6658,24 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
       const canWrite =
         externalId !== "" && externalId !== "0" && externalId !== "-1";
-      return { externalId, username, avatarUrl, canWrite, isAdmin };
+
+      const rawColor = String(
+        ud.groupcolor ?? ud.group_color ?? ud.groupColor ?? "",
+      ).trim();
+      const normalizedColor = rawColor.startsWith("#")
+        ? rawColor
+        : rawColor
+          ? `#${rawColor}`
+          : "";
+      const groupColor = /^#[0-9a-fA-F]{3,8}$/.test(normalizedColor)
+        ? normalizedColor
+        : null;
+
+      return { externalId, username, avatarUrl, canWrite, isAdmin, groupColor };
     };
 
     const timeAgo = (() => {
-      const rtf = new Intl.RelativeTimeFormat("fr-CA", { numeric: "auto" });
+      const rtf = new Intl.RelativeTimeFormat("fr-CA", { numeric: "always" });
       const units = [
         ["year", 31536000],
         ["month", 2592000],
@@ -6683,6 +6700,20 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
       };
     })();
 
+    const formatFullDate = (() => {
+      const fmt = new Intl.DateTimeFormat("fr-CA", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      return (iso) => {
+        const d = new Date(iso);
+        return Number.isNaN(d.getTime()) ? "" : fmt.format(d);
+      };
+    })();
+
     // Anti double-mount (Barba)
     try {
       window.__faChatUnmount?.();
@@ -6696,6 +6727,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
     let presenceTimer = null;
     let presenceCleanupTimer = null;
+    let unreadTimer = null;
 
     const app = createApp({
       setup() {
@@ -6750,9 +6782,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         const newRoomName = ref("");
         const error = ref("");
 
-        // cache des messages par room (référence vers le tableau affiché si room active)
-        const messagesCache = new Map(); // rid -> Array
-
         // paging state par room
         const paging = new Map(); // rid -> { oldestId: number|null, hasMore: boolean }
         const getPaging = (rid) => {
@@ -6806,8 +6835,13 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           el.style.overflowY = el.scrollHeight > maxHeight ? "auto" : "hidden";
         };
 
+        const clearFirstUnread = () => {
+          firstUnreadId.value = null;
+        };
+
         const focusDraft = () => {
           draftEl.value?.focus({ preventScroll: true });
+          clearFirstUnread();
         };
 
         const cancelEdit = async () => {
@@ -6946,8 +6980,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
               };
           };
           markDeleted(messages.value);
-          const cached = messagesCache.get(rid);
-          if (cached) markDeleted(cached);
 
           // Persist Supabase
           const { error: e } = await supabase
@@ -6987,6 +7019,9 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         watch(roomId, (newRid) => {
           if (edit.id != null) cancelEdit();
           mention.open = false;
+          reactionPicker.open = false;
+          // Vide les réactions de l'ancienne room
+          for (const k of Object.keys(reactions)) delete reactions[k];
           subscribeTyping(newRid);
         });
 
@@ -6995,11 +7030,12 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         // ----------------------------
         const enableUnread = computed(() => me.canWrite);
         const unread = reactive({});
+        // ID du premier message non lu — pilote le séparateur "NOUVEAU"
+        const firstUnreadId = ref(null);
         const unreadCount = (rid) => {
           if (!enableUnread.value) return 0;
           const k = String(rid ?? "");
-          const v = unread[k];
-          return Number.isFinite(v) ? v : 0;
+          return unread[k] || 0;
         };
         const resetUnread = (rid) => {
           if (!enableUnread.value) return;
@@ -7024,8 +7060,205 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         const pinnedPopEl = ref(null);
 
         // ----------------------------
-        // MENTIONS @
+        // CLASSEMENT XP
         // ----------------------------
+        const leaderboard = ref([]);
+        const leaderboardLoading = ref(false);
+        const showLeaderboard = ref(false);
+        const leaderboardBtnEl = ref(null);
+        const leaderboardPopEl = ref(null);
+
+        const myLeaderboardRank = computed(() => {
+          const idx = leaderboard.value.findIndex(
+            (u) => u.external_user_id === me.externalId,
+          );
+          return idx === -1 ? null : idx + 1;
+        });
+
+        const loadLeaderboard = async () => {
+          leaderboardLoading.value = true;
+          const { data } = await supabase
+            .from("user_stats")
+            .select("external_user_id,username,avatar_url,xp,level")
+            .order("level", { ascending: false })
+            .order("xp", { ascending: false })
+            .limit(10);
+          leaderboard.value = (data || []).map((u) => ({
+            ...u,
+            avatar_url: safeUrl(u.avatar_url || ""),
+            xp: u.xp ?? 0,
+            level: u.level ?? 1,
+          }));
+          leaderboardLoading.value = false;
+        };
+
+        const onDocMouseDownLeaderboard = (ev) => {
+          if (!showLeaderboard.value) return;
+          if (leaderboardPopEl.value?.contains(ev.target)) return;
+          if (leaderboardBtnEl.value?.contains(ev.target)) return;
+          showLeaderboard.value = false;
+        };
+
+        watch(showLeaderboard, (v) => {
+          if (v) loadLeaderboard();
+        });
+
+        // ----------------------------
+        // RÉACTIONS
+        // ----------------------------
+        // Map : message_id (string) → [{ emoji, count, users: Set<external_user_id> }]
+        const reactions = reactive({});
+
+        const reactionPicker = reactive({
+          open: false,
+          messageId: null,
+          query: "",
+          category: "face-emotion",
+          above: false, // true = picker au-dessus du bouton
+        });
+        const reactionPickerEl = ref(null);
+
+        const normalizeReactions = (rows) => {
+          const map = {};
+          for (const r of rows || []) {
+            const mid = String(r.message_id);
+            if (!map[mid]) map[mid] = {};
+            if (!map[mid][r.emoji])
+              map[mid][r.emoji] = { emoji: r.emoji, count: 0, users: new Set() };
+            map[mid][r.emoji].count++;
+            map[mid][r.emoji].users.add(r.external_user_id);
+          }
+          const result = {};
+          for (const [mid, emojis] of Object.entries(map)) {
+            result[mid] = Object.values(emojis);
+          }
+          return result;
+        };
+
+        const loadReactions = async (rid) => {
+          if (!rid) return;
+          const ids = messages.value
+            .map((m) => m.id)
+            .filter((id) => Number.isFinite(Number(id)));
+          if (!ids.length) return;
+          const { data } = await supabase
+            .from("message_reactions")
+            .select("message_id,external_user_id,emoji")
+            .in("message_id", ids);
+          const normalized = normalizeReactions(data);
+          for (const [mid, list] of Object.entries(normalized)) {
+            reactions[mid] = list;
+          }
+        };
+
+        const getReactions = (messageId) => reactions[String(messageId)] || [];
+
+        const myReactionEmoji = (messageId) => {
+          const list = reactions[String(messageId)] || [];
+          return list.find((r) => r.users.has(me.externalId))?.emoji || null;
+        };
+
+        const toggleReaction = async (messageId, emoji) => {
+          if (!me.canWrite) return;
+          const mid = String(messageId);
+          const current = myReactionEmoji(messageId);
+
+          if (current === emoji) {
+            // Toggle off — même emoji
+            const idx = reactions[mid]?.findIndex((r) => r.emoji === emoji) ?? -1;
+            if (idx >= 0) {
+              reactions[mid][idx].count--;
+              reactions[mid][idx].users.delete(me.externalId);
+              if (reactions[mid][idx].count <= 0) reactions[mid].splice(idx, 1);
+            }
+            await supabase
+              .from("message_reactions")
+              .delete()
+              .eq("message_id", messageId)
+              .eq("external_user_id", me.externalId);
+          } else {
+            // Retire l'ancienne localement si elle existe
+            if (current) {
+              const oldIdx =
+                reactions[mid]?.findIndex((r) => r.emoji === current) ?? -1;
+              if (oldIdx >= 0) {
+                reactions[mid][oldIdx].count--;
+                reactions[mid][oldIdx].users.delete(me.externalId);
+                if (reactions[mid][oldIdx].count <= 0)
+                  reactions[mid].splice(oldIdx, 1);
+              }
+            }
+            // Ajoute la nouvelle
+            if (!reactions[mid]) reactions[mid] = [];
+            const existing = reactions[mid].find((r) => r.emoji === emoji);
+            if (existing) {
+              existing.count++;
+              existing.users.add(me.externalId);
+            } else
+              reactions[mid].push({
+                emoji,
+                count: 1,
+                users: new Set([me.externalId]),
+              });
+            // Upsert (remplace l'ancienne via UNIQUE constraint)
+            await supabase.from("message_reactions").upsert(
+              {
+                message_id: messageId,
+                external_user_id: me.externalId,
+                username: me.username,
+                emoji,
+              },
+              { onConflict: "message_id,external_user_id" },
+            );
+            void giveReactionXp();
+          }
+          reactionPicker.open = false;
+        };
+
+        const toggleReactionPicker = (messageId, event) => {
+          if (
+            reactionPicker.open &&
+            reactionPicker.messageId === String(messageId)
+          ) {
+            reactionPicker.open = false;
+            return;
+          }
+
+          // Détermine si le bouton est dans la moitié haute du conteneur scrollable
+          const btn = event?.currentTarget ?? event?.target;
+          const container = messagesEl.value;
+          if (btn && container) {
+            const btnRect = btn.getBoundingClientRect();
+            const contRect = container.getBoundingClientRect();
+            const relCenter = btnRect.top - contRect.top;
+            reactionPicker.above = relCenter > contRect.height / 2;
+          } else {
+            reactionPicker.above = false;
+          }
+
+          reactionPicker.open = true;
+          reactionPicker.messageId = String(messageId);
+          reactionPicker.query = "";
+          reactionPicker.category = "face-emotion";
+        };
+
+        const reactionPickerFiltered = computed(() => {
+          const q = normalize(reactionPicker.query);
+          if (q) {
+            return EMOJI_INDEX.filter(
+              (x) => x._s.includes(q) || x.emoji.includes(reactionPicker.query),
+            ).slice(0, 81);
+          }
+          return EMOJI_INDEX.filter(
+            (x) => x.category === reactionPicker.category,
+          );
+        });
+
+        const onDocMouseDownReaction = (ev) => {
+          if (!reactionPicker.open) return;
+          if (reactionPickerEl.value?.contains(ev.target)) return;
+          reactionPicker.open = false;
+        };
         const mention = reactive({
           open: false,
           query: "",
@@ -7150,7 +7383,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const { data } = await supabase
             .from("chat_messages")
             .select(
-              "id,room_id,external_user_id,username,avatar_url,content,created_at,pinned_at,pinned_by,deleted_at",
+              "id,room_id,external_user_id,username,avatar_url,group_color,content,created_at,pinned_at,pinned_by,deleted_at",
             )
             .eq("room_id", rid)
             .not("pinned_at", "is", null)
@@ -7259,6 +7492,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
               external_user_id: me.externalId,
               username: me.username,
               avatar_url: me.avatarUrl || "",
+              group_color: me.groupColor || null,
             },
           });
         };
@@ -7343,6 +7577,9 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           query: "",
           category: "face-emotion",
         });
+
+        // Message ciblé par le picker emoji en mode réaction (null = mode draft normal)
+        const reactionTarget = ref(null);
 
         // IMPORTANT : index de recherche pré-normalisé (perfs)
         const EMOJI_INDEX = ALL_EMOJIS.map((x) => ({
@@ -7436,9 +7673,26 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         };
 
         const pickEmoji = async (ch) => {
-          await insertAtCursor(ch);
-          emoji.open = false;
-          draftEl.value?.focus({ preventScroll: true });
+          if (reactionTarget.value) {
+            // Mode réaction — applique sur le message ciblé
+            await toggleReaction(reactionTarget.value, ch);
+            reactionTarget.value = null;
+            emoji.open = false;
+            emoji.query = "";
+          } else {
+            // Mode draft — insère dans le textarea
+            await insertAtCursor(ch);
+            emoji.open = false;
+            draftEl.value?.focus({ preventScroll: true });
+          }
+        };
+
+        const openReactionPicker = async (m) => {
+          reactionTarget.value = m;
+          emoji.open = true;
+          emoji.query = "";
+          await nextTick();
+          emojiSearchEl.value?.focus({ preventScroll: true });
         };
 
         // close on click outside
@@ -7459,15 +7713,20 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           emoji.open = false;
           gif.open = false;
+          reactionTarget.value = null;
         };
 
         onMounted(() => {
           document.addEventListener("mousedown", onDocMouseDown);
           document.addEventListener("mousedown", onDocMouseDownPinned);
+          document.addEventListener("mousedown", onDocMouseDownReaction);
+          document.addEventListener("mousedown", onDocMouseDownLeaderboard);
         });
         onBeforeUnmount(() => {
           document.removeEventListener("mousedown", onDocMouseDown);
           document.removeEventListener("mousedown", onDocMouseDownPinned);
+          document.removeEventListener("mousedown", onDocMouseDownReaction);
+          document.removeEventListener("mousedown", onDocMouseDownLeaderboard);
         });
 
         // ----------------------------
@@ -7539,9 +7798,38 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const container = messagesEl.value;
           if (!container) return;
 
-          // Attend 2 cycles Vue + 1 frame pour que le DOM soit rendu
           await nextTick();
           await nextTick();
+          await new Promise((r) => requestAnimationFrame(r));
+
+          // Attend que toutes les images du conteneur soient chargées
+          // (même logique que scrollBottom — avatars, GIFs, images collées)
+          const images = container.querySelectorAll("img");
+          if (images.length > 0) {
+            await new Promise((resolve) => {
+              const fallback = setTimeout(resolve, 2000);
+              let pending = 0;
+              images.forEach((img) => {
+                if (!img.complete) {
+                  pending++;
+                  const done = () => {
+                    if (--pending === 0) {
+                      clearTimeout(fallback);
+                      resolve();
+                    }
+                  };
+                  img.addEventListener("load", done, { once: true });
+                  img.addEventListener("error", done, { once: true });
+                }
+              });
+              if (pending === 0) {
+                clearTimeout(fallback);
+                resolve();
+              }
+            });
+          }
+
+          // Recalcule après que les images ont modifié le layout
           await new Promise((r) => requestAnimationFrame(r));
 
           const target = container.querySelector(
@@ -7549,12 +7837,9 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           );
           if (!target) return;
 
-          // Calcule l'offset relatif au conteneur scrollable (pas au viewport)
           const containerRect = container.getBoundingClientRect();
           const targetRect = target.getBoundingClientRect();
           const offset = targetRect.top - containerRect.top + container.scrollTop;
-
-          // Centre le message dans le conteneur
           const centeredTop =
             offset - container.clientHeight / 2 + target.offsetHeight / 2;
 
@@ -7789,6 +8074,8 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
               {
                 external_user_id: me.externalId,
                 username: me.username,
+                avatar_url: me.avatarUrl || null,
+                group_color: me.groupColor || null,
                 xp: 0,
                 level: 1,
                 xp_to_next: computeXpToNext(1),
@@ -7849,6 +8136,8 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
               {
                 external_user_id: me.externalId,
                 username: me.username,
+                avatar_url: me.avatarUrl || null,
+                group_color: me.groupColor || null,
                 xp: newXp,
                 level: newLevel,
                 xp_to_next: xpToNext,
@@ -7951,6 +8240,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                 external_user_id: me.externalId,
                 username: me.username,
                 avatar_url: me.avatarUrl || null,
+                group_color: me.groupColor || null,
                 content: `![Image collée](${publicUrl})`,
                 reply_to_message_id: reply.id || null,
                 reply_to_username: reply.username || null,
@@ -8057,16 +8347,12 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         const scrollBottom = async () => {
           await nextTick();
           await nextTick();
-          // Attendre que le navigateur ait calculé le layout (paint cycle).
-          // nextTick garantit la mise à jour Vue, mais pas le reflow/paint du DOM.
           await new Promise((r) => requestAnimationFrame(r));
+
           const el = messagesEl.value;
           if (!el) return;
 
           initPrismMarkdown(el);
-
-          const prevScrollBehavior = el.style.scrollBehavior;
-          el.style.scrollBehavior = "auto";
 
           const doScroll = () => {
             el.scrollTo({ top: el.scrollHeight, behavior: "auto" });
@@ -8074,47 +8360,35 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           doScroll();
 
-          // ─── Attente des images (avatars + GIFs) ───
-          const images = el.querySelectorAll("img");
-          if (images.length === 0) {
-            el.style.scrollBehavior = prevScrollBehavior || "";
-            return;
-          }
+          // Rescroller à chaque fois que le layout change (images qui se chargent)
+          await new Promise((resolve) => {
+            let stableFrames = 0;
+            let lastHeight = el.scrollHeight;
+            const MAX_FRAMES = 60; // ~1s à 60fps
+            let frames = 0;
 
-          let loaded = 0;
-          const total = images.length;
+            const ro = new ResizeObserver(() => doScroll());
+            ro.observe(el);
 
-          // Timeout de sécurité : si une image ne déclenche jamais load/error
-          // (ex. bloquée par un ad-blocker ou timeout réseau), on scroll quand même.
-          const fallbackTimer = setTimeout(() => {
-            doScroll();
-            el.style.scrollBehavior = prevScrollBehavior || "";
-          }, 2000);
+            const check = () => {
+              frames++;
+              const h = el.scrollHeight;
+              if (h !== lastHeight) {
+                lastHeight = h;
+                stableFrames = 0;
+                doScroll();
+              } else stableFrames++;
 
-          const onLoadOrError = () => {
-            loaded++;
-            if (loaded === total) {
-              clearTimeout(fallbackTimer);
-              doScroll(); // dernier scroll une fois tout chargé
-              el.style.scrollBehavior = prevScrollBehavior || "";
-            }
-          };
-
-          images.forEach((img) => {
-            if (img.complete) {
-              loaded++; // déjà chargé (cache)
-            } else {
-              img.addEventListener("load", onLoadOrError, { once: true });
-              img.addEventListener("error", onLoadOrError, { once: true });
-            }
+              if (stableFrames >= 3 || frames >= MAX_FRAMES) {
+                ro.disconnect();
+                doScroll();
+                resolve();
+              } else {
+                requestAnimationFrame(check);
+              }
+            };
+            requestAnimationFrame(check);
           });
-
-          // Si toutes les images étaient déjà en cache, on scroll tout de suite
-          if (loaded === total) {
-            clearTimeout(fallbackTimer);
-            doScroll();
-            el.style.scrollBehavior = prevScrollBehavior || "";
-          }
         };
 
         const onMessagesScroll = async () => {
@@ -8150,7 +8424,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const { data, error: e } = await supabase
             .from("chat_messages")
             .select(
-              "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
+              "id,room_id,external_user_id,username,avatar_url,group_color,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
             )
             .eq("room_id", rid)
             .order("id", { ascending: false })
@@ -8161,7 +8435,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           if (e) {
             error.value = `Messages: ${e.message}`;
             messages.value = [];
-            messagesCache.set(rid, messages.value);
             const st = getPaging(rid);
             st.oldestId = null;
             st.hasMore = false;
@@ -8172,7 +8445,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const asc = desc.slice().reverse();
 
           messages.value = asc;
-          messagesCache.set(rid, messages.value);
 
           const st = getPaging(rid);
           st.oldestId = asc.length ? Number(asc[0].id) : null;
@@ -8193,6 +8465,12 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           // Collecte les auteurs pour l'autocomplete @mention
           collectAuthors(asc);
+
+          // Charge les réactions des messages
+          void loadReactions(rid);
+
+          // Charge les réactions de la room
+          void loadReactions(rid);
         };
 
         const loadOlderMessages = async (rid) => {
@@ -8206,7 +8484,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const { data, error: e } = await supabase
             .from("chat_messages")
             .select(
-              "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
+              "id,room_id,external_user_id,username,avatar_url,group_color,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
             )
             .eq("room_id", rid)
             .lt("id", st.oldestId)
@@ -8226,11 +8504,10 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           const olderAsc = desc.slice().reverse();
 
-          const current = messagesCache.get(rid) || messages.value || [];
+          const current = messages.value || [];
           const merged = [...olderAsc, ...current];
 
           messages.value = merged;
-          messagesCache.set(rid, messages.value);
 
           st.oldestId = Number(olderAsc[0].id);
           st.hasMore = desc.length === PAGE_SIZE;
@@ -8384,28 +8661,45 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         // ----------------------------
         const selectRoom = async (rid, opts = {}) => {
           if (rid == null) return;
-          const preferCache = opts.preferCache !== false;
-
           if (!opts.force && rid === roomId.value) return;
+
+          // Capture le nombre de non-lus AVANT de réinitialiser
+          const pendingUnread = unreadCount(rid);
 
           roomId.value = rid;
           resetUnread(rid);
           showPinned.value = false;
+          mention.open = false;
+          firstUnreadId.value = null; // reset du séparateur
 
-          const cached = messagesCache.get(rid);
+          messages.value = [];
+          await loadLatestMessages(rid);
 
-          if (preferCache && cached) {
-            messages.value = cached;
-            ui.loadingMessages = false;
-          } else {
-            messages.value = [];
-            await loadLatestMessages(rid);
+          // Positionne le séparateur sur le premier message non lu
+          if (pendingUnread > 0 && messages.value.length > 0) {
+            const realMessages = messages.value.filter(
+              (m) => m && Number.isFinite(Number(m.id)),
+            );
+            const sepIndex = realMessages.length - pendingUnread;
+            if (sepIndex >= 0 && sepIndex < realMessages.length) {
+              firstUnreadId.value = realMessages[sepIndex].id;
+            }
           }
 
-          // Scroll vers la première mention si elle existe, sinon vers le bas
-          const firstMention = messages.value.find((m) => isMentioned(m));
-          if (firstMention) {
-            await scrollToMessage(firstMention.id, { smooth: false });
+          // Scroll : séparateur "NOUVEAU" > mention non lue > bas
+          // La mention ne justifie un scroll que si elle est dans un message non lu
+          const unreadMessages =
+            pendingUnread > 0
+              ? messages.value
+                  .filter((m) => m && Number.isFinite(Number(m.id)))
+                  .slice(-pendingUnread)
+              : [];
+          const firstUnreadMention = unreadMessages.find((m) => isMentioned(m));
+
+          if (firstUnreadId.value) {
+            await scrollToMessage("sep-new", { smooth: false });
+          } else if (firstUnreadMention) {
+            await scrollToMessage(firstUnreadMention.id, { smooth: false });
           } else {
             await scrollBottom();
           }
@@ -8445,6 +8739,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             external_user_id: me.externalId,
             username: me.username,
             avatar_url: me.avatarUrl || null,
+            group_color: me.groupColor || null,
             content,
             created_at: new Date().toISOString(),
             _local: true,
@@ -8456,7 +8751,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           };
 
           messages.value.push(localMsg);
-          messagesCache.set(rid, messages.value);
 
           // ✅ garde aussi le snapshot dans le pending (fallback au replace)
           pendingLocalByRoom.set(String(rid), {
@@ -8479,6 +8773,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             external_user_id: me.externalId,
             username: me.username,
             avatar_url: me.avatarUrl || null,
+            group_color: me.groupColor || null,
             content,
 
             reply_to_message_id: replySnap.id,
@@ -8486,11 +8781,11 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             reply_to_excerpt: replySnap.excerpt,
           };
 
-          const { error: e } = await supabase
+          const { data: inserted, error: e } = await supabase
             .from("chat_messages")
-            .insert(payload);
-
-          if (!e) void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP message envoyé
+            .insert(payload)
+            .select()
+            .single();
 
           ui.sending = false;
 
@@ -8504,6 +8799,26 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
               pendingLocalByRoom.delete(String(rid));
             }
             error.value = `Envoyer: ${e.message}`;
+          } else {
+            void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP message envoyé
+            clearFirstUnread();
+
+            // ✅ Remplace immédiatement le message local par la row serveur (ID réel)
+            const pend = pendingLocalByRoom.get(String(rid));
+            if (pend && inserted) {
+              // Marque l'ID comme vu pour éviter un doublon via Realtime
+              const mid = Number(inserted.id);
+              if (Number.isFinite(mid)) getSeenSet(rid).add(mid);
+
+              const idx = messages.value.findIndex(
+                (x) => String(x?.id) === String(pend.tempId),
+              );
+              if (idx >= 0) {
+                inserted.avatar_url = safeUrl(inserted.avatar_url);
+                messages.value[idx] = { ...messages.value[idx], ...inserted };
+              }
+              pendingLocalByRoom.delete(String(rid));
+            }
           }
         };
 
@@ -8534,6 +8849,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             external_user_id: me.externalId,
             username: me.username,
             avatar_url: me.avatarUrl || null,
+            group_color: me.groupColor || null,
             content,
             created_at: new Date().toISOString(),
             _local: true,
@@ -8544,7 +8860,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           };
 
           messages.value.push(localMsg);
-          messagesCache.set(rid, messages.value);
 
           // si tu utilises pendingLocalByRoom pour remplacer via realtime
           pendingLocalByRoom.set(String(rid), {
@@ -8567,6 +8882,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             external_user_id: me.externalId,
             username: me.username,
             avatar_url: me.avatarUrl || null,
+            group_color: me.groupColor || null,
             content,
 
             reply_to_message_id: replySnap.id,
@@ -8574,11 +8890,11 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             reply_to_excerpt: replySnap.excerpt,
           };
 
-          const { error: e } = await supabase
+          const { data: inserted, error: e } = await supabase
             .from("chat_messages")
-            .insert(payload);
-
-          if (!e) void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP gif envoyé
+            .insert(payload)
+            .select()
+            .single();
 
           ui.sending = false;
 
@@ -8590,6 +8906,25 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             if (idx >= 0) messages.value.splice(idx, 1);
             pendingLocalByRoom.delete(String(rid));
             error.value = `Envoyer GIF: ${e.message}`;
+          } else {
+            void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP gif envoyé
+
+            // ✅ Remplace immédiatement le message local par la row serveur (ID réel)
+            const pend = pendingLocalByRoom.get(String(rid));
+            if (pend && inserted) {
+              // Marque l'ID comme vu pour éviter un doublon via Realtime
+              const mid = Number(inserted.id);
+              if (Number.isFinite(mid)) getSeenSet(rid).add(mid);
+
+              const idx = messages.value.findIndex(
+                (x) => String(x?.id) === String(pend.tempId),
+              );
+              if (idx >= 0) {
+                inserted.avatar_url = safeUrl(inserted.avatar_url);
+                messages.value[idx] = { ...messages.value[idx], ...inserted };
+              }
+              pendingLocalByRoom.delete(String(rid));
+            }
           }
         };
 
@@ -8613,7 +8948,9 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           ).toISOString();
           const { data } = await supabase
             .from("chat_presence")
-            .select("page_key,external_user_id,username,avatar_url,last_seen")
+            .select(
+              "page_key,external_user_id,username,avatar_url,group_color,last_seen",
+            )
             .eq("page_key", PRESENCE_PAGE_KEY)
             .gte("last_seen", cutoffIso)
             .order("last_seen", { ascending: false })
@@ -8633,6 +8970,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             external_user_id: me.externalId,
             username: me.username,
             avatar_url: me.avatarUrl || null,
+            group_color: me.groupColor || null,
             last_seen: new Date().toISOString(),
           };
           await supabase
@@ -8696,6 +9034,48 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             .channel("rt-chat-messages")
             .on(
               "postgres_changes",
+              { event: "INSERT", schema: "public", table: "message_reactions" },
+              (payload) => {
+                const r = payload?.new;
+                if (!r || !r.message_id) return;
+                const k = String(r.message_id);
+                if (!reactions[k]) reactions[k] = [];
+                // Évite les doublons (optimiste déjà inséré)
+                if (
+                  !reactions[k].some(
+                    (x) =>
+                      x.id === r.id || x.external_user_id === r.external_user_id,
+                  )
+                ) {
+                  reactions[k].push(r);
+                }
+              },
+            )
+            .on(
+              "postgres_changes",
+              { event: "UPDATE", schema: "public", table: "message_reactions" },
+              (payload) => {
+                const r = payload?.new;
+                if (!r || !r.message_id) return;
+                const k = String(r.message_id);
+                if (!reactions[k]) return;
+                const idx = reactions[k].findIndex((x) => x.id === r.id);
+                if (idx >= 0) reactions[k][idx] = r;
+              },
+            )
+            .on(
+              "postgres_changes",
+              { event: "DELETE", schema: "public", table: "message_reactions" },
+              (payload) => {
+                const r = payload?.old;
+                if (!r?.message_id) return;
+                const k = String(r.message_id);
+                if (!reactions[k]) return;
+                reactions[k] = reactions[k].filter((x) => x.id !== r.id);
+              },
+            )
+            .on(
+              "postgres_changes",
               { event: "INSERT", schema: "public", table: "chat_messages" },
               (payload) => {
                 const m = payload?.new;
@@ -8739,7 +9119,8 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                   delete typingUsers[m.external_user_id];
                 }
 
-                if (rid === roomId.value) {
+                // Comparaison en String pour éviter tout problème de type number vs string
+                if (String(rid) === String(roomId.value)) {
                   const pend = pendingLocalByRoom.get(String(rid));
                   if (
                     pend &&
@@ -8770,15 +9151,14 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                     messages.value.push(m);
                   }
 
-                  messagesCache.set(rid, messages.value);
                   scrollBottom();
                   markActiveRoomRead();
                 } else {
-                  const cached = messagesCache.get(rid);
-                  if (cached) cached.push(m);
-
                   if (enableUnread.value) {
-                    unread[String(rid)] = (unread[String(rid)] || 0) + 1;
+                    const k = String(rid);
+                    // Initialise la clé si elle n'existe pas encore (nouvelle room)
+                    if (!(k in unread)) unread[k] = 0;
+                    unread[k] = unread[k] + 1;
                   }
                 }
               },
@@ -8795,21 +9175,17 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
                 // Soft delete reçu en Realtime → met à jour le message (garde la ligne visible)
                 if (m.deleted_at) {
-                  const updateIn = (arr) => {
-                    const idx = arr.findIndex(
+                  if (rid === roomId.value) {
+                    const idx = messages.value.findIndex(
                       (x) => String(x?.id) === String(m.id),
                     );
                     if (idx >= 0)
-                      arr[idx] = {
-                        ...arr[idx],
+                      messages.value[idx] = {
+                        ...messages.value[idx],
                         deleted_at: m.deleted_at,
                         deleted_by: m.deleted_by ?? "author",
                       };
-                  };
-                  if (rid === roomId.value) updateIn(messages.value);
-                  const cached = messagesCache.get(rid);
-                  if (cached) updateIn(cached);
-                  // Retire aussi des épinglés si supprimé
+                  }
                   pinnedMessages.value = pinnedMessages.value.filter(
                     (x) => String(x.id) !== String(m.id),
                   );
@@ -8819,7 +9195,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                 // Pin / unpin reçu en Realtime
                 if (rid === roomId.value) {
                   if (m.pinned_at) {
-                    // Ajoute ou met à jour dans pinnedMessages
                     const pi = pinnedMessages.value.findIndex(
                       (x) => String(x.id) === String(m.id),
                     );
@@ -8827,7 +9202,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                     if (pi >= 0) pinnedMessages.value[pi] = entry;
                     else pinnedMessages.value = [entry, ...pinnedMessages.value];
                   } else {
-                    // Désépinglé
                     pinnedMessages.value = pinnedMessages.value.filter(
                       (x) => String(x.id) !== String(m.id),
                     );
@@ -8838,26 +9212,55 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                   const idx = messages.value.findIndex(
                     (x) => String(x?.id) === String(m.id),
                   );
-                  if (idx >= 0) {
+                  if (idx >= 0)
                     messages.value[idx] = { ...messages.value[idx], ...m };
-                  }
                 }
+              },
+            )
+            .subscribe();
 
-                const cached = messagesCache.get(rid);
-                if (cached) {
-                  const j = cached.findIndex(
-                    (x) => String(x?.id) === String(m.id),
-                  );
-                  if (j >= 0) cached[j] = { ...cached[j], ...m };
+          // Channel réactions
+          supabase
+            .channel("rt-reactions")
+            .on(
+              "postgres_changes",
+              { event: "INSERT", schema: "public", table: "message_reactions" },
+              ({ payload: p }) => {
+                const r = p?.new;
+                if (!r?.message_id || !r?.emoji) return;
+                const mid = String(r.message_id);
+                if (!reactions[mid]) reactions[mid] = [];
+                const existing = reactions[mid].find((x) => x.emoji === r.emoji);
+                if (existing) {
+                  existing.count++;
+                  existing.users.add(r.external_user_id);
+                } else
+                  reactions[mid].push({
+                    emoji: r.emoji,
+                    count: 1,
+                    users: new Set([r.external_user_id]),
+                  });
+              },
+            )
+            .on(
+              "postgres_changes",
+              { event: "DELETE", schema: "public", table: "message_reactions" },
+              ({ payload: p }) => {
+                const r = p?.old;
+                if (!r?.message_id || !r?.emoji) return;
+                const mid = String(r.message_id);
+                const idx =
+                  reactions[mid]?.findIndex((x) => x.emoji === r.emoji) ?? -1;
+                if (idx >= 0) {
+                  reactions[mid][idx].count--;
+                  reactions[mid][idx].users.delete(r.external_user_id);
+                  if (reactions[mid][idx].count <= 0)
+                    reactions[mid].splice(idx, 1);
                 }
               },
             )
             .subscribe();
         };
-
-        // ----------------------------
-        // CREATE ROOM (admin only)
-        // ----------------------------
         const createRoom = async () => {
           if (!me.isAdmin) {
             error.value = "Création de room réservée aux administrateurs.";
@@ -8898,7 +9301,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           newRoomName.value = "";
           ui.showCreate = false;
 
-          await selectRoom(data.id, { force: true, preferCache: false });
+          await selectRoom(data.id, { force: true });
         };
 
         // ----------------------------
@@ -8911,8 +9314,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           const target = await buildRoomsForHref(href);
           if (token !== pathSyncToken) return;
-          if (target)
-            await selectRoom(target, { force: true, preferCache: true });
+          if (target) await selectRoom(target, { force: true });
         };
         window.__faChatSyncPath = (href) => syncPath(href);
 
@@ -8946,8 +9348,13 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
             }
           }, 1000);
 
-          if (target)
-            await selectRoom(target, { force: true, preferCache: false });
+          // Rafraîchit les compteurs de non-lus toutes les 15s
+          // (couvre le cas où le Realtime ne reçoit pas les messages des autres rooms)
+          unreadTimer = window.setInterval(async () => {
+            if (enableUnread.value) await loadPersistentUnread();
+          }, 15_000);
+
+          if (target) await selectRoom(target, { force: true });
 
           ui.booting = false;
 
@@ -8966,11 +9373,95 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           if (presenceTimer) window.clearInterval(presenceTimer);
           if (presenceCleanupTimer) window.clearInterval(presenceCleanupTimer);
           if (typingCleanupTimer) window.clearInterval(typingCleanupTimer);
+          if (unreadTimer) window.clearInterval(unreadTimer);
         });
+
+        // ----------------------------
+        // SÉPARATEURS PAR JOUR
+        // ----------------------------
+        const dayLabelFmt = new Intl.DateTimeFormat("fr-CA", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+
+        const dayKey = (iso) => {
+          const d = new Date(iso);
+          return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+        };
+
+        const dayLabel = (iso) => {
+          const now = new Date();
+          const todayKey = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+          const yesterday = new Date(now);
+          yesterday.setDate(now.getDate() - 1);
+          const yesterdayKey = `${yesterday.getFullYear()}-${yesterday.getMonth()}-${yesterday.getDate()}`;
+          const k = dayKey(iso);
+          if (k === todayKey) return "Aujourd'hui";
+          if (k === yesterdayKey) return "Hier";
+          return dayLabelFmt.format(new Date(iso));
+        };
+
+        const messagesWithSeparators = computed(() => {
+          const result = [];
+          let lastKey = null;
+          let newMsgInserted = false;
+          for (const m of messages.value) {
+            if (!m?.created_at) {
+              result.push(m);
+              continue;
+            }
+
+            // Séparateur "NOUVEAU" — avant le premier message non lu
+            if (
+              !newMsgInserted &&
+              firstUnreadId.value != null &&
+              String(m.id) === String(firstUnreadId.value)
+            ) {
+              result.push({ type: "new-messages", key: "sep-new" });
+              newMsgInserted = true;
+            }
+
+            const k = dayKey(m.created_at);
+            if (k !== lastKey) {
+              lastKey = k;
+              result.push({
+                type: "day-separator",
+                key: "sep-" + k,
+                label: dayLabel(m.created_at),
+              });
+            }
+            result.push(m);
+          }
+          return result;
+        });
+
+        // ----------------------------
+        // PROFIL URL
+        // ----------------------------
+        /** Retourne le lien vers le profil forum d'un utilisateur, ex. "/u123" */
+        const profileUrl = (externalUserId) => {
+          const id = String(externalUserId ?? "").trim();
+          if (!id || id === "0" || id === "-1") return null;
+          return `/u${id}`;
+        };
+
+        /**
+         * Retourne la couleur de groupe d'un message (hex validé) ou null.
+         * Utilisable dans le template : :style="groupColorOf(m) ? { color: groupColorOf(m) } : null"
+         */
+        const groupColorOf = (m) => {
+          const raw = m?.group_color ?? null;
+          if (!raw) return null;
+          const c = raw.startsWith("#") ? raw : `#${raw}`;
+          return /^#[0-9a-fA-F]{3,8}$/.test(c) ? c : null;
+        };
 
         return {
           me,
           ui,
+          profileUrl,
+          groupColorOf,
 
           roomsSafe,
           roomId,
@@ -8979,9 +9470,11 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           roomLabel,
 
           messages,
+          messagesWithSeparators,
           messagesEl,
           onMessagesScroll,
           timeAgo,
+          formatFullDate,
 
           draft,
           draftEl,
@@ -9004,6 +9497,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           createRoom,
 
           unreadCount,
+          firstUnreadId,
           selectRoom,
 
           activeUsersStack,
@@ -9011,7 +9505,24 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           typingList,
 
-          // messages épinglés
+          // réactions
+          reactions,
+          getReactions,
+          myReactionEmoji,
+          toggleReaction,
+          reactionPicker,
+          reactionPickerEl,
+          reactionPickerFiltered,
+          toggleReactionPicker,
+
+          // classement XP
+          leaderboard,
+          leaderboardLoading,
+          showLeaderboard,
+          leaderboardBtnEl,
+          leaderboardPopEl,
+          myLeaderboardRank,
+
           pinnedMessages,
           pinnedCount,
           showPinned,
@@ -9048,8 +9559,13 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           hasReply,
           setReply,
           cancelReply,
-          scrollToMessage,
           replyExcerptLabel,
+
+          // réactions
+          reactions,
+          reactionTarget,
+          toggleReaction,
+          openReactionPicker,
 
           // markdown + mentions
           renderMarkdown,
@@ -9077,16 +9593,1172 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
     window.__faChatUnmount = () => app.unmount();
   };
 
+  const initSearch = () => {
+    const DEBOUNCE = 280;
+
+    /* ── style block — only what Tailwind can't do inline ── */
+    const style = document.createElement("style");
+    style.textContent = `
+    #srch-overlay { opacity: 0; pointer-events: none; transition: opacity .15s ease; }
+    #srch-overlay.open { opacity: 1; pointer-events: auto; }
+
+    #srch-palette { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(-6px) scale(.98); transition: opacity .15s ease, transform .15s ease; }
+    #srch-palette.open { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0) scale(1); }
+
+    #srch-mirror::placeholder { color: #a1a1aa; }
+    .dark #srch-mirror::placeholder { color: #71717a; }
+
+    #srch-results::-webkit-scrollbar { width: 4px; }
+    #srch-results::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 4px; }
+    .dark #srch-results::-webkit-scrollbar-thumb { background: #27272a; }
+
+    .srch-item-title em { font-style: normal; background: #e4e4e7; color: #18181b; border-radius: 3px; padding: 0 2px; }
+    .dark .srch-item-title em { background: #3f3f46; color: #fafafa; }
+
+    .srch-active { background: #f4f4f5; }
+    .dark .srch-active { background: #27272a; }
+  `;
+    document.head.appendChild(style);
+
+    /* ── overlay ── */
+    const overlay = document.createElement("div");
+    overlay.id = "srch-overlay";
+    overlay.className = "fixed inset-0 z-[9998] bg-black/50";
+
+    /* ── palette ── */
+    const palette = document.createElement("div");
+    palette.id = "srch-palette";
+    palette.setAttribute("role", "dialog");
+    palette.setAttribute("aria-modal", "true");
+    palette.setAttribute("aria-label", "Recherche rapide");
+    palette.className = [
+      "fixed top-[20vh] left-1/2 z-[9999]",
+      "w-full max-w-[560px] mx-[4vw]",
+      "bg-white dark:bg-zinc-950",
+      "border border-zinc-200 dark:border-zinc-800",
+      "rounded-xl overflow-hidden font-sans text-[13px]",
+      "shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,.6)]",
+    ].join(" ");
+
+    const SVG_SEARCH = `<svg class="shrink-0 text-zinc-400 dark:text-zinc-500" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
+    const SVG_TOPIC = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`;
+
+    palette.innerHTML = `
+    <div class="flex items-center gap-2 px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950">
+      ${SVG_SEARCH}
+      <input id="srch-mirror" type="text" placeholder="Rechercher…" autocomplete="off" spellcheck="false"
+        aria-autocomplete="list" aria-controls="srch-results"
+        class="flex-1 bg-transparent border-none outline-none text-zinc-900 dark:text-zinc-100 font-[inherit] text-[13px] leading-normal caret-indigo-500">
+    </div>
+
+    <div id="srch-status"
+      class="flex items-center gap-1.5 px-3.5 py-1.5 text-[11px] text-zinc-500 border-b border-zinc-200 dark:border-zinc-800 min-h-[27px] bg-white dark:bg-zinc-950">
+    </div>
+
+    <div id="srch-results" role="listbox"
+      class="max-h-[360px] overflow-y-auto p-1 bg-white dark:bg-zinc-950 [scrollbar-width:thin] [scrollbar-color:#e4e4e7_transparent] dark:[scrollbar-color:#27272a_transparent]">
+    </div>
+  `;
+
+    document.body.appendChild(overlay);
+    document.body.appendChild(palette);
+
+    const mirror = palette.querySelector("#srch-mirror");
+    const status = palette.querySelector("#srch-status");
+    const results = palette.querySelector("#srch-results");
+
+    /* ── state ── */
+    let activeIdx = -1;
+    let debounceTimer = null;
+    let items = [];
+    const showResults = "topics";
+
+    /* ── open / close ── */
+    const open = () => {
+      overlay.classList.add("open");
+      palette.classList.add("open");
+      mirror.value = "";
+      mirror.focus();
+      setStatus("Tapez pour rechercher…");
+      results.innerHTML = "";
+      activeIdx = -1;
+      items = [];
+      document.body.style.overflow = "hidden";
+    };
+
+    const close = () => {
+      overlay.classList.remove("open");
+      palette.classList.remove("open");
+      document.getElementById("js-search")?.blur();
+      document.body.style.overflow = "";
+    };
+
+    /* ── status ── */
+    const setStatus = (msg, loading = false) => {
+      status.innerHTML = loading
+        ? `<span class="inline-block w-2.5 h-2.5 rounded-full border-[1.5px] border-zinc-300 dark:border-zinc-700 border-t-indigo-500 animate-spin shrink-0"></span><span>${msg}</span>`
+        : `<span>${msg}</span>`;
+    };
+
+    /* ── highlight ── */
+    const highlight = (text, query) => {
+      if (!query || !text) return text ?? "";
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return text.replace(new RegExp(`(${escaped})`, "gi"), "<em>$1</em>");
+    };
+
+    /* ── keyboard nav ── */
+    const setActive = (idx) => {
+      items.forEach((el, i) => {
+        el.classList.toggle("srch-active", i === idx);
+        el.setAttribute("aria-selected", i === idx ? "true" : "false");
+      });
+      activeIdx = idx;
+      items[idx]?.scrollIntoView({ block: "nearest" });
+    };
+
+    /* ── render ── */
+    const renderResults = (entries, query, mode) => {
+      results.innerHTML = "";
+      items = [];
+      activeIdx = -1;
+
+      if (!entries.length) {
+        results.innerHTML = `
+        <div class="py-7 px-3.5 text-center text-zinc-400 dark:text-zinc-500 text-[13px] leading-relaxed">
+          <div class="flex justify-center mb-2 text-zinc-300 dark:text-zinc-700">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          Aucun résultat pour <strong class="text-zinc-600 dark:text-zinc-300">${query}</strong>
+        </div>`;
+        setStatus("Aucun résultat");
+        return;
+      }
+
+      const count = entries.length;
+      const label =
+        `sujet${count > 1 ? "s" : ""}`
+          ;
+      const icon = SVG_TOPIC ;
+
+      setStatus(`${count} ${label} trouvé${count > 1 ? "s" : ""}`);
+
+      const section = document.createElement("div");
+      section.className =
+        "px-2.5 pt-2 pb-1 text-[10px] tracking-[.06em] uppercase text-zinc-400 dark:text-zinc-600 font-medium";
+      section.textContent = "Sujets" ;
+      results.appendChild(section);
+
+      entries.forEach((entry, i) => {
+        const a = document.createElement("a");
+        a.className = [
+          "flex items-center gap-2.5 px-2.5 py-[7px] rounded-lg",
+          "cursor-pointer no-underline text-inherit transition-colors",
+          "hover:bg-zinc-100 dark:hover:bg-zinc-800",
+        ].join(" ");
+        a.href = entry.url;
+        a.setAttribute("role", "option");
+        a.setAttribute("aria-selected", "false");
+        a.innerHTML = `
+        <span class="shrink-0 text-zinc-400 dark:text-zinc-600 flex items-center">${icon}</span>
+        <span class="flex-1 min-w-0">
+          <span class="srch-item-title block text-[13px] text-zinc-700 dark:text-zinc-200 truncate">${highlight(entry.title, query)}</span>
+        </span>
+        <svg class="shrink-0 text-zinc-300 dark:text-zinc-700" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      `;
+        a.addEventListener("click", () => close());
+        a.addEventListener("mouseenter", () => setActive(i));
+        results.appendChild(a);
+        items.push(a);
+      });
+    };
+
+    /* ── parse ── */
+    const parseEntries = (doc) => {
+      const seen = new Set();
+      return Array.from(doc.querySelectorAll("a[href^='/t']")).reduce(
+        (acc, el) => {
+          const title = el.textContent.trim();
+          const href = el.getAttribute("href");
+          if (title && href && !seen.has(href)) {
+            seen.add(href);
+            acc.push({ title, url: href });
+          }
+          return acc;
+        },
+        [],
+      );
+    };
+
+    /* ── fetch ── */
+    const search = async (query, mode) => {
+      if (!query.trim()) {
+        results.innerHTML = "";
+        setStatus("Tapez pour rechercher…");
+        return;
+      }
+      if (query.trim().length < 4) {
+        results.innerHTML = "";
+        setStatus("Entrez au moins 4 caractères…");
+        return;
+      }
+
+      setStatus("Recherche…", true);
+
+      const url =
+        `/search?mode=searchbox&search_by=text` +
+        `&search_keywords=${encodeURIComponent(query)}` +
+        `&show_results=${mode}`;
+
+      try {
+        const resp = await fetch(url, { credentials: "same-origin" });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const doc = new DOMParser().parseFromString(
+          await resp.text(),
+          "text/html",
+        );
+        renderResults(parseEntries(doc).slice(0, 15), query, mode);
+      } catch (err) {
+        setStatus("Erreur lors de la recherche");
+        console.warn("[srch-combobox]", err);
+      }
+    };
+
+    /* ── debounce ── */
+    const triggerSearch = () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(
+        () => search(mirror.value, showResults),
+        DEBOUNCE,
+      );
+    };
+
+    /* ── events ── */
+    mirror.addEventListener("input", triggerSearch);
+
+    mirror.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setActive(Math.min(activeIdx + 1, items.length - 1));
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setActive(Math.max(activeIdx - 1, 0));
+      } else if (e.key === "Enter" && activeIdx >= 0) {
+        e.preventDefault();
+        items[activeIdx]?.click();
+      } else if (e.key === "Escape") {
+        close();
+      }
+    });
+
+    document.getElementById("js-search")?.addEventListener("focus", () => open());
+    overlay.addEventListener("click", () => close());
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && palette.classList.contains("open")) close();
+    });
+  };
+
+  /**
+   * Déplace #footer à l'intérieur du container Barba actif.
+   * Compatible avec registerModule : mount(container) reçoit
+   * directement l'élément section, pas un root à parcourir.
+   *
+   * @param {Element} [container=document] - le container Barba courant,
+   *   ou document pour le chargement initial (cherche alors la section lui-même).
+   */
+  const initFooter = (container = document) => {
+    const footer = document.querySelector("#footer");
+    const linksContainer = document.querySelector("#footer-links");
+    const links = document.querySelectorAll("#page-footer > a");
+
+    const target =
+      container === document
+        ? document.querySelector('section[data-barba="container"]')
+        : container;
+
+    if (footer && target) {
+      target.appendChild(footer);
+      links.forEach((link) => {
+        linksContainer.appendChild(link);
+      });
+      footer.classList.remove("hidden");
+    }
+  };
+
+  const initWombat = (supabase) => {
+    if (!window.Wombat) return;
+
+    const fmt = (n) => {
+      if (typeof n !== "number") return "—";
+      return n >= 1000
+        ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k"
+        : String(n);
+    };
+
+    const set = (aside, id, val) => {
+      const el = aside.querySelector("#" + id);
+      if (el) el.textContent = val;
+    };
+
+    /**
+     * Parse le div #stats-fields en un objet { label: valeur }
+     * ex: { "Date d'inscription": "28/08/2025", "Localisation": "Paris", ... }
+     */
+    const parseFields = (aside) => {
+      const container = aside.querySelector("#stat-fields");
+      if (!container) return {};
+
+      const fields = {};
+      container.querySelectorAll("[id^='field_id']").forEach((field) => {
+        const label = field
+          .querySelector("dt")
+          ?.textContent.replace(/\s*:\s*$/, "")
+          .trim();
+        const value = field
+          .querySelector(".field_uneditable")
+          ?.textContent.replace(/&nbsp;/g, "")
+          .trim();
+
+        if (label && value && value !== "-") fields[label] = value;
+      });
+      return fields;
+    };
+
+    new Wombat({
+      afterLoad: async function (aside, overlay) {
+        const fields = parseFields(aside);
+        // Exemples d'utilisation :
+        // fields["Date d'inscription"] → "28/08/2025"
+        // fields["Localisation"]       → "Paris"
+        // fields["Messages"]           → "69"
+        //
+        console.log(fields);
+        const raw = fields["Date d'inscription"];
+        const [day, month, year] = (raw ?? "").split("/");
+        const date = new Date(year, month - 1, day);
+        const label = date.toLocaleDateString("fr-FR", {
+          month: "long",
+          year: "numeric",
+        });
+        set(aside, "stat-join", raw ? `Membre depuis ${label}` : "—");
+
+        const wombatEl = aside.querySelector("#wombat");
+        const externalId = wombatEl?.dataset?.externalId?.trim();
+        if (!externalId || externalId === "0") return;
+
+        const { data } = await supabase
+          .from("user_stats")
+          .select("xp,level,xp_to_next,messages_sent,reactions_given")
+          .eq("external_user_id", externalId)
+          .maybeSingle();
+
+        if (!data) return;
+
+        set(aside, "stat-messages", fmt(data.messages_sent ?? 0));
+        set(aside, "stat-posts", fields["Messages"]);
+        set(aside, "stat-reactions", fmt(data.reactions_given ?? 0));
+        set(aside, "stat-xp", fmt(data.xp ?? 0));
+
+        const xp = data.xp ?? 0;
+        const xpNext = data.xp_to_next ?? 100;
+        const level = data.level ?? 1;
+        const pct = Math.min(100, Math.round((xp / xpNext) * 100));
+
+        set(aside, "xp-label", "Niveau " + level + " → " + (level + 1));
+
+        requestAnimationFrame(() => {
+          const bar = aside.querySelector("#xp-bar");
+          if (bar) bar.style.width = pct + "%";
+        });
+      },
+    });
+  };
+
+  // tag-editor.js
+
+  /**
+   * Éditeur de tags avec combobox — entièrement autonome.
+   *
+   * Les tags prédéfinis sont définis dans TAG_PRESETS ci-dessous.
+   * Le module construit tout son UI dans #tag-editor :
+   *   - Checkbox « Résolu » (raccourci dédié, label/icône/couleur depuis TAG_PRESETS)
+   *   - Combobox (pills + dropdown des autres tags prédéfinis)
+   *
+   * Se branche sur :
+   *   - input[name="subject"]  → source de vérité
+   *   - #tag-editor            → conteneur vide
+   *
+   * Barba :
+   *   registerModule({ mount(c) { TagEditor.attach(c); return () => TagEditor.detach(); } });
+   */
+
+  // ────────────────────────────────────────────────
+  // Tags prédéfinis
+  // ────────────────────────────────────────────────
+  // Clé       = valeur sérialisée dans le titre [clé1, clé2]
+  // label     : texte affiché (dropdown, pills, checkbox)
+  // icon      : HTML inline (SVG) — optionnel
+  // color     : surcharge la couleur (clé Tailwind) — optionnel, sinon hash auto
+  // checkbox  : true → affiché comme toggle dédié, exclu du dropdown
+
+  const TAG_PRESETS = {
+    résolu: {
+      label: "Résolu",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 lucide lucide-circle-check-big-icon lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>`,
+      color: "emerald",
+      checkbox: true,
+    },
+    "avis bienvenus": {
+      label: "Avis bienvenus",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 lucide lucide-thumbs-up-icon lucide-thumbs-up"><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/><path d="M7 10v12"/></svg>`,
+      color: "blue",
+    },
+    html: {
+      label: "HTML",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>`,
+      color: "orange",
+    },
+    javascript: {
+      label: "JavaScript",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>`,
+      color: "amber",
+    },
+    php: {
+      label: "PHP",
+      color: "indigo",
+    },
+    responsive: {
+      label: "Responsive",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>`,
+    },
+    seo: {
+      label: "SEO",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`,
+    },
+    accessibilité: {
+      label: "Accessibilité",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>`,
+      color: "purple",
+    },
+    performance: {
+      label: "Performance",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 2.5h3L12 7"/><path d="M12 22v-3"/><circle cx="12" cy="14" r="5"/></svg>`,
+      color: "lime",
+    },
+    design: {
+      label: "Design",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 13 5-5 5 5"/><path d="m22 13-5-5-5 5"/><path d="M12 22V8"/></svg>`,
+      color: "rose",
+    },
+    "base de données": {
+      label: "Base de données",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>`,
+      color: "cyan",
+    },
+    api: {
+      label: "API",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 7-4 4 4 4"/><path d="m16 7 4 4-4 4"/><path d="M4 19h16"/></svg>`,
+    },
+    sécurité: {
+      label: "Sécurité",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>`,
+      color: "indigo",
+    },
+  };
+
+  // Clés des tags qui ont checkbox: true
+  const CHECKBOX_KEYS = Object.keys(TAG_PRESETS).filter(
+    (k) => TAG_PRESETS[k].checkbox,
+  );
+
+  // Nombre max de tags hors checkbox (résolu ne compte pas)
+  const MAX_COMBO_TAGS = 3;
+
+  // ────────────────────────────────────────────────
+
+  const TagEditor = (function () {
+    // ── état ──
+    let subjectInput = null;
+    let containerEl = null;
+    let editorEl = null;
+    let checkboxes = {}; // { key: HTMLInputElement }
+    let dropdownEl = null;
+    let comboInput = null;
+    let tags = [];
+    let baseTitle = "";
+    let highlightIdx = -1;
+    let changeCb = null;
+    let cleanupFns = [];
+    let isActive = false;
+
+    // ── palette ──
+    const COLOR_MAP = {
+      emerald: {
+        bg: "bg-emerald-100",
+        text: "text-emerald-700",
+        darkBg: "dark:bg-emerald-950",
+        darkText: "dark:text-emerald-300",
+        checked: "checked:border-emerald-600 checked:bg-emerald-600",
+        focus: "focus-visible:outline-emerald-600",
+      },
+      blue: {
+        bg: "bg-blue-100",
+        text: "text-blue-700",
+        darkBg: "dark:bg-blue-950",
+        darkText: "dark:text-blue-300",
+      },
+      purple: {
+        bg: "bg-purple-100",
+        text: "text-purple-700",
+        darkBg: "dark:bg-purple-950",
+        darkText: "dark:text-purple-300",
+      },
+      amber: {
+        bg: "bg-amber-100",
+        text: "text-amber-700",
+        darkBg: "dark:bg-amber-950",
+        darkText: "dark:text-amber-300",
+      },
+      rose: {
+        bg: "bg-rose-100",
+        text: "text-rose-700",
+        darkBg: "dark:bg-rose-950",
+        darkText: "dark:text-rose-300",
+      },
+      cyan: {
+        bg: "bg-cyan-100",
+        text: "text-cyan-700",
+        darkBg: "dark:bg-cyan-950",
+        darkText: "dark:text-cyan-300",
+      },
+      lime: {
+        bg: "bg-lime-100",
+        text: "text-lime-700",
+        darkBg: "dark:bg-lime-950",
+        darkText: "dark:text-lime-300",
+      },
+      indigo: {
+        bg: "bg-indigo-100",
+        text: "text-indigo-700",
+        darkBg: "dark:bg-indigo-950",
+        darkText: "dark:text-indigo-300",
+      },
+      orange: {
+        bg: "bg-orange-100",
+        text: "text-orange-700",
+        darkBg: "dark:bg-orange-950",
+        darkText: "dark:text-orange-300",
+      },
+    };
+
+    const COLOR_KEYS = Object.keys(COLOR_MAP);
+
+    function hashColor(tag) {
+      let h = 0;
+      for (let i = 0; i < tag.length; i++)
+        h = ((h << 5) - h + tag.charCodeAt(i)) | 0;
+      return COLOR_MAP[COLOR_KEYS[Math.abs(h) % COLOR_KEYS.length]];
+    }
+
+    /** Recherche insensible à la casse dans TAG_PRESETS */
+    function resolvePreset(key) {
+      if (TAG_PRESETS[key]) return TAG_PRESETS[key];
+      const lower = key.toLowerCase();
+      const found = Object.keys(TAG_PRESETS).find(
+        (k) => k.toLowerCase() === lower,
+      );
+      return found ? TAG_PRESETS[found] : null;
+    }
+
+    function tagColor(key) {
+      const preset = resolvePreset(key);
+      if (preset?.color && COLOR_MAP[preset.color])
+        return COLOR_MAP[preset.color];
+      return hashColor(key);
+    }
+
+    function tagLabel(key) {
+      return resolvePreset(key)?.label || key;
+    }
+
+    function tagIcon(key) {
+      return resolvePreset(key)?.icon || null;
+    }
+
+    function isCheckboxTag(key) {
+      return !!resolvePreset(key)?.checkbox;
+    }
+
+    // ────────────────────────────────────────────────
+    // Parsing
+    // ────────────────────────────────────────────────
+
+    const BRACKET_TAGS_RE = /\[([^\]]+)\]\s*$/;
+
+    function parseSubject(raw) {
+      const match = (raw || "").match(BRACKET_TAGS_RE);
+      if (!match) return { base: (raw || "").trim(), tags: [] };
+
+      const parsed = match[1]
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean);
+
+      const base = (raw || "")
+        .slice(0, match.index)
+        .replace(/[\s\-–—:;,.|]+$/g, "")
+        .trim();
+
+      return { base, tags: parsed };
+    }
+
+    function buildSubject() {
+      if (tags.length === 0) return baseTitle;
+      return `${baseTitle} [${tags.join(", ")}]`;
+    }
+
+    // ────────────────────────────────────────────────
+    // Actions
+    // ────────────────────────────────────────────────
+
+    /** Nombre de tags non-checkbox actuellement sélectionnés */
+    function comboTagCount() {
+      return tags.filter((t) => !isCheckboxTag(t)).length;
+    }
+
+    function addTag(key) {
+      const k = key.trim();
+      if (!k) return false;
+
+      const lower = k.toLowerCase();
+      if (tags.some((x) => x.toLowerCase() === lower)) return false;
+
+      // limite : les tags checkbox ne comptent pas
+      if (!isCheckboxTag(k) && comboTagCount() >= MAX_COMBO_TAGS) return false;
+
+      tags.push(k);
+      syncAll();
+      return true;
+    }
+
+    function removeTag(key) {
+      const lower = key.toLowerCase();
+      const idx = tags.findIndex((x) => x.toLowerCase() === lower);
+      if (idx === -1) return false;
+      tags.splice(idx, 1);
+      syncAll();
+      return true;
+    }
+
+    function toggleCheckboxTag(key, checked) {
+      const has = tags.some((t) => t.toLowerCase() === key.toLowerCase());
+      if (checked && !has) {
+        tags.push(key);
+        syncAll();
+      } else if (!checked && has) {
+        tags = tags.filter((t) => t.toLowerCase() !== key.toLowerCase());
+        syncAll();
+      }
+    }
+
+    function hasTag(key) {
+      return tags.some((t) => t.toLowerCase() === key.toLowerCase());
+    }
+
+    function syncAll() {
+      if (subjectInput) subjectInput.value = buildSubject();
+      syncCheckboxes();
+      renderPills();
+      if (changeCb) changeCb(buildSubject(), [...tags]);
+    }
+
+    function syncCheckboxes() {
+      for (const key of CHECKBOX_KEYS) {
+        if (checkboxes[key]) {
+          checkboxes[key].checked = hasTag(key);
+        }
+      }
+    }
+
+    // ────────────────────────────────────────────────
+    // Dropdown
+    // ────────────────────────────────────────────────
+
+    function getAvailableKeys(query) {
+      const q = (query || "").toLowerCase();
+      const selectedLower = tags.map((t) => t.toLowerCase());
+
+      return Object.keys(TAG_PRESETS).filter((key) => {
+        if (TAG_PRESETS[key].checkbox) return false; // exclus du dropdown
+        if (selectedLower.includes(key.toLowerCase())) return false;
+        if (!q) return true;
+        return (
+          key.toLowerCase().includes(q) ||
+          (TAG_PRESETS[key].label || "").toLowerCase().includes(q)
+        );
+      });
+    }
+
+    function showDropdown() {
+      if (!dropdownEl) return;
+
+      // limite atteinte → pas de dropdown
+      if (comboTagCount() >= MAX_COMBO_TAGS) {
+        hideDropdown();
+        return;
+      }
+
+      const query = comboInput?.value || "";
+      const available = getAvailableKeys(query);
+
+      dropdownEl.innerHTML = "";
+      highlightIdx = -1;
+
+      if (available.length === 0) {
+        dropdownEl.classList.add("hidden");
+        return;
+      }
+
+      available.forEach((key) => {
+        const color = tagColor(key);
+        const icon = tagIcon(key);
+        const label = tagLabel(key);
+
+        const opt = mk(
+          "div",
+          [
+            "flex items-center gap-2.5 px-3 py-1.5 text-sm cursor-pointer",
+            "hover:bg-zinc-100 dark:hover:bg-zinc-800",
+            "transition-colors",
+          ].join(" "),
+        );
+        opt.setAttribute("data-combo-option", key);
+        opt.setAttribute("role", "option");
+
+        if (icon) {
+          const iconWrap = mk(
+            "span",
+            [
+              "inline-flex items-center justify-center size-5 shrink-0 rounded",
+              color.bg,
+              color.text,
+              color.darkBg,
+              color.darkText,
+            ].join(" "),
+          );
+          iconWrap.innerHTML = icon;
+          opt.appendChild(iconWrap);
+        } else {
+          const dot = mk(
+            "span",
+            [
+              "inline-block size-2.5 rounded-full shrink-0",
+              color.bg,
+              color.darkBg,
+            ].join(" "),
+          );
+          opt.appendChild(dot);
+        }
+
+        const labelEl = mk("span", "dark:text-zinc-200");
+        labelEl.textContent = label;
+        opt.appendChild(labelEl);
+
+        opt.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          addTag(key);
+          if (comboInput) comboInput.value = "";
+          showDropdown(); // réouvre avec la liste mise à jour
+        });
+
+        dropdownEl.appendChild(opt);
+      });
+
+      dropdownEl.classList.remove("hidden");
+    }
+
+    function hideDropdown() {
+      if (!dropdownEl) return;
+      dropdownEl.classList.add("hidden");
+      highlightIdx = -1;
+    }
+
+    function highlightOption(idx) {
+      if (!dropdownEl) return;
+      const options = dropdownEl.querySelectorAll("[data-combo-option]");
+      options.forEach((opt, i) => {
+        opt.classList.toggle("bg-zinc-100", i === idx);
+        opt.classList.toggle("dark:bg-zinc-800", i === idx);
+      });
+      highlightIdx = idx;
+      if (options[idx]) options[idx].scrollIntoView({ block: "nearest" });
+    }
+
+    // ────────────────────────────────────────────────
+    // Pills (tags non-checkbox uniquement)
+    // ────────────────────────────────────────────────
+
+    function renderPills() {
+      if (!editorEl) return;
+      const zone = editorEl.querySelector("[data-pill-zone]");
+      if (!zone) return;
+
+      zone.querySelectorAll("[data-tag-pill]").forEach((el) => el.remove());
+
+      const displayTags = tags.filter((t) => !isCheckboxTag(t));
+      const input = zone.querySelector("input[data-tag-input]");
+
+      displayTags.forEach((key) => {
+        zone.insertBefore(createPill(key), input);
+      });
+
+      if (input) {
+        const atLimit = displayTags.length >= MAX_COMBO_TAGS;
+        input.disabled = atLimit;
+        input.placeholder = atLimit
+          ? `${MAX_COMBO_TAGS} tags max`
+          : displayTags.length
+            ? "Ajouter…"
+            : "Ajouter un tag…";
+      }
+    }
+
+    function createPill(key) {
+      const color = tagColor(key);
+      const icon = tagIcon(key);
+      const label = tagLabel(key);
+
+      const pill = mk(
+        "span",
+        [
+          "inline-flex items-center gap-1 pl-1.5 pr-1 py-0.5 text-xs font-medium rounded-full",
+          "transition-colors",
+          color.bg,
+          color.text,
+          color.darkBg,
+          color.darkText,
+        ].join(" "),
+      );
+      pill.setAttribute("data-tag-pill", key);
+
+      if (icon) {
+        const iconSpan = mk("span", "inline-flex items-center [&>svg]:size-3");
+        iconSpan.innerHTML = icon;
+        pill.appendChild(iconSpan);
+      }
+
+      const labelSpan = document.createElement("span");
+      labelSpan.textContent = label;
+      pill.appendChild(labelSpan);
+
+      const btn = mk(
+        "button",
+        [
+          "inline-flex items-center justify-center size-4 rounded-full",
+          "hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer",
+        ].join(" "),
+      );
+      btn.type = "button";
+      btn.setAttribute("aria-label", `Supprimer le tag ${label}`);
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+
+      const handler = (e) => {
+        e.stopPropagation();
+        removeTag(key);
+      };
+      btn.addEventListener("click", handler);
+      cleanupFns.push(() => btn.removeEventListener("click", handler));
+
+      pill.appendChild(btn);
+      return pill;
+    }
+
+    function mk(tag, className) {
+      const e = document.createElement(tag);
+      if (className) e.className = className;
+      return e;
+    }
+
+    // ────────────────────────────────────────────────
+    // Construction du widget
+    // ────────────────────────────────────────────────
+
+    function buildCheckboxRow(key) {
+      const preset = TAG_PRESETS[key];
+      tagColor(key);
+
+      const row = mk("div", "flex gap-2 items-center");
+      const grid = mk("div", "group grid size-4 grid-cols-1");
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.id = `tag-cb-${key}`;
+      cb.name = key;
+      cb.checked = hasTag(key);
+      cb.className = [
+        "col-start-1 row-start-1 appearance-none rounded-sm border",
+        "border-zinc-200 bg-white",
+        "dark:bg-zinc-950 dark:border-zinc-800 dark:text-zinc-950",
+        "checked:border-indigo-600 checked:bg-indigo-600",
+        "indeterminate:border-indigo-600 indeterminate:bg-indigo-600",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600",
+        "disabled:border-zinc-300 disabled:bg-zinc-100 disabled:checked:bg-zinc-100",
+        "forced-colors:appearance-auto",
+      ].join(" ");
+
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("fill", "none");
+      svg.setAttribute("stroke", "currentColor");
+      svg.setAttribute("stroke-width", "2");
+      svg.setAttribute("stroke-linecap", "round");
+      svg.setAttribute("stroke-linejoin", "round");
+      svg.setAttribute("aria-hidden", "true");
+      svg.classList.add(
+        "pointer-events-none",
+        "col-start-1",
+        "row-start-1",
+        "size-3.5",
+        "self-center",
+        "justify-self-center",
+        "stroke-white",
+        "dark:stroke-zinc-950",
+        "group-has-disabled:stroke-gray-950/25",
+      );
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", "M20 6 9 17l-5-5");
+      svg.appendChild(path);
+
+      grid.append(cb, svg);
+
+      const label = mk("label", "text-sm select-none cursor-pointer");
+      label.setAttribute("for", `tag-cb-${key}`);
+      label.textContent = preset.label;
+
+      row.append(grid, label);
+
+      const handler = () => toggleCheckboxTag(key, cb.checked);
+      cb.addEventListener("change", handler);
+      cleanupFns.push(() => cb.removeEventListener("change", handler));
+
+      checkboxes[key] = cb;
+
+      return row;
+    }
+
+    function buildEditor() {
+      editorEl = mk("div", "flex flex-1 gap-4");
+
+      // ── 1) Checkboxes pour les tags marqués checkbox: true ──
+      for (const key of CHECKBOX_KEYS) {
+        editorEl.appendChild(buildCheckboxRow(key));
+      }
+
+      // ── 2) Combobox ──
+      const comboWrapper = mk("div", "relative flex-1");
+
+      const pillZone = mk(
+        "div",
+        [
+          "flex flex-1 flex-wrap gap-1.5 items-center rounded-xl",
+          "bg-zinc-100 dark:bg-zinc-900 px-3 py-2 text-sm",
+          "cursor-text",
+          "outline-none border border-transparent focus-within:outline-none focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-400/30",
+        ].join(" "),
+      );
+      pillZone.setAttribute("data-pill-zone", "1");
+
+      comboInput = document.createElement("input");
+      comboInput.type = "text";
+      comboInput.setAttribute("data-tag-input", "1");
+      comboInput.setAttribute("role", "combobox");
+      comboInput.setAttribute("aria-expanded", "false");
+      comboInput.setAttribute("aria-haspopup", "listbox");
+      comboInput.setAttribute("autocomplete", "off");
+      comboInput.placeholder = "Ajouter un tag…";
+      comboInput.className = [
+        "text-sm bg-transparent outline-none min-w-[80px] flex-1",
+        "placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
+        "dark:text-zinc-100",
+      ].join(" ");
+      pillZone.appendChild(comboInput);
+
+      const zoneClick = () => comboInput.focus();
+      pillZone.addEventListener("click", zoneClick);
+      cleanupFns.push(() => pillZone.removeEventListener("click", zoneClick));
+
+      dropdownEl = mk(
+        "div",
+        [
+          "hidden absolute left-0 right-0 mt-1 z-50",
+          "max-h-48 overflow-y-auto",
+          "rounded-lg border border-zinc-200 dark:border-zinc-700",
+          "bg-white dark:bg-zinc-900",
+          "shadow-lg py-1",
+        ].join(" "),
+      );
+      dropdownEl.setAttribute("role", "listbox");
+
+      const onInput = () => {
+        showDropdown();
+        comboInput.setAttribute(
+          "aria-expanded",
+          !dropdownEl.classList.contains("hidden") ? "true" : "false",
+        );
+      };
+      comboInput.addEventListener("input", onInput);
+      cleanupFns.push(() => comboInput.removeEventListener("input", onInput));
+
+      const onFocus = () => showDropdown();
+      comboInput.addEventListener("focus", onFocus);
+      cleanupFns.push(() => comboInput.removeEventListener("focus", onFocus));
+
+      const onBlur = () => setTimeout(() => hideDropdown(), 150);
+      comboInput.addEventListener("blur", onBlur);
+      cleanupFns.push(() => comboInput.removeEventListener("blur", onBlur));
+
+      const onKeydown = (e) => {
+        const options = dropdownEl.querySelectorAll("[data-combo-option]");
+        const isOpen = !dropdownEl.classList.contains("hidden");
+
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (!isOpen) {
+            showDropdown();
+            return;
+          }
+          highlightOption(
+            highlightIdx + 1 < options.length ? highlightIdx + 1 : 0,
+          );
+          return;
+        }
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (!isOpen) return;
+          highlightOption(
+            highlightIdx - 1 >= 0 ? highlightIdx - 1 : options.length - 1,
+          );
+          return;
+        }
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (isOpen && highlightIdx >= 0 && options[highlightIdx]) {
+            addTag(options[highlightIdx].getAttribute("data-combo-option"));
+            comboInput.value = "";
+            showDropdown(); // réouvre avec la liste mise à jour
+          }
+          return;
+        }
+        if (e.key === "Escape") {
+          hideDropdown();
+          return;
+        }
+        if (e.key === "Backspace" && !comboInput.value) {
+          const display = tags.filter((t) => !isCheckboxTag(t));
+          if (display.length) removeTag(display[display.length - 1]);
+        }
+      };
+      comboInput.addEventListener("keydown", onKeydown);
+      cleanupFns.push(() => comboInput.removeEventListener("keydown", onKeydown));
+
+      comboWrapper.append(pillZone, dropdownEl);
+      editorEl.appendChild(comboWrapper);
+
+      return editorEl;
+    }
+
+    // ────────────────────────────────────────────────
+    // attach / detach
+    // ────────────────────────────────────────────────
+
+    function attach(root = document) {
+      if (isActive) return;
+
+      subjectInput = root.querySelector('input[name="subject"]');
+      containerEl = root.querySelector("#tag-editor");
+      if (!containerEl || !subjectInput) return;
+
+      const parsed = parseSubject(subjectInput.value);
+      baseTitle = parsed.base;
+      tags = [...parsed.tags];
+      subjectInput.value = buildSubject();
+
+      const inputHandler = () => {
+        const p = parseSubject(subjectInput.value);
+        baseTitle = p.base;
+        tags = [...p.tags];
+        syncCheckboxes();
+        renderPills();
+        if (changeCb) changeCb(buildSubject(), [...tags]);
+      };
+      subjectInput.addEventListener("input", inputHandler);
+      cleanupFns.push(() =>
+        subjectInput.removeEventListener("input", inputHandler),
+      );
+
+      containerEl.innerHTML = "";
+      containerEl.appendChild(buildEditor());
+      renderPills();
+
+      isActive = true;
+      console.debug(
+        "[TagEditor] attaché —",
+        tags.length,
+        "tag(s),",
+        Object.keys(TAG_PRESETS).length,
+        "prédéfinis",
+      );
+    }
+
+    function detach() {
+      if (!isActive) return;
+
+      cleanupFns.forEach((fn) => fn());
+      cleanupFns = [];
+
+      if (editorEl) {
+        editorEl.remove();
+        editorEl = null;
+      }
+      dropdownEl = null;
+      comboInput = null;
+      checkboxes = {};
+      subjectInput = null;
+      containerEl = null;
+      tags = [];
+      baseTitle = "";
+      highlightIdx = -1;
+      isActive = false;
+
+      console.debug("[TagEditor] détaché");
+    }
+
+    function onChange(cb) {
+      changeCb = cb;
+    }
+
+    return {
+      attach,
+      detach,
+      onChange,
+      isActive: () => isActive,
+      addTag,
+      removeTag,
+      getTags: () => [...tags],
+      getSubject: buildSubject,
+    };
+  })();
+
   const addIconToCategory = (root = document) => {
     const category = root.querySelector("#topic-category");
     const nav = category.querySelector(".nav");
     nav.classList.add("flex");
-    // parse id from url of nav /f[id]-
     const m = nav?.href?.match(/\/f(\d+)-/);
     if (m) {
       const id = m[1];
       const icon = icons["f" + id];
-      // add icon as html tprepend
       if (icon) nav.insertAdjacentHTML("afterbegin", icon);
       category.classList.add(
         `bg-${forumTheme["f" + id].color}-100`,
@@ -9104,7 +10776,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
       const href = a.getAttribute("href")?.trim();
       if (!href) return;
 
-      // ignore ancres / pseudo-protocoles
       if (
         href.startsWith("#") ||
         href.startsWith("mailto:") ||
@@ -9121,21 +10792,14 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         return;
       }
 
-      // seulement les liens internes
       if (url.origin !== origin) return;
-
-      // optionnel: garder l’ancien texte
       if (!a.dataset.originalText) a.dataset.originalText = a.textContent ?? "";
-
       a.classList.add(className, "bg-zinc-100", "dark:bg-zinc-900");
 
-      // pathname uniquement (decode safe)
       let path = url.pathname || "/";
       try {
         path = decodeURIComponent(path);
       } catch {}
-
-      // ⚠️ Remplace TOUT le texte (et supprimera les icônes si elles sont dans <a>)
       a.textContent = path;
     });
   }
@@ -9143,7 +10807,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
   const addColorToPost = (root = document) => {
     const post = root.querySelector(".postbody");
     if (!post) return;
-    // based on category
     const category = root.querySelector("#topic-category .nav");
     const m = category?.href?.match(/\/f(\d+)-/);
     let color = "gray";
@@ -9151,90 +10814,249 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
       const id = m[1];
       color = forumTheme["f" + id]?.color || color;
     }
-
     root.body.style.setProperty("--author-color", `var(--color-${color}-500)`);
   };
 
-  const RESOLU_TEST_RE$1 =
-    /(^|[\s\-–—:;,.|])[\[\(]?\s*r[eéèêë]solu\s*[\]\)]?(?=$|[\s\-–—:;,.|])/i;
+  // ────────────────────────────────────────────────
+  // Tags entre crochets — [tag1, tag2, tag3]
+  // ────────────────────────────────────────────────
 
-  const RESOLU_STRIP_RE$1 =
-    /(^|[\s\-–—:;,.|])[\[\(]?\s*r[eéèêë]solu\s*[\]\)]?(?=$|[\s\-–—:;,.|])/gi;
+  const COLOR_MAP = {
+    emerald: {
+      bg: "bg-emerald-100",
+      text: "text-emerald-700",
+      darkBg: "dark:bg-emerald-950",
+      darkText: "dark:text-emerald-300",
+    },
+    blue: {
+      bg: "bg-blue-100",
+      text: "text-blue-700",
+      darkBg: "dark:bg-blue-950",
+      darkText: "dark:text-blue-300",
+    },
+    purple: {
+      bg: "bg-purple-100",
+      text: "text-purple-700",
+      darkBg: "dark:bg-purple-950",
+      darkText: "dark:text-purple-300",
+    },
+    amber: {
+      bg: "bg-amber-100",
+      text: "text-amber-700",
+      darkBg: "dark:bg-amber-950",
+      darkText: "dark:text-amber-300",
+    },
+    rose: {
+      bg: "bg-rose-100",
+      text: "text-rose-700",
+      darkBg: "dark:bg-rose-950",
+      darkText: "dark:text-rose-300",
+    },
+    cyan: {
+      bg: "bg-cyan-100",
+      text: "text-cyan-700",
+      darkBg: "dark:bg-cyan-950",
+      darkText: "dark:text-cyan-300",
+    },
+    lime: {
+      bg: "bg-lime-100",
+      text: "text-lime-700",
+      darkBg: "dark:bg-lime-950",
+      darkText: "dark:text-lime-300",
+    },
+    indigo: {
+      bg: "bg-indigo-100",
+      text: "text-indigo-700",
+      darkBg: "dark:bg-indigo-950",
+      darkText: "dark:text-indigo-300",
+    },
+    orange: {
+      bg: "bg-orange-100",
+      text: "text-orange-700",
+      darkBg: "dark:bg-orange-950",
+      darkText: "dark:text-orange-300",
+    },
+  };
 
-  const stripResolvedToken$1 = (raw) => {
-    const hadResolved = RESOLU_TEST_RE$1.test(raw || "");
-    if (!hadResolved) return { cleaned: raw || "", hadResolved: false };
+  const COLOR_KEYS = Object.keys(COLOR_MAP);
 
-    let cleaned = (raw || "").replace(RESOLU_STRIP_RE$1, "$1");
+  function hashColor(tag) {
+    let h = 0;
+    for (let i = 0; i < tag.length; i++)
+      h = ((h << 5) - h + tag.charCodeAt(i)) | 0;
+    return COLOR_MAP[COLOR_KEYS[Math.abs(h) % COLOR_KEYS.length]];
+  }
 
-    cleaned = cleaned
-      .replace(/\s{2,}/g, " ")
-      .replace(/^[\s\-–—:;,.|]+/g, "")
+  /** Recherche insensible à la casse/accents dans TAG_PRESETS */
+  function resolvePreset(key) {
+    if (TAG_PRESETS[key]) return { preset: TAG_PRESETS[key], canonical: key };
+    const lower = key.toLowerCase();
+    const found = Object.keys(TAG_PRESETS).find((k) => k.toLowerCase() === lower);
+    return found
+      ? { preset: TAG_PRESETS[found], canonical: found }
+      : { preset: null, canonical: key };
+  }
+
+  function tagColor(key) {
+    const { preset } = resolvePreset(key);
+    if (preset?.color && COLOR_MAP[preset.color]) return COLOR_MAP[preset.color];
+    return hashColor(key);
+  }
+
+  function tagLabel(key) {
+    const { preset } = resolvePreset(key);
+    return preset?.label || key;
+  }
+
+  function tagIcon(key) {
+    const { preset } = resolvePreset(key);
+    return preset?.icon || null;
+  }
+
+  const BRACKET_TAGS_RE = /\[([^\]]+)\]\s*$/;
+
+  const stripBracketTags = (raw) => {
+    const match = (raw || "").match(BRACKET_TAGS_RE);
+    if (!match) return { cleaned: raw || "", tags: [] };
+
+    const tags = match[1]
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
+
+    const cleaned = (raw || "")
+      .slice(0, match.index)
       .replace(/[\s\-–—:;,.|]+$/g, "")
       .trim();
 
-    return { cleaned, hadResolved: true };
+    return { cleaned, tags };
   };
 
-  const ensureResolvedBadge = (titleEl) => {
-    // déjà présent ?
-    let badge = titleEl.querySelector('label[data-resolved-badge="1"]');
-    if (badge) return badge;
-
-    badge = document.createElement("label");
-    badge.setAttribute("data-resolved-badge", "1");
-    badge.setAttribute("aria-label", "Sujet résolu");
-    badge.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 lucide lucide-circle-check-big-icon lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Résolu</span>`;
-
-    // style “badge” (Tailwind)
-    badge.className =
-      "flex gap-2 px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-200";
-
-    return badge;
+  const clearBadges = (container) => {
+    container.querySelectorAll("[data-tag-badge]").forEach((el) => el.remove());
   };
 
-  const removeResolvedBadge = (titleEl) => {
-    const badge = titleEl.querySelector('label[data-resolved-badge="1"]');
-    if (badge) badge.remove();
+  const createTagBadge = (key) => {
+    const color = tagColor(key);
+    const icon = tagIcon(key);
+    const label = tagLabel(key);
+
+    const span = document.createElement("span");
+    span.setAttribute("data-tag-badge", key);
+    span.className = [
+      "inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full",
+      color.bg,
+      color.text,
+      color.darkBg,
+      color.darkText,
+    ].join(" ");
+
+    if (icon) {
+      const iconSpan = document.createElement("span");
+      iconSpan.className = "inline-flex items-center [&>svg]:size-3";
+      iconSpan.innerHTML = icon;
+      span.appendChild(iconSpan);
+    }
+
+    const labelSpan = document.createElement("span");
+    labelSpan.textContent = label;
+    span.appendChild(labelSpan);
+
+    return span;
   };
+
+  // ────────────────────────────────────────────────
+  // Fonction principale — affichage des tags
+  // ────────────────────────────────────────────────
 
   const extractTagfromTitle = (root = document) => {
     const titleEl = root.querySelector("#topic-title");
     const container = root.querySelector("#tags-container");
-    if (!titleEl | !container) return;
+    if (!titleEl || !container) return;
 
-    // souvent le texte est dans un <a>, sinon directement dans #topic-title
     const host = titleEl.querySelector("a") || titleEl;
 
-    const before = (host.textContent || "").trim();
-    if (!before) return;
+    const text = (host.textContent || "").trim();
+    if (!text) return;
 
-    const { cleaned, hadResolved } = stripResolvedToken$1(before);
+    const { cleaned, tags } = stripBracketTags(text);
 
-    if (!hadResolved) {
-      // optionnel: si pas résolu, on enlève un badge existant
-      removeResolvedBadge(titleEl);
-      return;
+    if (cleaned !== text) {
+      host.textContent = cleaned;
     }
 
-    // 1) retirer le token du titre
-    if (cleaned !== before) host.textContent = cleaned;
+    clearBadges(container);
 
-    // 2) insérer le badge juste avant le host (donc “à la place” du token en début)
-    const badge = ensureResolvedBadge(titleEl);
+    // checkbox tags (résolu) en premier
+    const sorted = [...tags].sort((a, b) => {
+      const aCheck = resolvePreset(a).preset?.checkbox ? 0 : 1;
+      const bCheck = resolvePreset(b).preset?.checkbox ? 0 : 1;
+      return aCheck - bCheck;
+    });
 
-    // si badge déjà dans le bon parent, rien à faire
-    if (!badge.isConnected) {
-      // insère badge + espace avant le texte
-      container.appendChild(badge);
+    sorted.forEach((key) => {
+      container.appendChild(createTagBadge(key));
+    });
+  };
+
+  // ────────────────────────────────────────────────
+
+  const appendFirstPost = (root = document) => {
+    const articles = root.querySelectorAll("article");
+    if (!articles.length) return;
+
+    articles.forEach((article, index) => {
+      if (index === 0) {
+        const content = article.querySelector("#topic-content");
+        if (content) {
+          const reminder = content.querySelector("strong");
+          if (
+            reminder &&
+            reminder.textContent.trim().startsWith("Rappel du premier message")
+          ) {
+            let node = reminder.nextSibling;
+            let brToRemove = 2;
+            while (node && brToRemove > 0) {
+              if (
+                node.nodeType === Node.TEXT_NODE &&
+                node.textContent.trim() === ""
+              ) {
+                const toClean = node;
+                node = node.nextSibling;
+                toClean.remove();
+                continue;
+              }
+              if (node.nodeType === Node.ELEMENT_NODE && node.tagName === "BR") {
+                const br = node;
+                node = node.nextSibling;
+                br.remove();
+                brToRemove--;
+                continue;
+              }
+              break;
+            }
+            reminder.remove();
+          }
+        }
+      } else {
+        article.remove();
+      }
+    });
+
+    const firstPostWrapper = root.querySelector(
+      "#forum-replies > div:first-child",
+    );
+    if (firstPostWrapper && !firstPostWrapper.querySelector("article")) {
+      firstPostWrapper.remove();
     }
   };
 
   const initViewtopic = (root = document) => {
-    addIconToCategory();
+    appendFirstPost(root);
+    addIconToCategory(root);
     addColorToPost();
     markInternalLinks();
-    extractTagfromTitle();
+    extractTagfromTitle(root);
     initPrism(root);
   };
 
@@ -9471,173 +11293,9 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
   })();
 
   // features/postingbody.js
-  //
-
-  const RESOLU_TEST_RE =
-    /(^|[\s\-–—:;,.|])[\[\(]?\s*r[eéèêë]solu\s*[\]\)]?(?=$|[\s\-–—:;,.|])/i;
-
-  const RESOLU_STRIP_RE =
-    /(^|[\s\-–—:;,.|])[\[\(]?\s*r[eéèêë]solu\s*[\]\)]?(?=$|[\s\-–—:;,.|])/gi;
-
-  const RESOLU_CANON = "(Résolu)";
-
-  /** Nettoie espaces multiples + ponctuation résiduelle */
-  function normalizeSubject(text = "") {
-    return text
-      .replace(/\s{2,}/g, " ")
-      .replace(/^[\s\-–—:;,.|]+/g, "")
-      .replace(/[\s\-–—:;,.|]+$/g, "")
-      .trim();
-  }
-
-  /** Retire le token "(Résolu)" et indique s’il était présent */
-  function stripResolvedToken(raw) {
-    const hadResolved = RESOLU_TEST_RE.test(raw || "");
-    if (!hadResolved) {
-      return { cleaned: raw || "", hadResolved: false };
-    }
-
-    const cleaned = normalizeSubject((raw || "").replace(RESOLU_STRIP_RE, "$1"));
-    return { cleaned, hadResolved: true };
-  }
-
-  /** Prépare le sujet pour le submit */
-  function subjectForSubmit(raw, isResolvedChecked) {
-    const { cleaned } = stripResolvedToken(raw);
-    return isResolvedChecked
-      ? cleaned
-        ? `${RESOLU_CANON} ${cleaned}`
-        : RESOLU_CANON
-      : cleaned;
-  }
-
-  function normalizeText(s = "") {
-    return s
-      .normalize("NFD")
-      .replace(/\p{Diacritic}/gu, "")
-      .toLowerCase();
-  }
-
-  function findTitleInput(root = document) {
-    return root.querySelector('input[name="subject"]');
-  }
-
-  /** Cherche la checkbox "Résolu" (stratégies par ordre de priorité) */
-  function findResolvedCheckbox(root = document) {
-    // 1. Attribut explicite (le plus fiable)
-    const explicit = root.querySelector(
-      'input[type="checkbox"][data-subject-value]',
-    );
-    if (explicit) return explicit;
-
-    // 2. id ou name contient "resol"
-    const byAttr = Array.from(
-      root.querySelectorAll('input[type="checkbox"]'),
-    ).find((el) => (el.id + el.name).toLowerCase().includes("resol"));
-    if (byAttr) return byAttr;
-
-    // 3. Label contenant "résolu"
-    const label = Array.from(root.querySelectorAll("label")).find((l) =>
-      normalizeText(l.textContent).includes("resolu"),
-    );
-
-    if (!label) return null;
-
-    const forId = label.getAttribute("for");
-    if (forId) {
-      const byFor =
-        root.querySelector(`#${CSS.escape(forId)}`) ||
-        document.querySelector(`#${CSS.escape(forId)}`);
-      if (byFor?.type === "checkbox") return byFor;
-    }
-
-    return label.querySelector('input[type="checkbox"]') || null;
-  }
-
-  /* ====================== LOGIQUE ACTUELLE EXTRAITE ====================== */
-
-  /**
-   * Gère toute la synchronisation du token "(Résolu)".
-   * Extraite dans une variable pour que initPostingBody reste extensible.
-   */
-  const initResolvedSync = (container = document) => {
-    const root =
-      container && typeof container.querySelector === "function"
-        ? container
-        : document;
-
-    const titleInput = findTitleInput(root);
-    if (!titleInput) return;
-
-    const checkbox = findResolvedCheckbox(root);
-
-    // Fallback serveur (stable même après restauration navigateur)
-    const fallback = stripResolvedToken(checkbox?.dataset?.subjectValue || "");
-    const fallbackCleaned = fallback.cleaned;
-    const fallbackHadResolved = fallback.hadResolved;
-
-    let userHasTouchedCheckbox = false;
-
-    // Bind checkbox (une seule fois)
-    if (checkbox && !checkbox.dataset.resoluBound) {
-      checkbox.dataset.resoluBound = "1";
-      checkbox.addEventListener("change", () => {
-        userHasTouchedCheckbox = true;
-      });
-    }
-
-    /** Synchronise titre → checkbox + nettoyage automatique */
-    const syncCheckboxFromTitle = () => {
-      const raw = titleInput.value || "";
-      const { cleaned } = stripResolvedToken(raw);
-
-      if (cleaned !== raw) titleInput.value = cleaned;
-
-      if (!checkbox || userHasTouchedCheckbox) return;
-
-      const shouldCheck =
-        RESOLU_TEST_RE.test(raw) ||
-        (fallbackHadResolved && cleaned === fallbackCleaned);
-
-      checkbox.checked = shouldCheck;
-    };
-
-    // Protection contre les remounts / double binding
-    if (titleInput.dataset.resoluSyncBound) {
-      syncCheckboxFromTitle();
-      return;
-    }
-    titleInput.dataset.resoluSyncBound = "1";
-
-    // Init + listeners
-    syncCheckboxFromTitle();
-
-    titleInput.addEventListener("paste", () =>
-      setTimeout(syncCheckboxFromTitle, 0),
-    );
-    titleInput.addEventListener("input", syncCheckboxFromTitle); // plus réactif que "change"
-    titleInput.addEventListener("blur", syncCheckboxFromTitle);
-
-    // Sécurité avant submit
-    if (titleInput.form && !titleInput.form.dataset.resoluSubmitBound) {
-      titleInput.form.dataset.resoluSubmitBound = "1";
-      titleInput.form.addEventListener(
-        "submit",
-        () => {
-          const checked = !!checkbox?.checked;
-          titleInput.value = subjectForSubmit(titleInput.value, checked);
-        },
-        true,
-      );
-    }
-  };
-
-  /* ====================== POINT D'ENTRÉE PRINCIPAL ====================== */
 
   const initPostingBody = (container = document) => {
-    // === Fonctionnalité actuelle ===
     initPrism(container);
-    initResolvedSync(container);
   };
 
   /**
@@ -9780,7 +11438,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
   // ==================== CLASSE UNIFORME POUR TOUTES LES ICÔNES ====================
   // ← MODIFIE ICI UNE SEULE FOIS (taille, couleur, stroke, etc.)
-  const COMMON_ICON_CLASSES = "lucide w-4 h-4";
+  const COMMON_ICON_CLASSES = "lucide w-3 h-3";
 
   // Fonction qui wrappe TOUS les icônes avec la même classe
   const createIcon = (innerContent) => `
@@ -9926,7 +11584,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           <div class="relative flex gap-6 mb-4">
             <div class="shrink-0 relative self-start">
               <img src="${avatarUrl}" class="w-10 h-10 rounded-full border-2 border-white dark:border-black shadow-sm" alt="${username}">
-              <div class="absolute -right-2 -bottom-2 w-6 h-6 bg-linear-to-br ${config.bg} rounded-full flex items-center justify-center text-white">
+              <div class="absolute -right-1 -bottom-1 w-5 h-5 bg-linear-to-br ${config.bg} rounded-full flex items-center justify-center text-white">
                 ${iconHTML}
               </div>
             </div>
@@ -23202,6 +24860,47 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
   }
   if (shouldShowDeprecationWarning()) console.warn("⚠️  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217");
 
+  /**
+   * Extrait les [tags] des titres de sujets dans la liste du forum
+   * et les affiche en badges à côté du titre.
+   */
+  const extractTagsFromTopics = (root = document) => {
+    root
+      .querySelectorAll(
+        ".topictitle, [data-barba-namespace='viewforum'] a.truncate",
+      )
+      .forEach((link) => {
+        const text = (link.textContent || "").trim();
+        if (!text) return;
+
+        const { cleaned, tags } = stripBracketTags(text);
+        if (!tags.length) return;
+
+        link.textContent = cleaned;
+
+        // Trouver le .tags-container le plus proche (sibling, parent, ou ancêtre)
+        const row = link.closest(".topic");
+        const container = row?.querySelector(".tags-container");
+        if (!container) return;
+
+        // Nettoyer les badges existants
+        container
+          .querySelectorAll("[data-tag-badge]")
+          .forEach((el) => el.remove());
+
+        // Trier : checkbox tags (résolu) en premier
+        const sorted = [...tags].sort((a, b) => {
+          const aCheck = resolvePreset(a).preset?.checkbox ? 0 : 1;
+          const bCheck = resolvePreset(b).preset?.checkbox ? 0 : 1;
+          return aCheck - bCheck;
+        });
+
+        sorted.forEach((key) => {
+          container.appendChild(createTagBadge(key));
+        });
+      });
+  };
+
   const initViewforum = (root = document) => {
     const forumName = root.dataset?.name;
     const forumID = root.dataset?.id?.replace(/[^\d]/g, "");
@@ -23211,8 +24910,10 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
       return;
     }
 
-    // Extraction propre depuis le document FETCHÉ (pas le DOM live)
-    const data = extractGalleryCategory(forumName, supabase);
+    // Extraire les tags des titres
+    extractTagsFromTopics(root);
+
+    const data = extractGalleryCategory();
 
     const enrichedData = {
       ...data,
@@ -23225,16 +24926,39 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
       enrichedData,
     );
 
-    potion.sync("gallery", enrichedData);
+    // potion.sync("gallery", enrichedData);
   };
 
   const extractGalleryCategory = () => {};
 
+  // ── BBCode Editor ──
   registerModule({
     mount(container) {
       BBcodeEditor.attach(container);
       return () => BBcodeEditor.detach();
     },
+  });
+
+  // ── Tag Editor (résolu + tags libres) ──
+  registerModule({
+    mount(container) {
+      TagEditor.attach(container);
+      return () => TagEditor.detach();
+    },
+  });
+
+  // ── Footer ──
+  registerModule({
+    mount(container) {
+      initFooter(container);
+    },
+  });
+
+  // Callback optionnel : réagir aux changements de tags
+  TagEditor.onChange((newSubject, tags) => {
+    console.debug("[Tags] nouveau sujet :", newSubject, tags);
+    // → ici, appeler ton API de mise à jour du titre si nécessaire
+    // ex: updateTopicTitle(newSubject);
   });
 
   function initUI() {
@@ -23254,6 +24978,16 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
       document.querySelector('section[data-barba="container"]') || document;
 
     onNamespace("index", { afterEnter: async () => console.log("index") });
+
+    onNamespace("profile", {
+      once() {
+        //
+        window.location.pathname = "/";
+      },
+      enter: async ({ next }) => {
+        window.location.pathname = "/";
+      },
+    });
 
     onNamespace("viewtopic", {
       once() {
@@ -23293,10 +25027,12 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
     initBarba();
     initSidebar();
+    initSearch();
     initMobileSidebar();
     initLayout();
     initResize();
     initChat(supabase);
+    initWombat(supabase);
     updateTyme();
 
     return { Context };

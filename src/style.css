@@ -22,8 +22,7 @@ body {
 }
 
 section[data-barba="container"] {
-    flex: 1;
-    overflow: auto;
+    @apply flex-1 overflow-auto;
 }
 
 a[href^="/u"] strong {
@@ -273,6 +272,83 @@ div[data-thanked*="style"]::after {
     }
 }
 
+.pagination:not(strong) {
+    @apply text-[0px] flex justify-center;
+    a[href^="javascript"] {
+        @apply hidden;
+    }
+    > span {
+        @apply flex min-w-0 overflow-hidden bg-zinc-100 dark:bg-zinc-900 p-1 rounded-lg;
+        a,
+        strong {
+            @apply shrink-0 w-8 h-8 flex items-center justify-center aspect-square p-1 rounded-md text-sm mx-0.5;
+        }
+        a {
+            @apply transition-all bg-transparent cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700;
+        }
+        strong {
+            @apply rounded-md transition-all bg-white shadow-sm dark:bg-zinc-700 font-semibold;
+        }
+    }
+    .pag-img:has(img[src*="left"]),
+    .pag-img:has(img[src*="right"]) {
+        @apply flex;
+        img {
+            @apply hidden;
+        }
+        &::after {
+            @apply w-6 h-6 bg-no-repeat bg-center;
+            content: "";
+        }
+    }
+    .pag-img:has(img[src*="left"]) {
+        &::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-left-icon lucide-chevron-left'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
+        }
+    }
+    .pag-img:has(img[src*="right"]) {
+        &::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-right-icon lucide-chevron-right'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+        }
+    }
+    .page-sep {
+        @apply hidden;
+    }
+}
+
+strong.pagination {
+    @apply inline-flex items-center gap-0.5 text-[0px];
+
+    .page-sep {
+        @apply hidden;
+    }
+
+    > span {
+        @apply inline-flex items-center gap-0.5
+               bg-zinc-100 dark:bg-zinc-800
+               p-0.5 rounded-lg font-normal;
+
+        a {
+            @apply inline-flex items-center justify-center
+                   h-6 min-w-[24px] px-1.5
+                   rounded-md text-xs
+                   hover:bg-zinc-200 dark:hover:bg-zinc-700
+                transition-all cursor-pointer;
+        }
+    }
+}
+
+.lastpost-img {
+    img {
+        @apply hidden;
+    }
+    a:before {
+        content: "";
+        @apply block w-4 h-4 bg-no-repeat bg-center;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-circle-chevron-right-icon lucide-circle-chevron-right'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m10 8 4 4-4 4'/%3E%3C/svg%3E");
+    }
+}
+
 .postbody {
     a {
         text-decoration: underline;
@@ -376,6 +452,10 @@ div[data-thanked*="style"]::after {
     display: none;
 }
 
+#preview.error {
+    @apply flex gap-2 text-red-400;
+}
+
 .chat-message-markdown {
     blockquote {
         @apply border-l-2 border-zinc-300 dark:border-zinc-700 pl-2 italic;
@@ -396,4 +476,49 @@ div[data-thanked*="style"]::after {
 }
 .chat-mention-self {
     @apply bg-indigo-50 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300;
+}
+
+/* wombat */
+.wombat-status[data-status="Hors ligne"] {
+    @apply hidden;
+}
+
+/* Fond atténué */
+.wombat-overlay {
+    position: fixed;
+    z-index: 990;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    transition: 0.2s opacity ease;
+    @apply bg-black/25;
+}
+
+/* effet de transition du fond atténué */
+.wombat-overlay.open {
+    opacity: 0.5;
+    visibility: visible;
+}
+
+/* Fenêtre du popup */
+.wombat-aside {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transition: 0.2s all ease;
+    visibility: hidden;
+    height: max-content;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+    @apply max-w-xl w-full;
+}
+
+/* effet de transition pour la fenêtre */
+.wombat-aside.open {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    visibility: visible;
 }

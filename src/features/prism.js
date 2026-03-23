@@ -177,7 +177,7 @@ export function prependCopyButton(root = document) {
       e.preventDefault();
       e.stopPropagation();
 
-      const text = code.innerHTML || "";
+      const text = code.textContent || "";
       try {
         await copyText(text);
         btn.innerHTML = copyCheckHTML;

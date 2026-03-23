@@ -46,6 +46,8 @@ const CFG = {
   STAGE_Z: 280,
   OVERLAY_Z: 290,
 
+  PREVENT_SELECTORS: ['a[href^="/u"]'],
+
   // Motion
   ENTER_MS: 420,
   BACK_CLOSE_MS: 420,
@@ -129,7 +131,9 @@ export function initBarba() {
   updateTyme(document);
 
   barba.init({
-    prevent: ({ el }) => el?.hasAttribute?.("data-barba-prevent"),
+    prevent: ({ el }) =>
+      el?.hasAttribute?.("data-barba-prevent") ||
+      CFG.PREVENT_SELECTORS.some((sel) => el?.matches?.(sel)),
 
     transitions: [
       {

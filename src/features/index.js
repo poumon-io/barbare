@@ -138,7 +138,7 @@ const COUNTER_CONFIGS = [
 
 // ==================== CLASSE UNIFORME POUR TOUTES LES ICÔNES ====================
 // ← MODIFIE ICI UNE SEULE FOIS (taille, couleur, stroke, etc.)
-const COMMON_ICON_CLASSES = "lucide w-4 h-4";
+const COMMON_ICON_CLASSES = "lucide w-3 h-3";
 
 // Fonction qui wrappe TOUS les icônes avec la même classe
 const createIcon = (innerContent) => `
@@ -284,7 +284,7 @@ async function initRecentActivity(container) {
           <div class="relative flex gap-6 mb-4">
             <div class="shrink-0 relative self-start">
               <img src="${avatarUrl}" class="w-10 h-10 rounded-full border-2 border-white dark:border-black shadow-sm" alt="${username}">
-              <div class="absolute -right-2 -bottom-2 w-6 h-6 bg-linear-to-br ${config.bg} rounded-full flex items-center justify-center text-white">
+              <div class="absolute -right-1 -bottom-1 w-5 h-5 bg-linear-to-br ${config.bg} rounded-full flex items-center justify-center text-white">
                 ${iconHTML}
               </div>
             </div>

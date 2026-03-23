@@ -8,20 +8,47 @@ import {
 import { initSidebar, initMobileSidebar } from "../core/sidebar.js";
 import { initLayout, initResize } from "../core/layout.js";
 import { initChat } from "../core/chat.js";
+import { initSearch } from "../core/search.js";
+import { initFooter } from "../core/footer.js";
+import { initWombat } from "../core/wombat.js";
 import { updateTyme } from "../lib/tyme.js";
 import { initViewtopic } from "../features/viewtopic.js";
 import { BBcodeEditor } from "../features/editor.js";
+import { TagEditor } from "../features/tag-editor.js";
 import { initPostingBody } from "../features/postingbody.js";
 import { initIndex } from "../features/index.js";
 
 import { createClient } from "@supabase/supabase-js";
 import { initViewforum } from "../features/viewforum.js";
 
+// ── BBCode Editor ──
 registerModule({
   mount(container) {
     BBcodeEditor.attach(container);
     return () => BBcodeEditor.detach();
   },
+});
+
+// ── Tag Editor (résolu + tags libres) ──
+registerModule({
+  mount(container) {
+    TagEditor.attach(container);
+    return () => TagEditor.detach();
+  },
+});
+
+// ── Footer ──
+registerModule({
+  mount(container) {
+    initFooter(container);
+  },
+});
+
+// Callback optionnel : réagir aux changements de tags
+TagEditor.onChange((newSubject, tags) => {
+  console.debug("[Tags] nouveau sujet :", newSubject, tags);
+  // → ici, appeler ton API de mise à jour du titre si nécessaire
+  // ex: updateTopicTitle(newSubject);
 });
 
 export function initUI() {
@@ -41,6 +68,16 @@ export function initUI() {
     document.querySelector('section[data-barba="container"]') || document;
 
   onNamespace("index", { afterEnter: async () => console.log("index") });
+
+  onNamespace("profile", {
+    once() {
+      //
+      window.location.pathname = "/";
+    },
+    enter: async ({ next }) => {
+      window.location.pathname = "/";
+    },
+  });
 
   onNamespace("viewtopic", {
     once() {
@@ -80,10 +117,12 @@ export function initUI() {
 
   initBarba();
   initSidebar();
+  initSearch();
   initMobileSidebar();
   initLayout();
   initResize();
   initChat(supabase);
+  initWombat(supabase);
   updateTyme();
 
   return { Context };

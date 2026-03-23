@@ -44,7 +44,6 @@
     width: var(--menuSize);
     position: absolute;
     z-index: 900;
-    top: -1px;
     height: 100%;
     left: calc(var(--menuSize) * -1);
     display: flex;

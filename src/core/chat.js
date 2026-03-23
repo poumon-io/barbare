@@ -220,11 +220,24 @@ export const initChat = (supabase) => {
 
     const canWrite =
       externalId !== "" && externalId !== "0" && externalId !== "-1";
-    return { externalId, username, avatarUrl, canWrite, isAdmin };
+
+    const rawColor = String(
+      ud.groupcolor ?? ud.group_color ?? ud.groupColor ?? "",
+    ).trim();
+    const normalizedColor = rawColor.startsWith("#")
+      ? rawColor
+      : rawColor
+        ? `#${rawColor}`
+        : "";
+    const groupColor = /^#[0-9a-fA-F]{3,8}$/.test(normalizedColor)
+      ? normalizedColor
+      : null;
+
+    return { externalId, username, avatarUrl, canWrite, isAdmin, groupColor };
   };
 
   const timeAgo = (() => {
-    const rtf = new Intl.RelativeTimeFormat("fr-CA", { numeric: "auto" });
+    const rtf = new Intl.RelativeTimeFormat("fr-CA", { numeric: "always" });
     const units = [
       ["year", 31536000],
       ["month", 2592000],
@@ -249,6 +262,20 @@ export const initChat = (supabase) => {
     };
   })();
 
+  const formatFullDate = (() => {
+    const fmt = new Intl.DateTimeFormat("fr-CA", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return (iso) => {
+      const d = new Date(iso);
+      return Number.isNaN(d.getTime()) ? "" : fmt.format(d);
+    };
+  })();
+
   // Anti double-mount (Barba)
   try {
     window.__faChatUnmount?.();
@@ -262,6 +289,7 @@ export const initChat = (supabase) => {
 
   let presenceTimer = null;
   let presenceCleanupTimer = null;
+  let unreadTimer = null;
 
   const app = createApp({
     setup() {
@@ -316,9 +344,6 @@ export const initChat = (supabase) => {
       const newRoomName = ref("");
       const error = ref("");
 
-      // cache des messages par room (référence vers le tableau affiché si room active)
-      const messagesCache = new Map(); // rid -> Array
-
       // paging state par room
       const paging = new Map(); // rid -> { oldestId: number|null, hasMore: boolean }
       const getPaging = (rid) => {
@@ -372,8 +397,13 @@ export const initChat = (supabase) => {
         el.style.overflowY = el.scrollHeight > maxHeight ? "auto" : "hidden";
       };
 
+      const clearFirstUnread = () => {
+        firstUnreadId.value = null;
+      };
+
       const focusDraft = () => {
         draftEl.value?.focus({ preventScroll: true });
+        clearFirstUnread();
       };
 
       const cancelEdit = async () => {
@@ -512,8 +542,6 @@ export const initChat = (supabase) => {
             };
         };
         markDeleted(messages.value);
-        const cached = messagesCache.get(rid);
-        if (cached) markDeleted(cached);
 
         // Persist Supabase
         const { error: e } = await supabase
@@ -553,6 +581,9 @@ export const initChat = (supabase) => {
       watch(roomId, (newRid) => {
         if (edit.id != null) cancelEdit();
         mention.open = false;
+        reactionPicker.open = false;
+        // Vide les réactions de l'ancienne room
+        for (const k of Object.keys(reactions)) delete reactions[k];
         subscribeTyping(newRid);
       });
 
@@ -561,11 +592,12 @@ export const initChat = (supabase) => {
       // ----------------------------
       const enableUnread = computed(() => me.canWrite);
       const unread = reactive({});
+      // ID du premier message non lu — pilote le séparateur "NOUVEAU"
+      const firstUnreadId = ref(null);
       const unreadCount = (rid) => {
         if (!enableUnread.value) return 0;
         const k = String(rid ?? "");
-        const v = unread[k];
-        return Number.isFinite(v) ? v : 0;
+        return unread[k] || 0;
       };
       const resetUnread = (rid) => {
         if (!enableUnread.value) return;
@@ -590,8 +622,205 @@ export const initChat = (supabase) => {
       const pinnedPopEl = ref(null);
 
       // ----------------------------
-      // MENTIONS @
+      // CLASSEMENT XP
       // ----------------------------
+      const leaderboard = ref([]);
+      const leaderboardLoading = ref(false);
+      const showLeaderboard = ref(false);
+      const leaderboardBtnEl = ref(null);
+      const leaderboardPopEl = ref(null);
+
+      const myLeaderboardRank = computed(() => {
+        const idx = leaderboard.value.findIndex(
+          (u) => u.external_user_id === me.externalId,
+        );
+        return idx === -1 ? null : idx + 1;
+      });
+
+      const loadLeaderboard = async () => {
+        leaderboardLoading.value = true;
+        const { data } = await supabase
+          .from("user_stats")
+          .select("external_user_id,username,avatar_url,xp,level")
+          .order("level", { ascending: false })
+          .order("xp", { ascending: false })
+          .limit(10);
+        leaderboard.value = (data || []).map((u) => ({
+          ...u,
+          avatar_url: safeUrl(u.avatar_url || ""),
+          xp: u.xp ?? 0,
+          level: u.level ?? 1,
+        }));
+        leaderboardLoading.value = false;
+      };
+
+      const onDocMouseDownLeaderboard = (ev) => {
+        if (!showLeaderboard.value) return;
+        if (leaderboardPopEl.value?.contains(ev.target)) return;
+        if (leaderboardBtnEl.value?.contains(ev.target)) return;
+        showLeaderboard.value = false;
+      };
+
+      watch(showLeaderboard, (v) => {
+        if (v) loadLeaderboard();
+      });
+
+      // ----------------------------
+      // RÉACTIONS
+      // ----------------------------
+      // Map : message_id (string) → [{ emoji, count, users: Set<external_user_id> }]
+      const reactions = reactive({});
+
+      const reactionPicker = reactive({
+        open: false,
+        messageId: null,
+        query: "",
+        category: "face-emotion",
+        above: false, // true = picker au-dessus du bouton
+      });
+      const reactionPickerEl = ref(null);
+
+      const normalizeReactions = (rows) => {
+        const map = {};
+        for (const r of rows || []) {
+          const mid = String(r.message_id);
+          if (!map[mid]) map[mid] = {};
+          if (!map[mid][r.emoji])
+            map[mid][r.emoji] = { emoji: r.emoji, count: 0, users: new Set() };
+          map[mid][r.emoji].count++;
+          map[mid][r.emoji].users.add(r.external_user_id);
+        }
+        const result = {};
+        for (const [mid, emojis] of Object.entries(map)) {
+          result[mid] = Object.values(emojis);
+        }
+        return result;
+      };
+
+      const loadReactions = async (rid) => {
+        if (!rid) return;
+        const ids = messages.value
+          .map((m) => m.id)
+          .filter((id) => Number.isFinite(Number(id)));
+        if (!ids.length) return;
+        const { data } = await supabase
+          .from("message_reactions")
+          .select("message_id,external_user_id,emoji")
+          .in("message_id", ids);
+        const normalized = normalizeReactions(data);
+        for (const [mid, list] of Object.entries(normalized)) {
+          reactions[mid] = list;
+        }
+      };
+
+      const getReactions = (messageId) => reactions[String(messageId)] || [];
+
+      const myReactionEmoji = (messageId) => {
+        const list = reactions[String(messageId)] || [];
+        return list.find((r) => r.users.has(me.externalId))?.emoji || null;
+      };
+
+      const toggleReaction = async (messageId, emoji) => {
+        if (!me.canWrite) return;
+        const mid = String(messageId);
+        const current = myReactionEmoji(messageId);
+
+        if (current === emoji) {
+          // Toggle off — même emoji
+          const idx = reactions[mid]?.findIndex((r) => r.emoji === emoji) ?? -1;
+          if (idx >= 0) {
+            reactions[mid][idx].count--;
+            reactions[mid][idx].users.delete(me.externalId);
+            if (reactions[mid][idx].count <= 0) reactions[mid].splice(idx, 1);
+          }
+          await supabase
+            .from("message_reactions")
+            .delete()
+            .eq("message_id", messageId)
+            .eq("external_user_id", me.externalId);
+        } else {
+          // Retire l'ancienne localement si elle existe
+          if (current) {
+            const oldIdx =
+              reactions[mid]?.findIndex((r) => r.emoji === current) ?? -1;
+            if (oldIdx >= 0) {
+              reactions[mid][oldIdx].count--;
+              reactions[mid][oldIdx].users.delete(me.externalId);
+              if (reactions[mid][oldIdx].count <= 0)
+                reactions[mid].splice(oldIdx, 1);
+            }
+          }
+          // Ajoute la nouvelle
+          if (!reactions[mid]) reactions[mid] = [];
+          const existing = reactions[mid].find((r) => r.emoji === emoji);
+          if (existing) {
+            existing.count++;
+            existing.users.add(me.externalId);
+          } else
+            reactions[mid].push({
+              emoji,
+              count: 1,
+              users: new Set([me.externalId]),
+            });
+          // Upsert (remplace l'ancienne via UNIQUE constraint)
+          await supabase.from("message_reactions").upsert(
+            {
+              message_id: messageId,
+              external_user_id: me.externalId,
+              username: me.username,
+              emoji,
+            },
+            { onConflict: "message_id,external_user_id" },
+          );
+          void giveReactionXp();
+        }
+        reactionPicker.open = false;
+      };
+
+      const toggleReactionPicker = (messageId, event) => {
+        if (
+          reactionPicker.open &&
+          reactionPicker.messageId === String(messageId)
+        ) {
+          reactionPicker.open = false;
+          return;
+        }
+
+        // Détermine si le bouton est dans la moitié haute du conteneur scrollable
+        const btn = event?.currentTarget ?? event?.target;
+        const container = messagesEl.value;
+        if (btn && container) {
+          const btnRect = btn.getBoundingClientRect();
+          const contRect = container.getBoundingClientRect();
+          const relCenter = btnRect.top - contRect.top;
+          reactionPicker.above = relCenter > contRect.height / 2;
+        } else {
+          reactionPicker.above = false;
+        }
+
+        reactionPicker.open = true;
+        reactionPicker.messageId = String(messageId);
+        reactionPicker.query = "";
+        reactionPicker.category = "face-emotion";
+      };
+
+      const reactionPickerFiltered = computed(() => {
+        const q = normalize(reactionPicker.query);
+        if (q) {
+          return EMOJI_INDEX.filter(
+            (x) => x._s.includes(q) || x.emoji.includes(reactionPicker.query),
+          ).slice(0, 81);
+        }
+        return EMOJI_INDEX.filter(
+          (x) => x.category === reactionPicker.category,
+        );
+      });
+
+      const onDocMouseDownReaction = (ev) => {
+        if (!reactionPicker.open) return;
+        if (reactionPickerEl.value?.contains(ev.target)) return;
+        reactionPicker.open = false;
+      };
       const mention = reactive({
         open: false,
         query: "",
@@ -716,7 +945,7 @@ export const initChat = (supabase) => {
         const { data } = await supabase
           .from("chat_messages")
           .select(
-            "id,room_id,external_user_id,username,avatar_url,content,created_at,pinned_at,pinned_by,deleted_at",
+            "id,room_id,external_user_id,username,avatar_url,group_color,content,created_at,pinned_at,pinned_by,deleted_at",
           )
           .eq("room_id", rid)
           .not("pinned_at", "is", null)
@@ -829,6 +1058,7 @@ export const initChat = (supabase) => {
             external_user_id: me.externalId,
             username: me.username,
             avatar_url: me.avatarUrl || "",
+            group_color: me.groupColor || null,
           },
         });
       };
@@ -913,6 +1143,9 @@ export const initChat = (supabase) => {
         query: "",
         category: "face-emotion",
       });
+
+      // Message ciblé par le picker emoji en mode réaction (null = mode draft normal)
+      const reactionTarget = ref(null);
 
       // IMPORTANT : index de recherche pré-normalisé (perfs)
       const EMOJI_INDEX = ALL_EMOJIS.map((x) => ({
@@ -1006,9 +1239,26 @@ export const initChat = (supabase) => {
       };
 
       const pickEmoji = async (ch) => {
-        await insertAtCursor(ch);
-        emoji.open = false;
-        draftEl.value?.focus({ preventScroll: true });
+        if (reactionTarget.value) {
+          // Mode réaction — applique sur le message ciblé
+          await toggleReaction(reactionTarget.value, ch);
+          reactionTarget.value = null;
+          emoji.open = false;
+          emoji.query = "";
+        } else {
+          // Mode draft — insère dans le textarea
+          await insertAtCursor(ch);
+          emoji.open = false;
+          draftEl.value?.focus({ preventScroll: true });
+        }
+      };
+
+      const openReactionPicker = async (m) => {
+        reactionTarget.value = m;
+        emoji.open = true;
+        emoji.query = "";
+        await nextTick();
+        emojiSearchEl.value?.focus({ preventScroll: true });
       };
 
       // close on click outside
@@ -1029,15 +1279,20 @@ export const initChat = (supabase) => {
 
         emoji.open = false;
         gif.open = false;
+        reactionTarget.value = null;
       };
 
       onMounted(() => {
         document.addEventListener("mousedown", onDocMouseDown);
         document.addEventListener("mousedown", onDocMouseDownPinned);
+        document.addEventListener("mousedown", onDocMouseDownReaction);
+        document.addEventListener("mousedown", onDocMouseDownLeaderboard);
       });
       onBeforeUnmount(() => {
         document.removeEventListener("mousedown", onDocMouseDown);
         document.removeEventListener("mousedown", onDocMouseDownPinned);
+        document.removeEventListener("mousedown", onDocMouseDownReaction);
+        document.removeEventListener("mousedown", onDocMouseDownLeaderboard);
       });
 
       // ----------------------------
@@ -1109,9 +1364,38 @@ export const initChat = (supabase) => {
         const container = messagesEl.value;
         if (!container) return;
 
-        // Attend 2 cycles Vue + 1 frame pour que le DOM soit rendu
         await nextTick();
         await nextTick();
+        await new Promise((r) => requestAnimationFrame(r));
+
+        // Attend que toutes les images du conteneur soient chargées
+        // (même logique que scrollBottom — avatars, GIFs, images collées)
+        const images = container.querySelectorAll("img");
+        if (images.length > 0) {
+          await new Promise((resolve) => {
+            const fallback = setTimeout(resolve, 2000);
+            let pending = 0;
+            images.forEach((img) => {
+              if (!img.complete) {
+                pending++;
+                const done = () => {
+                  if (--pending === 0) {
+                    clearTimeout(fallback);
+                    resolve();
+                  }
+                };
+                img.addEventListener("load", done, { once: true });
+                img.addEventListener("error", done, { once: true });
+              }
+            });
+            if (pending === 0) {
+              clearTimeout(fallback);
+              resolve();
+            }
+          });
+        }
+
+        // Recalcule après que les images ont modifié le layout
         await new Promise((r) => requestAnimationFrame(r));
 
         const target = container.querySelector(
@@ -1119,12 +1403,9 @@ export const initChat = (supabase) => {
         );
         if (!target) return;
 
-        // Calcule l'offset relatif au conteneur scrollable (pas au viewport)
         const containerRect = container.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
         const offset = targetRect.top - containerRect.top + container.scrollTop;
-
-        // Centre le message dans le conteneur
         const centeredTop =
           offset - container.clientHeight / 2 + target.offsetHeight / 2;
 
@@ -1363,6 +1644,8 @@ export const initChat = (supabase) => {
             {
               external_user_id: me.externalId,
               username: me.username,
+              avatar_url: me.avatarUrl || null,
+              group_color: me.groupColor || null,
               xp: 0,
               level: 1,
               xp_to_next: computeXpToNext(1),
@@ -1423,6 +1706,8 @@ export const initChat = (supabase) => {
             {
               external_user_id: me.externalId,
               username: me.username,
+              avatar_url: me.avatarUrl || null,
+              group_color: me.groupColor || null,
               xp: newXp,
               level: newLevel,
               xp_to_next: xpToNext,
@@ -1525,6 +1810,7 @@ export const initChat = (supabase) => {
               external_user_id: me.externalId,
               username: me.username,
               avatar_url: me.avatarUrl || null,
+              group_color: me.groupColor || null,
               content: `![Image collée](${publicUrl})`,
               reply_to_message_id: reply.id || null,
               reply_to_username: reply.username || null,
@@ -1631,16 +1917,12 @@ export const initChat = (supabase) => {
       const scrollBottom = async () => {
         await nextTick();
         await nextTick();
-        // Attendre que le navigateur ait calculé le layout (paint cycle).
-        // nextTick garantit la mise à jour Vue, mais pas le reflow/paint du DOM.
         await new Promise((r) => requestAnimationFrame(r));
+
         const el = messagesEl.value;
         if (!el) return;
 
         initPrismMarkdown(el);
-
-        const prevScrollBehavior = el.style.scrollBehavior;
-        el.style.scrollBehavior = "auto";
 
         const doScroll = () => {
           el.scrollTo({ top: el.scrollHeight, behavior: "auto" });
@@ -1648,47 +1930,35 @@ export const initChat = (supabase) => {
 
         doScroll();
 
-        // ─── Attente des images (avatars + GIFs) ───
-        const images = el.querySelectorAll("img");
-        if (images.length === 0) {
-          el.style.scrollBehavior = prevScrollBehavior || "";
-          return;
-        }
+        // Rescroller à chaque fois que le layout change (images qui se chargent)
+        await new Promise((resolve) => {
+          let stableFrames = 0;
+          let lastHeight = el.scrollHeight;
+          const MAX_FRAMES = 60; // ~1s à 60fps
+          let frames = 0;
 
-        let loaded = 0;
-        const total = images.length;
+          const ro = new ResizeObserver(() => doScroll());
+          ro.observe(el);
 
-        // Timeout de sécurité : si une image ne déclenche jamais load/error
-        // (ex. bloquée par un ad-blocker ou timeout réseau), on scroll quand même.
-        const fallbackTimer = setTimeout(() => {
-          doScroll();
-          el.style.scrollBehavior = prevScrollBehavior || "";
-        }, 2000);
+          const check = () => {
+            frames++;
+            const h = el.scrollHeight;
+            if (h !== lastHeight) {
+              lastHeight = h;
+              stableFrames = 0;
+              doScroll();
+            } else stableFrames++;
 
-        const onLoadOrError = () => {
-          loaded++;
-          if (loaded === total) {
-            clearTimeout(fallbackTimer);
-            doScroll(); // dernier scroll une fois tout chargé
-            el.style.scrollBehavior = prevScrollBehavior || "";
-          }
-        };
-
-        images.forEach((img) => {
-          if (img.complete) {
-            loaded++; // déjà chargé (cache)
-          } else {
-            img.addEventListener("load", onLoadOrError, { once: true });
-            img.addEventListener("error", onLoadOrError, { once: true });
-          }
+            if (stableFrames >= 3 || frames >= MAX_FRAMES) {
+              ro.disconnect();
+              doScroll();
+              resolve();
+            } else {
+              requestAnimationFrame(check);
+            }
+          };
+          requestAnimationFrame(check);
         });
-
-        // Si toutes les images étaient déjà en cache, on scroll tout de suite
-        if (loaded === total) {
-          clearTimeout(fallbackTimer);
-          doScroll();
-          el.style.scrollBehavior = prevScrollBehavior || "";
-        }
       };
 
       const onMessagesScroll = async () => {
@@ -1724,7 +1994,7 @@ export const initChat = (supabase) => {
         const { data, error: e } = await supabase
           .from("chat_messages")
           .select(
-            "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
+            "id,room_id,external_user_id,username,avatar_url,group_color,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
           )
           .eq("room_id", rid)
           .order("id", { ascending: false })
@@ -1735,7 +2005,6 @@ export const initChat = (supabase) => {
         if (e) {
           error.value = `Messages: ${e.message}`;
           messages.value = [];
-          messagesCache.set(rid, messages.value);
           const st = getPaging(rid);
           st.oldestId = null;
           st.hasMore = false;
@@ -1746,7 +2015,6 @@ export const initChat = (supabase) => {
         const asc = desc.slice().reverse();
 
         messages.value = asc;
-        messagesCache.set(rid, messages.value);
 
         const st = getPaging(rid);
         st.oldestId = asc.length ? Number(asc[0].id) : null;
@@ -1767,6 +2035,12 @@ export const initChat = (supabase) => {
 
         // Collecte les auteurs pour l'autocomplete @mention
         collectAuthors(asc);
+
+        // Charge les réactions des messages
+        void loadReactions(rid);
+
+        // Charge les réactions de la room
+        void loadReactions(rid);
       };
 
       const loadOlderMessages = async (rid) => {
@@ -1780,7 +2054,7 @@ export const initChat = (supabase) => {
         const { data, error: e } = await supabase
           .from("chat_messages")
           .select(
-            "id,room_id,external_user_id,username,avatar_url,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
+            "id,room_id,external_user_id,username,avatar_url,group_color,content,created_at,reply_to_message_id,reply_to_username,reply_to_excerpt,deleted_at,deleted_by,pinned_at,pinned_by",
           )
           .eq("room_id", rid)
           .lt("id", st.oldestId)
@@ -1800,11 +2074,10 @@ export const initChat = (supabase) => {
 
         const olderAsc = desc.slice().reverse();
 
-        const current = messagesCache.get(rid) || messages.value || [];
+        const current = messages.value || [];
         const merged = [...olderAsc, ...current];
 
         messages.value = merged;
-        messagesCache.set(rid, messages.value);
 
         st.oldestId = Number(olderAsc[0].id);
         st.hasMore = desc.length === PAGE_SIZE;
@@ -1958,28 +2231,45 @@ export const initChat = (supabase) => {
       // ----------------------------
       const selectRoom = async (rid, opts = {}) => {
         if (rid == null) return;
-        const preferCache = opts.preferCache !== false;
-
         if (!opts.force && rid === roomId.value) return;
+
+        // Capture le nombre de non-lus AVANT de réinitialiser
+        const pendingUnread = unreadCount(rid);
 
         roomId.value = rid;
         resetUnread(rid);
         showPinned.value = false;
+        mention.open = false;
+        firstUnreadId.value = null; // reset du séparateur
 
-        const cached = messagesCache.get(rid);
+        messages.value = [];
+        await loadLatestMessages(rid);
 
-        if (preferCache && cached) {
-          messages.value = cached;
-          ui.loadingMessages = false;
-        } else {
-          messages.value = [];
-          await loadLatestMessages(rid);
+        // Positionne le séparateur sur le premier message non lu
+        if (pendingUnread > 0 && messages.value.length > 0) {
+          const realMessages = messages.value.filter(
+            (m) => m && Number.isFinite(Number(m.id)),
+          );
+          const sepIndex = realMessages.length - pendingUnread;
+          if (sepIndex >= 0 && sepIndex < realMessages.length) {
+            firstUnreadId.value = realMessages[sepIndex].id;
+          }
         }
 
-        // Scroll vers la première mention si elle existe, sinon vers le bas
-        const firstMention = messages.value.find((m) => isMentioned(m));
-        if (firstMention) {
-          await scrollToMessage(firstMention.id, { smooth: false });
+        // Scroll : séparateur "NOUVEAU" > mention non lue > bas
+        // La mention ne justifie un scroll que si elle est dans un message non lu
+        const unreadMessages =
+          pendingUnread > 0
+            ? messages.value
+                .filter((m) => m && Number.isFinite(Number(m.id)))
+                .slice(-pendingUnread)
+            : [];
+        const firstUnreadMention = unreadMessages.find((m) => isMentioned(m));
+
+        if (firstUnreadId.value) {
+          await scrollToMessage("sep-new", { smooth: false });
+        } else if (firstUnreadMention) {
+          await scrollToMessage(firstUnreadMention.id, { smooth: false });
         } else {
           await scrollBottom();
         }
@@ -2019,6 +2309,7 @@ export const initChat = (supabase) => {
           external_user_id: me.externalId,
           username: me.username,
           avatar_url: me.avatarUrl || null,
+          group_color: me.groupColor || null,
           content,
           created_at: new Date().toISOString(),
           _local: true,
@@ -2030,7 +2321,6 @@ export const initChat = (supabase) => {
         };
 
         messages.value.push(localMsg);
-        messagesCache.set(rid, messages.value);
 
         // ✅ garde aussi le snapshot dans le pending (fallback au replace)
         pendingLocalByRoom.set(String(rid), {
@@ -2053,6 +2343,7 @@ export const initChat = (supabase) => {
           external_user_id: me.externalId,
           username: me.username,
           avatar_url: me.avatarUrl || null,
+          group_color: me.groupColor || null,
           content,
 
           reply_to_message_id: replySnap.id,
@@ -2060,11 +2351,11 @@ export const initChat = (supabase) => {
           reply_to_excerpt: replySnap.excerpt,
         };
 
-        const { error: e } = await supabase
+        const { data: inserted, error: e } = await supabase
           .from("chat_messages")
-          .insert(payload);
-
-        if (!e) void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP message envoyé
+          .insert(payload)
+          .select()
+          .single();
 
         ui.sending = false;
 
@@ -2078,6 +2369,26 @@ export const initChat = (supabase) => {
             pendingLocalByRoom.delete(String(rid));
           }
           error.value = `Envoyer: ${e.message}`;
+        } else {
+          void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP message envoyé
+          clearFirstUnread();
+
+          // ✅ Remplace immédiatement le message local par la row serveur (ID réel)
+          const pend = pendingLocalByRoom.get(String(rid));
+          if (pend && inserted) {
+            // Marque l'ID comme vu pour éviter un doublon via Realtime
+            const mid = Number(inserted.id);
+            if (Number.isFinite(mid)) getSeenSet(rid).add(mid);
+
+            const idx = messages.value.findIndex(
+              (x) => String(x?.id) === String(pend.tempId),
+            );
+            if (idx >= 0) {
+              inserted.avatar_url = safeUrl(inserted.avatar_url);
+              messages.value[idx] = { ...messages.value[idx], ...inserted };
+            }
+            pendingLocalByRoom.delete(String(rid));
+          }
         }
       };
 
@@ -2108,6 +2419,7 @@ export const initChat = (supabase) => {
           external_user_id: me.externalId,
           username: me.username,
           avatar_url: me.avatarUrl || null,
+          group_color: me.groupColor || null,
           content,
           created_at: new Date().toISOString(),
           _local: true,
@@ -2118,7 +2430,6 @@ export const initChat = (supabase) => {
         };
 
         messages.value.push(localMsg);
-        messagesCache.set(rid, messages.value);
 
         // si tu utilises pendingLocalByRoom pour remplacer via realtime
         pendingLocalByRoom.set(String(rid), {
@@ -2141,6 +2452,7 @@ export const initChat = (supabase) => {
           external_user_id: me.externalId,
           username: me.username,
           avatar_url: me.avatarUrl || null,
+          group_color: me.groupColor || null,
           content,
 
           reply_to_message_id: replySnap.id,
@@ -2148,11 +2460,11 @@ export const initChat = (supabase) => {
           reply_to_excerpt: replySnap.excerpt,
         };
 
-        const { error: e } = await supabase
+        const { data: inserted, error: e } = await supabase
           .from("chat_messages")
-          .insert(payload);
-
-        if (!e) void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP gif envoyé
+          .insert(payload)
+          .select()
+          .single();
 
         ui.sending = false;
 
@@ -2164,6 +2476,25 @@ export const initChat = (supabase) => {
           if (idx >= 0) messages.value.splice(idx, 1);
           pendingLocalByRoom.delete(String(rid));
           error.value = `Envoyer GIF: ${e.message}`;
+        } else {
+          void grantXp(XP_PER_MESSAGE, "message"); // ✅ XP gif envoyé
+
+          // ✅ Remplace immédiatement le message local par la row serveur (ID réel)
+          const pend = pendingLocalByRoom.get(String(rid));
+          if (pend && inserted) {
+            // Marque l'ID comme vu pour éviter un doublon via Realtime
+            const mid = Number(inserted.id);
+            if (Number.isFinite(mid)) getSeenSet(rid).add(mid);
+
+            const idx = messages.value.findIndex(
+              (x) => String(x?.id) === String(pend.tempId),
+            );
+            if (idx >= 0) {
+              inserted.avatar_url = safeUrl(inserted.avatar_url);
+              messages.value[idx] = { ...messages.value[idx], ...inserted };
+            }
+            pendingLocalByRoom.delete(String(rid));
+          }
         }
       };
 
@@ -2187,7 +2518,9 @@ export const initChat = (supabase) => {
         ).toISOString();
         const { data } = await supabase
           .from("chat_presence")
-          .select("page_key,external_user_id,username,avatar_url,last_seen")
+          .select(
+            "page_key,external_user_id,username,avatar_url,group_color,last_seen",
+          )
           .eq("page_key", PRESENCE_PAGE_KEY)
           .gte("last_seen", cutoffIso)
           .order("last_seen", { ascending: false })
@@ -2207,6 +2540,7 @@ export const initChat = (supabase) => {
           external_user_id: me.externalId,
           username: me.username,
           avatar_url: me.avatarUrl || null,
+          group_color: me.groupColor || null,
           last_seen: new Date().toISOString(),
         };
         await supabase
@@ -2270,6 +2604,48 @@ export const initChat = (supabase) => {
           .channel("rt-chat-messages")
           .on(
             "postgres_changes",
+            { event: "INSERT", schema: "public", table: "message_reactions" },
+            (payload) => {
+              const r = payload?.new;
+              if (!r || !r.message_id) return;
+              const k = String(r.message_id);
+              if (!reactions[k]) reactions[k] = [];
+              // Évite les doublons (optimiste déjà inséré)
+              if (
+                !reactions[k].some(
+                  (x) =>
+                    x.id === r.id || x.external_user_id === r.external_user_id,
+                )
+              ) {
+                reactions[k].push(r);
+              }
+            },
+          )
+          .on(
+            "postgres_changes",
+            { event: "UPDATE", schema: "public", table: "message_reactions" },
+            (payload) => {
+              const r = payload?.new;
+              if (!r || !r.message_id) return;
+              const k = String(r.message_id);
+              if (!reactions[k]) return;
+              const idx = reactions[k].findIndex((x) => x.id === r.id);
+              if (idx >= 0) reactions[k][idx] = r;
+            },
+          )
+          .on(
+            "postgres_changes",
+            { event: "DELETE", schema: "public", table: "message_reactions" },
+            (payload) => {
+              const r = payload?.old;
+              if (!r?.message_id) return;
+              const k = String(r.message_id);
+              if (!reactions[k]) return;
+              reactions[k] = reactions[k].filter((x) => x.id !== r.id);
+            },
+          )
+          .on(
+            "postgres_changes",
             { event: "INSERT", schema: "public", table: "chat_messages" },
             (payload) => {
               const m = payload?.new;
@@ -2313,7 +2689,8 @@ export const initChat = (supabase) => {
                 delete typingUsers[m.external_user_id];
               }
 
-              if (rid === roomId.value) {
+              // Comparaison en String pour éviter tout problème de type number vs string
+              if (String(rid) === String(roomId.value)) {
                 const pend = pendingLocalByRoom.get(String(rid));
                 if (
                   pend &&
@@ -2344,15 +2721,14 @@ export const initChat = (supabase) => {
                   messages.value.push(m);
                 }
 
-                messagesCache.set(rid, messages.value);
                 scrollBottom();
                 markActiveRoomRead();
               } else {
-                const cached = messagesCache.get(rid);
-                if (cached) cached.push(m);
-
                 if (enableUnread.value) {
-                  unread[String(rid)] = (unread[String(rid)] || 0) + 1;
+                  const k = String(rid);
+                  // Initialise la clé si elle n'existe pas encore (nouvelle room)
+                  if (!(k in unread)) unread[k] = 0;
+                  unread[k] = unread[k] + 1;
                 }
               }
             },
@@ -2369,21 +2745,17 @@ export const initChat = (supabase) => {
 
               // Soft delete reçu en Realtime → met à jour le message (garde la ligne visible)
               if (m.deleted_at) {
-                const updateIn = (arr) => {
-                  const idx = arr.findIndex(
+                if (rid === roomId.value) {
+                  const idx = messages.value.findIndex(
                     (x) => String(x?.id) === String(m.id),
                   );
                   if (idx >= 0)
-                    arr[idx] = {
-                      ...arr[idx],
+                    messages.value[idx] = {
+                      ...messages.value[idx],
                       deleted_at: m.deleted_at,
                       deleted_by: m.deleted_by ?? "author",
                     };
-                };
-                if (rid === roomId.value) updateIn(messages.value);
-                const cached = messagesCache.get(rid);
-                if (cached) updateIn(cached);
-                // Retire aussi des épinglés si supprimé
+                }
                 pinnedMessages.value = pinnedMessages.value.filter(
                   (x) => String(x.id) !== String(m.id),
                 );
@@ -2393,7 +2765,6 @@ export const initChat = (supabase) => {
               // Pin / unpin reçu en Realtime
               if (rid === roomId.value) {
                 if (m.pinned_at) {
-                  // Ajoute ou met à jour dans pinnedMessages
                   const pi = pinnedMessages.value.findIndex(
                     (x) => String(x.id) === String(m.id),
                   );
@@ -2401,7 +2772,6 @@ export const initChat = (supabase) => {
                   if (pi >= 0) pinnedMessages.value[pi] = entry;
                   else pinnedMessages.value = [entry, ...pinnedMessages.value];
                 } else {
-                  // Désépinglé
                   pinnedMessages.value = pinnedMessages.value.filter(
                     (x) => String(x.id) !== String(m.id),
                   );
@@ -2412,26 +2782,55 @@ export const initChat = (supabase) => {
                 const idx = messages.value.findIndex(
                   (x) => String(x?.id) === String(m.id),
                 );
-                if (idx >= 0) {
+                if (idx >= 0)
                   messages.value[idx] = { ...messages.value[idx], ...m };
-                }
               }
+            },
+          )
+          .subscribe();
 
-              const cached = messagesCache.get(rid);
-              if (cached) {
-                const j = cached.findIndex(
-                  (x) => String(x?.id) === String(m.id),
-                );
-                if (j >= 0) cached[j] = { ...cached[j], ...m };
+        // Channel réactions
+        supabase
+          .channel("rt-reactions")
+          .on(
+            "postgres_changes",
+            { event: "INSERT", schema: "public", table: "message_reactions" },
+            ({ payload: p }) => {
+              const r = p?.new;
+              if (!r?.message_id || !r?.emoji) return;
+              const mid = String(r.message_id);
+              if (!reactions[mid]) reactions[mid] = [];
+              const existing = reactions[mid].find((x) => x.emoji === r.emoji);
+              if (existing) {
+                existing.count++;
+                existing.users.add(r.external_user_id);
+              } else
+                reactions[mid].push({
+                  emoji: r.emoji,
+                  count: 1,
+                  users: new Set([r.external_user_id]),
+                });
+            },
+          )
+          .on(
+            "postgres_changes",
+            { event: "DELETE", schema: "public", table: "message_reactions" },
+            ({ payload: p }) => {
+              const r = p?.old;
+              if (!r?.message_id || !r?.emoji) return;
+              const mid = String(r.message_id);
+              const idx =
+                reactions[mid]?.findIndex((x) => x.emoji === r.emoji) ?? -1;
+              if (idx >= 0) {
+                reactions[mid][idx].count--;
+                reactions[mid][idx].users.delete(r.external_user_id);
+                if (reactions[mid][idx].count <= 0)
+                  reactions[mid].splice(idx, 1);
               }
             },
           )
           .subscribe();
       };
-
-      // ----------------------------
-      // CREATE ROOM (admin only)
-      // ----------------------------
       const createRoom = async () => {
         if (!me.isAdmin) {
           error.value = "Création de room réservée aux administrateurs.";
@@ -2472,7 +2871,7 @@ export const initChat = (supabase) => {
         newRoomName.value = "";
         ui.showCreate = false;
 
-        await selectRoom(data.id, { force: true, preferCache: false });
+        await selectRoom(data.id, { force: true });
       };
 
       // ----------------------------
@@ -2485,8 +2884,7 @@ export const initChat = (supabase) => {
 
         const target = await buildRoomsForHref(href);
         if (token !== pathSyncToken) return;
-        if (target)
-          await selectRoom(target, { force: true, preferCache: true });
+        if (target) await selectRoom(target, { force: true });
       };
       window.__faChatSyncPath = (href) => syncPath(href);
 
@@ -2520,8 +2918,13 @@ export const initChat = (supabase) => {
           }
         }, 1000);
 
-        if (target)
-          await selectRoom(target, { force: true, preferCache: false });
+        // Rafraîchit les compteurs de non-lus toutes les 15s
+        // (couvre le cas où le Realtime ne reçoit pas les messages des autres rooms)
+        unreadTimer = window.setInterval(async () => {
+          if (enableUnread.value) await loadPersistentUnread();
+        }, 15_000);
+
+        if (target) await selectRoom(target, { force: true });
 
         ui.booting = false;
 
@@ -2540,11 +2943,95 @@ export const initChat = (supabase) => {
         if (presenceTimer) window.clearInterval(presenceTimer);
         if (presenceCleanupTimer) window.clearInterval(presenceCleanupTimer);
         if (typingCleanupTimer) window.clearInterval(typingCleanupTimer);
+        if (unreadTimer) window.clearInterval(unreadTimer);
       });
+
+      // ----------------------------
+      // SÉPARATEURS PAR JOUR
+      // ----------------------------
+      const dayLabelFmt = new Intl.DateTimeFormat("fr-CA", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+
+      const dayKey = (iso) => {
+        const d = new Date(iso);
+        return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+      };
+
+      const dayLabel = (iso) => {
+        const now = new Date();
+        const todayKey = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+        const yesterday = new Date(now);
+        yesterday.setDate(now.getDate() - 1);
+        const yesterdayKey = `${yesterday.getFullYear()}-${yesterday.getMonth()}-${yesterday.getDate()}`;
+        const k = dayKey(iso);
+        if (k === todayKey) return "Aujourd'hui";
+        if (k === yesterdayKey) return "Hier";
+        return dayLabelFmt.format(new Date(iso));
+      };
+
+      const messagesWithSeparators = computed(() => {
+        const result = [];
+        let lastKey = null;
+        let newMsgInserted = false;
+        for (const m of messages.value) {
+          if (!m?.created_at) {
+            result.push(m);
+            continue;
+          }
+
+          // Séparateur "NOUVEAU" — avant le premier message non lu
+          if (
+            !newMsgInserted &&
+            firstUnreadId.value != null &&
+            String(m.id) === String(firstUnreadId.value)
+          ) {
+            result.push({ type: "new-messages", key: "sep-new" });
+            newMsgInserted = true;
+          }
+
+          const k = dayKey(m.created_at);
+          if (k !== lastKey) {
+            lastKey = k;
+            result.push({
+              type: "day-separator",
+              key: "sep-" + k,
+              label: dayLabel(m.created_at),
+            });
+          }
+          result.push(m);
+        }
+        return result;
+      });
+
+      // ----------------------------
+      // PROFIL URL
+      // ----------------------------
+      /** Retourne le lien vers le profil forum d'un utilisateur, ex. "/u123" */
+      const profileUrl = (externalUserId) => {
+        const id = String(externalUserId ?? "").trim();
+        if (!id || id === "0" || id === "-1") return null;
+        return `/u${id}`;
+      };
+
+      /**
+       * Retourne la couleur de groupe d'un message (hex validé) ou null.
+       * Utilisable dans le template : :style="groupColorOf(m) ? { color: groupColorOf(m) } : null"
+       */
+      const groupColorOf = (m) => {
+        const raw = m?.group_color ?? null;
+        if (!raw) return null;
+        const c = raw.startsWith("#") ? raw : `#${raw}`;
+        return /^#[0-9a-fA-F]{3,8}$/.test(c) ? c : null;
+      };
 
       return {
         me,
         ui,
+        profileUrl,
+        groupColorOf,
 
         roomsSafe,
         roomId,
@@ -2553,9 +3040,11 @@ export const initChat = (supabase) => {
         roomLabel,
 
         messages,
+        messagesWithSeparators,
         messagesEl,
         onMessagesScroll,
         timeAgo,
+        formatFullDate,
 
         draft,
         draftEl,
@@ -2578,6 +3067,7 @@ export const initChat = (supabase) => {
         createRoom,
 
         unreadCount,
+        firstUnreadId,
         selectRoom,
 
         activeUsersStack,
@@ -2585,7 +3075,24 @@ export const initChat = (supabase) => {
 
         typingList,
 
-        // messages épinglés
+        // réactions
+        reactions,
+        getReactions,
+        myReactionEmoji,
+        toggleReaction,
+        reactionPicker,
+        reactionPickerEl,
+        reactionPickerFiltered,
+        toggleReactionPicker,
+
+        // classement XP
+        leaderboard,
+        leaderboardLoading,
+        showLeaderboard,
+        leaderboardBtnEl,
+        leaderboardPopEl,
+        myLeaderboardRank,
+
         pinnedMessages,
         pinnedCount,
         showPinned,
@@ -2622,8 +3129,13 @@ export const initChat = (supabase) => {
         hasReply,
         setReply,
         cancelReply,
-        scrollToMessage,
         replyExcerptLabel,
+
+        // réactions
+        reactions,
+        reactionTarget,
+        toggleReaction,
+        openReactionPicker,
 
         // markdown + mentions
         renderMarkdown,
