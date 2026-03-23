@@ -8444,7 +8444,26 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const desc = normalizeMessages(data);
           const asc = desc.slice().reverse();
 
-          messages.value = asc;
+          // ─── Fusion anti-race Realtime ────────────────────────────────────
+          // Des messages ont pu arriver via Realtime pendant l'attente HTTP et
+          // être pushés dans messages.value. On les préserve s'ils sont plus
+          // récents que le snapshot retourné par la requête DB.
+          const fetchedIds = new Set(
+            asc.map((m) => Number(m?.id)).filter(Number.isFinite),
+          );
+          const maxFetchedId = asc.length ? Number(asc[asc.length - 1].id) : 0;
+          const lateRealtime = (messages.value || []).filter((m) => {
+            if (!m) return false;
+            const id = Number(m.id);
+            // Messages optimistes (id local, non numérique) : conservés jusqu'à
+            // ce que le Realtime correspondant confirme ou que l'envoi rollback.
+            if (!Number.isFinite(id)) return true;
+            // Messages Realtime arrivés APRÈS le snapshot de la requête HTTP.
+            return id > maxFetchedId && !fetchedIds.has(id);
+          });
+
+          messages.value = [...asc, ...lateRealtime];
+          // ─────────────────────────────────────────────────────────────────
 
           const st = getPaging(rid);
           st.oldestId = asc.length ? Number(asc[0].id) : null;
@@ -8452,24 +8471,23 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           const seen = getSeenSet(rid);
           seen.clear();
-          for (const mm of asc) {
+          for (const mm of messages.value) {
             const id = Number(mm?.id);
             if (Number.isFinite(id)) seen.add(id);
           }
 
           // Charge les niveaux des auteurs des messages
           const ids = [
-            ...new Set(asc.map((mm) => mm?.external_user_id).filter(Boolean)),
+            ...new Set(
+              messages.value.map((mm) => mm?.external_user_id).filter(Boolean),
+            ),
           ];
           void loadUserLevels(ids);
 
           // Collecte les auteurs pour l'autocomplete @mention
-          collectAuthors(asc);
+          collectAuthors(messages.value);
 
           // Charge les réactions des messages
-          void loadReactions(rid);
-
-          // Charge les réactions de la room
           void loadReactions(rid);
         };
 
