@@ -1041,6 +1041,58 @@ export const initChat = (supabase) => {
               at: Date.now(),
             };
           })
+          .on("broadcast", { event: "new-message" }, ({ payload }) => {
+            const m = payload?.message;
+            if (!m || m.id == null || m.room_id == null) return;
+
+            const mid = Number(m.id);
+            if (Number.isFinite(mid)) {
+              const seen = getSeenSet(m.room_id);
+              if (seen.has(mid)) return; // déjà affiché (optimiste ou postgres_changes)
+              seen.add(mid);
+            }
+
+            m.avatar_url = safeUrl(m.avatar_url || "");
+
+            if (m.external_user_id && m.external_user_id !== me.externalId) {
+              void loadUserLevels([m.external_user_id]);
+            }
+
+            // Ajoute à roomAuthors si nouvel auteur
+            if (
+              m.external_user_id &&
+              !roomAuthors.value.some(
+                (u) => u.external_user_id === m.external_user_id,
+              )
+            ) {
+              roomAuthors.value = [
+                ...roomAuthors.value,
+                {
+                  external_user_id: m.external_user_id,
+                  username: m.username || "",
+                  avatar_url: safeUrl(m.avatar_url || ""),
+                },
+              ];
+            }
+
+            if (m.external_user_id && typingUsers[m.external_user_id]) {
+              delete typingUsers[m.external_user_id];
+            }
+
+            // Si la room est active : affiche le message
+            if (String(m.room_id) === String(roomId.value)) {
+              messages.value.push(m);
+              void scrollBottom();
+              void markActiveRoomRead();
+            } else {
+              // Sinon : incrémente le badge de non-lus
+              if (enableUnread.value) {
+                const k = String(m.room_id);
+                if (!(k in unread)) unread[k] = 0;
+                unread[k] = unread[k] + 1;
+              }
+            }
+          })
           .subscribe();
       };
 
@@ -1803,7 +1855,7 @@ export const initChat = (supabase) => {
             data: { publicUrl },
           } = supabase.storage.from("chat-attachments").getPublicUrl(fileName);
 
-          const { error: insertErr } = await supabase
+          const { data: insertedImg, error: insertErr } = await supabase
             .from("chat_messages")
             .insert({
               room_id: rid,
@@ -1815,10 +1867,28 @@ export const initChat = (supabase) => {
               reply_to_message_id: reply.id || null,
               reply_to_username: reply.username || null,
               reply_to_excerpt: reply.excerpt || null,
-            });
+            })
+            .select()
+            .single();
 
           if (insertErr) throw insertErr;
           cancelReply();
+
+          // ✅ Broadcast Supabase
+          if (typingChannel && insertedImg) {
+            const mid = Number(insertedImg.id);
+            if (Number.isFinite(mid)) getSeenSet(rid).add(mid);
+            void typingChannel.send({
+              type: "broadcast",
+              event: "new-message",
+              payload: {
+                message: {
+                  ...insertedImg,
+                  avatar_url: safeUrl(insertedImg.avatar_url),
+                },
+              },
+            });
+          }
         } catch (e) {
           error.value = `Upload image : ${e.message}`;
           console.error(e);
@@ -2389,6 +2459,16 @@ export const initChat = (supabase) => {
             }
             pendingLocalByRoom.delete(String(rid));
           }
+
+          // ✅ Broadcast Supabase — synchronise les autres clients
+          // (postgres_changes n'est pas fiable sans config publication/RLS côté Supabase)
+          if (typingChannel && inserted) {
+            void typingChannel.send({
+              type: "broadcast",
+              event: "new-message",
+              payload: { message: inserted },
+            });
+          }
         }
       };
 
@@ -2494,6 +2574,15 @@ export const initChat = (supabase) => {
               messages.value[idx] = { ...messages.value[idx], ...inserted };
             }
             pendingLocalByRoom.delete(String(rid));
+          }
+
+          // ✅ Broadcast Supabase
+          if (typingChannel && inserted) {
+            void typingChannel.send({
+              type: "broadcast",
+              event: "new-message",
+              payload: { message: inserted },
+            });
           }
         }
       };
@@ -2787,13 +2876,7 @@ export const initChat = (supabase) => {
               }
             },
           )
-          .subscribe((status, err) => {
-            console.log(
-              "[DBG][messagesChannel] subscribe status:",
-              status,
-              err ?? "",
-            );
-          });
+          .subscribe();
 
         // Channel réactions
         supabase
