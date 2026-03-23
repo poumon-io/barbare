@@ -1049,7 +1049,16 @@ export const initChat = (supabase) => {
             if (Number.isFinite(mid)) {
               const seen = getSeenSet(m.room_id);
               if (seen.has(mid)) return; // déjà affiché (optimiste ou postgres_changes)
-              seen.add(mid);
+            }
+
+            // Défense supplémentaire : vérifie directement dans messages.value
+            if (
+              String(m.room_id) === String(roomId.value) &&
+              messages.value.some((x) => x && String(x.id) === String(m.id))
+            ) {
+              // Le message est déjà affiché (ex. postgres_changes l'a ajouté)
+              if (Number.isFinite(mid)) getSeenSet(m.room_id).add(mid);
+              return;
             }
 
             m.avatar_url = safeUrl(m.avatar_url || "");
@@ -1081,6 +1090,7 @@ export const initChat = (supabase) => {
 
             // Si la room est active : affiche le message
             if (String(m.room_id) === String(roomId.value)) {
+              if (Number.isFinite(mid)) getSeenSet(m.room_id).add(mid);
               messages.value.push(m);
               void scrollBottom();
               void markActiveRoomRead();
@@ -2742,11 +2752,13 @@ export const initChat = (supabase) => {
 
               const rid = m.room_id;
 
+              // Dédup : vérifie si déjà traité, mais ne marque PAS comme vu
+              // tant que le message n'est pas effectivement affiché.
+              // Sinon, le broadcast (fallback fiable) serait bloqué à tort.
               const mid = Number(m.id);
               if (Number.isFinite(mid)) {
                 const seen = getSeenSet(rid);
                 if (seen.has(mid)) return;
-                seen.add(mid);
               }
 
               m.avatar_url = safeUrl(m.avatar_url);
@@ -2780,6 +2792,9 @@ export const initChat = (supabase) => {
 
               // Comparaison en String pour éviter tout problème de type number vs string
               if (String(rid) === String(roomId.value)) {
+                // ✅ Marque comme vu MAINTENANT (le message va être affiché)
+                if (Number.isFinite(mid)) getSeenSet(rid).add(mid);
+
                 const pend = pendingLocalByRoom.get(String(rid));
                 if (
                   pend &&
@@ -2813,6 +2828,8 @@ export const initChat = (supabase) => {
                 scrollBottom();
                 markActiveRoomRead();
               } else {
+                // ⚠️ NE PAS marquer comme vu ici : on laisse le broadcast
+                // gérer l'affichage si l'utilisateur est dans cette room.
                 if (enableUnread.value) {
                   const k = String(rid);
                   // Initialise la clé si elle n'existe pas encore (nouvelle room)
