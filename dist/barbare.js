@@ -7475,36 +7475,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                 at: Date.now(),
               };
             })
-            .on("broadcast", { event: "new-message" }, ({ payload }) => {
-              // Reçoit les messages envoyés par les autres utilisateurs via Broadcast
-              // (plus fiable que postgres_changes qui dépend de la config RLS / publication)
-              const m = payload?.message;
-              if (!m || m.id == null || m.room_id == null) return;
-              if (String(m.room_id) !== String(roomId.value)) return;
-
-              const mid = Number(m.id);
-              if (Number.isFinite(mid)) {
-                const seen = getSeenSet(m.room_id);
-                if (seen.has(mid)) return; // déjà ajouté (optimiste ou postgres_changes)
-                seen.add(mid);
-              }
-
-              m.avatar_url = safeUrl(m.avatar_url || "");
-
-              // Charge le niveau si nouvel auteur
-              if (m.external_user_id && m.external_user_id !== me.externalId) {
-                void loadUserLevels([m.external_user_id]);
-              }
-
-              // Efface l'indicateur de frappe
-              if (m.external_user_id && typingUsers[m.external_user_id]) {
-                delete typingUsers[m.external_user_id];
-              }
-
-              messages.value.push(m);
-              void scrollBottom();
-              void markActiveRoomRead();
-            })
             .subscribe();
         };
 
@@ -8263,7 +8233,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
               data: { publicUrl },
             } = supabase.storage.from("chat-attachments").getPublicUrl(fileName);
 
-            const { data: insertedImg, error: insertErr } = await supabase
+            const { error: insertErr } = await supabase
               .from("chat_messages")
               .insert({
                 room_id: rid,
@@ -8275,28 +8245,10 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                 reply_to_message_id: reply.id || null,
                 reply_to_username: reply.username || null,
                 reply_to_excerpt: reply.excerpt || null,
-              })
-              .select()
-              .single();
+              });
 
             if (insertErr) throw insertErr;
             cancelReply();
-
-            // ✅ Broadcast pour synchroniser les autres clients
-            if (typingChannel && insertedImg) {
-              const mid = Number(insertedImg.id);
-              if (Number.isFinite(mid)) getSeenSet(rid).add(mid);
-              typingChannel.send({
-                type: "broadcast",
-                event: "new-message",
-                payload: {
-                  message: {
-                    ...insertedImg,
-                    avatar_url: safeUrl(insertedImg.avatar_url),
-                  },
-                },
-              });
-            }
           } catch (e) {
             error.value = `Upload image : ${e.message}`;
             console.error(e);
@@ -8492,26 +8444,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
           const desc = normalizeMessages(data);
           const asc = desc.slice().reverse();
 
-          // ─── Fusion anti-race Realtime ────────────────────────────────────
-          // Des messages ont pu arriver via Realtime pendant l'attente HTTP et
-          // être pushés dans messages.value. On les préserve s'ils sont plus
-          // récents que le snapshot retourné par la requête DB.
-          const fetchedIds = new Set(
-            asc.map((m) => Number(m?.id)).filter(Number.isFinite),
-          );
-          const maxFetchedId = asc.length ? Number(asc[asc.length - 1].id) : 0;
-          const lateRealtime = (messages.value || []).filter((m) => {
-            if (!m) return false;
-            const id = Number(m.id);
-            // Messages optimistes (id local, non numérique) : conservés jusqu'à
-            // ce que le Realtime correspondant confirme ou que l'envoi rollback.
-            if (!Number.isFinite(id)) return true;
-            // Messages Realtime arrivés APRÈS le snapshot de la requête HTTP.
-            return id > maxFetchedId && !fetchedIds.has(id);
-          });
-
-          messages.value = [...asc, ...lateRealtime];
-          // ─────────────────────────────────────────────────────────────────
+          messages.value = asc;
 
           const st = getPaging(rid);
           st.oldestId = asc.length ? Number(asc[0].id) : null;
@@ -8519,23 +8452,24 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
 
           const seen = getSeenSet(rid);
           seen.clear();
-          for (const mm of messages.value) {
+          for (const mm of asc) {
             const id = Number(mm?.id);
             if (Number.isFinite(id)) seen.add(id);
           }
 
           // Charge les niveaux des auteurs des messages
           const ids = [
-            ...new Set(
-              messages.value.map((mm) => mm?.external_user_id).filter(Boolean),
-            ),
+            ...new Set(asc.map((mm) => mm?.external_user_id).filter(Boolean)),
           ];
           void loadUserLevels(ids);
 
           // Collecte les auteurs pour l'autocomplete @mention
-          collectAuthors(messages.value);
+          collectAuthors(asc);
 
           // Charge les réactions des messages
+          void loadReactions(rid);
+
+          // Charge les réactions de la room
           void loadReactions(rid);
         };
 
@@ -8885,15 +8819,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
               }
               pendingLocalByRoom.delete(String(rid));
             }
-
-            // ✅ Broadcast pour synchroniser les autres clients (plus fiable que postgres_changes)
-            if (typingChannel && inserted) {
-              typingChannel.send({
-                type: "broadcast",
-                event: "new-message",
-                payload: { message: inserted },
-              });
-            }
           }
         };
 
@@ -8999,15 +8924,6 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                 messages.value[idx] = { ...messages.value[idx], ...inserted };
               }
               pendingLocalByRoom.delete(String(rid));
-            }
-
-            // ✅ Broadcast pour synchroniser les autres clients (plus fiable que postgres_changes)
-            if (typingChannel && inserted) {
-              typingChannel.send({
-                type: "broadcast",
-                event: "new-message",
-                payload: { message: inserted },
-              });
             }
           }
         };
@@ -9301,7 +9217,13 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
                 }
               },
             )
-            .subscribe();
+            .subscribe((status, err) => {
+              console.log(
+                "[DBG][messagesChannel] subscribe status:",
+                status,
+                err ?? "",
+              );
+            });
 
           // Channel réactions
           supabase
