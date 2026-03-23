@@ -631,9 +631,6 @@
   .-bottom-1 {
     bottom: calc(var(--spacing) * -1);
   }
-  .-bottom-2 {
-    bottom: calc(var(--spacing) * -2);
-  }
   .-left-1 {
     left: calc(var(--spacing) * -1);
   }
@@ -988,9 +985,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .overflow-auto {
-    overflow: auto;
   }
   .overflow-hidden {
     overflow: hidden;
@@ -2198,11 +2192,6 @@
   .forced-colors\:appearance-auto {
     @media (forced-colors: active) {
       appearance: auto;
-    }
-  }
-  .\[\&\>_div\]\:w-full {
-    &> div {
-      width: 100%;
     }
   }
   .\[\&\>svg\]\:size-3 {
@@ -4088,9 +4077,6 @@ html.dark {
   .-bottom-1 {
     bottom: calc(var(--spacing) * -1);
   }
-  .-bottom-2 {
-    bottom: calc(var(--spacing) * -2);
-  }
   .-left-1 {
     left: calc(var(--spacing) * -1);
   }
@@ -4445,9 +4431,6 @@ html.dark {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .overflow-auto {
-    overflow: auto;
   }
   .overflow-hidden {
     overflow: hidden;
@@ -5655,11 +5638,6 @@ html.dark {
   .forced-colors\:appearance-auto {
     @media (forced-colors: active) {
       appearance: auto;
-    }
-  }
-  .\[\&\>_div\]\:w-full {
-    &> div {
-      width: 100%;
     }
   }
   .\[\&\>svg\]\:size-3 {
@@ -6877,9 +6855,6 @@ html.dark {
   .-bottom-1 {
     bottom: calc(var(--spacing) * -1);
   }
-  .-bottom-2 {
-    bottom: calc(var(--spacing) * -2);
-  }
   .-left-1 {
     left: calc(var(--spacing) * -1);
   }
@@ -7234,9 +7209,6 @@ html.dark {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .overflow-auto {
-    overflow: auto;
   }
   .overflow-hidden {
     overflow: hidden;
@@ -8444,11 +8416,6 @@ html.dark {
   .forced-colors\:appearance-auto {
     @media (forced-colors: active) {
       appearance: auto;
-    }
-  }
-  .\[\&\>_div\]\:w-full {
-    &> div {
-      width: 100%;
     }
   }
   .\[\&\>svg\]\:size-3 {
