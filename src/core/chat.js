@@ -3078,15 +3078,25 @@ export const initChat = (supabase) => {
         return dayLabelFmt.format(new Date(iso));
       };
 
+      const GROUP_DELAY_MS = 5 * 60_000; // 5 minutes
+
       const messagesWithSeparators = computed(() => {
         const result = [];
         let lastKey = null;
         let newMsgInserted = false;
+
+        // Grouping state — reset on any separator
+        let groupUserId = null;
+        let groupAnchorTs = 0;
+
         for (const m of messages.value) {
           if (!m?.created_at) {
             result.push(m);
+            groupUserId = null; // reset group
             continue;
           }
+
+          let separatorInserted = false;
 
           // Séparateur "NOUVEAU" — avant le premier message non lu
           if (
@@ -3096,6 +3106,7 @@ export const initChat = (supabase) => {
           ) {
             result.push({ type: "new-messages", key: "sep-new" });
             newMsgInserted = true;
+            separatorInserted = true;
           }
 
           const k = dayKey(m.created_at);
@@ -3106,8 +3117,25 @@ export const initChat = (supabase) => {
               key: "sep-" + k,
               label: dayLabel(m.created_at),
             });
+            separatorInserted = true;
           }
-          result.push(m);
+
+          // Détermine si ce message appartient au groupe précédent
+          const ts = new Date(m.created_at).getTime();
+          const sameUser =
+            !separatorInserted &&
+            groupUserId != null &&
+            m.external_user_id === groupUserId;
+          const withinDelay = sameUser && ts - groupAnchorTs < GROUP_DELAY_MS;
+          const grouped = sameUser && withinDelay && !m.deleted_at;
+
+          if (!grouped) {
+            // Nouveau groupe
+            groupUserId = m.external_user_id;
+            groupAnchorTs = ts;
+          }
+
+          result.push({ ...m, _grouped: grouped });
         }
         return result;
       });
