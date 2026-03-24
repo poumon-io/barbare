@@ -24,6 +24,7 @@ export const initChat = (supabase) => {
   const ACTIVE_MINUTES = 8;
   const PRESENCE_PING_MS = 45_000;
   const MAX_STACK = 4;
+  const GROUP_DELAY_MS = 5 * 60_000;
 
   // ----------------------------
   // XP & NIVEAUX — CONFIG
